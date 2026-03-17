@@ -1,0 +1,192 @@
+---
+const articles = [
+  {
+    title: 'Automatizacion masiva de usuarios en Active Directory con PowerShell',
+    excerpt:
+      'Guia completa para crear, modificar y eliminar cuentas de usuario en AD usando PowerShell. Incluye manejo de errores, logging y ejemplos listos para produccion.',
+    tags: ['PowerShell', 'Active Directory', 'Automatizacion'],
+    date: 'Feb 2025',
+    readTime: '8 min',
+    featured: true,
+    link: '#',
+  },
+  {
+    title: 'Migracion de identidades on-premise a Azure AD: guia paso a paso',
+    excerpt:
+      'Todo lo que necesitas saber para migrar tu Active Directory local a Azure AD / Entra ID de forma segura, sin downtime y manteniendo la experiencia del usuario.',
+    tags: ['Azure AD', 'Migracion', 'Azure'],
+    date: 'Ene 2025',
+    readTime: '12 min',
+    featured: true,
+    link: '#',
+  },
+  {
+    title: 'PowerShell DSC: Infraestructura como Codigo para administradores Windows',
+    excerpt:
+      'Introduccion practica a Desired State Configuration (DSC) para mantener la consistencia de configuracion en entornos Windows Server a gran escala.',
+    tags: ['PowerShell', 'DSC', 'IaC', 'Windows Server'],
+    date: 'Dic 2024',
+    readTime: '10 min',
+    featured: false,
+    link: '#',
+  },
+  {
+    title: 'Optimizacion de GPOs: mejores practicas para entornos con 1000+ equipos',
+    excerpt:
+      'Estrategias avanzadas para gestionar politicas de grupo (GPO) en organizaciones de mediana y gran escala. Troubleshooting, herencia y segmentacion efectiva.',
+    tags: ['GPO', 'Active Directory', 'Windows Server'],
+    date: 'Nov 2024',
+    readTime: '7 min',
+    featured: false,
+    link: '#',
+  },
+  {
+    title: 'Azure Monitor: alertas inteligentes para infraestructura Cloud',
+    excerpt:
+      'Como configurar un sistema de alertas proactivo en Azure Monitor para detectar problemas de infraestructura antes de que impacten a los usuarios.',
+    tags: ['Azure', 'Monitoring', 'DevOps'],
+    date: 'Oct 2024',
+    readTime: '9 min',
+    featured: false,
+    link: '#',
+  },
+  {
+    title: 'Runbooks de automatizacion: como documentar y estructurar para equipos IT',
+    excerpt:
+      'Framework practico para crear runbooks accionables que cualquier miembro del equipo pueda ejecutar. Plantillas, ejemplos y mejores practicas.',
+    tags: ['Runbooks', 'Documentacion', 'Operaciones'],
+    date: 'Sep 2024',
+    readTime: '6 min',
+    featured: false,
+    link: '#',
+  },
+];
+
+const featured = articles.filter((a) => a.featured);
+const rest = articles.filter((a) => !a.featured);
+---
+
+<section id="articles" class="py-24 sm:py-32 bg-surface-1 relative">
+  <!-- Proximamente overlay -->
+  <div class="absolute inset-0 z-10 flex flex-col items-center justify-center backdrop-blur-sm bg-surface-1/60 rounded-none">
+    <div class="text-center px-6">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3 border border-accent/30 text-accent text-xs font-mono uppercase tracking-widest mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Proximamente
+      </div>
+      <h3 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Articulos en camino</h3>
+      <p class="text-text-secondary text-sm max-w-sm">Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto.</p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16">
+      <div>
+        <p class="section-title animate-on-scroll">Articulos</p>
+        <h2 class="section-heading animate-on-scroll">
+          Contenido tecnico<br />
+          <span class="text-accent">para la comunidad</span>
+        </h2>
+      </div>
+      <a
+        href="#"
+        class="btn-outline text-sm shrink-0 animate-on-scroll self-start sm:self-auto"
+      >
+        Ver todos
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Featured articles -->
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      {featured.map((article, i) => (
+        <a
+          href={article.link}
+          class="card group cursor-pointer animate-on-scroll relative overflow-hidden"
+          style={`animation-delay: ${i * 0.1}s`}
+        >
+          <!-- Featured badge -->
+          <div class="absolute top-4 right-4">
+            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 font-mono">
+              destacado
+            </span>
+          </div>
+
+          <div class="mb-4">
+            <div class="flex flex-wrap gap-2 mb-3">
+              {article.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+            <h3 class="font-semibold text-text-primary text-lg leading-snug group-hover:text-accent transition-colors pr-20">
+              {article.title}
+            </h3>
+          </div>
+
+          <p class="text-text-muted text-sm leading-relaxed mb-5">{article.excerpt}</p>
+
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3 text-xs text-text-muted font-mono">
+              <span>{article.date}</span>
+              <span>·</span>
+              <span>{article.readTime} lectura</span>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200"
+            >
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Rest of articles -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {rest.map((article, i) => (
+        <a
+          href={article.link}
+          class="card group cursor-pointer animate-on-scroll flex flex-col"
+          style={`animation-delay: ${(i + 2) * 0.08}s`}
+        >
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            {article.tags.slice(0, 2).map((tag) => (
+              <span class="tag text-xs">{tag}</span>
+            ))}
+          </div>
+          <h3 class="font-medium text-text-primary text-sm leading-snug group-hover:text-accent transition-colors flex-1 mb-4">
+            {article.title}
+          </h3>
+          <div class="flex items-center justify-between mt-auto">
+            <span class="text-xs font-mono text-text-muted">{article.readTime}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200"
+            >
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

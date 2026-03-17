@@ -1,0 +1,86 @@
+---
+const highlights = [
+  {
+    icon: '☁️',
+    title: 'Cloud Architecture',
+    desc: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.',
+  },
+  {
+    icon: '⚡',
+    title: 'Automatización',
+    desc: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.',
+  },
+  {
+    icon: '🔐',
+    title: 'Identidad & Seguridad',
+    desc: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.',
+  },
+  {
+    icon: '📖',
+    title: 'Documentación Técnica',
+    desc: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.',
+  },
+];
+---
+
+<section id="about" class="py-24 sm:py-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <!-- Text -->
+      <div>
+        <p class="section-title animate-on-scroll">Sobre mi</p>
+        <h2 class="section-heading mb-6 animate-on-scroll">
+          Infraestructura que<br />
+          <span class="text-accent">escala contigo</span>
+        </h2>
+        <div class="space-y-4 text-text-secondary leading-relaxed animate-on-scroll">
+          <p>
+            Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura con foco en entornos Cloud empresariales. 
+            Mi trabajo consiste en resolver los desafíos más complejos de la infraestructura IT: migraciones a Azure, 
+            consolidación de identidades, automatización de procesos operacionales y alta disponibilidad.
+          </p>
+          <p>
+            Me especializo en construir puentes entre los entornos on-premise y la nube, asegurando continuidad 
+            del negocio y eficiencia operativa. Cada proyecto que entrego incluye documentación clara, runbooks 
+            accionables y una base automatizada para el equipo que lo opera.
+          </p>
+          <p>
+            Paralelamente, creo contenido técnico para la comunidad hispanohablante de IT, cubriendo temas 
+            como administración de Active Directory, PowerShell avanzado y estrategias Cloud.
+          </p>
+        </div>
+
+        <div class="flex gap-4 mt-8 animate-on-scroll">
+          <a href="#contact" class="btn-primary">
+            Contactar
+          </a>
+          <a
+            href="https://linkedin.com/in/santiago-da-ros"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-outline"
+          >
+            LinkedIn
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Highlights grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {highlights.map((item, i) => (
+          <div
+            class="card animate-on-scroll"
+            style={`animation-delay: ${i * 0.1}s`}
+          >
+            <div class="text-2xl mb-3">{item.icon}</div>
+            <h3 class="font-semibold text-text-primary mb-2 text-sm">{item.title}</h3>
+            <p class="text-text-muted text-xs leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

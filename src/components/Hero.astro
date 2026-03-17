@@ -1,0 +1,186 @@
+---
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center grid-bg overflow-hidden"
+>
+  <!-- Background blur orbs -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-accent/5 blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-violet-500/5 blur-3xl pointer-events-none"></div>
+
+  <!-- 2. Floating particles -->
+  <canvas id="particles" class="absolute inset-0 pointer-events-none"></canvas>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:py-32 w-full">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-12">
+
+      <!-- Text -->
+      <div class="max-w-2xl">
+        <!-- Status badge -->
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-surface-2 border border-border text-xs text-text-secondary mb-6 animate-on-scroll">
+          <span class="glow-dot"></span>
+          Cloud Specialist @ readymind
+        </div>
+
+        <!-- Name + Photo row on mobile -->
+        <div class="flex items-center justify-between gap-4 lg:block animate-on-scroll" style="animation-delay: 0.1s">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold leading-none tracking-tight mb-0 lg:mb-4">
+            <span class="text-text-primary">Santiago</span>
+            <br />
+            <span class="gradient-text">Da Ros</span>
+          </h1>
+
+          <!-- Photo only visible on mobile (inline with name) -->
+          <div class="shrink-0 lg:hidden mr-3">
+            <!-- Gradient ring wrapper -->
+            <div class="p-0.5 rounded-full photo-ring" style="background: linear-gradient(135deg, #8b5cf6, #c4b5fd, #7c3aed);">
+              <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-surface">
+                <img
+                  src="/foto.png"
+                  alt="Santiago Da Ros"
+                  class="w-full h-full object-cover object-[center_15%] scale-125"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="flex items-start gap-3 mt-4 mb-5 animate-on-scroll" style="animation-delay: 0.2s">
+          <span class="font-mono text-accent text-sm mt-1 shrink-0">&gt;</span>
+          <p class="text-base sm:text-xl text-text-secondary font-medium leading-snug">
+            Cloud Demand Hub · Lic. Ciencias de la Computación (UBA)
+          </p>
+        </div>
+
+        <!-- Description -->
+        <p class="text-text-secondary leading-relaxed max-w-2xl mb-8 animate-on-scroll text-sm sm:text-base lg:text-lg" style="animation-delay: 0.3s">
+          Trabajo en entornos tanto Nube (<strong class="text-text-primary">Microsoft Azure</strong>) como <strong class="text-text-primary">Híbridos</strong> y <strong class="text-text-primary">On-Prem</strong>
+          gestionando incidentes, documentando procedimientos técnicos mezclando trabajo directo con clientes.
+          Combino la experiencia práctica en Cloud con mi formación en Ciencias de la Computación en la UBA.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 mb-8 sm:mb-12 animate-on-scroll" style="animation-delay: 0.4s">
+          <a href="#experience" class="btn-primary">
+            Ver experiencia
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/cv.pdf" download class="btn-outline flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            Descargar CV
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-border animate-on-scroll" style="animation-delay: 0.5s">
+          <div>
+            <p class="text-2xl sm:text-3xl font-bold text-text-primary" data-count="6">0</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Certificaciones</p>
+          </div>
+          <div>
+            <p class="text-2xl sm:text-3xl font-bold text-text-primary" data-count="11">0</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Meses en Cloud</p>
+          </div>
+          <div>
+            <p class="text-2xl sm:text-3xl font-bold text-text-primary">UBA</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Cs. Computacion</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo (desktop only, right column) -->
+      <div class="hidden lg:flex justify-end shrink-0 animate-on-scroll -mt-28" style="animation-delay: 0.3s">
+        <div class="p-1 rounded-full photo-ring" style="background: linear-gradient(135deg, #8b5cf6, #c4b5fd, #7c3aed);">
+          <div class="w-80 h-80 rounded-full overflow-hidden bg-surface">
+            <img
+              src="/foto.png"
+              alt="Santiago Da Ros"
+              class="w-full h-full object-cover object-[center_18%]"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Counter + Particles script -->
+  <script>
+    // 7. Blink then count
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        let blinks = 0;
+        el.textContent = '—';
+        const blink = setInterval(() => {
+          el.textContent = blinks % 2 === 0 ? '' : '—';
+          blinks++;
+          if (blinks >= 6) {
+            clearInterval(blink);
+            let current = 0;
+            const step = target / (1000 / 16);
+            const count = setInterval(() => {
+              current = Math.min(current + step, target);
+              el.textContent = Math.floor(current);
+              if (current >= target) clearInterval(count);
+            }, 16);
+          }
+        }, 120);
+        counterObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObs.observe(c));
+
+    // 2. Floating particles
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles = Array.from({ length: 35 }, () => ({
+      x: Math.random() * (W || 1200),
+      y: Math.random() * (H || 800),
+      r: Math.random() * 2 + 0.5,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+      o: Math.random() * 0.4 + 0.1,
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > W) p.dx *= -1;
+        if (p.y < 0 || p.y > H) p.dy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(139,92,246,${p.o})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-muted animate-bounce">
+    <span class="text-xs font-mono">scroll</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m6 9 6 6 6-6"/>
+    </svg>
+  </div>
+</section>

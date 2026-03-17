@@ -1,0 +1,90 @@
+---
+const skills = [
+  { name: 'Microsoft Azure', icon: '☁️' },
+  { name: 'Azure Arc', icon: '🔗' },
+  { name: 'Azure Intune', icon: '🛡️' },
+  { name: 'Azure Cosmos DB', icon: '🗄️' },
+  { name: 'Azure Data Factory', icon: '🔄' },
+  { name: 'Azure Monitor', icon: '📊' },
+  { name: 'Windows Server', icon: '🖥️' },
+  { name: 'Active Directory', icon: '🔐' },
+  { name: 'Power Platform', icon: '⚡' },
+  { name: 'Python', icon: '🐍' },
+  { name: 'MySQL', icon: '💾' },
+];
+
+const certifications = [
+  { name: 'AZ-800', full: 'Windows Server Hybrid Admin (Parte 1)', link: null },
+  { name: 'AZ-104', full: 'Azure Administrator Associate', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51' },
+  { name: 'DP-900', full: 'Azure Data Fundamentals', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/233CCC70D92131AA?sharingId=51E475397D223B51' },
+  { name: 'PL-900', full: 'Power Platform Fundamentals', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/86614C6D8510281C?sharingId=51E475397D223B51' },
+  { name: 'AZ-900', full: 'Azure Fundamentals', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/CC8448AE34DAF1A8?sharingId=51E475397D223B51' },
+];
+
+const languages = [
+  { name: 'Español', level: 'Nativo', flag: '🇦🇷' },
+  { name: 'Inglés', level: 'Professional Working', flag: '🇺🇸' },
+  { name: 'Alemán', level: 'Professional Working', flag: '🇩🇪' },
+];
+---
+
+<section id="skills" class="py-24 sm:py-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-12">
+      <p class="section-title animate-on-scroll">Stack & Habilidades</p>
+      <h2 class="section-heading animate-on-scroll">Tecnologias e idiomas</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Skills tags -->
+      <div class="animate-on-scroll">
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4">Tecnologias</h3>
+        <div class="flex flex-wrap gap-2">
+          {skills.map((skill) => (
+            <span class="tag hover:border-accent/40 hover:text-text-primary hover:bg-surface-3 transition-all duration-200 cursor-default">
+              <span class="mr-1.5 text-sm">{skill.icon}</span>{skill.name}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="animate-on-scroll" style="animation-delay: 0.1s">
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4">Certificaciones Microsoft</h3>
+        <div class="space-y-2.5">
+          {certifications.map((cert) => (
+            cert.link ? (
+              <a href={cert.link} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-border hover:border-accent/40 hover:bg-surface-3 transition-all duration-200 group">
+                <span class="font-mono font-bold text-accent text-sm shrink-0 w-14">{cert.name}</span>
+                <span class="text-text-secondary text-xs leading-snug flex-1">{cert.full}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted group-hover:text-accent shrink-0 transition-colors"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </a>
+            ) : (
+              <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-border">
+                <span class="font-mono font-bold text-accent text-sm shrink-0 w-14">{cert.name}</span>
+                <span class="text-text-secondary text-xs leading-snug flex-1">{cert.full}</span>
+                <span class="text-text-muted text-xs font-mono shrink-0">En curso</span>
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="animate-on-scroll" style="animation-delay: 0.2s">
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4">Idiomas</h3>
+        <div class="space-y-2.5">
+          {languages.map((lang) => (
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-surface-2 border border-border hover:border-border-hover transition-colors">
+              <span class="text-xl shrink-0">{lang.flag}</span>
+              <div>
+                <p class="text-text-primary text-sm font-medium">{lang.name}</p>
+                <p class="text-text-muted text-xs">{lang.level}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
