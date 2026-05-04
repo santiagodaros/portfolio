@@ -193,6 +193,42 @@ html.light {
   border-radius: 9999px;
 }
 
+/* Animated orbs */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -30px) scale(1.08); }
+  66%       { transform: translate(-25px, 20px) scale(0.94); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-35px, 25px) scale(0.92); }
+  66%       { transform: translate(30px, -20px) scale(1.06); }
+}
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(20px, 30px) scale(1.1); }
+}
+
+.orb-1 { animation: orb-float-1 12s ease-in-out infinite; }
+.orb-2 { animation: orb-float-2 16s ease-in-out infinite; }
+.orb-3 { animation: orb-float-3 10s ease-in-out infinite 3s; }
+
+/* Section decorative number */
+.section-deco-number {
+  position: absolute;
+  right: -0.5rem;
+  top: -1.5rem;
+  font-size: clamp(6rem, 15vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(139, 92, 246, 0.07);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+  transition: -webkit-text-stroke 0.3s ease;
+}
+
 @keyframes timeline-dot-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(139,92,246,0.4); }
   50%       { box-shadow: 0 0 0 5px rgba(139,92,246,0); }
