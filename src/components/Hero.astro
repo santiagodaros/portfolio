@@ -49,13 +49,17 @@
         <!-- Title -->
         <div class="flex items-start gap-3 mt-4 mb-5 animate-on-scroll" style="animation-delay: 0.2s">
           <span class="font-mono text-accent text-sm mt-1 shrink-0">&gt;</span>
-          <p class="text-base sm:text-xl text-text-secondary font-medium leading-snug">
+          <p class="text-base sm:text-xl text-text-secondary font-medium leading-snug"
+             data-es="Cloud Demand Hub · Lic. Ciencias de la Computación (UBA)"
+             data-en="Cloud Demand Hub · B.S. Computer Science (UBA)">
             Cloud Demand Hub · Lic. Ciencias de la Computación (UBA)
           </p>
         </div>
 
         <!-- Description -->
-        <p class="text-text-secondary leading-relaxed max-w-2xl mb-8 animate-on-scroll text-sm sm:text-base lg:text-lg" style="animation-delay: 0.3s">
+        <p class="text-text-secondary leading-relaxed max-w-2xl mb-8 animate-on-scroll text-sm sm:text-base lg:text-lg" style="animation-delay: 0.3s"
+           data-es="Trabajo en entornos tanto Nube (Microsoft Azure) como Híbridos y On-Prem gestionando incidentes, documentando procedimientos técnicos mezclando trabajo directo con clientes. Combino la experiencia práctica en Cloud con mi formación en Ciencias de la Computación en la UBA."
+           data-en="I work in Cloud (Microsoft Azure), Hybrid, and On-Prem environments managing incidents, documenting technical procedures, and working directly with clients. I combine hands-on Cloud experience with my Computer Science background at UBA.">
           Trabajo en entornos tanto Nube (<strong class="text-text-primary">Microsoft Azure</strong>) como <strong class="text-text-primary">Híbridos</strong> y <strong class="text-text-primary">On-Prem</strong>
           gestionando incidentes, documentando procedimientos técnicos mezclando trabajo directo con clientes.
           Combino la experiencia práctica en Cloud con mi formación en Ciencias de la Computación en la UBA.
@@ -64,14 +68,23 @@
         <!-- CTAs -->
         <div class="flex flex-wrap gap-3 mb-8 sm:mb-12 animate-on-scroll" style="animation-delay: 0.4s">
           <a href="#experience" class="btn-primary">
-            Ver experiencia
+            <span data-es="Ver experiencia" data-en="View experience">Ver experiencia</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
           </a>
-          <a href="/cv.pdf" download class="btn-outline flex items-center gap-2">
+          <a
+            id="cv-download"
+            href="/cv-es.pdf"
+            download="CV Santiago Da Ros - ES.pdf"
+            data-href-es="/cv-es.pdf"
+            data-href-en="/cv-en.pdf"
+            data-filename-es="CV Santiago Da Ros - ES.pdf"
+            data-filename-en="CV Santiago Da Ros - EN.pdf"
+            class="btn-outline flex items-center gap-2"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-            Descargar CV
+            <span data-es="Descargar CV" data-en="Download CV">Descargar CV</span>
           </a>
         </div>
 
@@ -79,15 +92,21 @@
         <div class="grid grid-cols-3 gap-4 sm:gap-6 pt-6 border-t border-border animate-on-scroll" style="animation-delay: 0.5s">
           <div>
             <p class="text-2xl sm:text-3xl font-bold text-text-primary" data-count="6">0</p>
-            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Certificaciones</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono"
+               data-es="Certificaciones"
+               data-en="Certifications">Certificaciones</p>
           </div>
           <div>
             <p class="text-2xl sm:text-3xl font-bold text-text-primary" data-count="12">0</p>
-            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Meses en Cloud</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono"
+               data-es="Meses en Cloud"
+               data-en="Months in Cloud">Meses en Cloud</p>
           </div>
           <div>
             <p class="text-2xl sm:text-3xl font-bold text-text-primary">UBA</p>
-            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono">Cs. Computacion</p>
+            <p class="text-xs text-text-muted mt-1 uppercase tracking-wide font-mono"
+               data-es="Cs. Computacion"
+               data-en="Comp. Science">Cs. Computacion</p>
           </div>
         </div>
       </div>

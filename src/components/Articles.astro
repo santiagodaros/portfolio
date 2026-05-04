@@ -1,9 +1,12 @@
 ---
 const articles = [
   {
-    title: 'Automatizacion masiva de usuarios en Active Directory con PowerShell',
-    excerpt:
+    titleEs: 'Automatizacion masiva de usuarios en Active Directory con PowerShell',
+    titleEn: 'Bulk user automation in Active Directory with PowerShell',
+    excerptEs:
       'Guia completa para crear, modificar y eliminar cuentas de usuario en AD usando PowerShell. Incluye manejo de errores, logging y ejemplos listos para produccion.',
+    excerptEn:
+      'Complete guide to creating, modifying, and deleting user accounts in AD using PowerShell. Includes error handling, logging, and production-ready examples.',
     tags: ['PowerShell', 'Active Directory', 'Automatizacion'],
     date: 'Feb 2025',
     readTime: '8 min',
@@ -11,9 +14,12 @@ const articles = [
     link: '#',
   },
   {
-    title: 'Migracion de identidades on-premise a Azure AD: guia paso a paso',
-    excerpt:
+    titleEs: 'Migracion de identidades on-premise a Azure AD: guia paso a paso',
+    titleEn: 'On-premise identity migration to Azure AD: step-by-step guide',
+    excerptEs:
       'Todo lo que necesitas saber para migrar tu Active Directory local a Azure AD / Entra ID de forma segura, sin downtime y manteniendo la experiencia del usuario.',
+    excerptEn:
+      'Everything you need to know to migrate your local Active Directory to Azure AD / Entra ID securely, with no downtime, and preserving the user experience.',
     tags: ['Azure AD', 'Migracion', 'Azure'],
     date: 'Ene 2025',
     readTime: '12 min',
@@ -21,9 +27,12 @@ const articles = [
     link: '#',
   },
   {
-    title: 'PowerShell DSC: Infraestructura como Codigo para administradores Windows',
-    excerpt:
+    titleEs: 'PowerShell DSC: Infraestructura como Codigo para administradores Windows',
+    titleEn: 'PowerShell DSC: Infrastructure as Code for Windows administrators',
+    excerptEs:
       'Introduccion practica a Desired State Configuration (DSC) para mantener la consistencia de configuracion en entornos Windows Server a gran escala.',
+    excerptEn:
+      'Practical introduction to Desired State Configuration (DSC) for maintaining configuration consistency in large-scale Windows Server environments.',
     tags: ['PowerShell', 'DSC', 'IaC', 'Windows Server'],
     date: 'Dic 2024',
     readTime: '10 min',
@@ -31,9 +40,12 @@ const articles = [
     link: '#',
   },
   {
-    title: 'Optimizacion de GPOs: mejores practicas para entornos con 1000+ equipos',
-    excerpt:
+    titleEs: 'Optimizacion de GPOs: mejores practicas para entornos con 1000+ equipos',
+    titleEn: 'GPO optimization: best practices for environments with 1000+ machines',
+    excerptEs:
       'Estrategias avanzadas para gestionar politicas de grupo (GPO) en organizaciones de mediana y gran escala. Troubleshooting, herencia y segmentacion efectiva.',
+    excerptEn:
+      'Advanced strategies for managing Group Policies (GPO) in mid and large-scale organizations. Troubleshooting, inheritance, and effective segmentation.',
     tags: ['GPO', 'Active Directory', 'Windows Server'],
     date: 'Nov 2024',
     readTime: '7 min',
@@ -41,9 +53,12 @@ const articles = [
     link: '#',
   },
   {
-    title: 'Azure Monitor: alertas inteligentes para infraestructura Cloud',
-    excerpt:
+    titleEs: 'Azure Monitor: alertas inteligentes para infraestructura Cloud',
+    titleEn: 'Azure Monitor: intelligent alerts for Cloud infrastructure',
+    excerptEs:
       'Como configurar un sistema de alertas proactivo en Azure Monitor para detectar problemas de infraestructura antes de que impacten a los usuarios.',
+    excerptEn:
+      'How to configure a proactive alerting system in Azure Monitor to detect infrastructure issues before they impact users.',
     tags: ['Azure', 'Monitoring', 'DevOps'],
     date: 'Oct 2024',
     readTime: '9 min',
@@ -51,9 +66,12 @@ const articles = [
     link: '#',
   },
   {
-    title: 'Runbooks de automatizacion: como documentar y estructurar para equipos IT',
-    excerpt:
+    titleEs: 'Runbooks de automatizacion: como documentar y estructurar para equipos IT',
+    titleEn: 'Automation runbooks: how to document and structure them for IT teams',
+    excerptEs:
       'Framework practico para crear runbooks accionables que cualquier miembro del equipo pueda ejecutar. Plantillas, ejemplos y mejores practicas.',
+    excerptEn:
+      'Practical framework for creating actionable runbooks that any team member can execute. Templates, examples, and best practices.',
     tags: ['Runbooks', 'Documentacion', 'Operaciones'],
     date: 'Sep 2024',
     readTime: '6 min',
@@ -72,27 +90,35 @@ const rest = articles.filter((a) => !a.featured);
     <div class="text-center px-6">
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3 border border-accent/30 text-accent text-xs font-mono uppercase tracking-widest mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Proximamente
+        <span data-es="Proximamente" data-en="Coming Soon">Proximamente</span>
       </div>
-      <h3 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2">Articulos en camino</h3>
-      <p class="text-text-secondary text-sm max-w-sm">Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto.</p>
+      <h3 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2"
+          data-es="Articulos en camino"
+          data-en="Articles on the way">Articulos en camino</h3>
+      <p class="text-text-secondary text-sm max-w-sm"
+         data-es="Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto."
+         data-en="I'm working on technical content about Azure, Windows Server, and Cloud. Check back soon.">Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto.</p>
     </div>
   </div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16">
       <div>
-        <p class="section-title animate-on-scroll">Articulos</p>
+        <p class="section-title animate-on-scroll"
+           data-es="Articulos"
+           data-en="Articles">Articulos</p>
         <h2 class="section-heading animate-on-scroll">
-          Contenido tecnico<br />
-          <span class="text-accent">para la comunidad</span>
+          <span data-es="Contenido tecnico" data-en="Technical content">Contenido tecnico</span><br />
+          <span class="text-accent"
+                data-es="para la comunidad"
+                data-en="for the community">para la comunidad</span>
         </h2>
       </div>
       <a
         href="#"
         class="btn-outline text-sm shrink-0 animate-on-scroll self-start sm:self-auto"
       >
-        Ver todos
+        <span data-es="Ver todos" data-en="View all">Ver todos</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
         </svg>
@@ -109,7 +135,9 @@ const rest = articles.filter((a) => !a.featured);
         >
           <!-- Featured badge -->
           <div class="absolute top-4 right-4">
-            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 font-mono">
+            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 font-mono"
+                  data-es="destacado"
+                  data-en="featured">
               destacado
             </span>
           </div>
@@ -120,18 +148,22 @@ const rest = articles.filter((a) => !a.featured);
                 <span class="tag">{tag}</span>
               ))}
             </div>
-            <h3 class="font-semibold text-text-primary text-lg leading-snug group-hover:text-accent transition-colors pr-20">
-              {article.title}
+            <h3 class="font-semibold text-text-primary text-lg leading-snug group-hover:text-accent transition-colors pr-20"
+                data-es={article.titleEs}
+                data-en={article.titleEn}>
+              {article.titleEs}
             </h3>
           </div>
 
-          <p class="text-text-muted text-sm leading-relaxed mb-5">{article.excerpt}</p>
+          <p class="text-text-muted text-sm leading-relaxed mb-5"
+             data-es={article.excerptEs}
+             data-en={article.excerptEn}>{article.excerptEs}</p>
 
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-3 text-xs text-text-muted font-mono">
               <span>{article.date}</span>
               <span>·</span>
-              <span>{article.readTime} lectura</span>
+              <span>{article.readTime} <span data-es="lectura" data-en="read">lectura</span></span>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -165,8 +197,10 @@ const rest = articles.filter((a) => !a.featured);
               <span class="tag text-xs">{tag}</span>
             ))}
           </div>
-          <h3 class="font-medium text-text-primary text-sm leading-snug group-hover:text-accent transition-colors flex-1 mb-4">
-            {article.title}
+          <h3 class="font-medium text-text-primary text-sm leading-snug group-hover:text-accent transition-colors flex-1 mb-4"
+              data-es={article.titleEs}
+              data-en={article.titleEn}>
+            {article.titleEs}
           </h3>
           <div class="flex items-center justify-between mt-auto">
             <span class="text-xs font-mono text-text-muted">{article.readTime}</span>

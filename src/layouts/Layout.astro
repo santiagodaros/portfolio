@@ -84,5 +84,42 @@ const {
         });
       });
     </script>
+
+    <script>
+      // i18n language toggle
+      (function() {
+        const savedLang = localStorage.getItem('lang') || 'es';
+
+        function applyLang(lang) {
+          document.documentElement.lang = lang;
+          document.querySelectorAll('[data-en][data-es]').forEach(el => {
+            el.textContent = lang === 'en' ? el.dataset.en : el.dataset.es;
+          });
+          document.querySelectorAll('[data-href-es][data-href-en]').forEach(el => {
+            el.href = lang === 'en' ? el.dataset.hrefEn : el.dataset.hrefEs;
+            el.download = lang === 'en' ? el.dataset.filenameEn : el.dataset.filenameEs;
+          });
+          const label = document.getElementById('lang-label');
+          if (label) label.textContent = lang === 'en' ? 'Español' : 'English';
+          const labelMobile = document.getElementById('lang-label-mobile');
+          if (labelMobile) labelMobile.textContent = lang === 'en' ? 'Español' : 'English';
+          localStorage.setItem('lang', lang);
+        }
+
+        // Apply on load
+        if (savedLang === 'en') applyLang('en');
+
+        // Wire toggle button
+        document.addEventListener('DOMContentLoaded', () => {
+          const btn = document.getElementById('lang-toggle');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              const current = localStorage.getItem('lang') || 'es';
+              applyLang(current === 'es' ? 'en' : 'es');
+            });
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

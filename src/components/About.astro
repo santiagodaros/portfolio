@@ -2,23 +2,31 @@
 const highlights = [
   {
     icon: '☁️',
-    title: 'Cloud Architecture',
-    desc: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.',
+    titleEs: 'Cloud Architecture',
+    titleEn: 'Cloud Architecture',
+    descEs: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.',
+    descEn: 'Design and management of Azure environments, including IaaS, PaaS, and hybrid services at enterprise scale.',
   },
   {
     icon: '⚡',
-    title: 'Automatización',
-    desc: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.',
+    titleEs: 'Automatización',
+    titleEn: 'Automation',
+    descEs: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.',
+    descEn: 'Development of runbooks and PowerShell scripts to eliminate repetitive manual tasks and reduce human error.',
   },
   {
     icon: '🔐',
-    title: 'Identidad & Seguridad',
-    desc: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.',
+    titleEs: 'Identidad & Seguridad',
+    titleEn: 'Identity & Security',
+    descEs: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.',
+    descEn: 'Advanced administration of Active Directory, Group Policies (GPO), Azure AD, and hybrid integration.',
   },
   {
     icon: '📖',
-    title: 'Documentación Técnica',
-    desc: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.',
+    titleEs: 'Documentación Técnica',
+    titleEn: 'Technical Documentation',
+    descEs: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.',
+    descEn: 'Creation of high-value technical content: articles, guides, and runbooks aimed at the IT community.',
   },
 ];
 ---
@@ -28,30 +36,39 @@ const highlights = [
     <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
       <!-- Text -->
       <div>
-        <p class="section-title animate-on-scroll">Sobre mi</p>
+        <p class="section-title animate-on-scroll"
+           data-es="Sobre mi"
+           data-en="About me">Sobre mi</p>
         <h2 class="section-heading mb-6 animate-on-scroll">
           Infraestructura que<br />
-          <span class="text-accent">escala contigo</span>
+          <span class="text-accent"
+                data-es="escala contigo"
+                data-en="scales with you">escala contigo</span>
         </h2>
         <div class="space-y-4 text-text-secondary leading-relaxed animate-on-scroll">
-          <p>
-            Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura con foco en entornos Cloud empresariales. 
-            Mi trabajo consiste en resolver los desafíos más complejos de la infraestructura IT: migraciones a Azure, 
+          <p data-es="Soy Santiago Lucas Da Ros, ingeniero de infraestructura con foco en entornos Cloud empresariales. Mi trabajo consiste en resolver los desafíos más complejos de la infraestructura IT: migraciones a Azure, consolidación de identidades, automatización de procesos operacionales y alta disponibilidad."
+             data-en="I am Santiago Lucas Da Ros, an infrastructure engineer focused on enterprise Cloud environments. My work consists of solving the most complex IT infrastructure challenges: Azure migrations, identity consolidation, operational process automation, and high availability.">
+            Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura con foco en entornos Cloud empresariales.
+            Mi trabajo consiste en resolver los desafíos más complejos de la infraestructura IT: migraciones a Azure,
             consolidación de identidades, automatización de procesos operacionales y alta disponibilidad.
           </p>
-          <p>
-            Me especializo en construir puentes entre los entornos on-premise y la nube, asegurando continuidad 
-            del negocio y eficiencia operativa. Cada proyecto que entrego incluye documentación clara, runbooks 
+          <p data-es="Me especializo en construir puentes entre los entornos on-premise y la nube, asegurando continuidad del negocio y eficiencia operativa. Cada proyecto que entrego incluye documentación clara, runbooks accionables y una base automatizada para el equipo que lo opera."
+             data-en="I specialize in bridging on-premise and cloud environments, ensuring business continuity and operational efficiency. Every project I deliver includes clear documentation, actionable runbooks, and an automated foundation for the team that operates it.">
+            Me especializo en construir puentes entre los entornos on-premise y la nube, asegurando continuidad
+            del negocio y eficiencia operativa. Cada proyecto que entrego incluye documentación clara, runbooks
             accionables y una base automatizada para el equipo que lo opera.
           </p>
-          <p>
-            Paralelamente, creo contenido técnico para la comunidad hispanohablante de IT, cubriendo temas 
+          <p data-es="Paralelamente, creo contenido técnico para la comunidad hispanohablante de IT, cubriendo temas como administración de Active Directory, PowerShell avanzado y estrategias Cloud."
+             data-en="In parallel, I create technical content for the Spanish-speaking IT community, covering topics such as Active Directory administration, advanced PowerShell, and Cloud strategies.">
+            Paralelamente, creo contenido técnico para la comunidad hispanohablante de IT, cubriendo temas
             como administración de Active Directory, PowerShell avanzado y estrategias Cloud.
           </p>
         </div>
 
         <div class="flex gap-4 mt-8 animate-on-scroll">
-          <a href="#contact" class="btn-primary">
+          <a href="#contact" class="btn-primary"
+             data-es="Contactar"
+             data-en="Contact">
             Contactar
           </a>
           <a
@@ -76,8 +93,12 @@ const highlights = [
             style={`animation-delay: ${i * 0.1}s`}
           >
             <div class="text-2xl mb-3">{item.icon}</div>
-            <h3 class="font-semibold text-text-primary mb-2 text-sm">{item.title}</h3>
-            <p class="text-text-muted text-xs leading-relaxed">{item.desc}</p>
+            <h3 class="font-semibold text-text-primary mb-2 text-sm"
+                data-es={item.titleEs}
+                data-en={item.titleEn}>{item.titleEs}</h3>
+            <p class="text-text-muted text-xs leading-relaxed"
+               data-es={item.descEs}
+               data-en={item.descEn}>{item.descEs}</p>
           </div>
         ))}
       </div>
