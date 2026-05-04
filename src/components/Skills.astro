@@ -1,16 +1,17 @@
 ---
 const skills = [
-  { name: 'Microsoft Azure', icon: '☁️' },
-  { name: 'Azure Arc', icon: '🔗' },
-  { name: 'Azure Intune', icon: '🛡️' },
-  { name: 'Azure Cosmos DB', icon: '🗄️' },
-  { name: 'Azure Data Factory', icon: '🔄' },
-  { name: 'Azure Monitor', icon: '📊' },
-  { name: 'Windows Server', icon: '🖥️' },
-  { name: 'Active Directory', icon: '🔐' },
-  { name: 'Power Platform', icon: '⚡' },
-  { name: 'Python', icon: '🐍' },
-  { name: 'MySQL', icon: '💾' },
+  { name: 'Microsoft Azure',    devicon: 'devicon-azure-plain colored' },
+  { name: 'Windows Server',     devicon: 'devicon-windows8-original colored' },
+  { name: 'PowerShell',         devicon: 'devicon-powershell-plain colored' },
+  { name: 'Python',             devicon: 'devicon-python-plain colored' },
+  { name: 'MySQL',              devicon: 'devicon-mysql-plain colored' },
+  { name: 'Azure Arc',          color: '#0078D4', abbr: 'Arc' },
+  { name: 'Azure Intune',       color: '#0078D4', abbr: 'MDM' },
+  { name: 'Azure Cosmos DB',    color: '#0078D4', abbr: 'CDB' },
+  { name: 'Azure Data Factory', color: '#0078D4', abbr: 'ADF' },
+  { name: 'Azure Monitor',      color: '#0078D4', abbr: 'Mon' },
+  { name: 'Active Directory',   color: '#0078D4', abbr: 'AD' },
+  { name: 'Power Platform',     color: '#742774', abbr: 'PP' },
 ];
 
 const certifications = [
@@ -48,8 +49,16 @@ const languages = [
             data-en="Technologies">Tecnologias</h3>
         <div class="flex flex-wrap gap-2">
           {skills.map((skill) => (
-            <span class="tag hover:border-accent/40 hover:text-text-primary hover:bg-surface-3 transition-all duration-200 cursor-default">
-              <span class="mr-1.5 text-sm">{skill.icon}</span>{skill.name}
+            <span class="tag hover:border-accent/40 hover:text-text-primary hover:bg-surface-3 transition-all duration-200 cursor-default flex items-center gap-1.5">
+              {skill.devicon ? (
+                <i class={`${skill.devicon} text-base leading-none`}></i>
+              ) : (
+                <span class="inline-flex items-center justify-center w-4 h-4 rounded text-[9px] font-bold leading-none shrink-0"
+                      style={`background: ${skill.color}22; color: ${skill.color}; border: 1px solid ${skill.color}44`}>
+                  {skill.abbr}
+                </span>
+              )}
+              {skill.name}
             </span>
           ))}
         </div>
