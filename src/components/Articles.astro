@@ -1,106 +1,59 @@
 ---
 const articles = [
   {
-    titleEs: 'Automatizacion masiva de usuarios en Active Directory con PowerShell',
-    titleEn: 'Bulk user automation in Active Directory with PowerShell',
+    titleEs: 'Almacenamiento inteligente: Bajar costos archivando datos viejos',
+    titleEn: 'Intelligent Storage: Reducing Costs by Archiving Old Data',
     excerptEs:
-      'Guia completa para crear, modificar y eliminar cuentas de usuario en AD usando PowerShell. Incluye manejo de errores, logging y ejemplos listos para produccion.',
+      'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
     excerptEn:
-      'Complete guide to creating, modifying, and deleting user accounts in AD using PowerShell. Includes error handling, logging, and production-ready examples.',
-    tags: ['PowerShell', 'Active Directory', 'Automatizacion'],
-    date: 'Feb 2025',
-    readTime: '8 min',
-    featured: true,
+      'Designing solutions that balance scalability, security, and cost-efficiency is a constant challenge; today we analyze how to apply it to inactive data storage in Azure.',
+    tags: ['Azure Blob Storage', 'Cost Optimization', 'Data Tiering'],
+    date: '20 Abr 2026',
+    dateEn: 'Apr 20, 2026',
+    readTime: '5 min',
+    locked: false,
+    link: 'https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf',
+  },
+  {
+    titleEs: 'Migracion de identidades on-premise a Azure AD',
+    titleEn: 'On-premise identity migration to Azure AD',
+    excerptEs: 'Contenido disponible próximamente',
+    excerptEn: 'Content coming soon',
+    tags: ['Azure AD', 'Entra ID', 'Hybrid'],
+    date: 'Próximamente',
+    dateEn: 'Coming soon',
+    readTime: '',
+    locked: true,
     link: '#',
   },
   {
-    titleEs: 'Migracion de identidades on-premise a Azure AD: guia paso a paso',
-    titleEn: 'On-premise identity migration to Azure AD: step-by-step guide',
-    excerptEs:
-      'Todo lo que necesitas saber para migrar tu Active Directory local a Azure AD / Entra ID de forma segura, sin downtime y manteniendo la experiencia del usuario.',
-    excerptEn:
-      'Everything you need to know to migrate your local Active Directory to Azure AD / Entra ID securely, with no downtime, and preserving the user experience.',
-    tags: ['Azure AD', 'Migracion', 'Azure'],
-    date: 'Ene 2025',
-    readTime: '12 min',
-    featured: true,
+    titleEs: 'Azure Arc: integrando infraestructura On-Prem con la nube',
+    titleEn: 'Azure Arc: integrating On-Prem infrastructure with the cloud',
+    excerptEs: 'Contenido disponible próximamente',
+    excerptEn: 'Content coming soon',
+    tags: ['Azure Arc', 'Hybrid', 'Windows Server'],
+    date: 'Próximamente',
+    dateEn: 'Coming soon',
+    readTime: '',
+    locked: true,
     link: '#',
   },
   {
-    titleEs: 'PowerShell DSC: Infraestructura como Codigo para administradores Windows',
-    titleEn: 'PowerShell DSC: Infrastructure as Code for Windows administrators',
-    excerptEs:
-      'Introduccion practica a Desired State Configuration (DSC) para mantener la consistencia de configuracion en entornos Windows Server a gran escala.',
-    excerptEn:
-      'Practical introduction to Desired State Configuration (DSC) for maintaining configuration consistency in large-scale Windows Server environments.',
-    tags: ['PowerShell', 'DSC', 'IaC', 'Windows Server'],
-    date: 'Dic 2024',
-    readTime: '10 min',
-    featured: false,
-    link: '#',
-  },
-  {
-    titleEs: 'Optimizacion de GPOs: mejores practicas para entornos con 1000+ equipos',
-    titleEn: 'GPO optimization: best practices for environments with 1000+ machines',
-    excerptEs:
-      'Estrategias avanzadas para gestionar politicas de grupo (GPO) en organizaciones de mediana y gran escala. Troubleshooting, herencia y segmentacion efectiva.',
-    excerptEn:
-      'Advanced strategies for managing Group Policies (GPO) in mid and large-scale organizations. Troubleshooting, inheritance, and effective segmentation.',
-    tags: ['GPO', 'Active Directory', 'Windows Server'],
-    date: 'Nov 2024',
-    readTime: '7 min',
-    featured: false,
-    link: '#',
-  },
-  {
-    titleEs: 'Azure Monitor: alertas inteligentes para infraestructura Cloud',
-    titleEn: 'Azure Monitor: intelligent alerts for Cloud infrastructure',
-    excerptEs:
-      'Como configurar un sistema de alertas proactivo en Azure Monitor para detectar problemas de infraestructura antes de que impacten a los usuarios.',
-    excerptEn:
-      'How to configure a proactive alerting system in Azure Monitor to detect infrastructure issues before they impact users.',
-    tags: ['Azure', 'Monitoring', 'DevOps'],
-    date: 'Oct 2024',
-    readTime: '9 min',
-    featured: false,
-    link: '#',
-  },
-  {
-    titleEs: 'Runbooks de automatizacion: como documentar y estructurar para equipos IT',
-    titleEn: 'Automation runbooks: how to document and structure them for IT teams',
-    excerptEs:
-      'Framework practico para crear runbooks accionables que cualquier miembro del equipo pueda ejecutar. Plantillas, ejemplos y mejores practicas.',
-    excerptEn:
-      'Practical framework for creating actionable runbooks that any team member can execute. Templates, examples, and best practices.',
-    tags: ['Runbooks', 'Documentacion', 'Operaciones'],
-    date: 'Sep 2024',
-    readTime: '6 min',
-    featured: false,
+    titleEs: 'FinOps en Azure: optimización de costos en suscripciones reales',
+    titleEn: 'FinOps in Azure: cost optimization in real subscriptions',
+    excerptEs: 'Contenido disponible próximamente',
+    excerptEn: 'Content coming soon',
+    tags: ['FinOps', 'Azure', 'Cost'],
+    date: 'Próximamente',
+    dateEn: 'Coming soon',
+    readTime: '',
+    locked: true,
     link: '#',
   },
 ];
-
-const featured = articles.filter((a) => a.featured);
-const rest = articles.filter((a) => !a.featured);
 ---
 
-<section id="articles" class="py-24 sm:py-32 bg-surface-1 relative">
-  <!-- Proximamente overlay -->
-  <div class="absolute inset-0 z-10 flex flex-col items-center justify-center backdrop-blur-sm bg-surface-1/60 rounded-none">
-    <div class="text-center px-6">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-3 border border-accent/30 text-accent text-xs font-mono uppercase tracking-widest mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span data-es="Proximamente" data-en="Coming Soon">Proximamente</span>
-      </div>
-      <h3 class="text-2xl sm:text-3xl font-bold text-text-primary mb-2"
-          data-es="Articulos en camino"
-          data-en="Articles on the way">Articulos en camino</h3>
-      <p class="text-text-secondary text-sm max-w-sm"
-         data-es="Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto."
-         data-en="I'm working on technical content about Azure, Windows Server, and Cloud. Check back soon.">Estoy trabajando en contenido tecnico sobre Azure, Windows Server y Cloud. Volvé pronto.</p>
-    </div>
-  </div>
-
+<section id="articles" class="py-24 sm:py-32 bg-surface-1">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16">
       <div>
@@ -115,7 +68,9 @@ const rest = articles.filter((a) => !a.featured);
         </h2>
       </div>
       <a
-        href="#"
+        href="https://www.linkedin.com/in/santiagodaros/recent-activity/articles/"
+        target="_blank"
+        rel="noopener noreferrer"
         class="btn-outline text-sm shrink-0 animate-on-scroll self-start sm:self-auto"
       >
         <span data-es="Ver todos" data-en="View all">Ver todos</span>
@@ -125,101 +80,75 @@ const rest = articles.filter((a) => !a.featured);
       </a>
     </div>
 
-    <!-- Featured articles -->
-    <div class="grid md:grid-cols-2 gap-6 mb-6">
-      {featured.map((article, i) => (
-        <a
-          href={article.link}
-          class="card group cursor-pointer animate-on-scroll relative overflow-hidden"
-          style={`animation-delay: ${i * 0.1}s`}
-        >
-          <!-- Featured badge -->
-          <div class="absolute top-4 right-4">
-            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent border border-accent/20 font-mono"
-                  data-es="destacado"
-                  data-en="featured">
-              destacado
-            </span>
-          </div>
-
-          <div class="mb-4">
-            <div class="flex flex-wrap gap-2 mb-3">
-              {article.tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {articles.map((article, i) => (
+        article.locked ? (
+          <div
+            class="card flex flex-col animate-on-scroll opacity-60"
+            style={`animation-delay: ${i * 0.08}s`}
+          >
+            <!-- Lock badge + tags -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex flex-wrap gap-1.5">
+                {article.tags.slice(0, 2).map((tag) => (
+                  <span class="tag text-xs">{tag}</span>
+                ))}
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted shrink-0">
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
             </div>
-            <h3 class="font-semibold text-text-primary text-lg leading-snug group-hover:text-accent transition-colors pr-20"
+            <h3 class="font-medium text-text-secondary text-sm leading-snug flex-1 mb-4"
                 data-es={article.titleEs}
                 data-en={article.titleEn}>
               {article.titleEs}
             </h3>
-          </div>
-
-          <p class="text-text-muted text-sm leading-relaxed mb-5"
-             data-es={article.excerptEs}
-             data-en={article.excerptEn}>{article.excerptEs}</p>
-
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 text-xs text-text-muted font-mono">
-              <span>{article.date}</span>
-              <span>·</span>
-              <span>{article.readTime} <span data-es="lectura" data-en="read">lectura</span></span>
+            <p class="text-xs text-text-muted italic mb-4"
+               data-es={article.excerptEs}
+               data-en={article.excerptEn}>{article.excerptEs}</p>
+            <div class="flex items-center gap-2 mt-auto pt-3 border-t border-border">
+              <img src="/foto.png" alt="Santiago Da Ros" class="w-6 h-6 rounded-full object-cover object-top" />
+              <span class="text-xs text-text-muted">Santiago</span>
+              <span class="text-xs text-text-muted ml-auto font-mono"
+                    data-es={article.date}
+                    data-en={article.dateEn}>{article.date}</span>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="text-text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200"
-            >
-              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-            </svg>
           </div>
-        </a>
-      ))}
-    </div>
-
-    <!-- Rest of articles -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {rest.map((article, i) => (
-        <a
-          href={article.link}
-          class="card group cursor-pointer animate-on-scroll flex flex-col"
-          style={`animation-delay: ${(i + 2) * 0.08}s`}
-        >
-          <div class="flex flex-wrap gap-1.5 mb-3">
-            {article.tags.slice(0, 2).map((tag) => (
-              <span class="tag text-xs">{tag}</span>
-            ))}
-          </div>
-          <h3 class="font-medium text-text-primary text-sm leading-snug group-hover:text-accent transition-colors flex-1 mb-4"
-              data-es={article.titleEs}
-              data-en={article.titleEn}>
-            {article.titleEs}
-          </h3>
-          <div class="flex items-center justify-between mt-auto">
-            <span class="text-xs font-mono text-text-muted">{article.readTime}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="text-text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200"
-            >
-              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-            </svg>
-          </div>
-        </a>
+        ) : (
+          <a
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card group cursor-pointer animate-on-scroll flex flex-col relative overflow-hidden"
+            style={`animation-delay: ${i * 0.08}s`}
+          >
+            <div class="flex flex-wrap gap-1.5 mb-3">
+              {article.tags.slice(0, 2).map((tag) => (
+                <span class="tag text-xs">{tag}</span>
+              ))}
+            </div>
+            <h3 class="font-semibold text-text-primary text-sm leading-snug group-hover:text-accent transition-colors flex-1 mb-4"
+                data-es={article.titleEs}
+                data-en={article.titleEn}>
+              {article.titleEs}
+            </h3>
+            <p class="text-xs text-text-secondary leading-relaxed mb-4"
+               data-es={article.excerptEs}
+               data-en={article.excerptEn}>{article.excerptEs}</p>
+            <div class="flex items-center gap-2 mt-auto pt-3 border-t border-border">
+              <img src="/foto.png" alt="Santiago Da Ros" class="w-6 h-6 rounded-full object-cover object-top" />
+              <span class="text-xs text-text-secondary">Santiago</span>
+              <span class="text-xs text-text-muted ml-auto font-mono"
+                    data-es={article.date}
+                    data-en={article.dateEn}>{article.date}</span>
+            </div>
+            <div class="absolute bottom-3 right-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200">
+                <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+              </svg>
+            </div>
+          </a>
+        )
       ))}
     </div>
   </div>
