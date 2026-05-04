@@ -180,6 +180,26 @@ const navLinks = [
     });
   });
 
+  // Active section tracking
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('nav a[href^="#"]');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navAnchors.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('text-text-primary', isActive);
+          link.classList.toggle('nav-active', isActive);
+          link.classList.toggle('text-text-secondary', !isActive);
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+
+  sections.forEach(s => sectionObserver.observe(s));
+
   // Sync mobile lang toggle with desktop
   const langToggleMobile = document.getElementById('lang-toggle-mobile');
   const langLabelMobile = document.getElementById('lang-label-mobile');
