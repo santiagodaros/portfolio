@@ -58,10 +58,10 @@ const articles = [
     <span class="section-deco-number">04</span>
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16">
       <div>
-        <p class="section-title animate-on-scroll"
+        <p class="section-title animate-from-left"
            data-es="Articulos"
            data-en="Articles">Articulos</p>
-        <h2 class="section-heading animate-on-scroll">
+        <h2 class="section-heading animate-from-left" style="transition-delay:80ms">
           <span data-es="Contenido tecnico" data-en="Technical content">Contenido tecnico</span><br />
           <span class="text-accent"
                 data-es="para la comunidad"
@@ -72,7 +72,7 @@ const articles = [
         href="https://www.linkedin.com/in/santiagodaros/recent-activity/articles/"
         target="_blank"
         rel="noopener noreferrer"
-        class="btn-outline text-sm shrink-0 animate-on-scroll self-start sm:self-auto"
+        class="btn-outline text-sm shrink-0 animate-from-right self-start sm:self-auto"
       >
         <span data-es="Ver todos" data-en="View all">Ver todos</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,7 +86,7 @@ const articles = [
         article.locked ? (
           <div
             class="card flex flex-col animate-on-scroll"
-            style={`animation-delay: ${i * 0.08}s`}
+            style={`transition-delay: ${i * 80}ms`}
           >
             <!-- Blur overlay -->
             <div class="absolute inset-0 backdrop-blur-[3px] bg-surface-2/50 rounded-xl z-10 flex flex-col items-center justify-center gap-2 pointer-events-none">
@@ -118,7 +118,7 @@ const articles = [
             target="_blank"
             rel="noopener noreferrer"
             class="card group cursor-pointer animate-on-scroll flex flex-col"
-            style={`animation-delay: ${i * 0.08}s`}
+            style={`transition-delay: ${i * 80}ms`}
           >
             <div class="flex items-center justify-between mb-3">
               <div class="flex flex-wrap gap-1.5">

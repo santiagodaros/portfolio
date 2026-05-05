@@ -22,7 +22,7 @@ const contactLinks = [
       <p class="section-title animate-on-scroll"
          data-es="Contacto"
          data-en="Contact">Contacto</p>
-      <h2 class="section-heading mb-4 animate-on-scroll">
+      <h2 class="section-heading mb-4 animate-on-scroll" style="transition-delay:80ms">
         <span data-es="Hablemos de tu" data-en="Let's talk about your">Hablemos de tu</span><br />
         <span class="text-accent" data-es="infraestructura" data-en="infrastructure">infraestructura</span>
       </h2>
@@ -41,7 +41,7 @@ const contactLinks = [
             target={link.href.startsWith('mailto') ? '_self' : '_blank'}
             rel="noopener noreferrer"
             class="card group text-left animate-on-scroll"
-            style={`animation-delay: ${i * 0.1}s`}
+            style={`transition-delay: ${160 + i * 80}ms`}
           >
             <div class="text-text-secondary group-hover:text-accent transition-colors mb-3" set:html={link.icon} />
             <p class="text-sm font-medium text-text-primary group-hover:text-accent transition-colors">{link.label}</p>

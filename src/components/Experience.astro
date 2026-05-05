@@ -69,10 +69,10 @@ const experiences = [
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
     <span class="section-deco-number">02</span>
     <div class="mb-16">
-      <p class="section-title animate-on-scroll"
+      <p class="section-title animate-from-left"
          data-es="Experiencia"
          data-en="Experience">Experiencia</p>
-      <h2 class="section-heading animate-on-scroll"
+      <h2 class="section-heading animate-from-left" style="transition-delay:80ms"
           data-es="Trayectoria profesional"
           data-en="Professional Journey">Trayectoria profesional</h2>
     </div>
@@ -83,7 +83,7 @@ const experiences = [
 
       <div class="space-y-12">
         {experiences.map((exp, i) => (
-          <div class="relative md:pl-20 animate-on-scroll" style={`animation-delay: ${i * 0.15}s`}>
+          <div class="relative md:pl-20 animate-on-scroll" style={`transition-delay: ${i * 150}ms`}>
             <!-- Timeline dot -->
             <div class="absolute left-0 top-6 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-surface-3 border border-border z-10">
               {exp.current ? (
