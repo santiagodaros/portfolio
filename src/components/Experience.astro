@@ -1,7 +1,7 @@
 ---
 // Wraps standalone numbers in accent highlight span
 function hl(text: string): string {
-  return text.replace(/(?<![A-Za-z\/])(\b\d+\b)(?![-\/])/g, '<strong class="text-accent font-semibold">$1</strong>');
+  return text.replace(/\d+(?:\/\d+)*/g, '<strong class="text-accent font-semibold">$&</strong>');
 }
 
 const experiences = [
