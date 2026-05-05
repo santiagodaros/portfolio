@@ -31,6 +31,18 @@ const {
     <div id="scroll-bar" class="fixed top-0 left-0 h-0.5 z-[100] transition-all duration-75" style="width:0%; background: linear-gradient(90deg, #8b5cf6, #c4b5fd);"></div>
 
     <slot />
+
+    <!-- Scroll to top -->
+    <button
+      id="scroll-top"
+      class="fixed bottom-6 right-6 z-50 p-2.5 rounded-full bg-surface-3 border border-border text-text-secondary hover:text-accent hover:border-accent/50 hover:bg-surface-4 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none shadow-lg"
+      aria-label="Scroll to top"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m18 15-6-6-6 6"/>
+      </svg>
+    </button>
+
     <script>
       // Intersection Observer for scroll animations
       const observer = new IntersectionObserver(
@@ -54,7 +66,22 @@ const {
         const scrolled = window.scrollY;
         const total = document.documentElement.scrollHeight - window.innerHeight;
         if (scrollBar) scrollBar.style.width = (scrolled / total * 100) + '%';
+
+        // Scroll to top visibility
+        const scrollTopBtn = document.getElementById('scroll-top');
+        if (scrolled > 300) {
+          scrollTopBtn?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+          scrollTopBtn?.classList.add('opacity-100', 'translate-y-0');
+        } else {
+          scrollTopBtn?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+          scrollTopBtn?.classList.remove('opacity-100', 'translate-y-0');
+        }
       }, { passive: true });
+
+      // Scroll to top click
+      document.getElementById('scroll-top')?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
 
       // 5. Card tilt 3D effect
       document.querySelectorAll('.card').forEach(card => {

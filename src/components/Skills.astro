@@ -1,17 +1,35 @@
 ---
-const skills = [
-  { name: 'Microsoft Azure',    devicon: 'devicon-azure-plain colored' },
-  { name: 'Windows Server',     devicon: 'devicon-windows8-original colored' },
-  { name: 'PowerShell',         devicon: 'devicon-powershell-plain colored' },
-  { name: 'Python',             devicon: 'devicon-python-plain colored' },
-  { name: 'MySQL',              devicon: 'devicon-mysql-plain colored' },
-  { name: 'Azure Arc',          color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 17c0-5.523 4.477-10 10-10m3 2.5L20 12l-3 2.5M7 6.5L4 9l3 2.5"/>' },
-  { name: 'Azure Intune',       color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 2L4 6v5c0 4.418 3.36 8.573 8 9.93C16.64 19.573 20 15.418 20 11V6l-8-4z"/>' },
-  { name: 'Azure Cosmos DB',    color: '#0078D4', svg: '<ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(120 12 12)"/>' },
-  { name: 'Azure Data Factory', color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h4v4H4V6zm8 0h4v4h-4V6zm-4 8h4v4H8v-4zm8 0h4v4h-4v-4zm-6-4 2-2m4 0 2 2m-2 2v4"/>' },
-  { name: 'Azure Monitor',      color: '#0078D4', svg: '<polyline stroke-linecap="round" stroke-linejoin="round" points="2,12 6,12 8,5 11,19 14,9 16,14 18,12 22,12"/>' },
-  { name: 'Active Directory',   color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6 2a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2 7v-1a3 3 0 0 0-2.5-2.96"/>' },
-  { name: 'Power Platform',     color: '#742774', svg: '<polygon stroke-linecap="round" stroke-linejoin="round" points="13,2 4,14 12,14 11,22 20,10 12,10"/>' },
+const skillGroups = [
+  {
+    labelEs: 'Cloud & Identidad',
+    labelEn: 'Cloud & Identity',
+    skills: [
+      { name: 'Microsoft Azure',  devicon: 'devicon-azure-plain colored' },
+      { name: 'Active Directory', color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6 2a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2 7v-1a3 3 0 0 0-2.5-2.96"/>' },
+      { name: 'Azure Arc',        color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 17c0-5.523 4.477-10 10-10m3 2.5L20 12l-3 2.5M7 6.5L4 9l3 2.5"/>' },
+      { name: 'Azure Intune',     color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 2L4 6v5c0 4.418 3.36 8.573 8 9.93C16.64 19.573 20 15.418 20 11V6l-8-4z"/>' },
+      { name: 'Azure Monitor',    color: '#0078D4', svg: '<polyline stroke-linecap="round" stroke-linejoin="round" points="2,12 6,12 8,5 11,19 14,9 16,14 18,12 22,12"/>' },
+    ],
+  },
+  {
+    labelEs: 'Infraestructura & Scripting',
+    labelEn: 'Infrastructure & Scripting',
+    skills: [
+      { name: 'Windows Server', devicon: 'devicon-windows8-original colored' },
+      { name: 'PowerShell',     devicon: 'devicon-powershell-plain colored' },
+      { name: 'Python',         devicon: 'devicon-python-plain colored' },
+    ],
+  },
+  {
+    labelEs: 'Data & Low-Code',
+    labelEn: 'Data & Low-Code',
+    skills: [
+      { name: 'MySQL',              devicon: 'devicon-mysql-plain colored' },
+      { name: 'Azure Cosmos DB',    color: '#0078D4', svg: '<ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(120 12 12)"/>' },
+      { name: 'Azure Data Factory', color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h4v4H4V6zm8 0h4v4h-4V6zm-4 8h4v4H8v-4zm8 0h4v4h-4v-4zm-6-4 2-2m4 0 2 2m-2 2v4"/>' },
+      { name: 'Power Platform',     color: '#742774', svg: '<polygon stroke-linecap="round" stroke-linejoin="round" points="13,2 4,14 12,14 11,22 20,10 12,10"/>' },
+    ],
+  },
 ];
 
 const certifications = [
@@ -76,96 +94,42 @@ const languages = [
           data-en="Technologies & Languages">Tecnologias e idiomas</h2>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-8">
-      <!-- Skills tags -->
+    <!-- Row 1: Technologies + Languages -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-12">
+
+      <!-- Technologies grouped by category -->
       <div class="animate-from-left" style="transition-delay:80ms">
-        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4"
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-5"
             data-es="Tecnologias"
             data-en="Technologies">Tecnologias</h3>
-        <div class="flex flex-wrap gap-2">
-          {skills.map((skill) => (
-            <span class="tag hover:border-accent/40 hover:text-text-primary hover:bg-surface-3 transition-all duration-200 cursor-default flex items-center gap-1.5">
-              {skill.devicon ? (
-                <i class={`${skill.devicon} text-base leading-none`}></i>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                     stroke={skill.color} stroke-width="2" class="shrink-0"
-                     set:html={skill.svg} />
-              )}
-              {skill.name}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <!-- Certifications -->
-      <div class="animate-on-scroll" style="transition-delay: 160ms">
-        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4"
-            data-es="Certificaciones Microsoft"
-            data-en="Microsoft Certifications">Certificaciones Microsoft</h3>
-        <div class="space-y-2">
-          {certifications.map((cert) => (
-            <details class="cert-card group rounded-lg bg-surface-2 border border-border hover:border-accent/40 transition-colors duration-200">
-              <summary class="flex items-center gap-3 p-3 cursor-pointer list-none select-none">
-                <!-- Code pill -->
-                <span class={`font-mono font-bold text-xs shrink-0 px-2 py-1 rounded-md border text-center leading-tight w-[4.5rem] transition-colors ${
-                  cert.levelEs === 'Associate'
-                    ? 'bg-violet-500/15 text-violet-300 border-violet-500/25 group-open:bg-violet-500/25'
-                    : 'bg-sky-500/15 text-sky-300 border-sky-500/25 group-open:bg-sky-500/25'
-                }`}>
-                  {cert.name}
-                </span>
-
-                <!-- Name + date -->
-                <div class="flex-1 min-w-0">
-                  <p class="text-text-primary text-xs font-medium leading-snug">{cert.full}</p>
-                  <p class="text-text-muted text-[10px] font-mono mt-0.5"
-                     data-es={cert.date}
-                     data-en={cert.dateEn}>{cert.date}</p>
-                </div>
-
-                <!-- Level tag -->
-                <span class={`text-[10px] font-mono px-1.5 py-0.5 rounded shrink-0 hidden sm:inline ${
-                  cert.levelEs === 'Associate'
-                    ? 'bg-violet-500/15 text-violet-300 border border-violet-500/25'
-                    : 'bg-sky-500/15 text-sky-300 border border-sky-500/25'
-                }`}
-                  data-es={cert.levelEs}
-                  data-en={cert.levelEn}
-                >{cert.levelEs}</span>
-
-                <!-- Chevron -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted shrink-0 transition-transform duration-200 group-open:rotate-180">
-                  <path d="m6 9 6 6 6-6"/>
-                </svg>
-              </summary>
-
-              <!-- Expanded content -->
-              <div class="px-3 pb-3">
-                <div class="pt-2.5 border-t border-border/60">
-                  <p class="text-text-secondary text-xs leading-relaxed mb-3"
-                     data-es={cert.descEs}
-                     data-en={cert.descEn}>{cert.descEs}</p>
-                  <a
-                    href={cert.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold hover:text-accent-dim transition-colors"
-                    onclick="event.stopPropagation()"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                    <span data-es="Verificar credencial" data-en="Verify credential">Verificar credencial</span>
-                  </a>
-                </div>
+        <div class="space-y-4">
+          {skillGroups.map((group) => (
+            <div>
+              <p class="text-[10px] font-mono text-text-muted/70 uppercase tracking-widest mb-2"
+                 data-es={group.labelEs}
+                 data-en={group.labelEn}>{group.labelEs}</p>
+              <div class="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span class="tag hover:border-accent/40 hover:text-text-primary hover:bg-surface-3 transition-all duration-200 cursor-default flex items-center gap-1.5">
+                    {skill.devicon ? (
+                      <i class={`${skill.devicon} text-base leading-none`}></i>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                           stroke={skill.color} stroke-width="2" class="shrink-0"
+                           set:html={skill.svg} />
+                    )}
+                    {skill.name}
+                  </span>
+                ))}
               </div>
-            </details>
+            </div>
           ))}
         </div>
       </div>
 
       <!-- Languages -->
-      <div class="animate-from-right" style="transition-delay: 240ms">
-        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-4"
+      <div class="animate-from-right" style="transition-delay:160ms">
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest mb-5"
             data-es="Idiomas"
             data-en="Languages">Idiomas</h3>
         <div class="space-y-2.5">
@@ -183,6 +147,58 @@ const languages = [
             </div>
           ))}
         </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Certifications full-width -->
+    <div class="animate-on-scroll" style="transition-delay:240ms">
+      <div class="flex items-center gap-3 mb-5">
+        <h3 class="text-xs font-mono text-text-muted uppercase tracking-widest"
+            data-es="Certificaciones Microsoft"
+            data-en="Microsoft Certifications">Certificaciones Microsoft</h3>
+        <div class="flex-1 h-px bg-border"></div>
+        <span class="text-xs font-mono text-text-muted">{certifications.length}</span>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        {certifications.map((cert) => (
+          <details class="cert-card group rounded-lg bg-surface-2 border border-border hover:border-accent/40 transition-colors duration-200">
+            <summary class="flex items-center gap-3 p-3 cursor-pointer list-none select-none">
+              <span class={`font-mono font-bold text-xs shrink-0 px-2 py-1 rounded-md border text-center leading-tight w-[4.5rem] transition-colors ${
+                cert.levelEs === 'Associate'
+                  ? 'bg-violet-500/15 text-violet-300 border-violet-500/25 group-open:bg-violet-500/25'
+                  : 'bg-sky-500/15 text-sky-300 border-sky-500/25 group-open:bg-sky-500/25'
+              }`}>
+                {cert.name}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="text-text-primary text-xs font-medium leading-snug">{cert.full}</p>
+                <p class="text-text-muted text-[10px] font-mono mt-0.5"
+                   data-es={cert.date}
+                   data-en={cert.dateEn}>{cert.date}</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-text-muted shrink-0 transition-transform duration-200 group-open:rotate-180">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </summary>
+            <div class="px-3 pb-3">
+              <div class="pt-2.5 border-t border-border/60">
+                <p class="text-text-secondary text-xs leading-relaxed mb-3"
+                   data-es={cert.descEs}
+                   data-en={cert.descEn}>{cert.descEs}</p>
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold hover:text-accent-dim transition-colors"
+                  onclick="event.stopPropagation()"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <span data-es="Verificar credencial" data-en="Verify credential">Verificar credencial</span>
+                </a>
+              </div>
+            </div>
+          </details>
+        ))}
       </div>
     </div>
   </div>

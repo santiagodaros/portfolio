@@ -1,4 +1,9 @@
 ---
+// Wraps standalone numbers in accent highlight span
+function hl(text: string): string {
+  return text.replace(/(?<![A-Za-z\/])(\b\d+\b)(?![-\/])/g, '<strong class="text-accent font-semibold">$1</strong>');
+}
+
 const experiences = [
   {
     role: 'Cloud Demand Hub Trainee',
@@ -137,7 +142,7 @@ const experiences = [
                 {exp.achievementsEs.map((a, j) => (
                   <li class="flex items-start gap-2 text-sm text-text-secondary">
                     <span class="text-accent mt-0.5 shrink-0">▸</span>
-                    <span data-es={a} data-en={exp.achievementsEn[j]}>{a}</span>
+                    <span data-es={a} data-en={exp.achievementsEn[j]} set:html={hl(a)} />
                   </li>
                 ))}
               </ul>
