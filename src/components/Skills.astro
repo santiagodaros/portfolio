@@ -5,13 +5,13 @@ const skills = [
   { name: 'PowerShell',         devicon: 'devicon-powershell-plain colored' },
   { name: 'Python',             devicon: 'devicon-python-plain colored' },
   { name: 'MySQL',              devicon: 'devicon-mysql-plain colored' },
-  { name: 'Azure Arc',          color: '#0078D4', abbr: 'Arc' },
-  { name: 'Azure Intune',       color: '#0078D4', abbr: 'MDM' },
-  { name: 'Azure Cosmos DB',    color: '#0078D4', abbr: 'CDB' },
-  { name: 'Azure Data Factory', color: '#0078D4', abbr: 'ADF' },
-  { name: 'Azure Monitor',      color: '#0078D4', abbr: 'Mon' },
-  { name: 'Active Directory',   color: '#0078D4', abbr: 'AD' },
-  { name: 'Power Platform',     color: '#742774', abbr: 'PP' },
+  { name: 'Azure Arc',          color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 17c0-5.523 4.477-10 10-10m3 2.5L20 12l-3 2.5M7 6.5L4 9l3 2.5"/>' },
+  { name: 'Azure Intune',       color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 2L4 6v5c0 4.418 3.36 8.573 8 9.93C16.64 19.573 20 15.418 20 11V6l-8-4z"/>' },
+  { name: 'Azure Cosmos DB',    color: '#0078D4', svg: '<ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" stroke-linecap="round" transform="rotate(120 12 12)"/>' },
+  { name: 'Azure Data Factory', color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h4v4H4V6zm8 0h4v4h-4V6zm-4 8h4v4H8v-4zm8 0h4v4h-4v-4zm-6-4 2-2m4 0 2 2m-2 2v4"/>' },
+  { name: 'Azure Monitor',      color: '#0078D4', svg: '<polyline stroke-linecap="round" stroke-linejoin="round" points="2,12 6,12 8,5 11,19 14,9 16,14 18,12 22,12"/>' },
+  { name: 'Active Directory',   color: '#0078D4', svg: '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6 2a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2 7v-1a3 3 0 0 0-2.5-2.96"/>' },
+  { name: 'Power Platform',     color: '#742774', svg: '<polygon stroke-linecap="round" stroke-linejoin="round" points="13,2 4,14 12,14 11,22 20,10 12,10"/>' },
 ];
 
 const certifications = [
@@ -53,10 +53,9 @@ const languages = [
               {skill.devicon ? (
                 <i class={`${skill.devicon} text-base leading-none`}></i>
               ) : (
-                <span class="inline-flex items-center justify-center w-4 h-4 rounded text-[9px] font-bold leading-none shrink-0"
-                      style={`background: ${skill.color}22; color: ${skill.color}; border: 1px solid ${skill.color}44`}>
-                  {skill.abbr}
-                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                     stroke={skill.color} stroke-width="2" class="shrink-0"
+                     set:html={skill.svg} />
               )}
               {skill.name}
             </span>
