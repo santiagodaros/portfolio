@@ -1,19 +1,43 @@
 ---
-const publishedArticle = {
-  tags: ['AzureBlobStorage', 'CostOptimization', 'DataTiering'],
-  titleEs: 'Almacenamiento inteligente: bajar costos archivando datos viejos',
-  titleEn: 'Intelligent Storage: Reducing Costs by Archiving Old Data',
-  descEs: 'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
-  descEn: 'Designing solutions that balance scalability, security and cost-efficiency is a constant challenge; here we look at how to apply it to inactive data storage in Azure.',
-  dateEs: '· 20 Abr 2026 · 5 min',
-  dateEn: '· Apr 20, 2026 · 5 min',
-  link: 'https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf',
-};
+// Ordered newest → oldest; the first one renders as the featured card
+const publishedArticles = [
+  {
+    tags: ['AzurePolicy', 'Governance', 'DINE'],
+    titleEs: 'Seguridad por defecto: forzando políticas que nadie puede saltarse',
+    titleEn: 'Secure by default: enforcing policies no one can bypass',
+    descEs: '¿Cuántas veces un servidor nuevo llega a producción sin el agente de monitoreo o fuera de la política de backup? Azure Policy con DeployIfNotExists (DINE) para una infraestructura que se protege sola desde el momento en que se crea.',
+    descEn: 'How often does a new server reach production without the monitoring agent or outside the backup policy? Azure Policy with DeployIfNotExists (DINE) for infrastructure that protects itself from the moment it is created.',
+    dateEs: '· 24 May 2026',
+    dateEn: '· May 24, 2026',
+    link: 'https://www.linkedin.com/feed/update/urn:li:activity:7464336931917545472/',
+  },
+  {
+    tags: ['AzureResourceGraph', 'KQL', 'FinOps'],
+    titleEs: 'Crónica de una auditoría: el cliente que perdía presupuesto por borrar servidores a medias',
+    titleEn: 'Audit chronicle: the client losing budget by half-deleting servers',
+    descEs: 'Discos e IPs públicas huérfanas consumiendo presupuesto: dos querys de KQL en Azure Resource Graph que recuperaron casi 2000 USD mensuales en una sola tarde.',
+    descEn: 'Orphaned disks and public IPs draining budget: two KQL queries in Azure Resource Graph that recovered almost 2,000 USD per month in a single afternoon.',
+    dateEs: '· 17 May 2026',
+    dateEn: '· May 17, 2026',
+    link: 'https://www.linkedin.com/feed/update/urn:li:activity:7461807759743721472/',
+  },
+  {
+    tags: ['AzureBlobStorage', 'CostOptimization', 'DataTiering'],
+    titleEs: 'Almacenamiento inteligente: bajar costos archivando datos viejos',
+    titleEn: 'Intelligent Storage: Reducing Costs by Archiving Old Data',
+    descEs: 'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
+    descEn: 'Designing solutions that balance scalability, security and cost-efficiency is a constant challenge; here we look at how to apply it to inactive data storage in Azure.',
+    dateEs: '· 20 Abr 2026 · 5 min',
+    dateEn: '· Apr 20, 2026 · 5 min',
+    link: 'https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf',
+  },
+];
+
+const [featured, ...older] = publishedArticles;
 
 const articleUpcoming = [
   { tags: ['AzureAD', 'EntraID'], titleEs: 'Migración de identidades on-premise a Azure AD', titleEn: 'On-premise identity migration to Azure AD' },
   { tags: ['AzureArc', 'Hybrid'], titleEs: 'Azure Arc: integrando infraestructura On-Prem con la nube', titleEn: 'Azure Arc: integrating On-Prem infrastructure with the cloud' },
-  { tags: ['FinOps', 'Azure'], titleEs: 'FinOps en Azure: optimización de costos en suscripciones reales', titleEn: 'FinOps in Azure: cost optimization in real subscriptions' },
 ];
 ---
 
@@ -38,22 +62,22 @@ const articleUpcoming = [
       </a>
     </div>
 
-    <!-- Published article -->
+    <!-- Featured: newest published article -->
     <div class="box-alt p-6 animate-on-scroll">
       <div class="inline-flex items-center gap-[7px] font-mono font-bold text-[11px] text-tgreen border px-2 py-[3px] mb-3.5" style="border-color: var(--color-green)">
-        <span class="pulse-square w-1.5 h-1.5"></span><span data-es="publicado" data-en="published">publicado</span>
+        <span class="pulse-square w-1.5 h-1.5"></span><span data-es="último publicado" data-en="latest published">último publicado</span>
       </div>
-      <div class="font-mono font-bold text-lg sm:text-[19px] text-text-primary leading-snug" data-es={publishedArticle.titleEs} data-en={publishedArticle.titleEn}>{publishedArticle.titleEs}</div>
-      <p class="mt-2.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[760px]" data-es={publishedArticle.descEs} data-en={publishedArticle.descEn}>{publishedArticle.descEs}</p>
+      <div class="font-mono font-bold text-lg sm:text-[19px] text-text-primary leading-snug" data-es={featured.titleEs} data-en={featured.titleEn}>{featured.titleEs}</div>
+      <p class="mt-2.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[760px]" data-es={featured.descEs} data-en={featured.descEn}>{featured.descEs}</p>
       <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
         <div class="flex flex-wrap gap-2 font-mono text-[11.5px] text-text-muted">
-          {publishedArticle.tags.map((tg) => (
+          {featured.tags.map((tg) => (
             <span>#{tg}</span>
           ))}
-          <span data-es={publishedArticle.dateEs} data-en={publishedArticle.dateEn}>{publishedArticle.dateEs}</span>
+          <span data-es={featured.dateEs} data-en={featured.dateEn}>{featured.dateEs}</span>
         </div>
         <a
-          href={publishedArticle.link}
+          href={featured.link}
           target="_blank"
           rel="noopener noreferrer"
           class="font-mono font-bold text-[12.5px] text-accent hover:opacity-80 transition-opacity"
@@ -63,6 +87,37 @@ const articleUpcoming = [
           [leer_en_linkedin ↗]
         </a>
       </div>
+    </div>
+
+    <!-- Older published articles, newest first -->
+    <div class="mt-3 flex flex-col gap-2.5">
+      {older.map((art, i) => (
+        <div class="box p-5 hover:border-accent transition-colors animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
+          <div class="flex items-center gap-2 mb-2 font-mono text-[11px] text-tgreen">
+            <span class="w-1.5 h-1.5 bg-tgreen inline-block"></span><span data-es="publicado" data-en="published">publicado</span>
+          </div>
+          <div class="font-mono font-bold text-[15px] text-text-primary leading-snug" data-es={art.titleEs} data-en={art.titleEn}>{art.titleEs}</div>
+          <p class="mt-1.5 font-mono text-xs leading-relaxed text-text-secondary max-w-[720px]" data-es={art.descEs} data-en={art.descEn}>{art.descEs}</p>
+          <div class="mt-3 flex justify-between items-center flex-wrap gap-2.5">
+            <div class="flex flex-wrap gap-2 font-mono text-[11px] text-text-muted">
+              {art.tags.map((tg) => (
+                <span>#{tg}</span>
+              ))}
+              <span data-es={art.dateEs} data-en={art.dateEn}>{art.dateEs}</span>
+            </div>
+            <a
+              href={art.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono font-bold text-[11.5px] text-accent hover:opacity-80 transition-opacity"
+              data-es="[leer ↗]"
+              data-en="[read ↗]"
+            >
+              [leer ↗]
+            </a>
+          </div>
+        </div>
+      ))}
     </div>
 
     <!-- Upcoming -->
