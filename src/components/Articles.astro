@@ -1,17 +1,19 @@
 ---
 const publishedArticle = {
   tags: ['AzureBlobStorage', 'CostOptimization', 'DataTiering'],
-  title: 'Almacenamiento inteligente: bajar costos archivando datos viejos',
-  desc: 'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
-  date: '20 Abr 2026',
-  readTime: '5 min',
+  titleEs: 'Almacenamiento inteligente: bajar costos archivando datos viejos',
+  titleEn: 'Intelligent Storage: Reducing Costs by Archiving Old Data',
+  descEs: 'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
+  descEn: 'Designing solutions that balance scalability, security and cost-efficiency is a constant challenge; here we look at how to apply it to inactive data storage in Azure.',
+  dateEs: '· 20 Abr 2026 · 5 min',
+  dateEn: '· Apr 20, 2026 · 5 min',
   link: 'https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf',
 };
 
 const articleUpcoming = [
-  { tags: ['AzureAD', 'EntraID'], title: 'Migración de identidades on-premise a Azure AD' },
-  { tags: ['AzureArc', 'Hybrid'], title: 'Azure Arc: integrando infraestructura On-Prem con la nube' },
-  { tags: ['FinOps', 'Azure'], title: 'FinOps en Azure: optimización de costos en suscripciones reales' },
+  { tags: ['AzureAD', 'EntraID'], titleEs: 'Migración de identidades on-premise a Azure AD', titleEn: 'On-premise identity migration to Azure AD' },
+  { tags: ['AzureArc', 'Hybrid'], titleEs: 'Azure Arc: integrando infraestructura On-Prem con la nube', titleEn: 'Azure Arc: integrating On-Prem infrastructure with the cloud' },
+  { tags: ['FinOps', 'Azure'], titleEs: 'FinOps en Azure: optimización de costos en suscripciones reales', titleEn: 'FinOps in Azure: cost optimization in real subscriptions' },
 ];
 ---
 
@@ -19,9 +21,9 @@ const articleUpcoming = [
   <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
     <div class="flex justify-between items-end flex-wrap gap-2.5 mb-8">
       <div>
-        <p class="section-label animate-on-scroll">04 // articulos.sh</p>
+        <p class="section-label animate-on-scroll" data-es="04 // articulos.sh" data-en="04 // articles.sh">04 // articulos.sh</p>
         <h2 class="section-heading animate-on-scroll">
-          Contenido técnico <span class="accent-serif">para la comunidad</span>
+          <span data-es="Contenido técnico " data-en="Technical content ">Contenido técnico </span><span class="accent-serif" data-es="para la comunidad" data-en="for the community">para la comunidad</span>
         </h2>
       </div>
       <a
@@ -29,6 +31,8 @@ const articleUpcoming = [
         target="_blank"
         rel="noopener noreferrer"
         class="font-mono font-semibold text-xs text-text-secondary hover:text-accent transition-colors animate-on-scroll"
+        data-es="[ver_todos →]"
+        data-en="[see_all →]"
       >
         [ver_todos →]
       </a>
@@ -37,22 +41,24 @@ const articleUpcoming = [
     <!-- Published article -->
     <div class="box-alt p-6 animate-on-scroll">
       <div class="inline-flex items-center gap-[7px] font-mono font-bold text-[11px] text-tgreen border px-2 py-[3px] mb-3.5" style="border-color: var(--color-green)">
-        <span class="pulse-square w-1.5 h-1.5"></span>publicado
+        <span class="pulse-square w-1.5 h-1.5"></span><span data-es="publicado" data-en="published">publicado</span>
       </div>
-      <div class="font-mono font-bold text-lg sm:text-[19px] text-text-primary leading-snug">{publishedArticle.title}</div>
-      <p class="mt-2.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[760px]">{publishedArticle.desc}</p>
+      <div class="font-mono font-bold text-lg sm:text-[19px] text-text-primary leading-snug" data-es={publishedArticle.titleEs} data-en={publishedArticle.titleEn}>{publishedArticle.titleEs}</div>
+      <p class="mt-2.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[760px]" data-es={publishedArticle.descEs} data-en={publishedArticle.descEn}>{publishedArticle.descEs}</p>
       <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
         <div class="flex flex-wrap gap-2 font-mono text-[11.5px] text-text-muted">
           {publishedArticle.tags.map((tg) => (
             <span>#{tg}</span>
           ))}
-          <span>· {publishedArticle.date} · {publishedArticle.readTime}</span>
+          <span data-es={publishedArticle.dateEs} data-en={publishedArticle.dateEn}>{publishedArticle.dateEs}</span>
         </div>
         <a
           href={publishedArticle.link}
           target="_blank"
           rel="noopener noreferrer"
           class="font-mono font-bold text-[12.5px] text-accent hover:opacity-80 transition-opacity"
+          data-es="[leer_en_linkedin ↗]"
+          data-en="[read_on_linkedin ↗]"
         >
           [leer_en_linkedin ↗]
         </a>
@@ -66,9 +72,9 @@ const articleUpcoming = [
           class="grid sm:grid-cols-[130px_1fr] gap-2 sm:gap-5 p-4 border border-dashed border-border animate-on-scroll"
           style={`transition-delay: ${i * 0.06}s`}
         >
-          <div class="font-mono text-[11.5px] text-text-muted">próximamente</div>
+          <div class="font-mono text-[11.5px] text-text-muted" data-es="próximamente" data-en="coming soon">próximamente</div>
           <div>
-            <div class="font-mono text-sm text-text-secondary">{art.title}</div>
+            <div class="font-mono text-sm text-text-secondary" data-es={art.titleEs} data-en={art.titleEn}>{art.titleEs}</div>
             <div class="mt-1.5 flex gap-2 font-mono text-[11px] text-text-muted">
               {art.tags.map((tg) => (
                 <span>#{tg}</span>

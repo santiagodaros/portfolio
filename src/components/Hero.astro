@@ -1,8 +1,8 @@
 ---
 const stats = [
-  { key: 'certificaciones =', value: '6' },
-  { key: 'meses_en_cloud =', value: '12' },
-  { key: 'formación =', value: 'UBA' },
+  { keyEs: 'certificaciones =', keyEn: 'certifications =', value: '6' },
+  { keyEs: 'meses_en_cloud =', keyEn: 'months_in_cloud =', value: '12' },
+  { keyEs: 'formación =', keyEn: 'education =', value: 'UBA' },
 ];
 ---
 
@@ -23,19 +23,39 @@ const stats = [
       </h1>
 
       <div class="typewriter mt-6 w-fit">
-        <span class="font-mono text-sm text-text-secondary">Cloud Demand Hub · Lic. Cs. Computación (UBA)</span>
+        <span
+          class="font-mono text-sm text-text-secondary"
+          data-es="Cloud Demand Hub · Lic. Cs. Computación (UBA)"
+          data-en="Cloud Demand Hub · BSc Computer Science (UBA)"
+        >Cloud Demand Hub · Lic. Cs. Computación (UBA)</span>
       </div>
 
-      <p class="mt-6 max-w-[520px] font-mono text-[15px] leading-[1.7] text-text-secondary animate-on-scroll">
+      <p data-i18n="es" class="mt-6 max-w-[520px] font-mono text-[15px] leading-[1.7] text-text-secondary animate-on-scroll">
         Trabajo en entornos Nube (<strong class="text-text-primary font-semibold">Microsoft Azure</strong>),
         <strong class="text-text-primary font-semibold">Híbridos</strong> y
         <strong class="text-text-primary font-semibold">On-Prem</strong> gestionando incidentes,
         documentando procedimientos técnicos y trabajando directo con clientes.
       </p>
+      <p data-i18n="en" class="mt-6 max-w-[520px] font-mono text-[15px] leading-[1.7] text-text-secondary animate-on-scroll">
+        I work across Cloud (<strong class="text-text-primary font-semibold">Microsoft Azure</strong>),
+        <strong class="text-text-primary font-semibold">Hybrid</strong> and
+        <strong class="text-text-primary font-semibold">On-Prem</strong> environments managing incidents,
+        writing technical documentation and working directly with clients.
+      </p>
 
       <div class="flex flex-wrap gap-3 mt-8 animate-on-scroll">
-        <a href="#experience" class="btn-solid">Ver_experiencia →</a>
-        <a href="/cv.pdf" download class="btn-box">Descargar_CV ↓</a>
+        <a href="#experience" class="btn-solid" data-es="Ver_experiencia →" data-en="See_experience →">Ver_experiencia →</a>
+        <a
+          href="/cv-es.pdf"
+          download="CV-Santiago-DaRos-ES.pdf"
+          class="btn-box"
+          data-href-es="/cv-es.pdf"
+          data-href-en="/cv-en.pdf"
+          data-filename-es="CV-Santiago-DaRos-ES.pdf"
+          data-filename-en="CV-Santiago-DaRos-EN.pdf"
+          data-es="Descargar_CV ↓"
+          data-en="Download_CV ↓"
+        >Descargar_CV ↓</a>
       </div>
     </div>
 
@@ -61,7 +81,7 @@ const stats = [
   <div class="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-3">
     {stats.map((s, i) => (
       <div class={`px-5 sm:px-10 py-5 font-mono border-border ${i < 2 ? 'border-b sm:border-b-0 sm:border-r' : ''}`}>
-        <div class="text-[11px] text-text-muted">{s.key}</div>
+        <div class="text-[11px] text-text-muted" data-es={s.keyEs} data-en={s.keyEn}>{s.keyEs}</div>
         <div class="text-[26px] font-bold mt-1 text-text-primary">{s.value}</div>
       </div>
     ))}

@@ -1,10 +1,10 @@
 ---
 const navLinks = [
-  { href: '#about', label: 'sobre mí' },
-  { href: '#experience', label: 'experiencia' },
-  { href: '#stack', label: 'stack' },
-  { href: '#articles', label: 'artículos' },
-  { href: '#contact', label: 'contacto' },
+  { href: '#about', labelEs: './sobre mí', labelEn: './about' },
+  { href: '#experience', labelEs: './experiencia', labelEn: './experience' },
+  { href: '#stack', labelEs: './stack', labelEn: './stack' },
+  { href: '#articles', labelEs: './artículos', labelEn: './articles' },
+  { href: '#contact', labelEs: './contacto', labelEn: './contact' },
 ];
 ---
 
@@ -25,15 +25,29 @@ const navLinks = [
           <a
             href={link.href}
             class="font-mono text-xs text-text-secondary px-3.5 py-2 border border-transparent hover:border-border hover:bg-surface-3 hover:text-text-primary transition-colors"
+            data-es={link.labelEs}
+            data-en={link.labelEn}
           >
-            ./{link.label}
+            {link.labelEs}
           </a>
         ))}
+
+        <!-- Language toggle -->
+        <button
+          id="lang-toggle"
+          class="ml-2.5 h-[30px] px-2 border border-border bg-surface-3 text-text-primary hover:border-accent transition-colors flex items-center gap-1.5 font-mono text-[11px] font-semibold"
+          aria-label="Cambiar idioma"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+          </svg>
+          <span class="lang-label">EN</span>
+        </button>
 
         <!-- Theme toggle -->
         <button
           id="theme-toggle"
-          class="ml-2.5 w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary hover:border-accent transition-colors flex items-center justify-center"
+          class="w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary hover:border-accent transition-colors flex items-center justify-center"
           aria-label="Cambiar tema"
         >
           <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -45,8 +59,18 @@ const navLinks = [
         </button>
       </div>
 
-      <!-- Mobile: theme + menu -->
+      <!-- Mobile: lang + theme + menu -->
       <div class="flex md:hidden items-center gap-2">
+        <button
+          id="lang-toggle-m"
+          class="h-[30px] px-2 border border-border bg-surface-3 text-text-primary flex items-center gap-1 font-mono text-[11px] font-semibold"
+          aria-label="Cambiar idioma"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
+          </svg>
+          <span class="lang-label">EN</span>
+        </button>
         <button
           id="theme-toggle-m"
           class="w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary flex items-center justify-center"
@@ -82,8 +106,10 @@ const navLinks = [
             <a
               href={link.href}
               class="mobile-link block font-mono text-xs text-text-secondary px-3 py-2.5 border border-transparent hover:border-border hover:bg-surface-3 hover:text-text-primary transition-colors"
+              data-es={link.labelEs}
+              data-en={link.labelEn}
             >
-              ./{link.label}
+              {link.labelEs}
             </a>
           </li>
         ))}

@@ -1,37 +1,54 @@
 ---
 const focusAreas = [
-  { n: '01', title: 'Cloud Architecture', desc: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.' },
-  { n: '02', title: 'Automatización', desc: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.' },
-  { n: '03', title: 'Identidad & Seguridad', desc: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.' },
-  { n: '04', title: 'Documentación Técnica', desc: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.' },
+  { n: '01', titleEs: 'Cloud Architecture', titleEn: 'Cloud Architecture', descEs: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.', descEn: 'Design and management of Azure environments, including IaaS, PaaS and hybrid services at enterprise scale.' },
+  { n: '02', titleEs: 'Automatización', titleEn: 'Automation', descEs: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.', descEn: 'Development of runbooks and PowerShell scripts to eliminate repetitive manual tasks and reduce human error.' },
+  { n: '03', titleEs: 'Identidad & Seguridad', titleEn: 'Identity & Security', descEs: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.', descEn: 'Advanced administration of Active Directory, Group Policy (GPO), Azure AD and hybrid integration.' },
+  { n: '04', titleEs: 'Documentación Técnica', titleEn: 'Technical Writing', descEs: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.', descEn: 'High-value technical content: articles, guides and runbooks for the IT community.' },
 ];
 ---
 
 <section id="about" class="border-b border-border">
   <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
-    <p class="section-label animate-on-scroll">01 // sobre-mi.md</p>
+    <p class="section-label animate-on-scroll" data-es="01 // sobre-mi.md" data-en="01 // about-me.md">01 // sobre-mi.md</p>
     <h2 class="section-heading mb-9 animate-on-scroll">
-      Infraestructura que <span class="accent-serif">escala contigo</span>
+      <span data-es="Infraestructura que " data-en="Infrastructure that ">Infraestructura que </span><span class="accent-serif" data-es="escala contigo" data-en="scales with you">escala contigo</span>
     </h2>
 
     <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
       <!-- Bio panel -->
       <div class="box-alt p-6 font-mono text-sm leading-[1.75] text-text-secondary animate-on-scroll">
-        <p>
-          Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura
-          con foco en entornos Cloud empresariales. Migraciones a Azure, consolidación de identidades,
-          automatización de procesos operacionales y alta disponibilidad.
-        </p>
-        <p class="mt-4">
-          Construyo puentes entre on-premise y la nube: documentación clara, runbooks accionables
-          y una base automatizada para el equipo que lo opera.
-        </p>
-        <p class="mt-4">
-          Además, creo contenido técnico para la comunidad hispanohablante de IT: Active Directory,
-          PowerShell avanzado y estrategias Cloud.
-        </p>
+        <div data-i18n="es">
+          <p>
+            Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura
+            con foco en entornos Cloud empresariales. Migraciones a Azure, consolidación de identidades,
+            automatización de procesos operacionales y alta disponibilidad.
+          </p>
+          <p class="mt-4">
+            Construyo puentes entre on-premise y la nube: documentación clara, runbooks accionables
+            y una base automatizada para el equipo que lo opera.
+          </p>
+          <p class="mt-4">
+            Además, creo contenido técnico para la comunidad hispanohablante de IT: Active Directory,
+            PowerShell avanzado y estrategias Cloud.
+          </p>
+        </div>
+        <div data-i18n="en">
+          <p>
+            I'm <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, an infrastructure engineer
+            focused on enterprise Cloud environments. Azure migrations, identity consolidation,
+            operational process automation and high availability.
+          </p>
+          <p class="mt-4">
+            I bridge on-premise and cloud environments: clear documentation, actionable runbooks
+            and an automated foundation for the team that operates it.
+          </p>
+          <p class="mt-4">
+            In parallel, I create technical content for the Spanish-speaking IT community: Active Directory,
+            advanced PowerShell and Cloud strategies.
+          </p>
+        </div>
         <div class="flex gap-4 mt-5">
-          <a href="#contact" class="font-mono font-semibold text-[13px] text-accent hover:opacity-80 transition-opacity">[Contactar]</a>
+          <a href="#contact" class="font-mono font-semibold text-[13px] text-accent hover:opacity-80 transition-opacity" data-es="[Contactar]" data-en="[Contact]">[Contactar]</a>
           <a href="https://www.linkedin.com/in/santiagodaros" target="_blank" rel="noopener noreferrer" class="font-mono font-semibold text-[13px] text-text-secondary hover:text-text-primary transition-colors">[LinkedIn ↗]</a>
         </div>
       </div>
@@ -45,8 +62,8 @@ const focusAreas = [
           >
             <div class="font-mono font-bold text-[13px] text-accent shrink-0">{area.n}</div>
             <div>
-              <div class="font-mono font-bold text-sm text-text-primary">{area.title}</div>
-              <div class="mt-1.5 font-mono text-[13px] leading-normal text-text-secondary">{area.desc}</div>
+              <div class="font-mono font-bold text-sm text-text-primary" data-es={area.titleEs} data-en={area.titleEn}>{area.titleEs}</div>
+              <div class="mt-1.5 font-mono text-[13px] leading-normal text-text-secondary" data-es={area.descEs} data-en={area.descEn}>{area.descEs}</div>
             </div>
           </div>
         ))}

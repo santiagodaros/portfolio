@@ -3,50 +3,72 @@ const experiences = [
   {
     role: 'Cloud Demand Hub Trainee',
     company: 'readymind',
-    period: 'Oct 2025 — Presente',
-    meta: 'Buenos Aires, Argentina · Híbrido · ~7 meses · Full-time',
+    periodEs: 'Oct 2025 — Presente',
+    periodEn: 'Oct 2025 — Present',
+    metaEs: 'Buenos Aires, Argentina · Híbrido · ~7 meses · Full-time',
+    metaEn: 'Buenos Aires, Argentina · Hybrid · ~7 months · Full-time',
     current: true,
-    description:
+    descriptionEs:
       'Soporte en operaciones Cloud dentro del equipo de readymind, con foco en entornos Microsoft Azure híbridos.',
-    achievements: [
+    descriptionEn:
+      'Cloud operations support within the readymind team, focused on hybrid Microsoft Azure environments.',
+    achievementsEs: [
       'Gestión de incidentes y operaciones en entornos Azure híbridos, atendiendo tickets y manteniendo los SLAs del equipo',
       'Implementación y evaluación de Azure Arc sobre servidores, integrando infraestructura on-premises con la nube',
       'Administración de dispositivos con Microsoft Intune, incluyendo despliegue de políticas y configuraciones',
       'Participación en iniciativas de optimización de costos en suscripciones Azure, contribuyendo a la optimización mediante relevamiento de FinOps',
       'Certificaciones obtenidas durante el rol: AZ-104 (Azure Administrator) y AZ-800/801 (Windows Server Hybrid Admin)',
     ],
+    achievementsEn: [
+      'Incident and operations management in hybrid Azure environments, handling tickets and maintaining team SLAs',
+      'Implementation and evaluation of Azure Arc on servers, integrating on-premises infrastructure with the cloud',
+      'Device management with Microsoft Intune, including policy and configuration deployment',
+      'Participation in cost optimization initiatives in Azure subscriptions, contributing through FinOps assessment',
+      'Certifications obtained during the role: AZ-104 (Azure Administrator) and AZ-800/801 (Windows Server Hybrid Admin)',
+    ],
     tags: ['Azure', 'Azure Arc', 'Intune', 'AZ-104', 'AZ-800/801', 'Windows Server'],
   },
   {
     role: 'Cloud Engineer',
     company: 'readymind',
-    period: 'May 2025 — Oct 2025',
-    meta: 'Buenos Aires, Argentina · Híbrido · ~6 meses · Part-time',
+    periodEs: 'May 2025 — Oct 2025',
+    periodEn: 'May 2025 — Oct 2025',
+    metaEs: 'Buenos Aires, Argentina · Híbrido · ~6 meses · Part-time',
+    metaEn: 'Buenos Aires, Argentina · Hybrid · ~6 months · Part-time',
     current: false,
-    description:
+    descriptionEs:
       'Programa intensivo de 6 meses en Cloud, Data y Low-Code dentro de readymind.',
-    achievements: [
+    descriptionEn:
+      'Intensive 6-month program in Cloud, Data, and Low-Code within readymind.',
+    achievementsEs: [
       'Completé un programa intensivo de 6 meses en Cloud, Data y Low-Code, obteniendo excelentes resultados en certificaciones y practicando con casos de estudio',
       'Adquirí competencias prácticas en Microsoft Azure a través de laboratorios, proyectos y evaluaciones técnicas',
       'Obtuve 3 certificaciones Microsoft (AZ-900, DP-900, PL-900) durante el programa, demostrando dominio acelerado del ecosistema Azure',
+    ],
+    achievementsEn: [
+      'Completed an intensive 6-month program in Cloud, Data, and Low-Code, achieving excellent results in certifications and practicing with case studies',
+      'Acquired practical skills in Microsoft Azure through labs, projects, and technical assessments',
+      'Obtained 3 Microsoft certifications (AZ-900, DP-900, PL-900) during the program, demonstrating accelerated mastery of the Azure ecosystem',
     ],
     tags: ['Azure', 'Azure Data Factory', 'Azure Cosmos DB', 'Power Platform', 'AZ-900', 'DP-900', 'PL-900'],
   },
 ];
 
 const education = {
-  title: 'Licenciatura en Ciencias de la Computación',
+  titleEs: 'Licenciatura en Ciencias de la Computación',
+  titleEn: 'BSc in Computer Science',
   place: 'Universidad de Buenos Aires (UBA) — FCEN',
   period: '2023 — 2029',
-  desc: 'Formación en algoritmos, sistemas y teoría de la computación.',
+  descEs: 'Formación en algoritmos, sistemas y teoría de la computación.',
+  descEn: 'Coursework in algorithms, systems and theory of computation.',
 };
 ---
 
 <section id="experience" class="border-b border-border">
   <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
-    <p class="section-label animate-on-scroll">02 // experiencia.log</p>
+    <p class="section-label animate-on-scroll" data-es="02 // experiencia.log" data-en="02 // experience.log">02 // experiencia.log</p>
     <h2 class="section-heading mb-8 animate-on-scroll">
-      Trayectoria <span class="accent-serif">profesional</span>
+      <span data-es="Trayectoria " data-en="Professional ">Trayectoria </span><span class="accent-serif" data-es="profesional" data-en="journey">profesional</span>
     </h2>
 
     <div class="flex flex-col gap-3.5">
@@ -57,20 +79,22 @@ const education = {
               {exp.role} <span class="font-normal text-text-secondary">@ {exp.company}</span>
             </div>
             {exp.current && (
-              <div class="font-mono font-semibold text-[11px] text-tgreen border px-2 py-[3px]" style="border-color: var(--color-green)">
+              <div class="font-mono font-semibold text-[11px] text-tgreen border px-2 py-[3px]" style="border-color: var(--color-green)" data-es="actual" data-en="current">
                 actual
               </div>
             )}
           </div>
-          <div class="mt-1.5 font-mono text-xs text-text-muted">{exp.period} — {exp.meta}</div>
+          <div class="mt-1.5 font-mono text-xs text-text-muted">
+            <span data-es={exp.periodEs} data-en={exp.periodEn}>{exp.periodEs}</span> — <span data-es={exp.metaEs} data-en={exp.metaEn}>{exp.metaEs}</span>
+          </div>
 
-          <p class="mt-3.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[700px]">{exp.description}</p>
+          <p class="mt-3.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[700px]" data-es={exp.descriptionEs} data-en={exp.descriptionEn}>{exp.descriptionEs}</p>
 
           <div class="mt-3 flex flex-col gap-1.5">
-            {exp.achievements.map((a) => (
+            {exp.achievementsEs.map((a, j) => (
               <div class="flex gap-2 font-mono text-[13px] leading-normal text-text-secondary max-w-[720px]">
                 <span class="text-accent shrink-0">▸</span>
-                <span>{a}</span>
+                <span data-es={a} data-en={exp.achievementsEn[j]}>{a}</span>
               </div>
             ))}
           </div>
@@ -85,9 +109,9 @@ const education = {
 
       <!-- Education -->
       <div class="box p-6 animate-on-scroll">
-        <div class="font-mono font-bold text-[17px] text-text-primary">🎓 {education.title}</div>
+        <div class="font-mono font-bold text-[17px] text-text-primary">🎓 <span data-es={education.titleEs} data-en={education.titleEn}>{education.titleEs}</span></div>
         <div class="mt-1.5 font-mono text-xs text-text-muted">{education.place} — {education.period}</div>
-        <p class="mt-3 font-mono text-[13.5px] text-text-secondary">{education.desc}</p>
+        <p class="mt-3 font-mono text-[13.5px] text-text-secondary" data-es={education.descEs} data-en={education.descEn}>{education.descEs}</p>
       </div>
     </div>
   </div>

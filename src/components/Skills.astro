@@ -1,31 +1,34 @@
 ---
 const stackCategories = [
   {
-    name: 'Cloud & Identidad',
+    nameEs: 'Cloud & Identidad',
+    nameEn: 'Cloud & Identity',
     tags: ['Microsoft Azure', 'Azure DevOps / ADO', 'Amazon Web Services', 'Azure Virtual Machines', 'Azure App Service', 'Azure Functions', 'Azure Storage Account', 'Azure Key Vault', 'Azure Monitor', 'Azure Advisor', 'Azure Migrate', 'Azure Policy', 'Azure Resource Graph', 'Hub & Spoke Networking', 'Private Link / App Gateway', 'RBAC / Entra ID', 'Active Directory', 'Azure Arc', 'Azure Intune', 'Zero Trust', 'FinOps'],
   },
   {
-    name: 'Infraestructura & Scripting',
+    nameEs: 'Infraestructura & Scripting',
+    nameEn: 'Infrastructure & Scripting',
     tags: ['Windows Server', 'PowerShell', 'Python', 'Git', 'GitHub', 'Terraform', 'Azure CLI', 'ARM Templates', 'KQL'],
   },
   {
-    name: 'Data & Low-Code',
+    nameEs: 'Data & Low-Code',
+    nameEn: 'Data & Low-Code',
     tags: ['MySQL', 'Azure SQL Database', 'Azure Cosmos DB', 'Azure Data Factory', 'Power Platform'],
   },
 ];
 
 const languages = [
-  { flag: '🇦🇷', name: 'Español', level: 'Nativo' },
-  { flag: '🇺🇸', name: 'Inglés', level: 'Professional Working' },
-  { flag: '🇩🇪', name: 'Alemán', level: 'Professional Working' },
+  { flag: '🇦🇷', nameEs: 'Español', nameEn: 'Spanish', levelEs: 'Nativo', levelEn: 'Native' },
+  { flag: '🇺🇸', nameEs: 'Inglés', nameEn: 'English', levelEs: 'Professional Working', levelEn: 'Professional Working' },
+  { flag: '🇩🇪', nameEs: 'Alemán', nameEn: 'German', levelEs: 'Professional Working', levelEn: 'Professional Working' },
 ];
 
 const certifications = [
-  { code: 'AZ-800/801', name: 'Windows Server Hybrid Administrator Associate', date: 'Mar 2026', desc: 'Administración avanzada de Windows Server en entornos híbridos: integración con Azure Arc, gestión de identidades, almacenamiento, redes y alta disponibilidad.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/809D828790013ACB?sharingId=51E475397D223B51' },
-  { code: 'AZ-104', name: 'Azure Administrator Associate', date: 'Dic 2025', desc: 'Gestión de recursos Azure a nivel empresarial: identidades, gobernanza, almacenamiento, cómputo, redes virtuales y monitoreo.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51' },
-  { code: 'DP-900', name: 'Azure Data Fundamentals', date: 'Sep 2025', desc: 'Conceptos fundamentales de datos en la nube: servicios relacionales y no relacionales, analítica de datos y herramientas como Azure SQL, Cosmos DB y Data Factory.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/233CCC70D92131AA?sharingId=51E475397D223B51' },
-  { code: 'PL-900', name: 'Power Platform Fundamentals', date: 'Ago 2025', desc: 'Fundamentos de Power Platform: Power Apps para apps sin código, Power Automate para flujos, Power BI para analítica y Power Virtual Agents para bots.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/86614C6D8510281C?sharingId=51E475397D223B51' },
-  { code: 'AZ-900', name: 'Azure Fundamentals', date: 'Jul 2025', desc: 'Conceptos cloud, servicios core de Azure, modelos de seguridad, privacidad, cumplimiento, y estructuras de precios y soporte.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/CC8448AE34DAF1A8?sharingId=51E475397D223B51' },
+  { code: 'AZ-800/801', name: 'Windows Server Hybrid Administrator Associate', dateEs: 'Mar 2026', dateEn: 'Mar 2026', descEs: 'Administración avanzada de Windows Server en entornos híbridos: integración con Azure Arc, gestión de identidades, almacenamiento, redes y alta disponibilidad.', descEn: 'Advanced Windows Server administration in hybrid environments: Azure Arc integration, identity management, storage, networking, and high availability.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/809D828790013ACB?sharingId=51E475397D223B51' },
+  { code: 'AZ-104', name: 'Azure Administrator Associate', dateEs: 'Dic 2025', dateEn: 'Dec 2025', descEs: 'Gestión de recursos Azure a nivel empresarial: identidades, gobernanza, almacenamiento, cómputo, redes virtuales y monitoreo.', descEn: 'Enterprise-level Azure resource management: identities, governance, storage, compute, virtual networking and monitoring.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51' },
+  { code: 'DP-900', name: 'Azure Data Fundamentals', dateEs: 'Sep 2025', dateEn: 'Sep 2025', descEs: 'Conceptos fundamentales de datos en la nube: servicios relacionales y no relacionales, analítica de datos y herramientas como Azure SQL, Cosmos DB y Data Factory.', descEn: 'Core data concepts in the cloud: relational and non-relational services, data analytics and tools like Azure SQL, Cosmos DB and Data Factory.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/233CCC70D92131AA?sharingId=51E475397D223B51' },
+  { code: 'PL-900', name: 'Power Platform Fundamentals', dateEs: 'Ago 2025', dateEn: 'Aug 2025', descEs: 'Fundamentos de Power Platform: Power Apps para apps sin código, Power Automate para flujos, Power BI para analítica y Power Virtual Agents para bots.', descEn: 'Power Platform fundamentals: Power Apps for no-code apps, Power Automate for flows, Power BI for analytics and Power Virtual Agents for bots.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/86614C6D8510281C?sharingId=51E475397D223B51' },
+  { code: 'AZ-900', name: 'Azure Fundamentals', dateEs: 'Jul 2025', dateEn: 'Jul 2025', descEs: 'Conceptos cloud, servicios core de Azure, modelos de seguridad, privacidad, cumplimiento, y estructuras de precios y soporte.', descEn: 'Cloud concepts, core Azure services, security, privacy and compliance models, and pricing and support structures.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/CC8448AE34DAF1A8?sharingId=51E475397D223B51' },
 ];
 ---
 
@@ -33,17 +36,17 @@ const certifications = [
   <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
     <p class="section-label animate-on-scroll">03 // stack.json</p>
     <h2 class="section-heading mb-8 animate-on-scroll">
-      Tecnologías <span class="accent-serif">e idiomas</span>
+      <span data-es="Tecnologías " data-en="Technologies ">Tecnologías </span><span class="accent-serif" data-es="e idiomas" data-en="& languages">e idiomas</span>
     </h2>
 
     <!-- Stack categories -->
     <div class="flex flex-col gap-4">
       {stackCategories.map((cat, i) => (
         <div class="box p-5 animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
-          <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-2.5">// {cat.name}</div>
+          <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-2.5" data-es={`// ${cat.nameEs}`} data-en={`// ${cat.nameEn}`}>// {cat.nameEs}</div>
           <div class="flex flex-wrap gap-[7px]">
             {cat.tags.map((t) => (
-              <span class="font-mono text-xs px-2.5 py-[5px] bg-surface-3 text-text-secondary hover:text-text-primary transition-colors cursor-default" style="transition-property: color, background-color;">
+              <span class="font-mono text-xs px-2.5 py-[5px] bg-surface-3 text-text-secondary hover:text-text-primary transition-colors cursor-default">
                 {t}
               </span>
             ))}
@@ -58,8 +61,8 @@ const certifications = [
         <div class="box p-4 flex items-center gap-2.5 animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
           <span class="text-xl">{lang.flag}</span>
           <div>
-            <div class="font-mono font-bold text-[13.5px] text-text-primary">{lang.name}</div>
-            <div class="font-mono text-[11px] text-text-muted">{lang.level}</div>
+            <div class="font-mono font-bold text-[13.5px] text-text-primary" data-es={lang.nameEs} data-en={lang.nameEn}>{lang.nameEs}</div>
+            <div class="font-mono text-[11px] text-text-muted" data-es={lang.levelEs} data-en={lang.levelEn}>{lang.levelEs}</div>
           </div>
         </div>
       ))}
@@ -67,21 +70,23 @@ const certifications = [
 
     <!-- Certifications -->
     <div class="mt-7">
-      <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-3 animate-on-scroll">// certificaciones_microsoft</div>
+      <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-3 animate-on-scroll" data-es="// certificaciones_microsoft" data-en="// microsoft_certifications">// certificaciones_microsoft</div>
       <div class="grid md:grid-cols-2 gap-3">
         {certifications.map((cert, i) => (
           <div class="box p-5 hover:border-accent transition-colors animate-on-scroll" style={`transition-delay: ${i * 0.05}s`}>
             <div class="flex justify-between">
               <span class="font-mono font-bold text-[12.5px] text-accent">{cert.code}</span>
-              <span class="font-mono text-[11px] text-text-muted">{cert.date}</span>
+              <span class="font-mono text-[11px] text-text-muted" data-es={cert.dateEs} data-en={cert.dateEn}>{cert.dateEs}</span>
             </div>
             <div class="mt-2 font-mono font-bold text-[13.5px] text-text-primary">{cert.name}</div>
-            <p class="mt-1.5 font-mono text-xs leading-normal text-text-secondary">{cert.desc}</p>
+            <p class="mt-1.5 font-mono text-xs leading-normal text-text-secondary" data-es={cert.descEs} data-en={cert.descEn}>{cert.descEs}</p>
             <a
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-block mt-2.5 font-mono font-bold text-[11.5px] text-accent hover:opacity-80 transition-opacity"
+              data-es="[verificar ↗]"
+              data-en="[verify ↗]"
             >
               [verificar ↗]
             </a>

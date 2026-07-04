@@ -154,3 +154,7 @@ html.light {
   border-right: 2px solid rgb(var(--color-accent));
   animation: typeIn 2s steps(47) 1 both;
 }
+
+/* i18n dual blocks — rich-text content that can't use textContent swap */
+html.en [data-i18n="es"] { display: none !important; }
+html:not(.en) [data-i18n="en"] { display: none !important; }
