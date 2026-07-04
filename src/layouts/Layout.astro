@@ -26,17 +26,16 @@ const {
     <title>{title}</title>
   </head>
   <body class="min-h-screen">
-    <!-- 3. Scroll progress bar -->
-    <div id="scroll-bar" class="fixed top-0 left-0 h-0.5 z-[100] transition-all duration-75" style="width:0%; background: linear-gradient(90deg, #8b5cf6, #c4b5fd);"></div>
-
     <slot />
     <script>
-      // Intersection Observer for scroll animations
+      // Scroll-driven fade-up (IntersectionObserver — cross-browser replacement
+      // for the design's animation-timeline: view(), Chrome-only)
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
             }
           });
         },
@@ -44,44 +43,6 @@ const {
       );
       document.querySelectorAll('.animate-on-scroll').forEach((el) => {
         observer.observe(el);
-      });
-
-      // 3. Scroll progress bar
-      const scrollBar = document.getElementById('scroll-bar');
-      window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollBar) scrollBar.style.width = (scrolled / total * 100) + '%';
-      }, { passive: true });
-
-      // 5. Card tilt 3D effect
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          card.style.transform = `perspective(800px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg) translateZ(2px)`;
-          card.style.transition = 'transform 0.1s ease';
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) translateZ(0)';
-          card.style.transition = 'transform 0.4s ease';
-        });
-      });
-
-      // 4. Magnetic buttons
-      document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-          const rect = btn.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
-          btn.style.transform = `translate(${x}px, ${y}px)`;
-          btn.style.transition = 'transform 0.15s ease';
-        });
-        btn.addEventListener('mouseleave', () => {
-          btn.style.transform = 'translate(0,0)';
-          btn.style.transition = 'transform 0.4s ease';
-        });
       });
     </script>
   </body>
