@@ -65,8 +65,10 @@ const education = {
   titleEn: 'BSc in Computer Science',
   place: 'Universidad de Buenos Aires (UBA) — FCEN',
   period: '2023 — 2029',
-  descEs: 'Formación en algoritmos, sistemas y teoría de la computación.',
-  descEn: 'Coursework in algorithms, systems and theory of computation.',
+  descEs:
+    'Formación de grado en fundamentos lógicos, matemáticos y algorítmicos que complementa mi experiencia Cloud con una base científica rigurosa para diseñar arquitecturas escalables. Algoritmia y estructuras de datos para soluciones complejas, automatizaciones eficientes y código limpio; sistemas operativos y concurrencia para troubleshooting avanzado y prácticas SRE; lógica formal y álgebra para modelar sistemas de alta disponibilidad y resolver incidentes con metodología estructurada.',
+  descEn:
+    'Undergraduate studies in logical, mathematical and algorithmic foundations that complement my Cloud experience with a rigorous scientific base for designing scalable architectures. Algorithms and data structures for complex solutions, efficient automations and clean code; operating systems and concurrency for advanced troubleshooting and SRE practices; formal logic and algebra to model highly available systems and resolve incidents with a structured methodology.',
 };
 ---
 
@@ -115,9 +117,12 @@ const education = {
 
       <!-- Education -->
       <div class="box p-6 animate-on-scroll">
-        <div class="font-mono font-bold text-[17px] text-text-primary">🎓 <span data-es={education.titleEs} data-en={education.titleEn}>{education.titleEs}</span></div>
+        <div class="flex justify-between items-baseline flex-wrap gap-2.5">
+          <div class="font-mono font-bold text-[17px] text-text-primary">🎓 <span data-es={education.titleEs} data-en={education.titleEn}>{education.titleEs}</span></div>
+          <div class="font-mono font-semibold text-[11px] text-accent border border-accent/40 px-2 py-[3px]" data-es="cursando" data-en="in progress">cursando</div>
+        </div>
         <div class="mt-1.5 font-mono text-xs text-text-muted">{education.place} — {education.period}</div>
-        <p class="mt-3 font-mono text-[13.5px] text-text-secondary" data-es={education.descEs} data-en={education.descEn}>{education.descEs}</p>
+        <p class="mt-3 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[720px]" data-es={education.descEs} data-en={education.descEn}>{education.descEs}</p>
       </div>
     </div>
   </div>
