@@ -143,16 +143,17 @@ html.light {
 
 @keyframes typeIn {
   from { width: 0; }
-  to   { width: 100%; }
+  to   { width: 52ch; }
 }
 
-/* Typewriter subtitle (hero) */
+/* Typewriter subtitle (hero) — width animates in ch so the cursor
+   stops exactly at the last character (both ES/EN strings are 52 chars) */
 .typewriter {
   overflow: hidden;
   white-space: nowrap;
   max-width: 100%;
   border-right: 2px solid rgb(var(--color-accent));
-  animation: typeIn 2s steps(47) 1 both;
+  animation: typeIn 2.2s steps(52) 1 both;
 }
 
 /* i18n dual blocks — rich-text content that can't use textContent swap */
