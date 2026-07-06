@@ -10,6 +10,9 @@ const {
   title = 'Santiago Da Ros — Cloud & Infrastructure Engineer',
   description = 'Senior Cloud & Infrastructure Engineer especializado en Azure, automatización con PowerShell, Active Directory y arquitectura de soluciones empresariales.',
 } = Astro.props;
+
+const ogImage = new URL('/og-image.png', Astro.site);
+const ogUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -22,11 +25,12 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
