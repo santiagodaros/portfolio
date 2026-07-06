@@ -1,4 +1,13 @@
 ---
+// Highlights standalone metrics (20, ~2 hs, 45 min, ~60%) in accent.
+// Lookbehind skips cert codes like AZ-104 / AZ-800/801.
+function hl(text: string): string {
+  return text.replace(
+    /(?<!AZ-|DP-|PL-|-)(~?\d[\d.,/]*\s?(?:%|hs|hrs|min)?)/g,
+    '<strong class="text-accent font-semibold">$1</strong>'
+  );
+}
+
 const experiences = [
   {
     role: 'Azure Cloud Engineer & SRE',
@@ -102,7 +111,8 @@ const education = {
             {exp.achievementsEs.map((a, j) => (
               <div class="flex gap-2 font-mono text-[13px] leading-normal text-text-secondary max-w-[720px]">
                 <span class="text-accent shrink-0">▸</span>
-                <span data-es={a} data-en={exp.achievementsEn[j]}>{a}</span>
+                <span data-i18n="es" set:html={hl(a)} />
+                <span data-i18n="en" set:html={hl(exp.achievementsEn[j])} />
               </div>
             ))}
           </div>

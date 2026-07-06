@@ -161,4 +161,24 @@ const navLinks = [
       applyIcons(isLight);
     });
   });
+
+  // Active section indicator
+  const sectionIds = ['about', 'experience', 'stack', 'articles', 'contact'];
+  const navAnchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]'));
+
+  function updateActive() {
+    let current = '';
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    }
+    navAnchors.forEach((a) => {
+      const on = a.getAttribute('href') === `#${current}`;
+      a.classList.toggle('text-accent', on);
+      a.classList.toggle('border-border', on);
+      a.classList.toggle('bg-surface-3', on);
+    });
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
 </script>

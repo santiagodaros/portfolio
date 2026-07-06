@@ -22,10 +22,18 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/og-image.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
   <body class="min-h-screen">
+    <!-- Scroll progress bar -->
+    <div id="scroll-bar" class="fixed top-0 left-0 h-0.5 z-[100]" style="width:0%; background: linear-gradient(90deg, rgb(var(--color-accent-dim)), rgb(var(--color-accent)));"></div>
+
     <slot />
 
     <!-- Scroll to top -->
@@ -57,14 +65,17 @@ const {
         observer.observe(el);
       });
 
-      // Scroll to top
+      // Scroll to top + progress bar
       const scrollTopBtn = document.getElementById('scroll-top');
+      const scrollBar = document.getElementById('scroll-bar');
       window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
           scrollTopBtn?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
         } else {
           scrollTopBtn?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
         }
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollBar && total > 0) scrollBar.style.width = (window.scrollY / total) * 100 + '%';
       }, { passive: true });
       scrollTopBtn?.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
