@@ -137,8 +137,8 @@ html.light {
 }
 
 @keyframes blinkCursor {
-  0%, 49%  { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%, 49%  { border-color: rgb(var(--color-accent)); }
+  50%, 100% { border-color: transparent; }
 }
 
 @keyframes typeIn {
@@ -147,13 +147,16 @@ html.light {
 }
 
 /* Typewriter subtitle (hero) — width animates in ch so the cursor
-   stops exactly at the last character (both ES/EN strings are 52 chars) */
+   stops exactly at the last character (both ES/EN strings are 52 chars);
+   once typing ends, the caret blinks like a real terminal */
 .typewriter {
   overflow: hidden;
   white-space: nowrap;
   max-width: 100%;
   border-right: 2px solid rgb(var(--color-accent));
-  animation: typeIn 2.2s steps(52) 1 both;
+  animation:
+    typeIn 2.2s steps(52) 1 both,
+    blinkCursor 1.1s step-end 2.2s infinite;
 }
 
 /* i18n dual blocks — rich-text content that can't use textContent swap */
