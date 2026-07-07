@@ -147,6 +147,9 @@ const navLinks = [
   function applyIcons(isLight: boolean) {
     moons.forEach((m) => m?.classList.toggle('hidden', isLight));
     suns.forEach((s) => s?.classList.toggle('hidden', !isLight));
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', isLight ? '#faf8f3' : '#0b0b0d');
   }
 
   if (localStorage.getItem('theme') === 'light') {

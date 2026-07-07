@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500;1,6..72,600&display=swap');
+/* Fonts load via <link> in Layout.astro head (preconnect + stylesheet)
+   instead of @import: avoids the render-blocking CSS-in-CSS chain */
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +20,7 @@
   --color-border-hover: rgba(255,255,255,0.16);
   --color-text-primary:   #f2f0ec;
   --color-text-secondary: #9d9ba3;
-  --color-text-muted:     #68666e;
+  --color-text-muted:     #7d7b85;
   --dot-grid: rgba(255,255,255,0.055);
   --scrollbar-track: #0b0b0d;
   --scrollbar-thumb: #18171c;
@@ -40,7 +41,7 @@ html.light {
   --color-border-hover: rgba(20,15,10,0.18);
   --color-text-primary:   #18150f;
   --color-text-secondary: #68635a;
-  --color-text-muted:     #a19b8f;
+  --color-text-muted:     #78716c;
   --dot-grid: rgba(20,15,10,0.08);
   --scrollbar-track: #faf8f3;
   --scrollbar-thumb: #e2ddd3;
@@ -117,6 +118,19 @@ html.light {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
   }
 
+  /* Keyboard focus: clip-path swallows the default outline (it paints
+     outside the box), so draw an inset ring instead */
+  .btn-solid:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px #0b0b0d;
+  }
+
+  .btn-box:focus-visible {
+    outline: none;
+    @apply border-accent;
+    box-shadow: inset 0 0 0 1px rgb(var(--color-accent));
+  }
+
   .pulse-square {
     @apply inline-block bg-tgreen;
     animation: pulseDot 2s ease-in-out infinite;
@@ -165,3 +179,19 @@ html.light {
 /* i18n dual blocks — rich-text content that can't use textContent swap */
 html.en [data-i18n="es"] { display: none !important; }
 html:not(.en) [data-i18n="en"] { display: none !important; }
+
+/* Respect users who disable animations at the OS level */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .animate-on-scroll { opacity: 1; transform: none; }
+  .typewriter {
+    animation: none;
+    width: 52ch;
+    border-right-color: transparent;
+  }
+}

@@ -79,12 +79,18 @@ const stats = [
     <!-- Photo: bordered frame, terminal caption -->
     <div class="animate-on-scroll">
       <div class="border border-border p-3.5 bg-surface-3 max-w-[300px]">
-        <img
-          src="/foto.png"
-          alt="Santiago Da Ros"
-          class="w-full object-cover object-top"
-          style="aspect-ratio: 1 / 1.15; filter: grayscale(0.3) contrast(1.05);"
-        />
+        <picture>
+          <source srcset="/foto.webp" type="image/webp" />
+          <img
+            src="/foto.png"
+            alt="Santiago Da Ros"
+            width="682"
+            height="682"
+            fetchpriority="high"
+            class="w-full object-cover object-top"
+            style="aspect-ratio: 1 / 1.15; filter: grayscale(0.3) contrast(1.05);"
+          />
+        </picture>
         <div class="mt-2.5 font-mono text-[11px] text-text-muted flex justify-between">
           <span>foto.png</span><span>1x1.15</span>
         </div>

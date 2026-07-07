@@ -92,9 +92,9 @@ const education = {
       {experiences.map((exp, i) => (
         <div class="box-alt p-6 animate-on-scroll" style={`transition-delay: ${i * 0.08}s`}>
           <div class="flex justify-between items-baseline flex-wrap gap-2.5">
-            <div class="font-mono font-bold text-[17px] text-text-primary">
+            <h3 class="font-mono font-bold text-[17px] text-text-primary">
               {exp.role} <span class="font-normal text-text-secondary">@ {exp.company}</span>
-            </div>
+            </h3>
             {exp.current && (
               <div class="font-mono font-semibold text-[11px] text-tgreen border px-2 py-[3px]" style="border-color: var(--color-green)" data-es="actual" data-en="current">
                 actual
@@ -128,7 +128,7 @@ const education = {
       <!-- Education -->
       <div class="box p-6 animate-on-scroll">
         <div class="flex justify-between items-baseline flex-wrap gap-2.5">
-          <div class="font-mono font-bold text-[17px] text-text-primary">🎓 <span data-es={education.titleEs} data-en={education.titleEn}>{education.titleEs}</span></div>
+          <h3 class="font-mono font-bold text-[17px] text-text-primary">🎓 <span data-es={education.titleEs} data-en={education.titleEn}>{education.titleEs}</span></h3>
           <div class="font-mono font-semibold text-[11px] text-accent border border-accent/40 px-2 py-[3px]" data-es="cursando" data-en="in progress">cursando</div>
         </div>
         <div class="mt-1.5 font-mono text-xs text-text-muted">{education.place} — {education.period}</div>
