@@ -1,8 +1,26 @@
 ---
+// Cloud experience computed from the start date (May 2025) at build time,
+// so the stat never goes stale — each deploy refreshes it.
+const cloudStart = new Date(2025, 4);
+const now = new Date();
+const totalMonths =
+  (now.getFullYear() - cloudStart.getFullYear()) * 12 + (now.getMonth() - cloudStart.getMonth());
+const years = Math.floor(totalMonths / 12);
+const months = totalMonths % 12;
+
+const expEs =
+  years > 0
+    ? `${years} año${years > 1 ? 's' : ''}${months ? ` ${months} mes${months > 1 ? 'es' : ''}` : ''}`
+    : `${months} meses`;
+const expEn =
+  years > 0
+    ? `${years} yr${years > 1 ? 's' : ''}${months ? ` ${months} mo${months > 1 ? 's' : ''}` : ''}`
+    : `${months} mos`;
+
 const stats = [
-  { keyEs: 'certificaciones =', keyEn: 'certifications =', value: '8' },
-  { keyEs: 'meses_en_cloud =', keyEn: 'months_in_cloud =', value: '14' },
-  { keyEs: 'formación =', keyEn: 'education =', value: 'UBA' },
+  { keyEs: 'certificaciones =', keyEn: 'certifications =', valueEs: '8', valueEn: '8' },
+  { keyEs: 'experiencia_cloud =', keyEn: 'cloud_experience =', valueEs: expEs, valueEn: expEn },
+  { keyEs: 'formación =', keyEn: 'education =', valueEs: 'UBA', valueEn: 'UBA' },
 ];
 ---
 
@@ -81,7 +99,7 @@ const stats = [
     {stats.map((s, i) => (
       <div class={`px-5 sm:px-10 py-5 font-mono border-border ${i < 2 ? 'border-b sm:border-b-0 sm:border-r' : ''}`}>
         <div class="text-[11px] text-text-muted" data-es={s.keyEs} data-en={s.keyEn}>{s.keyEs}</div>
-        <div class="text-[26px] font-bold mt-1 text-text-primary">{s.value}</div>
+        <div class="text-[26px] font-bold mt-1 text-text-primary" data-es={s.valueEs} data-en={s.valueEn}>{s.valueEs}</div>
       </div>
     ))}
   </div>
