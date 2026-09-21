@@ -114,6 +114,21 @@ const xDefaultHref = alternates?.es ? new URL(alternates.es, Astro.site).toStrin
         observer.observe(el);
       });
 
+      // Landing on a page with a #hash (e.g. a nav link from /articulos to
+      // /#about) can silently fail to auto-scroll in some browsers when
+      // `scroll-behavior: smooth` is set — restore it manually, offset for
+      // the sticky nav height.
+      if (location.hash) {
+        const target = document.querySelector(location.hash);
+        if (target) {
+          requestAnimationFrame(() => {
+            const navHeight = document.getElementById('nav')?.offsetHeight ?? 0;
+            const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+            window.scrollTo({ top, behavior: 'auto' });
+          });
+        }
+      }
+
       // Scroll to top + progress bar
       const scrollTopBtn = document.getElementById('scroll-top');
       const scrollBar = document.getElementById('scroll-bar');

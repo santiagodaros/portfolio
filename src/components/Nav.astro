@@ -1,10 +1,12 @@
 ---
+// Anchors are prefixed with '/' so they always resolve to the homepage
+// sections, even when clicked from a routed page like /articulos.
 const navLinks = [
-  { href: '#about', labelEs: './sobre mí', labelEn: './about' },
-  { href: '#experience', labelEs: './experiencia', labelEn: './experience' },
-  { href: '#stack', labelEs: './stack', labelEn: './stack' },
+  { href: '/#about', labelEs: './sobre mí', labelEn: './about' },
+  { href: '/#experience', labelEs: './experiencia', labelEn: './experience' },
+  { href: '/#stack', labelEs: './stack', labelEn: './stack' },
   { href: '/articulos', hrefEs: '/articulos', hrefEn: '/en/articulos', labelEs: './artículos', labelEn: './articles' },
-  { href: '#contact', labelEs: './contacto', labelEn: './contact' },
+  { href: '/#contact', labelEs: './contacto', labelEn: './contact' },
 ];
 ---
 
@@ -169,9 +171,10 @@ const navLinks = [
     });
   });
 
-  // Active section indicator
+  // Active section indicator — only meaningful on the homepage, where the
+  // section ids below actually exist; a no-op elsewhere.
   const sectionIds = ['about', 'experience', 'stack', 'contact'];
-  const navAnchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]'));
+  const navAnchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="/#"]'));
 
   function updateActive() {
     let current = '';
@@ -180,7 +183,7 @@ const navLinks = [
       if (el && el.getBoundingClientRect().top <= 120) current = id;
     }
     navAnchors.forEach((a) => {
-      const on = a.getAttribute('href') === `#${current}`;
+      const on = a.getAttribute('href') === `/#${current}`;
       a.classList.toggle('text-accent', on);
       a.classList.toggle('border-border', on);
       a.classList.toggle('bg-surface-3', on);
