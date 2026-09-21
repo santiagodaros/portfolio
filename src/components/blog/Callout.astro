@@ -1,0 +1,36 @@
+---
+interface Props {
+  variant?: 'info' | 'tip' | 'warning' | 'danger';
+}
+const { variant = 'info' } = Astro.props;
+
+const styles: Record<string, { color: string; labelEs: string; labelEn: string }> = {
+  info: { color: 'rgb(var(--color-accent))', labelEs: 'nota', labelEn: 'note' },
+  tip: { color: 'var(--color-green)', labelEs: 'tip', labelEn: 'tip' },
+  warning: { color: '#f5a623', labelEs: 'atención', labelEn: 'warning' },
+  danger: { color: '#f87171', labelEs: 'riesgo', labelEn: 'danger' },
+};
+const s = styles[variant] ?? styles.info;
+---
+
+<div class="box-alt my-6 border-l-2 px-5 py-4" style={`border-left-color: ${s.color}`}>
+  <p class="font-mono text-[11px] font-bold uppercase tracking-wide mb-2" style={`color: ${s.color}`}>
+    // {s.labelEs}
+  </p>
+  <div class="callout-body font-mono text-[15px] leading-relaxed text-text-secondary">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout-body :global(strong) {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+  .callout-body :global(p) {
+    margin: 0;
+  }
+  .callout-body :global(p + p) {
+    margin-top: 0.75em;
+  }
+</style>

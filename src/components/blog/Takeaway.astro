@@ -1,0 +1,20 @@
+---
+---
+<div class="my-6 border border-accent/40 bg-accent-soft px-5 py-4">
+  <p class="font-mono text-[11px] font-bold text-accent uppercase tracking-wide mb-2">$ takeaway</p>
+  <div class="takeaway-body font-mono text-[15px] leading-relaxed text-text-primary">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .takeaway-body :global(strong) {
+    font-weight: 600;
+  }
+  .takeaway-body :global(p) {
+    margin: 0;
+  }
+  .takeaway-body :global(p + p) {
+    margin-top: 0.75em;
+  }
+</style>

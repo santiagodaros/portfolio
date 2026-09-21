@@ -3,7 +3,7 @@ const navLinks = [
   { href: '#about', labelEs: './sobre mí', labelEn: './about' },
   { href: '#experience', labelEs: './experiencia', labelEn: './experience' },
   { href: '#stack', labelEs: './stack', labelEn: './stack' },
-  { href: '#articles', labelEs: './artículos', labelEn: './articles' },
+  { href: '/articulos', labelEs: './artículos', labelEn: './articles' },
   { href: '#contact', labelEs: './contacto', labelEn: './contact' },
 ];
 ---
@@ -166,7 +166,7 @@ const navLinks = [
   });
 
   // Active section indicator
-  const sectionIds = ['about', 'experience', 'stack', 'articles', 'contact'];
+  const sectionIds = ['about', 'experience', 'stack', 'contact'];
   const navAnchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]'));
 
   function updateActive() {

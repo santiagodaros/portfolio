@@ -1,0 +1,59 @@
+---
+// Placeholder speaking history — swap for real dates/links as they're confirmed
+interface Talk {
+  titleEs: string;
+  titleEn: string;
+  event: string;
+  whenEs: string;
+  whenEn: string;
+  status: 'done' | 'upcoming';
+  url?: string;
+}
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+const { lang = 'es' } = Astro.props;
+
+const talks: Talk[] = [
+  {
+    titleEs: 'Governance en Azure Policy: de la teoría a producción',
+    titleEn: 'Azure Policy governance: from theory to production',
+    event: 'Fabric Day 2026',
+    whenEs: 'A confirmar',
+    whenEn: 'TBD',
+    status: 'upcoming',
+  },
+  {
+    titleEs: 'KQL para auditar lo que el portal de Azure no te muestra',
+    titleEn: 'KQL for auditing what the Azure portal won’t show you',
+    event: 'Speakers Hub',
+    whenEs: 'A confirmar',
+    whenEn: 'TBD',
+    status: 'upcoming',
+  },
+];
+---
+
+<div class="box p-6">
+  <p class="font-mono text-xs text-accent mb-4">$ ls charlas/</p>
+  <ul class="flex flex-col gap-3">
+    {
+      talks.map((t) => (
+        <li class="flex items-start gap-3 pb-3 border-b border-border last:border-0 last:pb-0">
+          <span
+            class={`w-1.5 h-1.5 mt-1.5 shrink-0 ${t.status === 'upcoming' ? 'pulse-square bg-tgreen' : 'bg-text-muted'}`}
+            aria-hidden="true"
+          />
+          <div>
+            <p class="font-mono text-sm text-text-primary">{lang === 'es' ? t.titleEs : t.titleEn}</p>
+            <p class="mt-1 font-mono text-[11.5px] text-text-muted">
+              {t.event} · {lang === 'es' ? t.whenEs : t.whenEn} ·{' '}
+              {t.status === 'upcoming' ? (lang === 'es' ? 'próximamente' : 'upcoming') : lang === 'es' ? 'dictada' : 'past'}
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>

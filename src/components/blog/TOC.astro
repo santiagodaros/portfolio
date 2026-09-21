@@ -1,0 +1,87 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  headings: Heading[];
+  lang?: 'es' | 'en';
+}
+const { headings, lang = 'es' } = Astro.props;
+const items = headings.filter((h) => h.depth === 2);
+const label = lang === 'es' ? '// en esta nota' : '// in this note';
+---
+
+{
+  items.length > 0 && (
+    <>
+      {/* Mobile: collapsed above the article body */}
+      <details class="lg:hidden mb-8 border border-border">
+        <summary class="px-4 py-3 font-mono text-xs text-accent cursor-pointer select-none">{label}</summary>
+        <ul class="px-4 pb-4 pt-3 border-t border-border flex flex-col gap-2">
+          {items.map((h, i) => (
+            <li>
+              <a href={`#${h.slug}`} class="font-mono text-[13px] text-text-secondary hover:text-accent transition-colors">
+                <span class="text-text-muted">{String(i + 1).padStart(2, '0')}</span>{' '}{h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+
+      {/* Desktop: sticky column, active section highlighted on scroll */}
+      <nav class="hidden lg:block sticky top-24 self-start" aria-label={lang === 'es' ? 'Tabla de contenidos' : 'Table of contents'}>
+        <p class="font-mono text-[11px] text-accent mb-3">{label}</p>
+        <ul class="flex flex-col gap-1 border-l border-border">
+          {items.map((h, i) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                data-toc-link
+                data-target={h.slug}
+                class="toc-link block pl-3.5 py-1.5 -ml-px font-mono text-[12.5px] text-text-secondary border-l-2 border-transparent hover:text-text-primary transition-colors"
+              >
+                <span class="text-text-muted">{String(i + 1).padStart(2, '0')}</span>{' '}{h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
+  )
+}
+
+<script>
+  // Same active-on-scroll pattern as Nav.astro's updateActive(), scoped to headings
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+  if (links.length) {
+    const targets = links.map((l) => l.dataset.target).filter(Boolean) as string[];
+
+    function updateActive() {
+      let current = '';
+      for (const id of targets) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 140) current = id;
+      }
+      links.forEach((l) => {
+        const on = l.dataset.target === current;
+        l.classList.toggle('text-accent', on);
+        l.classList.toggle('border-accent', on);
+        l.classList.toggle('text-text-secondary', !on);
+      });
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    links.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.target!);
+        target?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', `#${link.dataset.target}`);
+      });
+    });
+  }
+</script>

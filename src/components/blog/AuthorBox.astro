@@ -1,0 +1,42 @@
+---
+interface Props {
+  lang?: 'es' | 'en';
+}
+const { lang = 'es' } = Astro.props;
+
+const bio = {
+  es: 'Ingeniero de infraestructura Cloud & SRE. Azure, automatización con PowerShell, identidad híbrida y alta disponibilidad. Escribe sobre lo que se rompe en producción y por qué.',
+  en: 'Cloud Infrastructure & SRE engineer. Azure, PowerShell automation, hybrid identity and high availability. Writes about what breaks in production, and why.',
+};
+---
+
+<div class="box-alt mt-12 p-6 flex flex-col sm:flex-row gap-5 items-start">
+  <div
+    class="w-12 h-12 shrink-0 border border-border bg-surface-3 flex items-center justify-center font-mono font-bold text-accent"
+    aria-hidden="true"
+  >
+    SD
+  </div>
+  <div>
+    <p class="font-mono font-bold text-sm text-text-primary">Santiago Lucas Da Ros</p>
+    <p class="mt-1.5 font-mono text-[13px] leading-relaxed text-text-secondary">{bio[lang]}</p>
+    <div class="flex gap-4 mt-3 font-mono text-[12px]">
+      <a
+        href="https://www.linkedin.com/in/santiagodaros"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-secondary hover:text-accent transition-colors"
+      >
+        [LinkedIn ↗]
+      </a>
+      <a
+        href="https://github.com/santiagodaros"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-secondary hover:text-accent transition-colors"
+      >
+        [GitHub ↗]
+      </a>
+    </div>
+  </div>
+</div>

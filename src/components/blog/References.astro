@@ -1,0 +1,36 @@
+---
+interface Reference {
+  title: string;
+  source: string;
+  url: string;
+}
+interface Props {
+  references: Reference[];
+  lang?: 'es' | 'en';
+}
+const { references, lang = 'es' } = Astro.props;
+---
+
+{
+  references.length > 0 && (
+    <section class="mt-14 pt-8 border-t border-border">
+      <p class="font-mono text-xs text-accent mb-4">{lang === 'es' ? '// referencias' : '// references'}</p>
+      <ol class="flex flex-col gap-2.5">
+        {references.map((ref, i) => (
+          <li id={`ref-${i + 1}`} class="font-mono text-[13px] text-text-secondary leading-relaxed scroll-mt-24">
+            <span class="text-text-muted">[{i + 1}]</span>{' '}
+            <a
+              href={ref.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-text-primary underline underline-offset-4 hover:text-accent transition-colors"
+            >
+              {ref.title}
+            </a>
+            <span class="text-text-muted"> — {ref.source}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}

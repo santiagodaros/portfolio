@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  count: number;
+  lang: 'es' | 'en';
+}
+const { name, description, count, lang } = Astro.props;
+
+const countLabel =
+  lang === 'es'
+    ? `${count} ${count === 1 ? 'entrega' : 'entregas'}`
+    : `${count} ${count === 1 ? 'entry' : 'entries'}`;
+---
+
+<div class="border border-dashed border-border p-5 flex gap-4 items-start animate-on-scroll">
+  <div class="font-mono text-accent text-lg shrink-0" aria-hidden="true">▤</div>
+  <div>
+    <p class="font-mono font-bold text-sm text-text-primary">{name}</p>
+    <p class="mt-1.5 font-mono text-[12.5px] leading-relaxed text-text-secondary">{description}</p>
+    <p class="mt-2 font-mono text-[11px] text-text-muted">{countLabel}</p>
+  </div>
+</div>

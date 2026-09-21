@@ -176,6 +176,22 @@ html.light {
     blinkCursor 1.1s step-end 2.2s infinite;
 }
 
+/* Solid blinking cursor for terminal prompts outside the hero typewriter
+   (blog hero's "$ cat README.md") — same cadence as .typewriter's caret */
+.cursor-blink {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  vertical-align: -0.15em;
+  background: rgb(var(--color-accent));
+  animation: blinkBg 1.1s step-end infinite;
+}
+
+@keyframes blinkBg {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
 /* i18n dual blocks — rich-text content that can't use textContent swap */
 html.en [data-i18n="es"] { display: none !important; }
 html:not(.en) [data-i18n="en"] { display: none !important; }
@@ -193,5 +209,9 @@ html:not(.en) [data-i18n="en"] { display: none !important; }
     animation: none;
     width: 52ch;
     border-right-color: transparent;
+  }
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
   }
 }

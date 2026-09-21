@@ -1,0 +1,127 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FeaturedArticle from '@/components/blog/FeaturedArticle.astro';
+import ArticleCard from '@/components/blog/ArticleCard.astro';
+import SeriesCard from '@/components/blog/SeriesCard.astro';
+import TalksPanel from '@/components/blog/TalksPanel.astro';
+import NewsletterCTA from '@/components/blog/NewsletterCTA.astro';
+import { getPublishedArticles, getFeaturedArticle, getSeriesWithCount } from '@/lib/blog';
+
+const lang = 'es' as const;
+const [articles, featured, series] = await Promise.all([
+  getPublishedArticles(lang),
+  getFeaturedArticle(lang),
+  getSeriesWithCount(lang),
+]);
+const rest = articles.filter((a) => a.slug !== featured?.slug);
+---
+
+<Layout
+  title="Artículos — Santiago Da Ros"
+  description="Notas técnicas sobre infraestructura Cloud, governance, automatización y FinOps."
+>
+  <Nav />
+  <main>
+    <!-- Hero terminal -->
+    <section class="border-b border-border">
+      <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-12 sm:py-16">
+        <div class="border border-border bg-surface-2 animate-on-scroll">
+          <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-surface-3">
+            <span class="w-2.5 h-2.5 rounded-full" style="background:#f87171" aria-hidden="true"></span>
+            <span class="w-2.5 h-2.5 rounded-full" style="background:#fbbf24" aria-hidden="true"></span>
+            <span class="w-2.5 h-2.5 rounded-full" style="background:#4ade80" aria-hidden="true"></span>
+            <span class="ml-2 font-mono text-[11px] text-text-muted">~/blog</span>
+          </div>
+          <div class="px-6 sm:px-8 py-10">
+            <p class="font-mono text-sm text-accent">
+              $ cat README.md<span class="cursor-blink" aria-hidden="true"></span>
+            </p>
+            <h1 class="mt-4 font-serif text-4xl sm:text-5xl text-text-primary leading-tight">
+              Traductor de <span class="accent-serif">Complejidad</span>
+            </h1>
+            <p class="mt-4 font-mono text-sm text-text-secondary max-w-[60ch] leading-relaxed">
+              Notas técnicas sobre infraestructura Cloud, governance y lo que se rompe en el medio —
+              escritas para quien tiene que operarlo, no solo diseñarlo.
+            </p>
+            <div class="mt-5 flex flex-wrap gap-2 font-mono text-[11px] text-text-muted">
+              <span class="chip">Governance</span>
+              <span class="chip">Automatización</span>
+              <span class="chip">Resiliencia</span>
+              <span class="chip">FinOps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    {
+      featured && (
+        <section class="border-b border-border">
+          <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+            <p class="section-label">01 // destacado.md</p>
+            <FeaturedArticle entry={featured} lang={lang} />
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Grid -->
+    {
+      rest.length > 0 && (
+        <section class="border-b border-border">
+          <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+            <p class="section-label">02 // indice.sh</p>
+            <h2 class="section-heading mb-8">
+              Todos los <span class="accent-serif">artículos</span>
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {rest.map((entry) => (
+                <ArticleCard entry={entry} lang={lang} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Series -->
+    {
+      series.length > 0 && (
+        <section class="border-b border-border">
+          <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+            <p class="section-label">03 // series.sh</p>
+            <h2 class="section-heading mb-8">Series</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {series.map((s) => (
+                <SeriesCard name={s.data.name} description={s.data.description} count={s.count} lang={lang} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- Newsletter -->
+    <section class="border-b border-border">
+      <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+        <p class="section-label">04 // subscribe.sh</p>
+        <NewsletterCTA lang={lang} />
+      </div>
+    </section>
+
+    <!-- Talks -->
+    <section>
+      <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+        <p class="section-label">05 // comunidad.sh</p>
+        <h2 class="section-heading mb-8">
+          Charlas & <span class="accent-serif">comunidad</span>
+        </h2>
+        <TalksPanel lang={lang} />
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
