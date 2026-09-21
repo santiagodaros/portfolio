@@ -1,8 +1,10 @@
 ---
 interface Props {
   variant?: 'info' | 'tip' | 'warning' | 'danger';
+  /** Defaults to 'es' — pass lang="en" explicitly in English MDX content. */
+  lang?: 'es' | 'en';
 }
-const { variant = 'info' } = Astro.props;
+const { variant = 'info', lang = 'es' } = Astro.props;
 
 const styles: Record<string, { color: string; labelEs: string; labelEn: string }> = {
   info: { color: 'rgb(var(--color-accent))', labelEs: 'nota', labelEn: 'note' },
@@ -11,11 +13,12 @@ const styles: Record<string, { color: string; labelEs: string; labelEn: string }
   danger: { color: '#f87171', labelEs: 'riesgo', labelEn: 'danger' },
 };
 const s = styles[variant] ?? styles.info;
+const label = lang === 'es' ? s.labelEs : s.labelEn;
 ---
 
 <div class="box-alt my-6 border-l-2 px-5 py-4" style={`border-left-color: ${s.color}`}>
   <p class="font-mono text-[11px] font-bold uppercase tracking-wide mb-2" style={`color: ${s.color}`}>
-    // {s.labelEs}
+    // {label}
   </p>
   <div class="callout-body font-mono text-[15px] leading-relaxed text-text-secondary">
     <slot />

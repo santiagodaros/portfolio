@@ -1,0 +1,85 @@
+---
+title: "Backup is not continuity: RPO, RTO, and the gap that breaks the plan"
+description: "A successful backup is not the same as operational continuity. How RPO and RTO expose the real distance between what a DR plan promises and what an organization can actually tolerate."
+date: 2026-09-14
+tags: ["resilience", "disaster-recovery", "sre"]
+category: "Resilience"
+series: "governance-in-the-trenches"
+lang: "en"
+draft: false
+featured: true
+translationKey: "backup-rpo-rto"
+references:
+  - title: "Reliability pillar — Disaster recovery objectives"
+    source: "AWS Well-Architected Framework"
+    url: "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/disaster-recovery-dr-objectives.html"
+  - title: "Business continuity and disaster recovery (BCDR)"
+    source: "Microsoft Learn — Azure Reliability"
+    url: "https://learn.microsoft.com/en-us/azure/reliability/business-continuity-overview"
+  - title: "Disaster recovery"
+    source: "Google — Site Reliability Engineering (SRE Book)"
+    url: "https://sre.google/sre-book/disaster-recovery/"
+  - title: "Annual Outage Analysis"
+    source: "Uptime Institute"
+    url: "https://uptimeinstitute.com/resources/research-and-reports"
+---
+
+A backup that runs every night and finishes green says nothing about whether that organization can actually resume operating after a real incident. That's the gap this article walks through: the distance between "we have backups" and "we have continuity."
+
+<PullQuote>
+  A successful backup is a snapshot. Continuity is the full film: how long it takes you to get back on your feet, and how much you lost along the way.
+</PullQuote>
+
+## RPO and RTO are not the same thing
+
+**RPO (Recovery Point Objective)** answers one question: how much data am I willing to lose? If the last valid backup is 4 hours old, that's your real RPO — not whatever the policy document says.
+
+**RTO (Recovery Time Objective)** answers another: how long can the system stay down before restoring stops being a viable option? <sup><a href="#ref-1">[1]</a></sup>
+
+The most common mistake in governance audits is treating these two numbers as one, or worse: never measuring either and assuming "we have backups" covers both.
+
+<Callout variant="warning" lang="en">
+  A daily backup with 30-day retention doesn't automatically define a 24-hour RPO. It only defines a 24-hour RPO **if the restore actually works** and **if someone has tested it**.
+</Callout>
+
+## The gap that shows up in production
+
+In practice, three failures repeat across organizations that believe they've solved continuity:
+
+1. The backup runs, but no one has ever restored it in a real environment.
+2. The documented RTO doesn't account for decision time — escalation, approval, communication — only the technical restore time.
+3. The critical dependency (a database, a Key Vault, an internal DNS) isn't covered by the same recovery plan as the application that depends on it.
+
+| Scenario | Documented RPO | Real RPO (measured) | Gap |
+|---|---|---|---|
+| Critical VM with daily backup | 24 h | 24 h | None |
+| Database with log shipping | 15 min | 6 h (restore never tested) | 5 h 45 min |
+| Storage account with weekly snapshot | 24 h | 7 days | 6 days |
+
+<Takeaway>
+  The RPO and RTO that matter are the ones **measured in a drill**, not the ones written into the backup policy the day it was drafted.
+</Takeaway>
+
+## How the gap gets closed
+
+Closing this gap isn't a tooling problem — Azure Backup, AWS Backup, or Veeam solve the technical piece without much effort. The problem is governance: who owns the RTO for each system, and who tests it.
+
+```
+$ az backup job list --resource-group rg-prod --vault-name vault-prod --output table
+Status      Operation     Item             Duration
+Completed   Backup        vm-sql-prod01    00:42:11
+Completed   Backup        vm-app-prod02    00:38:05
+Failed      Restore-Test  vm-sql-prod01    —
+```
+
+That last `Failed` on a restore test is the line no written policy will ever show you — and it's the only one that matters when the incident is real. <sup><a href="#ref-2">[2]</a></sup>
+
+Real resilience is built on three simple practices, sustained over time:
+
+- Scheduled restore drills, not just scheduled backups.
+- RTO defined per critical system, not per generic infrastructure tier.
+- A business owner — not just IT — who signs off on the tolerable RPO for each critical dependency. <sup><a href="#ref-3">[3]</a></sup>
+
+## Conclusion
+
+Backup is not continuity. It's the raw material continuity is made of, and it only becomes continuity once someone tests, measures, and documents the real recovery time — not the one sitting in a policy PDF no one has opened since it was signed off. <sup><a href="#ref-4">[4]</a></sup>

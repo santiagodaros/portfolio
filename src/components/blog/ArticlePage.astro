@@ -1,0 +1,224 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TOC from '@/components/blog/TOC.astro';
+import References from '@/components/blog/References.astro';
+import AuthorBox from '@/components/blog/AuthorBox.astro';
+import NewsletterCTA from '@/components/blog/NewsletterCTA.astro';
+import ArticleCard from '@/components/blog/ArticleCard.astro';
+import Callout from '@/components/blog/Callout.astro';
+import PullQuote from '@/components/blog/PullQuote.astro';
+import Takeaway from '@/components/blog/Takeaway.astro';
+import { getReadingTime, formatDate, getRelatedArticles } from '@/lib/blog';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  /** The sibling translation of this article, if one exists. */
+  translation?: CollectionEntry<'blog'>;
+}
+const { entry, translation } = Astro.props;
+const lang = entry.data.lang;
+const { Content, headings } = await entry.render();
+const minutes = getReadingTime(entry.body);
+const related = await getRelatedArticles(entry);
+const blogHref = lang === 'es' ? '/articulos' : '/en/articulos';
+---
+
+<main>
+  <nav aria-label="breadcrumb" class="border-b border-border">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-3 font-mono text-[11.5px] text-text-muted flex gap-2 flex-wrap items-center">
+      <a href="/" class="hover:text-accent transition-colors">~</a>
+      <span>/</span>
+      <a href={blogHref} class="hover:text-accent transition-colors">blog</a>
+      <span>/</span>
+      <span class="text-text-secondary">{entry.data.category}</span>
+      <span>/</span>
+      <span class="text-text-primary truncate">{entry.slug}</span>
+    </div>
+  </nav>
+
+  <header class="border-b border-border">
+    <div class="max-w-[820px] mx-auto px-5 sm:px-10 py-12">
+      <div class="flex flex-wrap gap-2 mb-4">
+        {entry.data.tags.map((tag) => <span class="chip">#{tag}</span>)}
+      </div>
+      <h1 class="font-serif text-3xl sm:text-4xl text-text-primary leading-tight">{entry.data.title}</h1>
+      <p class="mt-4 font-serif italic text-lg text-text-secondary leading-snug">{entry.data.description}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[12px] text-text-muted">
+        <span
+          class="w-8 h-8 border border-border bg-surface-3 flex items-center justify-center font-bold text-accent text-[11px] shrink-0"
+          aria-hidden="true"
+        >
+          SD
+        </span>
+        <span class="text-text-secondary">Santiago Da Ros</span>
+        <span>·</span>
+        <span>{formatDate(entry.data.date, lang)}</span>
+        <span>·</span>
+        <span>{minutes} min</span>
+        {entry.data.updated && (
+          <>
+            <span>·</span>
+            <span>
+              {lang === 'es' ? 'actualizado' : 'updated'} {formatDate(entry.data.updated, lang)}
+            </span>
+          </>
+        )}
+      </div>
+
+      {
+        !translation && (
+          <p
+            data-i18n={lang === 'es' ? 'en' : 'es'}
+            class="mt-5 inline-block font-mono text-xs text-text-muted border border-dashed border-border px-3 py-2"
+          >
+            {lang === 'es'
+              ? 'This article is only available in Spanish for now — an English version is planned.'
+              : 'Este artículo todavía no tiene versión en español.'}
+          </p>
+        )
+      }
+    </div>
+  </header>
+
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-12 grid lg:grid-cols-[220px_1fr] gap-x-10">
+    <TOC headings={headings} lang={lang} />
+
+    <div class="max-w-[68ch] min-w-0">
+      <div class="article-body">
+        <Content components={{ Callout, PullQuote, Takeaway }} />
+      </div>
+
+      <References references={entry.data.references} lang={lang} />
+      <AuthorBox lang={lang} />
+
+      <div class="mt-10">
+        <NewsletterCTA lang={lang} />
+      </div>
+    </div>
+  </div>
+
+  {
+    related.length > 0 && (
+      <section class="border-t border-border">
+        <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+          <p class="section-label">{lang === 'es' ? '// seguí leyendo' : '// keep reading'}</p>
+          <h2 class="section-heading mb-8">{lang === 'es' ? 'Artículos relacionados' : 'Related articles'}</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {related.map((r) => (
+              <ArticleCard entry={r} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</main>
+
+<style is:global>
+  .article-body {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    counter-reset: h2-counter;
+  }
+  .article-body > * + * {
+    margin-top: 1.4em;
+  }
+  .article-body strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+  .article-body a {
+    color: rgb(var(--color-accent));
+    text-underline-offset: 3px;
+  }
+  .article-body h2 {
+    counter-increment: h2-counter;
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.65rem;
+    color: var(--color-text-primary);
+    margin-top: 2.4em;
+    scroll-margin-top: 6rem;
+  }
+  .article-body h2::before {
+    content: counter(h2-counter, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgb(var(--color-accent));
+    margin-right: 0.6em;
+  }
+  .article-body h3 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+    margin-top: 1.8em;
+    scroll-margin-top: 6rem;
+  }
+  .article-body ul,
+  .article-body ol {
+    padding-left: 1.4em;
+  }
+  .article-body li {
+    margin-top: 0.5em;
+  }
+  .article-body li::marker {
+    color: rgb(var(--color-accent));
+  }
+  .article-body code {
+    font-size: 0.85em;
+    background: var(--color-surface-3);
+    padding: 0.15em 0.4em;
+    border: 1px solid var(--color-border);
+  }
+  .article-body pre {
+    background: var(--color-surface-3) !important;
+    border: 1px solid var(--color-border);
+    padding: 1.1em;
+    overflow-x: auto;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+  .article-body pre code {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .article-body blockquote {
+    border-left: 2px solid rgb(var(--color-accent));
+    padding-left: 1.2em;
+  }
+  .article-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+  }
+  .article-body th,
+  .article-body td {
+    border: 1px solid var(--color-border);
+    padding: 0.6em 0.8em;
+    text-align: left;
+  }
+  .article-body th {
+    background: var(--color-surface-3);
+    color: var(--color-text-primary);
+  }
+  .article-body img {
+    border: 1px solid var(--color-border);
+    max-width: 100%;
+    height: auto;
+  }
+  .article-body hr {
+    border: none;
+    border-top: 1px dashed var(--color-border);
+    margin: 2em 0;
+  }
+  .article-body sup a {
+    color: rgb(var(--color-accent));
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>

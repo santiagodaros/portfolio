@@ -9,6 +9,9 @@ interface Props {
   ogImagePath?: string;
   publishedTime?: Date;
   modifiedTime?: Date;
+  /** Real per-language URLs for this page, e.g. { es: '/articulos/x', en: '/en/articulos/y' }.
+   *  Falls back to a self + x-default alternate when omitted (page has no translation). */
+  alternates?: Partial<Record<'es' | 'en', string>>;
 }
 
 const {
@@ -19,10 +22,19 @@ const {
   ogImagePath = '/og-image.png',
   publishedTime,
   modifiedTime,
+  alternates,
 } = Astro.props;
 
 const ogImage = new URL(ogImagePath, Astro.site);
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+
+const hreflangLinks = alternates
+  ? Object.entries(alternates).map(([hreflang, href]) => ({
+      hreflang,
+      href: new URL(href, Astro.site).toString(),
+    }))
+  : [{ hreflang: lang, href: canonicalUrl.toString() }];
+const xDefaultHref = alternates?.es ? new URL(alternates.es, Astro.site).toString() : canonicalUrl.toString();
 ---
 
 <!doctype html>
@@ -33,11 +45,8 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <meta name="author" content="Santiago Lucas Da Ros" />
     <link rel="canonical" href={canonicalUrl} />
-    <!-- Single-language launch (ES only): self + x-default alternates keep
-         hreflang valid now and cost nothing to extend once /en pages exist —
-         swap for a real per-language list at that point. -->
-    <link rel="alternate" hreflang={lang} href={canonicalUrl} />
-    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    {hreflangLinks.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
@@ -56,7 +65,12 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#0b0b0d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title="Santiago Da Ros — Blog" href="/rss.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Santiago Da Ros — Blog"
+      href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'}
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -117,6 +131,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
       });
     </script>
 
+    <script define:vars={{ pageLang: lang, fixedLang: Boolean(alternates) }}>
+      // Plain-JS bridge: routed pages (blog) pass their real URL-implied
+      // language here so the toggle script below can force-sync to it,
+      // instead of trusting a possibly-stale localStorage value.
+      window.__pageLang = pageLang;
+      window.__fixedLang = fixedLang;
+    </script>
+
     <script>
       // i18n language toggle: swaps data-es/data-en text, CV links and
       // toggles html.en for rich dual blocks ([data-i18n])
@@ -129,7 +151,12 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
           });
           document.querySelectorAll<HTMLAnchorElement>('[data-href-es][data-href-en]').forEach((el) => {
             el.href = (lang === 'en' ? el.dataset.hrefEn : el.dataset.hrefEs) ?? el.href;
-            el.download = (lang === 'en' ? el.dataset.filenameEn : el.dataset.filenameEs) ?? '';
+            const filename = lang === 'en' ? el.dataset.filenameEn : el.dataset.filenameEs;
+            if (filename) {
+              el.download = filename;
+            } else {
+              el.removeAttribute('download');
+            }
           });
           document.querySelectorAll('.lang-label').forEach((label) => {
             label.textContent = lang === 'en' ? 'ES' : 'EN';
@@ -137,12 +164,31 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
           localStorage.setItem('lang', lang);
         }
 
-        if ((localStorage.getItem('lang') || 'es') === 'en') applyLang('en');
+        // Routed pages (blog) are fixed to the language their URL implies:
+        // sync localStorage to match instead of trusting a stale value from
+        // browsing a different route. Toggle-native pages (home) keep
+        // reading the stored preference as before.
+        const fixedLang = (window as any).__fixedLang === true;
+        const pageLang = (window as any).__pageLang as string;
+        const activeLang = fixedLang ? pageLang : localStorage.getItem('lang') || 'es';
+        if (fixedLang) localStorage.setItem('lang', pageLang);
+        if (activeLang === 'en') applyLang('en');
 
         ['lang-toggle', 'lang-toggle-m'].forEach((id) => {
           document.getElementById(id)?.addEventListener('click', () => {
             const current = localStorage.getItem('lang') || 'es';
-            applyLang(current === 'es' ? 'en' : 'es');
+            const next = current === 'es' ? 'en' : 'es';
+            // Content pages (e.g. blog posts) set window.__langAltUrl to the
+            // real URL of their translation, if one exists — the toggle then
+            // navigates there instead of swapping text in place, since the
+            // translated content lives on a different route entirely.
+            const altUrl = (window as any).__langAltUrl?.[next];
+            if (altUrl) {
+              localStorage.setItem('lang', next);
+              window.location.href = altUrl;
+              return;
+            }
+            applyLang(next);
           });
         });
       })();

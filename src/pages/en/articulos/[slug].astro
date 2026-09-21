@@ -7,7 +7,7 @@ import ArticlePage from '@/components/blog/ArticlePage.astro';
 import { getTranslation } from '@/lib/blog';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog', (e) => e.data.lang === 'es' && !e.data.draft);
+  const entries = await getCollection('blog', (e) => e.data.lang === 'en' && !e.data.draft);
   return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 
@@ -17,10 +17,10 @@ interface Props {
 const { entry } = Astro.props;
 const translation = await getTranslation(entry);
 
-const canonicalUrl = new URL(`/articulos/${entry.slug}/`, Astro.site).toString();
-const alternates: Partial<Record<'es' | 'en', string>> = { es: `/articulos/${entry.slug}/` };
-if (translation) alternates.en = `/en/articulos/${translation.slug}/`;
-const langAltUrl = translation ? { en: `/en/articulos/${translation.slug}` } : null;
+const canonicalUrl = new URL(`/en/articulos/${entry.slug}/`, Astro.site).toString();
+const alternates: Partial<Record<'es' | 'en', string>> = { en: `/en/articulos/${entry.slug}/` };
+if (translation) alternates.es = `/articulos/${translation.slug}/`;
+const langAltUrl = translation ? { es: `/articulos/${translation.slug}` } : null;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -43,7 +43,7 @@ const jsonLd = {
 <Layout
   title={`${entry.data.title} — Santiago Da Ros`}
   description={entry.data.description}
-  lang="es"
+  lang="en"
   type="article"
   ogImagePath={`/og/${entry.slug}.png`}
   publishedTime={entry.data.date}

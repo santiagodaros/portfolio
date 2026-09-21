@@ -1,0 +1,155 @@
+---
+import FeaturedArticle from '@/components/blog/FeaturedArticle.astro';
+import ArticleCard from '@/components/blog/ArticleCard.astro';
+import SeriesCard from '@/components/blog/SeriesCard.astro';
+import TalksPanel from '@/components/blog/TalksPanel.astro';
+import NewsletterCTA from '@/components/blog/NewsletterCTA.astro';
+import { getPublishedArticles, getFeaturedArticle, getSeriesWithCount } from '@/lib/blog';
+
+interface Props {
+  lang: 'es' | 'en';
+}
+const { lang } = Astro.props;
+
+const [articles, featured, series] = await Promise.all([
+  getPublishedArticles(lang),
+  getFeaturedArticle(lang),
+  getSeriesWithCount(lang),
+]);
+const rest = articles.filter((a) => a.slug !== featured?.slug);
+
+const copy = {
+  es: {
+    heroTitlePre: 'Traductor de ',
+    heroTitleAccent: 'Complejidad',
+    heroSubtitle:
+      'Notas técnicas sobre infraestructura Cloud, governance y lo que se rompe en el medio — escritas para quien tiene que operarlo, no solo diseñarlo.',
+    pillars: ['Governance', 'Automatización', 'Resiliencia', 'FinOps'],
+    labelFeatured: '01 // destacado.md',
+    labelIndex: '02 // indice.sh',
+    allArticlesPre: 'Todos los ',
+    allArticlesAccent: 'artículos',
+    labelSeries: '03 // series.sh',
+    seriesHeading: 'Series',
+    labelSubscribe: '04 // subscribe.sh',
+    labelCommunity: '05 // comunidad.sh',
+    communityPre: 'Charlas & ',
+    communityAccent: 'comunidad',
+  },
+  en: {
+    heroTitlePre: 'Complexity ',
+    heroTitleAccent: 'Translator',
+    heroSubtitle:
+      'Technical notes on Cloud infrastructure, governance, and what breaks in between — written for whoever has to operate it, not just design it.',
+    pillars: ['Governance', 'Automation', 'Resilience', 'FinOps'],
+    labelFeatured: '01 // featured.md',
+    labelIndex: '02 // index.sh',
+    allArticlesPre: 'All ',
+    allArticlesAccent: 'articles',
+    labelSeries: '03 // series.sh',
+    seriesHeading: 'Series',
+    labelSubscribe: '04 // subscribe.sh',
+    labelCommunity: '05 // community.sh',
+    communityPre: 'Talks & ',
+    communityAccent: 'community',
+  },
+} as const;
+const t = copy[lang];
+---
+
+<main>
+  <!-- Hero terminal -->
+  <section class="border-b border-border">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-12 sm:py-16">
+      <div class="border border-border bg-surface-2 animate-on-scroll">
+        <div class="flex items-center gap-1.5 px-4 py-2.5 border-b border-border bg-surface-3">
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#f87171" aria-hidden="true"></span>
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#fbbf24" aria-hidden="true"></span>
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#4ade80" aria-hidden="true"></span>
+          <span class="ml-2 font-mono text-[11px] text-text-muted">~/blog</span>
+        </div>
+        <div class="px-6 sm:px-8 py-10">
+          <p class="font-mono text-sm text-accent">
+            $ cat README.md<span class="cursor-blink" aria-hidden="true"></span>
+          </p>
+          <h1 class="mt-4 font-serif text-4xl sm:text-5xl text-text-primary leading-tight">
+            {t.heroTitlePre}<span class="accent-serif">{t.heroTitleAccent}</span>
+          </h1>
+          <p class="mt-4 font-mono text-sm text-text-secondary max-w-[60ch] leading-relaxed">{t.heroSubtitle}</p>
+          <div class="mt-5 flex flex-wrap gap-2 font-mono text-[11px] text-text-muted">
+            {t.pillars.map((p) => <span class="chip">{p}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  {
+    featured && (
+      <section class="border-b border-border">
+        <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+          <p class="section-label">{t.labelFeatured}</p>
+          <FeaturedArticle entry={featured} lang={lang} />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Grid -->
+  {
+    rest.length > 0 && (
+      <section class="border-b border-border">
+        <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+          <p class="section-label">{t.labelIndex}</p>
+          <h2 class="section-heading mb-8">
+            {t.allArticlesPre}
+            <span class="accent-serif">{t.allArticlesAccent}</span>
+          </h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {rest.map((entry) => (
+              <ArticleCard entry={entry} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Series -->
+  {
+    series.length > 0 && (
+      <section class="border-b border-border">
+        <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+          <p class="section-label">{t.labelSeries}</p>
+          <h2 class="section-heading mb-8">{t.seriesHeading}</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {series.map((s) => (
+              <SeriesCard name={s.data.name} description={s.data.description} count={s.count} lang={lang} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Newsletter -->
+  <section class="border-b border-border">
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+      <p class="section-label">{t.labelSubscribe}</p>
+      <NewsletterCTA lang={lang} />
+    </div>
+  </section>
+
+  <!-- Talks -->
+  <section>
+    <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-14">
+      <p class="section-label">{t.labelCommunity}</p>
+      <h2 class="section-heading mb-8">
+        {t.communityPre}
+        <span class="accent-serif">{t.communityAccent}</span>
+      </h2>
+      <TalksPanel lang={lang} />
+    </div>
+  </section>
+</main>

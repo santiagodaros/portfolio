@@ -14,6 +14,9 @@ const blog = defineCollection({
     category: z.string(),
     series: z.string().optional(),
     lang: z.enum(['es', 'en']),
+    // Shared key linking an article to its translation in the other
+    // language, e.g. both posts of a pair set translationKey: "backup-rpo-rto".
+    translationKey: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     references: z

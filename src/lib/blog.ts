@@ -31,6 +31,13 @@ export async function getRelatedArticles(entry: BlogEntry, limit = 3): Promise<B
   return scored.slice(0, limit).map((s) => s.entry);
 }
 
+export async function getTranslation(entry: BlogEntry): Promise<BlogEntry | undefined> {
+  if (!entry.data.translationKey) return undefined;
+  const otherLang = entry.data.lang === 'es' ? 'en' : 'es';
+  const candidates = await getPublishedArticles(otherLang);
+  return candidates.find((a) => a.data.translationKey === entry.data.translationKey);
+}
+
 export async function getSeriesWithCount(lang: 'es' | 'en') {
   const [seriesEntries, articles] = await Promise.all([
     getCollection('series', (e) => e.data.lang === lang),
