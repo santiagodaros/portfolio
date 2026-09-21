@@ -8,14 +8,23 @@ function hl(text: string): string {
   );
 }
 
+// Current-role tenure computed at build time (same approach as the Hero's
+// cloud-experience stat) so it never goes stale between deploys.
+const currentRoleStart = new Date(2025, 9); // October 2025
+const now = new Date();
+const currentRoleMonths =
+  (now.getFullYear() - currentRoleStart.getFullYear()) * 12 + (now.getMonth() - currentRoleStart.getMonth());
+const currentRoleTenureEs = `~${currentRoleMonths} mes${currentRoleMonths === 1 ? '' : 'es'}`;
+const currentRoleTenureEn = `~${currentRoleMonths} month${currentRoleMonths === 1 ? '' : 's'}`;
+
 const experiences = [
   {
     role: 'Azure Cloud Engineer & SRE',
     company: 'readymind',
     periodEs: 'Oct 2025 — Presente',
     periodEn: 'Oct 2025 — Present',
-    metaEs: 'Buenos Aires, Argentina · Híbrido · ~10 meses · Full-time',
-    metaEn: 'Buenos Aires, Argentina · Hybrid · ~10 months · Full-time',
+    metaEs: `Buenos Aires, Argentina · Híbrido · ${currentRoleTenureEs} · Full-time`,
+    metaEn: `Buenos Aires, Argentina · Hybrid · ${currentRoleTenureEn} · Full-time`,
     current: true,
     descriptionEs:
       'Consultoría cloud y evaluaciones técnicas para clientes corporativos: resiliencia operacional (SRE), entornos híbridos, automatización y gobernanza bajo CAF.',
@@ -28,7 +37,7 @@ const experiences = [
       'Managed Identities y RBAC de menor privilegio: comunicación entre servicios sin secretos expuestos y menor superficie de ataque',
       'Documentación estandarizada de arquitecturas complejas, reduciendo el knowledge transfer interno',
       'Gestión de incidentes críticos en producción cloud, con foco en alta disponibilidad',
-      'Certificaciones durante el rol: AZ-104, AZ-800/801, AZ-305 y AZ-400 (Expert)',
+      'Certificaciones durante el rol: AZ-104, AZ-800/801, AZ-305, AZ-400 (Expert) y SC-300',
     ],
     achievementsEn: [
       'Own PowerShell framework automating Azure Site Recovery Test Failover across 20 servers: validation time from ~2 hrs to 45 min (~60%)',
@@ -37,9 +46,9 @@ const experiences = [
       'Managed Identities and least-privilege RBAC: service-to-service communication with no exposed secrets and a smaller attack surface',
       'Standardized documentation for complex architectures, reducing internal knowledge transfer',
       'Critical incident management in cloud production, focused on high availability',
-      'Certifications during the role: AZ-104, AZ-800/801, AZ-305 and AZ-400 (Expert)',
+      'Certifications during the role: AZ-104, AZ-800/801, AZ-305, AZ-400 (Expert) and SC-300',
     ],
-    tags: ['Azure', 'SRE', 'PowerShell', 'Azure Site Recovery', 'Azure Arc', 'Azure Policy', 'RBAC', 'CAF', 'AZ-305', 'AZ-400'],
+    tags: ['Azure', 'SRE', 'PowerShell', 'Azure Site Recovery', 'Azure Arc', 'Azure Policy', 'RBAC', 'CAF', 'AZ-305', 'AZ-400', 'SC-300'],
   },
   {
     role: 'Cloud Engineer',
