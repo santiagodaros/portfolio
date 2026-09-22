@@ -1,0 +1,42 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout title="404 — Santiago Da Ros" description="Página no encontrada.">
+  <Nav />
+  <main>
+    <section class="border-b border-border">
+      <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-24 sm:py-32 text-center">
+        <p class="font-mono text-sm text-accent">
+          $ cat 404.md<span class="cursor-blink" aria-hidden="true"></span>
+        </p>
+        <h1 class="mt-5 font-serif text-5xl sm:text-6xl text-text-primary leading-tight">
+          <span class="accent-serif">404</span>
+        </h1>
+        <p
+          class="mt-4 font-mono text-sm text-text-secondary max-w-[52ch] mx-auto"
+          data-es="command not found: esta ruta no existe."
+          data-en="command not found: this route doesn't exist."
+        >
+          command not found: esta ruta no existe.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 mt-8">
+          <a href="/" class="btn-solid" data-es="./home →" data-en="./home →">./home →</a>
+          <a
+            href="/articulos"
+            class="btn-box"
+            data-es="./artículos →"
+            data-en="./articles →"
+            data-href-es="/articulos"
+            data-href-en="/en/articulos"
+          >
+            ./artículos →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

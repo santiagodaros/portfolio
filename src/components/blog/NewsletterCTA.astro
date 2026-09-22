@@ -37,15 +37,21 @@ const { lang = 'es' } = Astro.props;
       {lang === 'es' ? 'Suscribirme →' : 'Subscribe →'}
     </button>
   </form>
-  <p class="mt-3 font-mono text-[11px] text-text-muted" data-newsletter-status role="status" aria-live="polite"></p>
+  <p
+    class="mt-3 font-mono text-[11px] text-text-muted"
+    data-newsletter-status
+    data-msg={lang === 'es' ? 'Newsletter aún no conectado — próximamente.' : 'Newsletter not connected yet — coming soon.'}
+    role="status"
+    aria-live="polite"
+  ></p>
 </div>
 
 <script>
   document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]').forEach((form) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const status = form.parentElement?.querySelector('[data-newsletter-status]');
-      if (status) status.textContent = 'Newsletter aún no conectado — próximamente.';
+      const status = form.parentElement?.querySelector<HTMLElement>('[data-newsletter-status]');
+      if (status) status.textContent = status.dataset.msg ?? '';
     });
   });
 </script>
