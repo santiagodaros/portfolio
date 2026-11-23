@@ -15,7 +15,7 @@ const { label, code, copy, copied, copyFail } = Astro.props;
     <span>{label}</span>
     <button type="button" class="code__copy" data-code-copy data-copy={copy} data-copied={copied} data-copy-fail={copyFail}>{copy}</button>
   </div>
-  <pre><code>{code}</code></pre>
+  <pre tabindex="0"><code>{code}</code></pre>
 </div>
 
 <script>

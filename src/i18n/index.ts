@@ -4,8 +4,6 @@
 
 export type Lang = 'es' | 'en';
 
-export const LANGS: Lang[] = ['es', 'en'];
-
 export function otherLang(lang: Lang): Lang {
   return lang === 'es' ? 'en' : 'es';
 }
@@ -49,7 +47,7 @@ const ui = {
     menuClose: 'Cerrar el menú',
     searchAria: 'Buscar en el sitio (⌘K)',
     searchTitle: 'Buscar · ⌘K',
-    switchLangAria: 'Switch to English',
+    switchLangAria: 'EN · Switch to English',
     switchLangText: 'EN',
     themeToDark: 'Cambiar a tema oscuro',
     themeToLight: 'Cambiar a tema claro',
@@ -91,7 +89,7 @@ const ui = {
     menuClose: 'Close menu',
     searchAria: 'Search the site (⌘K)',
     searchTitle: 'Search · ⌘K',
-    switchLangAria: 'Ver en español',
+    switchLangAria: 'ES · Ver en español',
     switchLangText: 'ES',
     themeToDark: 'Switch to dark theme',
     themeToLight: 'Switch to light theme',

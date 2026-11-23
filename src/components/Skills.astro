@@ -45,13 +45,13 @@ const t = home[lang].stack;
               href={c.url}
               target="_blank"
               rel="noopener"
-              aria-label={t.verify(c.code, c.name)}
             >
               <img src={`/img/badges/${c.badge}.png`} alt="" width="58" height="60" loading="lazy" />
               <span>
                 <b>{c.code}</b> · {c.level}
               </span>
               <small>{c.name}</small>
+              <span class="sr-only">, {t.verifyHint}</span>
               <i class="cert__go" aria-hidden="true">↗</i>
             </a>
           ))

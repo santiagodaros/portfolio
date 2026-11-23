@@ -200,9 +200,11 @@ const next = await getNextArticle(entry);
       setTimeout(() => (btn.textContent = prose.dataset.copy ?? 'Copy'), 1600);
     });
     bar.append(label, btn);
+    pre.tabIndex = 0; // el bloque scrollea: tiene que poder enfocarse con teclado
     pre.replaceWith(wrap);
     wrap.append(bar, pre);
   });
+  prose?.querySelectorAll<HTMLTableElement>('table').forEach((t) => (t.tabIndex = 0));
 
   // Barra de progreso de lectura
   const article = document.querySelector<HTMLElement>('[data-article]');
