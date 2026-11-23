@@ -1,0 +1,9 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ThanksPage from '@/components/ThanksPage.astro';
+---
+
+<!-- Kit redirige acá al confirmar la suscripción. Muestra español e inglés a la vez. -->
+<Layout title="Listo, ya estás suscripto · Santiago Da Ros" description="Suscripción confirmada." lang="es" noindex>
+  <ThanksPage langs={['es', 'en']} />
+</Layout>

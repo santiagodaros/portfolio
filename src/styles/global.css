@@ -273,6 +273,13 @@
 .ground-ink .head p {
   color: color-mix(in srgb, currentColor 70%, transparent);
 }
+.ground-accent {
+  background: var(--accent);
+  color: #fff;
+}
+.ground-accent .eyebrow {
+  color: #fff;
+}
 .ground-ink .tag {
   color: color-mix(in srgb, currentColor 65%, transparent);
 }

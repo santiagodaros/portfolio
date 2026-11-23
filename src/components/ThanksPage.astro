@@ -1,0 +1,82 @@
+---
+// Página a la que Kit redirige cuando el suscriptor confirma desde el mail.
+// `langs` define los idiomas que muestra: /gracias muestra español e inglés a la vez
+// (Kit solo admite una URL de redirección por formulario); /en/thanks solo inglés.
+import { getPublishedArticles, articleHref } from '../lib/blog';
+import { thanksText } from '../i18n/newsletter';
+import { homePath, paths, type Lang } from '../i18n';
+
+interface Props {
+  langs: Lang[];
+}
+const { langs } = Astro.props;
+
+const blocks = await Promise.all(
+  langs.map(async (lang) => {
+    const latest = (await getPublishedArticles(lang))[0];
+    return { lang, t: thanksText[lang], latest, home: homePath(lang), blog: paths[lang].blog };
+  })
+);
+---
+
+<main>
+  <div class="wrap thanks">
+    {
+      blocks.map((b) => (
+        <section class="thanks__block" lang={b.lang}>
+          <span class="eyebrow">Newsletter</span>
+          <h1>{b.t.title}</h1>
+          <p class="thanks__lead">{b.t.text}</p>
+          <div class="btn-row">
+            {
+              b.latest && (
+                <a class="btn btn--primary" href={articleHref(b.latest)}>
+                  {b.t.latest}
+                </a>
+              )
+            }
+            <a class="btn btn--secondary" href={b.blog}>{b.t.blog}</a>
+            <a class="link thanks__home" href={b.home}>{b.t.home}</a>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</main>
+
+<style>
+  .thanks {
+    min-height: 60vh;
+    display: grid;
+    align-content: center;
+    gap: 72px;
+    padding: 72px 0;
+  }
+  .thanks__block {
+    display: grid;
+    justify-items: start;
+    gap: 20px;
+  }
+  .thanks__block + .thanks__block {
+    padding-top: 56px;
+    border-top: 1px solid var(--line);
+  }
+  .thanks h1 {
+    font-size: var(--t1);
+    line-height: 1;
+    max-width: 14ch;
+  }
+  .thanks__block + .thanks__block h1 {
+    font-size: var(--t2);
+  }
+  .thanks__lead {
+    max-width: 46ch;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .thanks .btn-row {
+    align-items: center;
+    gap: 16px;
+  }
+</style>
