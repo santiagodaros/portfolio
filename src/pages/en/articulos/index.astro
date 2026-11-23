@@ -1,7 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Nav from '@/components/Nav.astro';
-import Footer from '@/components/Footer.astro';
 import BlogIndexPage from '@/components/blog/BlogIndexPage.astro';
 ---
 
@@ -11,10 +9,5 @@ import BlogIndexPage from '@/components/blog/BlogIndexPage.astro';
   lang="en"
   alternates={{ es: '/articulos', en: '/en/articulos' }}
 >
-  <script>
-    (window as any).__langAltUrl = { es: '/articulos' };
-  </script>
-  <Nav />
   <BlogIndexPage lang="en" />
-  <Footer />
 </Layout>

@@ -1,6 +1,4 @@
 ---
-import Footer from './Footer.astro';
-
 // Email intentionally absent from the static HTML: it gets decoded and
 // injected client-side (see script below) so scraper bots can't harvest it.
 const links = [
@@ -69,5 +67,3 @@ const links = [
   const emailCta = document.getElementById('email-cta');
   if (emailCta instanceof HTMLAnchorElement) emailCta.href = `mailto:${email}`;
 </script>
-
-<Footer />
