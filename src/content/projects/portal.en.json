@@ -1,0 +1,67 @@
+{
+  "id": "portal",
+  "lang": "en",
+  "order": 0,
+  "size": "lg",
+  "featured": true,
+  "kind": "Internal product · Readymind",
+  "status": "In production",
+  "statusTone": "live",
+  "title": "CSP operations portal",
+  "summary": "Connects account managers' work with Partner Center: access, costs, licenses and purchases for the whole portfolio in one read-only place.",
+  "tags": [
+    "React",
+    "TypeScript",
+    "PostgreSQL",
+    "Container Apps",
+    "Entra ID",
+    "Partner Center API"
+  ],
+  "lead": "One place to see access, costs, licenses and purchases across the whole client portfolio.",
+  "kpis": [
+    {
+      "value": "204",
+      "label": "clients in 6 countries"
+    },
+    {
+      "value": "9",
+      "label": "read-only integrations"
+    }
+  ],
+  "problem": "The information an account manager needs to serve a client was spread across different portals. Answering something simple, like how many licenses are paid for but unused, took time and depended on who knew where to look.",
+  "idea": "Bring everything into one portal that reads Microsoft's sources without being able to change them, shows each person only what they should see, and requires double approval before any purchase.",
+  "change": "The team checks the whole portfolio in one place, spots unassigned licenses and renewals in time, and every purchase is logged and approved.",
+  "role": "I gathered requirements with the account managers, defined the scope and role-based permissions, designed the screens, built the read-only Microsoft integrations, set up the double-approval purchase flow and shipped it to production on Azure.",
+  "topics": [
+    "Internal product",
+    "FinOps",
+    "Secure by default"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "flow": {
+    "ariaLabel": "Diagram of the CSP portal: it reads Partner Center, Microsoft Graph and Azure Resource Manager in read-only mode, processes in the portal and shows the team access, costs, licenses and purchases with approval.",
+    "inLabel": "Sources · read-only",
+    "sources": [
+      "Partner Center",
+      "Microsoft Graph",
+      "Azure Resource Manager"
+    ],
+    "coreTitle": "CSP portal",
+    "coreItems": [
+      "Automated nightly reads",
+      "Role-based database access",
+      "Sign-in with Entra ID",
+      "Purchases with double approval"
+    ],
+    "badge": "9 integrations",
+    "outLabel": "What the team sees",
+    "outputs": [
+      "Access and permissions",
+      "Cost per client",
+      "Unassigned licenses",
+      "Purchases with approval"
+    ],
+    "note": "How it works, sketched. No screenshots or client data."
+  }
+}

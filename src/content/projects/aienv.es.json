@@ -1,0 +1,76 @@
+{
+  "id": "aienv",
+  "lang": "es",
+  "order": 6,
+  "size": "wide",
+  "featured": false,
+  "kind": "Proyecto propio · open source",
+  "status": "Publicado",
+  "statusTone": "live",
+  "title": "ai-env",
+  "summary": "Un arnés para operar infraestructura con agentes de IA: la inteligencia está en el control, no en el modelo.",
+  "tags": [
+    "Claude Code",
+    "Plugins",
+    "Git worktrees",
+    "PowerShell"
+  ],
+  "metric": {
+    "value": "Open source",
+    "label": "en GitHub"
+  },
+  "lead": "Un arnés para operar infraestructura crítica con agentes de IA, con el mismo rigor que pide producción.",
+  "kpis": [
+    {
+      "value": "4",
+      "label": "invariantes de diseño"
+    },
+    {
+      "value": "Open source",
+      "label": "en GitHub"
+    }
+  ],
+  "problem": "Un modelo de lenguaje es probabilístico y producción exige determinismo. Pegar miles de líneas en un chat esperando que el modelo \"recuerde no romper nada\" no es ingeniería.",
+  "idea": "Poner la inteligencia en el andamiaje de control: separar el control de la ejecución, validar con esquemas en vez de pedirle cosas al modelo, mandarle solo el contexto necesario y verificar cada resultado por fuera.",
+  "change": "Trabajo con agentes que orquestan tareas en entornos aislados, nunca ven credenciales y no cierran nada sin evidencia independiente. Se instala solo en todos mis equipos.",
+  "role": "Lo diseñé, lo construí y lo publiqué como open source: los plugins, los flujos de trabajo con agentes, los scripts de entornos aislados y las reglas de verificación.",
+  "topics": [],
+  "links": [
+    {
+      "label": "Ver en GitHub ↗",
+      "href": "https://github.com/santiagodaros/ai-env",
+      "primary": true
+    },
+    {
+      "label": "Leer el post ↗",
+      "href": "https://www.linkedin.com/posts/santiagodaros_harness-engineering-ugcPost-7515527328849022976-ruBx/",
+      "primary": false
+    }
+  ],
+  "note": "Proyecto personal. Los PRs y los issues son bienvenidos.",
+  "mini": {
+    "type": "terminal",
+    "lines": [
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "worktree aislado por tarea"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "secretos fuera del contexto"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "esquema validado"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "verificación externa"
+      }
+    ]
+  }
+}

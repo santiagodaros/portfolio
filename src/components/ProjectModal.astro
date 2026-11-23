@@ -1,0 +1,247 @@
+---
+// Modal de un proyecto: <dialog> nativo (foco atrapado, Esc, ::backdrop).
+// Se abre con #p-<id>. Sin JS, el enlace #p-<id> lo muestra igual con :target.
+import { projectHash, type Project } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  labels: { close: string; problem: string; idea: string; change: string; role: string };
+  /** Destino del botón de cerrar sin JS. */
+  closeHref: string;
+}
+const { project: p, labels, closeHref } = Astro.props;
+const id = projectHash(p.id);
+---
+
+<dialog class="pmodal" id={id} aria-labelledby={`${id}-t`}>
+  <div class="pm">
+    <header class="pm__top">
+      <span class="pm__kind">{p.kind}</span>
+      <a class="pm__x" href={closeHref} data-close aria-label={labels.close}>×</a>
+    </header>
+    <h2 id={`${id}-t`}>{p.title}</h2>
+    <p class="pm__lead">{p.lead}</p>
+    <div class="pm__kpis">
+      {
+        p.kpis.map((k) => (
+          <div>
+            <strong>{k.value}</strong>
+            <span>{k.label}</span>
+          </div>
+        ))
+      }
+    </div>
+    <div class="pm__body">
+      <div><h3>{labels.problem}</h3><p>{p.problem}</p></div>
+      <div><h3>{labels.idea}</h3><p>{p.idea}</p></div>
+      <div><h3>{labels.change}</h3><p>{p.change}</p></div>
+      <div><h3>{labels.role}</h3><p>{p.role}</p></div>
+    </div>
+    <div class="tags pm__tags">
+      {p.topics.map((t) => <span class="tag">{t}</span>)}
+      {
+        p.links.map((l) =>
+          l.primary ? (
+            <a class="btn btn--primary btn--sm" href={l.href} target="_blank" rel="noopener">{l.label}</a>
+          ) : (
+            <a class="pm__link" href={l.href} target="_blank" rel="noopener">{l.label}</a>
+          )
+        )
+      }
+    </div>
+    <p class="pm__note">{p.note}</p>
+  </div>
+</dialog>
+
+<style>
+  .pmodal {
+    width: min(1000px, calc(100% - 40px));
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    margin: auto;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 40px 100px -30px rgb(0 0 0 / 0.55);
+    overflow: hidden;
+  }
+  .pmodal[open] {
+    animation: popIn 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+  }
+  .pmodal::backdrop {
+    background: rgb(11 12 14 / 0.45);
+    backdrop-filter: blur(3px);
+  }
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .pm {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+    grid-template-areas:
+      'top top'
+      'title kpis'
+      'lead kpis'
+      'body body'
+      'tags foot';
+    column-gap: 36px;
+    align-items: start;
+    max-height: calc(100vh - 40px);
+    padding: 28px 36px 26px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .pm::-webkit-scrollbar {
+    display: none;
+  }
+  .pm__top {
+    grid-area: top;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .pm__kind {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pm__x {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 26px;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .pm__x:hover {
+    background: var(--tonal);
+    color: var(--ink);
+  }
+  .pm h2 {
+    grid-area: title;
+    font-size: clamp(26px, 3.2vh, 34px);
+    line-height: 1.05;
+  }
+  .pm__lead {
+    grid-area: lead;
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .pm__kpis {
+    grid-area: kpis;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .pm__kpis div {
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+  }
+  .pm__kpis strong {
+    display: block;
+    font: 500 22px/1.05 var(--display);
+    letter-spacing: -0.03em;
+  }
+  .pm__kpis span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pm__body {
+    grid-area: body;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 24px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .pm__body h3 {
+    margin: 0 0 8px;
+    font: 500 13px/1 var(--mono);
+    letter-spacing: 0;
+    color: var(--accent);
+  }
+  .pm__body p {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .pm__tags {
+    grid-area: tags;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .pm__link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .pm__link:hover {
+    text-decoration: underline;
+  }
+  .pm__note {
+    grid-area: foot;
+    margin: 20px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .pm {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'top' 'title' 'lead' 'kpis' 'body' 'tags' 'foot';
+    }
+    .pm__kpis {
+      margin-top: 16px;
+    }
+    .pm__body {
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+    }
+    .pm__note {
+      text-align: left;
+    }
+  }
+  @media (max-width: 560px) {
+    .pm {
+      max-height: calc(100vh - 24px);
+      padding: 22px 20px;
+    }
+    .pm__body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<style is:global>
+  /* Sin JS: el enlace #p-<id> muestra el modal con :target */
+  html:not(.js) dialog.pmodal:target {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 62;
+    height: fit-content;
+    box-shadow: 0 0 0 100vmax rgb(11 12 14 / 0.45);
+  }
+</style>

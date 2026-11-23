@@ -1,0 +1,59 @@
+{
+  "id": "drlive",
+  "lang": "en",
+  "order": 4,
+  "size": "md",
+  "featured": false,
+  "kind": "Observability · Readymind",
+  "status": "Live demo",
+  "statusTone": "plan",
+  "title": "DR Live",
+  "summary": "Shows a recovery test in real time and the cost of every minute of downtime.",
+  "tags": [
+    "Next.js",
+    "Server-Sent Events",
+    "Azure Monitor"
+  ],
+  "metric": {
+    "value": "Real time",
+    "label": "presented in a webinar"
+  },
+  "lead": "Watch a recovery in real time, and what every minute of downtime costs.",
+  "kpis": [
+    {
+      "value": "Live",
+      "label": "during the webinar"
+    },
+    {
+      "value": "15–20",
+      "label": "attendees"
+    }
+  ],
+  "problem": "Talking about RTO and RPO with leadership tends to stay abstract. It's hard to grasp what an hour of downtime means if you've never seen one.",
+  "idea": "A screen that shows a recovery test progressing live, group by group, next to the running cost of every minute of downtime.",
+  "change": "The conversation moves from concepts to something you can see. I used it in the webinar \"DR that isn't tested isn't DR\".",
+  "role": "I designed the screen, built the real-time tracking of each group and the cost-per-minute calculation, and used it live in the webinar.",
+  "topics": [
+    "Continuity",
+    "Business communication"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "mini": {
+    "type": "notes",
+    "items": [
+      {
+        "title": "Group 2 online",
+        "meta": "now"
+      },
+      {
+        "title": "Replication up to date",
+        "meta": "1 min"
+      },
+      {
+        "title": "Test started",
+        "meta": "12 min"
+      }
+    ]
+  }
+}

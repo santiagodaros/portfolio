@@ -1,0 +1,52 @@
+{
+  "id": "backups",
+  "lang": "es",
+  "order": 5,
+  "size": "md",
+  "featured": false,
+  "kind": "Costos y continuidad · Readymind",
+  "status": "En curso",
+  "statusTone": "plan",
+  "title": "Backups por nivel de criticidad",
+  "summary": "Cada servidor respaldado según qué tan crítico es, con menos gasto en copias rápidas.",
+  "tags": [
+    "Azure Backup",
+    "KQL",
+    "Tags"
+  ],
+  "metric": {
+    "value": "3 niveles",
+    "label": "sin migrar lo que funciona"
+  },
+  "lead": "Cada servidor protegido según lo que vale para el negocio, no todos igual.",
+  "kpis": [
+    {
+      "value": "3",
+      "label": "niveles de protección"
+    },
+    {
+      "value": "0",
+      "label": "migraciones forzadas"
+    }
+  ],
+  "problem": "Todos los servidores se respaldaban con la misma política, pagando copias rápidas incluso donde no hacían falta.",
+  "idea": "Clasificar los servidores en tres niveles según qué tan críticos son y darle a cada nivel la protección y el costo que corresponden, sin tocar lo que ya funciona.",
+  "change": "Menos gasto en copias rápidas, una limpieza de respaldos huérfanos y una política que se explica en una frase. Está en curso.",
+  "role": "Audité los respaldos y políticas existentes, clasifiqué los servidores por criticidad, diseñé las tres políticas y la limpieza de copias huérfanas, y armé el plan para aplicarlo sin migrar lo que ya funciona.",
+  "topics": [
+    "FinOps",
+    "Continuidad",
+    "En curso"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "mini": {
+    "type": "graph",
+    "core": "Azure Backup",
+    "leaves": [
+      "Nivel 1",
+      "Nivel 2",
+      "Nivel 3"
+    ]
+  }
+}

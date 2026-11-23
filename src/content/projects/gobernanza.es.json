@@ -1,0 +1,54 @@
+{
+  "id": "gobernanza",
+  "lang": "es",
+  "order": 3,
+  "size": "md",
+  "featured": false,
+  "kind": "Gobernanza · Readymind",
+  "status": "Desarrollo avanzado",
+  "statusTone": "plan",
+  "title": "Gobernanza de Azure como código",
+  "summary": "Las reglas de Azure de varios clientes desde un repositorio, con aprobación y sin secretos.",
+  "tags": [
+    "EPAC",
+    "Lighthouse",
+    "Terraform",
+    "OIDC"
+  ],
+  "metric": {
+    "value": "Multi-tenant",
+    "label": "base de un servicio de gobernanza"
+  },
+  "lead": "Las reglas de Azure de varios clientes, gestionadas desde un solo lugar y con aprobación.",
+  "kpis": [
+    {
+      "value": "Multi-tenant",
+      "label": "desde un repositorio"
+    },
+    {
+      "value": "0",
+      "label": "secretos guardados"
+    }
+  ],
+  "problem": "Aplicar reglas de seguridad y costo en cada cliente a mano es lento, difícil de auditar y fácil de romper.",
+  "idea": "Escribir las reglas una vez, versionarlas y aplicarlas en varios clientes con una aprobación previa, sin guardar contraseñas en ningún lado.",
+  "change": "Es la base de un servicio de gobernanza reutilizable dentro de Readymind. Está en desarrollo avanzado.",
+  "role": "Diseñé la arquitectura para operar varios clientes desde un repositorio, armé el flujo que pide aprobación antes de aplicar cada cambio y la autenticación sin contraseñas guardadas.",
+  "topics": [
+    "Gobernanza",
+    "Multi-cliente",
+    "En desarrollo"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "mini": {
+    "type": "graph",
+    "top": "Pull request",
+    "core": "Azure Policy",
+    "leaves": [
+      "Tenant A",
+      "Tenant B",
+      "Tenant C"
+    ]
+  }
+}

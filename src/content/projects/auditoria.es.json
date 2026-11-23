@@ -1,0 +1,68 @@
+{
+  "id": "auditoria",
+  "lang": "es",
+  "order": 2,
+  "size": "lg",
+  "featured": false,
+  "kind": "Seguridad e identidad · Readymind",
+  "status": "En uso",
+  "statusTone": "live",
+  "title": "Auditoría automática de Azure y M365",
+  "summary": "Revisa identidad, acceso y configuración en solo lectura y entrega un plan priorizado.",
+  "tags": [
+    "PowerShell",
+    "Microsoft Graph",
+    "Resource Graph"
+  ],
+  "metric": {
+    "value": "209",
+    "label": "controles por corrida"
+  },
+  "lead": "Un relevamiento de seguridad repetible, que no depende de quién lo haga.",
+  "kpis": [
+    {
+      "value": "209",
+      "label": "controles por corrida"
+    },
+    {
+      "value": "0",
+      "label": "cambios en el entorno"
+    }
+  ],
+  "problem": "Relevar la seguridad de un entorno de Azure, identidad y Microsoft 365 a mano lleva días, y el resultado cambia según la persona que lo hace.",
+  "idea": "Una auditoría que corre sola, solo con permisos de lectura, revisa identidad, accesos y configuración, y entrega un plan priorizado que se puede presentar a la dirección.",
+  "change": "Los relevamientos son más rápidos y comparables entre clientes, y la conversación con el cliente arranca desde un diagnóstico claro y no desde una lista de 50 problemas.",
+  "role": "Elegí y escribí los 209 controles de identidad, acceso y configuración, los programé para correr solo con permisos de lectura, diseñé el informe con el plan priorizado y lo presento a los clientes.",
+  "topics": [
+    "Seguridad",
+    "Identidad",
+    "Relevamientos"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "mini": {
+    "type": "checks",
+    "items": [
+      {
+        "text": "MFA para todos",
+        "done": true
+      },
+      {
+        "text": "Legacy auth bloqueada",
+        "done": true
+      },
+      {
+        "text": "Roles con PIM",
+        "done": false
+      },
+      {
+        "text": "Conditional Access por riesgo",
+        "done": false
+      },
+      {
+        "text": "Reenvío externo",
+        "done": false
+      }
+    ]
+  }
+}

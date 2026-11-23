@@ -1,0 +1,76 @@
+{
+  "id": "failover",
+  "lang": "en",
+  "order": 1,
+  "size": "lg",
+  "featured": false,
+  "kind": "Disaster recovery · Readymind",
+  "status": "In use",
+  "statusTone": "live",
+  "title": "Automated recovery test",
+  "summary": "Tests 20 servers in parallel with safety checks and audit evidence.",
+  "tags": [
+    "PowerShell",
+    "Site Recovery",
+    "Automation"
+  ],
+  "metric": {
+    "value": "2 h → 45 min",
+    "label": "62% less time"
+  },
+  "lead": "Testing a recovery plan went from an expensive event to a routine.",
+  "kpis": [
+    {
+      "value": "2 h → 45 min",
+      "label": "per test"
+    },
+    {
+      "value": "20",
+      "label": "servers in parallel"
+    }
+  ],
+  "problem": "Validating that a recovery plan really works took about two hours of manual work. Because testing was expensive, it rarely happened, and an untested plan is just a hypothesis.",
+  "idea": "Automate the full test: bring servers up in groups in an isolated environment that never touches production, with safety checks, and leave a report as audit evidence.",
+  "change": "Validation now takes 45 minutes, 62% less, and can be repeated whenever needed. Surprises show up in the test, not during a real outage.",
+  "role": "I defined the recovery order by server group, wrote the automation on top of Site Recovery, added the checks that prevent touching production and built the report that serves as evidence.",
+  "topics": [
+    "Continuity",
+    "Automation",
+    "Audit evidence"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "mini": {
+    "type": "terminal",
+    "lines": [
+      {
+        "mark": ">",
+        "tone": "mut",
+        "text": "Start-TestFailover -Plan prod"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-1/identidad",
+        "dim": "9 min"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-2/bases",
+        "dim": "12 min"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-3/apps",
+        "dim": "14 min"
+      },
+      {
+        "mark": "●",
+        "tone": "ok",
+        "text": "Done · report saved"
+      }
+    ]
+  }
+}
