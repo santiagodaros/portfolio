@@ -3,6 +3,7 @@ import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import geistLatin from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import Sprite from '../components/Sprite.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -19,6 +20,8 @@ interface Props {
   modifiedTime?: Date;
   /** URL canónica externa, si la página se publicó antes en otro sitio (p. ej. un artículo de LinkedIn). */
   canonical?: string;
+  /** Páginas que no deben indexarse (p. ej. la de gracias del newsletter). */
+  noindex?: boolean;
   /** URLs reales por idioma de esta página, p. ej. { es: '/articulos/x', en: '/en/articulos/y' }.
    *  Sin esto, la página no tiene traducción: no se muestra el botón de idioma y el hreflang apunta a sí misma. */
   alternates?: Partial<Record<Lang, string>>;
@@ -34,6 +37,7 @@ const {
   publishedTime,
   modifiedTime,
   canonical,
+  noindex = false,
   alternates,
 } = Astro.props;
 
@@ -82,6 +86,7 @@ const alternateHref = alternates?.[otherLang(lang)];
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Santiago Da Ros" />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#1f2de6" />
     <link rel="canonical" href={canonicalUrl} />
     {hreflangLinks.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
@@ -117,6 +122,7 @@ const alternateHref = alternates?.[otherLang(lang)];
       title="Santiago Da Ros — Blog"
       href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'}
     />
+    <Analytics />
     <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
   </head>
   <body>

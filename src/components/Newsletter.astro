@@ -1,0 +1,183 @@
+---
+// Sección de suscripción al newsletter (Kit). El sitio es estático: el navegador hace un POST con
+// FormData al endpoint público del formulario de Kit; no hay backend propio.
+// Kit pide doble confirmación: al confirmar desde el mail redirige a /gracias.
+import { newsletterText } from '../i18n/newsletter';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = newsletterText[lang];
+const formId = import.meta.env.PUBLIC_KIT_FORM_ID;
+const endpoint = formId ? `https://app.kit.com/forms/${formId}/subscriptions` : '';
+---
+
+<section id="newsletter" class="section ground-accent">
+  <div class="wrap nl">
+    <div class="nl__copy" data-reveal>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2>{t.title}</h2>
+      <p>{t.text}</p>
+    </div>
+    <form
+      class="nl__form"
+      data-reveal
+      data-subscribe
+      data-endpoint={endpoint}
+      data-msg-sending={t.sending}
+      data-msg-ok={t.ok}
+      data-msg-invalid={t.invalid}
+      data-msg-error={t.error}
+      data-msg-disabled={t.disabled}
+      novalidate
+    >
+      <label for={`nl-email-${lang}`}>{t.label}</label>
+      <div class="nl__row">
+        <input
+          id={`nl-email-${lang}`}
+          name="email_address"
+          type="email"
+          autocomplete="email"
+          placeholder={t.placeholder}
+          required
+        />
+        <button class="btn" type="submit">{t.submit}</button>
+      </div>
+      <p class="nl__msg" role="status" aria-live="polite">{t.hint}</p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .nl {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: end;
+  }
+  .nl__copy {
+    grid-column: span 6;
+    display: grid;
+    gap: 14px;
+  }
+  .nl__copy h2 {
+    font-size: var(--t2);
+    line-height: 1.04;
+  }
+  .nl__copy p {
+    font-size: 18px;
+    color: rgb(255 255 255 / 0.8);
+  }
+  .nl__form {
+    grid-column: 8 / span 5;
+    display: grid;
+    gap: 10px;
+  }
+  .nl__form label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nl__row {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 999px;
+    background: #fff;
+  }
+  .nl__row input {
+    flex: 1;
+    min-width: 0;
+    padding: 0 14px;
+    border: 0;
+    background: transparent;
+    color: #0b0c0e;
+    font: 400 16px/1 var(--text);
+    outline: none;
+  }
+  .nl__row input::placeholder {
+    color: #6b7280;
+  }
+  .nl__row:focus-within {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+  /* Botón negro fijo: con var(--ink) quedaría claro sobre claro en el tema oscuro */
+  .nl__row .btn {
+    background: #0b0c0e;
+    color: #fff;
+  }
+  .nl__row .btn:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .nl__msg {
+    font-size: 14px;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  @media (max-width: 1023px) {
+    .nl__copy,
+    .nl__form {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .nl__row {
+      flex-direction: column;
+      border-radius: 18px;
+    }
+    .nl__row input {
+      height: 48px;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-subscribe]');
+  if (form) {
+    const input = form.querySelector<HTMLInputElement>('input[name="email_address"]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const msg = form.querySelector<HTMLElement>('.nl__msg')!;
+    const say = (key: string) => (msg.textContent = form.dataset[key] ?? '');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!input.value || !input.checkValidity()) {
+        say('msgInvalid');
+        input.focus();
+        return;
+      }
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        say('msgDisabled');
+        return;
+      }
+      button.disabled = true;
+      say('msgSending');
+      try {
+        // Kit responde JSON con CORS abierto: { status: 'failed', errors: { fields: [...] } } si falla.
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok && data && data.status !== 'failed') {
+          say('msgOk');
+          form.reset();
+        } else if (data?.errors?.fields?.includes('email_address')) {
+          say('msgInvalid');
+          input.focus();
+        } else {
+          say('msgError');
+        }
+      } catch {
+        say('msgError');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>

@@ -22,6 +22,8 @@ export default defineConfig({
     tailwind(),
     mdx(),
     sitemap({
+      // Las páginas de gracias del newsletter son noindex
+      filter: (page) => !/\/(gracias|en\/thanks)\/?$/.test(page),
       serialize(item) {
         const { origin, pathname } = new URL(item.url);
         const pair = translated.find(([es, en]) => pathname === es || pathname === en);
