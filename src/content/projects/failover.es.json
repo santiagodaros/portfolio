@@ -1,0 +1,76 @@
+{
+  "id": "failover",
+  "lang": "es",
+  "order": 1,
+  "size": "lg",
+  "featured": false,
+  "kind": "Recuperación ante desastres · Readymind",
+  "status": "En uso",
+  "statusTone": "live",
+  "title": "Prueba automatizada de recuperación",
+  "summary": "Prueba 20 servidores en paralelo con controles de seguridad y evidencia para auditoría.",
+  "tags": [
+    "PowerShell",
+    "Site Recovery",
+    "Automation"
+  ],
+  "metric": {
+    "value": "2 h → 45 min",
+    "label": "62% menos tiempo"
+  },
+  "lead": "Probar un plan de recuperación dejó de ser un evento caro y pasó a ser una rutina.",
+  "kpis": [
+    {
+      "value": "2 h → 45 min",
+      "label": "por prueba"
+    },
+    {
+      "value": "20",
+      "label": "servidores en paralelo"
+    }
+  ],
+  "problem": "Validar que un plan de recuperación funcione de verdad llevaba unas dos horas de trabajo manual. Como probar era caro, se probaba poco, y un plan que no se prueba es solo una hipótesis.",
+  "idea": "Automatizar la prueba completa: levantar los servidores por grupos en un entorno aislado que no toca producción, con controles de seguridad, y dejar un reporte como evidencia para auditoría.",
+  "change": "La validación pasó a tardar 45 minutos, un 62% menos, y se puede repetir cuando haga falta. Las sorpresas aparecen en la prueba y no durante una caída real.",
+  "role": "Definí el orden de recuperación por grupos de servidores, escribí la automatización sobre Site Recovery, sumé los controles que impiden tocar producción y armé el reporte que queda como evidencia.",
+  "topics": [
+    "Continuidad",
+    "Automatización",
+    "Evidencia para auditoría"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "mini": {
+    "type": "terminal",
+    "lines": [
+      {
+        "mark": ">",
+        "tone": "mut",
+        "text": "Start-TestFailover -Plan prod"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-1/identidad",
+        "dim": "9 min"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-2/bases",
+        "dim": "12 min"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "grupo-3/apps",
+        "dim": "14 min"
+      },
+      {
+        "mark": "●",
+        "tone": "ok",
+        "text": "Listo · reporte guardado"
+      }
+    ]
+  }
+}

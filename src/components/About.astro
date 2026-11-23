@@ -1,73 +1,119 @@
 ---
-const focusAreas = [
-  { n: '01', titleEs: 'Cloud Architecture', titleEn: 'Cloud Architecture', descEs: 'Diseño y gestión de entornos Azure, incluyendo IaaS, PaaS y servicios híbridos a escala empresarial.', descEn: 'Design and management of Azure environments, including IaaS, PaaS and hybrid services at enterprise scale.' },
-  { n: '02', titleEs: 'Automatización', titleEn: 'Automation', descEs: 'Desarrollo de runbooks y scripts PowerShell para eliminar tareas manuales repetitivas y reducir el error humano.', descEn: 'Development of runbooks and PowerShell scripts to eliminate repetitive manual tasks and reduce human error.' },
-  { n: '03', titleEs: 'Identidad & Seguridad', titleEn: 'Identity & Security', descEs: 'Administración avanzada de Active Directory, políticas de grupo (GPO), Azure AD e integración híbrida.', descEn: 'Advanced administration of Active Directory, Group Policy (GPO), Azure AD and hybrid integration.' },
-  { n: '04', titleEs: 'Documentación Técnica', titleEn: 'Technical Writing', descEs: 'Creación de contenido técnico de alto valor: artículos, guías y runbooks orientados a la comunidad IT.', descEn: 'High-value technical content: articles, guides and runbooks for the IT community.' },
-];
+import { home } from '../i18n/home';
+import { contact, paths, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = home[lang].about;
 ---
 
-<section id="about" class="border-b border-border">
-  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
-    <p class="section-label animate-on-scroll" data-es="01 // sobre-mi.md" data-en="01 // about-me.md">01 // sobre-mi.md</p>
-    <h2 class="section-heading mb-9 animate-on-scroll">
-      <span data-es="Infraestructura que " data-en="Infrastructure that ">Infraestructura que </span><span class="accent-serif" data-es="escala contigo" data-en="scales with you">escala contigo</span>
-    </h2>
-
-    <div class="grid lg:grid-cols-2 gap-6 lg:gap-10">
-      <!-- Bio panel -->
-      <div class="box-alt p-6 font-mono text-sm leading-[1.75] text-text-secondary animate-on-scroll">
-        <div data-i18n="es">
-          <p>
-            Soy <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, ingeniero de infraestructura
-            con foco en entornos Cloud empresariales. Migraciones a Azure, consolidación de identidades,
-            automatización de procesos operacionales y alta disponibilidad.
-          </p>
-          <p class="mt-4">
-            Construyo puentes entre on-premise y la nube: documentación clara, runbooks accionables
-            y una base automatizada para el equipo que lo opera.
-          </p>
-          <p class="mt-4">
-            Además, creo contenido técnico para la comunidad hispanohablante de IT: Active Directory,
-            PowerShell avanzado y estrategias Cloud.
-          </p>
-        </div>
-        <div data-i18n="en">
-          <p>
-            I'm <strong class="text-text-primary">Santiago Lucas Da Ros</strong>, an infrastructure engineer
-            focused on enterprise Cloud environments. Azure migrations, identity consolidation,
-            operational process automation and high availability.
-          </p>
-          <p class="mt-4">
-            I bridge on-premise and cloud environments: clear documentation, actionable runbooks
-            and an automated foundation for the team that operates it.
-          </p>
-          <p class="mt-4">
-            In parallel, I create technical content for the Spanish-speaking IT community: Active Directory,
-            advanced PowerShell and Cloud strategies.
-          </p>
-        </div>
-        <div class="flex gap-4 mt-5">
-          <a href="#contact" class="font-mono font-semibold text-[13px] text-accent hover:opacity-80 transition-opacity" data-es="[Contactar]" data-en="[Contact]">[Contactar]</a>
-          <a href="https://www.linkedin.com/in/santiagodaros" target="_blank" rel="noopener noreferrer" class="font-mono font-semibold text-[13px] text-text-secondary hover:text-text-primary transition-colors">[LinkedIn ↗]</a>
-        </div>
-      </div>
-
-      <!-- Focus areas -->
-      <div class="flex flex-col gap-2.5">
-        {focusAreas.map((area, i) => (
-          <div
-            class="flex gap-3.5 p-4 border border-border hover:border-accent transition-colors animate-on-scroll"
-            style={`transition-delay: ${i * 0.06}s`}
-          >
-            <div class="font-mono font-bold text-[13px] text-accent shrink-0">{area.n}</div>
-            <div>
-              <h3 class="font-mono font-bold text-sm text-text-primary" data-es={area.titleEs} data-en={area.titleEn}>{area.titleEs}</h3>
-              <div class="mt-1.5 font-mono text-[13px] leading-normal text-text-secondary" data-es={area.descEs} data-en={area.descEn}>{area.descEs}</div>
-            </div>
-          </div>
-        ))}
+<section id="sobre-mi" class="section ground-surface">
+  <div class="wrap about">
+    <figure class="about__photo ph" data-reveal>
+      <img src="/img/retrato.webp" alt={t.photoAlt} width="800" height="1000" loading="lazy" />
+    </figure>
+    <div class="about__text">
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2>{t.title}</h2>
+      <p>{t.p1}</p>
+      <p>{t.p2}</p>
+      <div class="btn-row">
+        <a class="btn btn--secondary" href={paths[lang].cv} target="_blank" rel="noopener">{t.cvBtn}</a>
+        <a class="btn btn--secondary" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
+    <ol class="timeline" data-reveal>
+      {
+        t.timeline.map((e) => (
+          <li>
+            <time>{e.time}</time>
+            <b>{e.title}</b>
+            <span>{e.text}</span>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: center;
+  }
+  .about__photo {
+    grid-column: span 4;
+  }
+  .about__photo img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .about__text {
+    grid-column: 5 / span 4;
+    display: grid;
+    gap: 18px;
+  }
+  .about__text h2 {
+    font-size: var(--t2);
+    line-height: 1.06;
+  }
+  .about__text p {
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .timeline {
+    grid-column: 9 / span 4;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid var(--line);
+  }
+  .timeline li {
+    position: relative;
+    display: grid;
+    gap: 4px;
+    padding: 0 0 26px 24px;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .timeline time {
+    font: 400 13px/1 var(--mono);
+    color: var(--muted);
+  }
+  .timeline b {
+    font: var(--display-weight) 20px/1.2 var(--display);
+  }
+  .timeline span {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  @media (max-width: 1023px) {
+    .about__photo {
+      grid-column: 1 / span 6;
+    }
+    .about__text,
+    .timeline {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .about__photo {
+      grid-column: 1 / -1;
+      max-width: 320px;
+    }
+  }
+</style>

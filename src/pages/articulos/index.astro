@@ -1,7 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Nav from '@/components/Nav.astro';
-import Footer from '@/components/Footer.astro';
 import BlogIndexPage from '@/components/blog/BlogIndexPage.astro';
 ---
 
@@ -11,12 +9,5 @@ import BlogIndexPage from '@/components/blog/BlogIndexPage.astro';
   lang="es"
   alternates={{ es: '/articulos', en: '/en/articulos' }}
 >
-  <script>
-    // The blog index always has a real translation (the /en index itself),
-    // so the language toggle navigates there instead of swapping text in place.
-    (window as any).__langAltUrl = { en: '/en/articulos' };
-  </script>
-  <Nav />
   <BlogIndexPage lang="es" />
-  <Footer />
 </Layout>

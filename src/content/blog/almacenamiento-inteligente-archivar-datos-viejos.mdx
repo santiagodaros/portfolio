@@ -1,0 +1,60 @@
+---
+title: "Almacenamiento inteligente: bajar costos archivando datos viejos"
+description: "Cómo una política de ciclo de vida en Blob Storage mueve sola los datos inactivos a Archive, y qué hay que tener en cuenta antes de aplicarla."
+date: 2026-04-20
+tags: ["azure-blob-storage", "costos", "tiering"]
+category: "Almacenamiento"
+lang: "es"
+draft: false
+featured: false
+canonical: "https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf/"
+linkedin: "https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf/"
+coverCode: |
+  "prefixMatch": ["backups/"]
+  "tierToArchive": {
+    "daysAfterModificationGreaterThan": 90
+  }
+---
+
+Diseñar soluciones que equilibren escalabilidad, seguridad y costo es un desafío constante. Hoy lo aplicamos a los datos inactivos en Azure.
+
+Tener cantidades masivas de información inactiva u obsoleta en la nube se convierte rápido en un agujero negro para el presupuesto: años de registros de auditoría o backups viejos ocupando el almacenamiento más caro sin aportar valor diario.
+
+## Tiering automático con políticas de ciclo de vida
+
+Azure Blob Storage permite definir políticas de ciclo de vida que mueven los datos "fríos" al nivel Archive. Corren de forma nativa y en segundo plano, sin impacto operativo: el motor evalúa los metadatos de cada blob y lo pasa al nivel más eficiente en costo.
+
+El impacto es grande: se pasa de tarifas estándar a fracciones de centavo, con proyecciones de ahorro de hasta un 90% para esos conjuntos de datos.
+
+## Lo que exige Archive
+
+- **Rehidratación:** Archive está offline. Para leer un blob hay que rehidratarlo, con latencias de horas.
+- **Early deletion:** si un blob se modifica, se lee o se borra antes de los 180 días de retención mínima, Azure cobra una penalización.
+
+## Un ejemplo
+
+Esta regla busca los blobs de la carpeta `backups` y, si no se modificaron en 90 días, los pasa a Archive:
+
+```json
+{
+  "rules": [{
+    "name": "backups-a-archive",
+    "enabled": true,
+    "type": "Lifecycle",
+    "definition": {
+      "filters": { "blobTypes": ["blockBlob"], "prefixMatch": ["backups/"] },
+      "actions": {
+        "baseBlob": {
+          "tierToArchive": { "daysAfterModificationGreaterThan": 90 }
+        }
+      }
+    }
+  }]
+}
+```
+
+<Callout>
+  Con estas reglas el costo del almacenamiento deja de ser estático, donde pagás lo mismo sin importar si el dato se usa, y pasa a ser **dinámico: ajusta el nivel y el costo según el ciclo de vida de la información**.
+</Callout>
+
+Para quienes ya usan Archive: ¿cuál fue su mayor desafío al equilibrar el ahorro frente a los tiempos de rehidratación? Publicado originalmente en [LinkedIn](https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf/).

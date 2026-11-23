@@ -1,112 +1,164 @@
 ---
-// Cloud experience computed from the start date (May 2025) at build time,
-// so the stat never goes stale — each deploy refreshes it.
-const cloudStart = new Date(2025, 4);
-const now = new Date();
-const totalMonths =
-  (now.getFullYear() - cloudStart.getFullYear()) * 12 + (now.getMonth() - cloudStart.getMonth());
-const years = Math.floor(totalMonths / 12);
-const months = totalMonths % 12;
+import { home } from '../i18n/home';
+import { paths, type Lang } from '../i18n';
 
-const expEs =
-  years > 0
-    ? `${years} año${years > 1 ? 's' : ''}${months ? ` ${months} mes${months > 1 ? 'es' : ''}` : ''}`
-    : `${months} meses`;
-const expEn =
-  years > 0
-    ? `${years} yr${years > 1 ? 's' : ''}${months ? ` ${months} mo${months > 1 ? 's' : ''}` : ''}`
-    : `${months} mos`;
-
-const stats = [
-  { keyEs: 'certificaciones =', keyEn: 'certifications =', valueEs: '8', valueEn: '8' },
-  { keyEs: 'experiencia_cloud =', keyEn: 'cloud_experience =', valueEs: expEs, valueEn: expEn },
-  { keyEs: 'formación =', keyEn: 'education =', valueEs: 'UBA', valueEn: 'UBA' },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = home[lang].hero;
 ---
 
-<section id="hero" class="border-b border-border">
-  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 pt-14 sm:pt-16 pb-11 grid lg:grid-cols-[1fr_300px] gap-10">
-    <!-- Text -->
-    <div class="lg:pr-10 lg:border-r lg:border-border">
-      <p class="font-mono text-xs text-accent mb-4 animate-on-scroll">$ whoami --role</p>
-
-      <div class="inline-flex items-center gap-2 px-2.5 py-1.5 border border-border font-mono text-xs text-text-secondary mb-6 animate-on-scroll">
-        <span class="pulse-square w-1.5 h-1.5"></span>
-        Azure Cloud Engineer & SRE @ readymind
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h1>{t.titlePre}<em>{t.titleEm}</em></h1>
+      <p class="hero__lead">{t.lead}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" data-link="email" href="#contacto">
+          {t.emailBtn}
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h8M5 2.5 8.5 6 5 9.5"></path></svg>
+        </a>
+        <a class="btn btn--secondary" href={paths[lang].cv} target="_blank" rel="noopener">{t.cvBtn}</a>
       </div>
-
-      <h1 class="font-mono font-bold text-4xl sm:text-5xl lg:text-[56px] leading-[1.02] tracking-tight animate-on-scroll">
-        Santiago<br />
-        <span class="accent-serif">Da Ros</span>
-      </h1>
-
-      <div class="typewriter mt-6 font-mono text-sm text-text-secondary">
-        <span
-          data-es="Cloud Engineering & SRE · Lic. Cs. Computación (UBA)"
-          data-en="Cloud Engineering & SRE · BSc Computer Science (UBA)"
-        >Cloud Engineering & SRE · Lic. Cs. Computación (UBA)</span>
-      </div>
-
-      <p data-i18n="es" class="mt-6 max-w-[520px] font-mono text-[15px] leading-[1.7] text-text-secondary animate-on-scroll">
-        Trabajo en entornos Nube (<strong class="text-text-primary font-semibold">Microsoft Azure</strong>),
-        <strong class="text-text-primary font-semibold">Híbridos</strong> y
-        <strong class="text-text-primary font-semibold">On-Prem</strong> gestionando incidentes,
-        documentando procedimientos técnicos y trabajando directo con clientes.
-      </p>
-      <p data-i18n="en" class="mt-6 max-w-[520px] font-mono text-[15px] leading-[1.7] text-text-secondary animate-on-scroll">
-        I work across Cloud (<strong class="text-text-primary font-semibold">Microsoft Azure</strong>),
-        <strong class="text-text-primary font-semibold">Hybrid</strong> and
-        <strong class="text-text-primary font-semibold">On-Prem</strong> environments managing incidents,
-        writing technical documentation and working directly with clients.
-      </p>
-
-      <div class="flex flex-wrap gap-3 mt-8 animate-on-scroll">
-        <a href="#experience" class="btn-solid" data-es="Ver_experiencia →" data-en="See_experience →">Ver_experiencia →</a>
-        <a
-          href="/cv-es.pdf"
-          download="CV-Santiago-DaRos-ES.pdf"
-          class="btn-box"
-          data-href-es="/cv-es.pdf"
-          data-href-en="/cv-en.pdf"
-          data-filename-es="CV-Santiago-DaRos-ES.pdf"
-          data-filename-en="CV-Santiago-DaRos-EN.pdf"
-          data-es="Descargar_CV ↓"
-          data-en="Download_CV ↓"
-        >Descargar_CV ↓</a>
+      <div class="facts">
+        {
+          t.facts.map((f) => (
+            <div>
+              <strong>{f.value}</strong>
+              <span>{f.label}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
-
-    <!-- Photo: bordered frame, terminal caption -->
-    <div class="animate-on-scroll">
-      <div class="border border-border p-3.5 bg-surface-3 max-w-[300px]">
-        <picture>
-          <source srcset="/foto.webp" type="image/webp" />
-          <img
-            src="/foto.png"
-            alt="Santiago Da Ros"
-            width="682"
-            height="682"
-            fetchpriority="high"
-            class="w-full object-cover object-top"
-            style="aspect-ratio: 1 / 1.15; filter: grayscale(0.3) contrast(1.05);"
-          />
-        </picture>
-        <div class="mt-2.5 font-mono text-[11px] text-text-muted flex justify-between">
-          <span>foto.png</span><span>1x1.15</span>
-        </div>
+    <div class="hero__photo">
+      <div class="photo">
+        <img src="/img/hero.webp" alt={t.photoAlt} width="1000" height="1250" fetchpriority="high" />
       </div>
+      <p class="photo__cap"><span class="status">{t.captionStatus}</span> {t.caption}</p>
     </div>
   </div>
 </section>
 
-<!-- Stats strip -->
-<div class="border-b border-border">
-  <div class="max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-3">
-    {stats.map((s, i) => (
-      <div class={`px-5 sm:px-10 py-5 font-mono border-border ${i < 2 ? 'border-b sm:border-b-0 sm:border-r' : ''}`}>
-        <div class="text-[11px] text-text-muted" data-es={s.keyEs} data-en={s.keyEn}>{s.keyEs}</div>
-        <div class="text-[26px] font-bold mt-1 text-text-primary" data-es={s.valueEs} data-en={s.valueEn}>{s.valueEs}</div>
-      </div>
-    ))}
-  </div>
-</div>
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 0 88px;
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: center;
+  }
+  .hero__copy {
+    grid-column: span 7;
+    display: grid;
+    gap: 22px;
+  }
+  .hero h1 {
+    font-size: var(--t1);
+    line-height: 1;
+    letter-spacing: calc(var(--track) - 0.01em);
+    max-width: 12.5ch;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero__lead {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 44ch;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 40px;
+    margin-top: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .facts strong {
+    display: block;
+    font: var(--display-weight) 34px/1 var(--display);
+    letter-spacing: var(--track);
+  }
+  .facts span {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .hero__photo {
+    grid-column: 9 / span 4;
+    position: relative;
+  }
+  .photo {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--accent-fill);
+  }
+  .photo::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 30%;
+    background: linear-gradient(transparent, rgb(31 45 230 / 0.35));
+  }
+  .photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .hero__photo:hover .photo img {
+    transform: scale(1.03);
+  }
+  .photo__cap {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 1023px) {
+    .hero__copy,
+    .hero__photo {
+      grid-column: 1 / -1;
+    }
+    .hero__photo {
+      max-width: 420px;
+    }
+  }
+  @media (max-width: 639px) {
+    .hero {
+      padding: 40px 0 64px;
+    }
+    .hero__lead {
+      font-size: 17px;
+    }
+    .facts {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .facts strong {
+      font-size: 26px;
+    }
+    .facts span {
+      font-size: 12px;
+    }
+  }
+</style>

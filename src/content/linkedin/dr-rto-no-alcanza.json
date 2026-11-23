@@ -1,0 +1,7 @@
+{
+  "title": "Cuando el DR funciona, pero el RTO no alcanza",
+  "date": "2026-09-09",
+  "tag": "DR",
+  "summary": "Servidores Linux fuera de la matriz de Site Recovery y un restore desde Veeam demasiado lento: cómo achicamos la brecha.",
+  "url": "https://www.linkedin.com/posts/santiagodaros_dr-ugcPost-7503474772933124096-K1Bi/"
+}

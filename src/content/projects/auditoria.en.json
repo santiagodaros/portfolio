@@ -1,0 +1,68 @@
+{
+  "id": "auditoria",
+  "lang": "en",
+  "order": 2,
+  "size": "lg",
+  "featured": false,
+  "kind": "Security and identity · Readymind",
+  "status": "In use",
+  "statusTone": "live",
+  "title": "Automated Azure and M365 audit",
+  "summary": "Reviews identity, access and configuration read-only and delivers a prioritized plan.",
+  "tags": [
+    "PowerShell",
+    "Microsoft Graph",
+    "Resource Graph"
+  ],
+  "metric": {
+    "value": "209",
+    "label": "checks per run"
+  },
+  "lead": "A repeatable security assessment that doesn't depend on who runs it.",
+  "kpis": [
+    {
+      "value": "209",
+      "label": "checks per run"
+    },
+    {
+      "value": "0",
+      "label": "changes to the environment"
+    }
+  ],
+  "problem": "Assessing the security of an Azure, identity and Microsoft 365 environment by hand takes days, and the result changes with the person doing it.",
+  "idea": "An audit that runs on its own with read-only permissions, reviews identity, access and configuration, and delivers a prioritized plan ready to present to leadership.",
+  "change": "Assessments are faster and comparable across clients, and the conversation starts from a clear diagnosis instead of a list of 50 problems.",
+  "role": "I chose and wrote the 209 identity, access and configuration checks, built them to run with read-only permissions, designed the report with the prioritized plan and present it to clients.",
+  "topics": [
+    "Security",
+    "Identity",
+    "Assessments"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "mini": {
+    "type": "checks",
+    "items": [
+      {
+        "text": "MFA for everyone",
+        "done": true
+      },
+      {
+        "text": "Legacy auth blocked",
+        "done": true
+      },
+      {
+        "text": "Roles with PIM",
+        "done": false
+      },
+      {
+        "text": "Risk-based Conditional Access",
+        "done": false
+      },
+      {
+        "text": "External forwarding",
+        "done": false
+      }
+    ]
+  }
+}

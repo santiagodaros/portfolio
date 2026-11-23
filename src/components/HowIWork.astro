@@ -1,0 +1,69 @@
+---
+import { home } from '../i18n/home';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = home[lang].how;
+---
+
+<section class="section ground-surface">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <div>
+        <span class="eyebrow">{t.eyebrow}</span>
+        <h2>{t.title}</h2>
+      </div>
+      <p>{t.note}</p>
+    </div>
+    <div class="pillars">
+      {
+        t.pillars.map((p) => (
+          <div class="pillar" data-reveal>
+            <span class="pillar__n">{p.n}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <div class="tags">{p.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .pillar {
+    border-top: 2px solid var(--ink);
+    padding-top: 24px;
+    display: grid;
+    gap: 12px;
+    align-content: start;
+  }
+  .pillar__n {
+    font: 500 13px/1 var(--mono);
+    color: var(--accent);
+  }
+  .pillar h3 {
+    font-size: var(--t3);
+  }
+  .pillar p {
+    color: var(--muted);
+  }
+  @media (max-width: 1023px) {
+    .pillars {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 639px) {
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,119 +1,208 @@
 ---
-const stackCategories = [
-  {
-    nameEs: 'Cloud & Identidad',
-    nameEn: 'Cloud & Identity',
-    core: ['Microsoft Azure', 'Azure Arc', 'Azure Policy', 'RBAC / Entra ID', 'Active Directory'],
-    tags: ['Microsoft Azure', 'Azure Arc', 'Azure Policy', 'RBAC / Entra ID', 'Active Directory', 'Azure DevOps / ADO', 'Amazon Web Services', 'Azure Virtual Machines', 'Azure App Service', 'Azure Functions', 'Azure Storage Account', 'Azure Key Vault', 'Azure Monitor', 'Azure Advisor', 'Azure Migrate', 'Azure Resource Graph', 'Hub & Spoke Networking', 'Private Link / App Gateway', 'Azure Intune', 'Zero Trust', 'FinOps'],
-  },
-  {
-    nameEs: 'Infraestructura & Scripting',
-    nameEn: 'Infrastructure & Scripting',
-    core: ['PowerShell', 'Windows Server'],
-    tags: ['PowerShell', 'Windows Server', 'Python', 'Git', 'GitHub', 'Terraform', 'Azure CLI', 'ARM Templates', 'KQL'],
-  },
-  {
-    nameEs: 'Data & Low-Code',
-    nameEn: 'Data & Low-Code',
-    core: ['Azure Data Factory'],
-    tags: ['Azure Data Factory', 'MySQL', 'Azure SQL Database', 'Azure Cosmos DB', 'Power Platform'],
-  },
-];
+import { certInProgress, certs, home } from '../i18n/home';
+import type { Lang } from '../i18n';
 
-const languages = [
-  { flag: '🇦🇷', nameEs: 'Español', nameEn: 'Spanish', levelEs: 'Nativo', levelEn: 'Native' },
-  { flag: '🇺🇸', nameEs: 'Inglés', nameEn: 'English', levelEs: 'Professional Working', levelEn: 'Professional Working' },
-  { flag: '🇩🇪', nameEs: 'Alemán', nameEn: 'German', levelEs: 'Professional Working', levelEn: 'Professional Working' },
-];
-
-const levelStyles: Record<string, string> = {
-  expert: 'text-accent border-accent/40',
-  associate: 'text-text-secondary border-border-hover',
-  fundamentals: 'text-text-muted border-border',
-};
-
-const certifications = [
-  { code: 'SC-300', level: 'associate', name: 'Identity and Access Administrator Associate', dateEs: 'Sep 2026', dateEn: 'Sep 2026', descEs: 'Administración de identidades y accesos en Microsoft Entra ID: gobernanza de identidades, acceso condicional, identidades híbridas y protección de identidades empresariales.', descEn: 'Identity and access administration in Microsoft Entra ID: identity governance, conditional access, hybrid identity, and enterprise identity protection.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/FBBBBE9C2857A9C9?sharingId=51E475397D223B51' },
-  { code: 'AZ-305', level: 'expert', name: 'Azure Solutions Architect Expert', dateEs: 'Jun 2026', dateEn: 'Jun 2026', descEs: 'Diseño de soluciones end-to-end en Azure: identidad, gobernanza, cómputo, redes, almacenamiento y continuidad de negocio alineados al Well-Architected Framework.', descEn: 'Design of end-to-end Azure solutions: identity, governance, compute, networking, storage and business continuity aligned with the Well-Architected Framework.', link: 'https://learn.microsoft.com/api/credentials/share/en-us/SantiagoDaRos-6508/52B2C739515C753F?sharingId=51E475397D223B51' },
-  { code: 'AZ-400', level: 'expert', name: 'DevOps Engineer Expert', dateEs: 'Jun 2026', dateEn: 'Jun 2026', descEs: 'Diseño e implementación de estrategias DevOps: CI/CD, control de versiones, seguridad y cumplimiento, e infraestructura como código con Azure DevOps y GitHub.', descEn: 'Design and implementation of DevOps strategies: CI/CD, source control, security and compliance, and infrastructure as code with Azure DevOps and GitHub.', link: 'https://learn.microsoft.com/api/credentials/share/en-us/SantiagoDaRos-6508/B197406E6B136315?sharingId=51E475397D223B51' },
-  { code: 'AZ-800/801', level: 'associate', name: 'Windows Server Hybrid Administrator Associate', dateEs: 'Mar 2026', dateEn: 'Mar 2026', descEs: 'Administración avanzada de Windows Server en entornos híbridos: integración con Azure Arc, gestión de identidades, almacenamiento, redes y alta disponibilidad.', descEn: 'Advanced Windows Server administration in hybrid environments: Azure Arc integration, identity management, storage, networking, and high availability.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/809D828790013ACB?sharingId=51E475397D223B51' },
-  { code: 'AZ-104', level: 'associate', name: 'Azure Administrator Associate', dateEs: 'Dic 2025', dateEn: 'Dec 2025', descEs: 'Gestión de recursos Azure a nivel empresarial: identidades, gobernanza, almacenamiento, cómputo, redes virtuales y monitoreo.', descEn: 'Enterprise-level Azure resource management: identities, governance, storage, compute, virtual networking and monitoring.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51' },
-  { code: 'DP-900', level: 'fundamentals', name: 'Azure Data Fundamentals', dateEs: 'Sep 2025', dateEn: 'Sep 2025', descEs: 'Conceptos fundamentales de datos en la nube: servicios relacionales y no relacionales, analítica de datos y herramientas como Azure SQL, Cosmos DB y Data Factory.', descEn: 'Core data concepts in the cloud: relational and non-relational services, data analytics and tools like Azure SQL, Cosmos DB and Data Factory.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/233CCC70D92131AA?sharingId=51E475397D223B51' },
-  { code: 'PL-900', level: 'fundamentals', name: 'Power Platform Fundamentals', dateEs: 'Ago 2025', dateEn: 'Aug 2025', descEs: 'Fundamentos de Power Platform: Power Apps para apps sin código, Power Automate para flujos, Power BI para analítica y Power Virtual Agents para bots.', descEn: 'Power Platform fundamentals: Power Apps for no-code apps, Power Automate for flows, Power BI for analytics and Power Virtual Agents for bots.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/86614C6D8510281C?sharingId=51E475397D223B51' },
-  { code: 'AZ-900', level: 'fundamentals', name: 'Azure Fundamentals', dateEs: 'Jul 2025', dateEn: 'Jul 2025', descEs: 'Conceptos cloud, servicios core de Azure, modelos de seguridad, privacidad, cumplimiento, y estructuras de precios y soporte.', descEn: 'Cloud concepts, core Azure services, security, privacy and compliance models, and pricing and support structures.', link: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/CC8448AE34DAF1A8?sharingId=51E475397D223B51' },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = home[lang].stack;
 ---
 
-<section id="stack" class="border-b border-border">
-  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
-    <p class="section-label animate-on-scroll">03 // stack.json</p>
-    <h2 class="section-heading mb-8 animate-on-scroll">
-      <span data-es="Tecnologías " data-en="Technologies ">Tecnologías </span><span class="accent-serif" data-es="e idiomas" data-en="& languages">e idiomas</span>
-    </h2>
-
-    <!-- Stack categories -->
-    <div class="flex flex-col gap-4">
-      {stackCategories.map((cat, i) => (
-        <div class="box p-5 animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
-          <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-2.5" data-es={`// ${cat.nameEs}`} data-en={`// ${cat.nameEn}`}>// {cat.nameEs}</div>
-          <div class="flex flex-wrap gap-[7px]">
-            {cat.tags.map((t) => (
-              <span
-                class={`font-mono text-xs px-2.5 py-[5px] transition-colors cursor-default ${
-                  cat.core.includes(t)
-                    ? 'bg-surface-3 border border-accent/40 text-text-primary'
-                    : 'bg-surface-3 text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
+<section id="stack" class="section">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <div>
+        <span class="eyebrow">{t.eyebrow}</span>
+        <h2>{t.title}</h2>
+      </div>
+      <p>{t.note}</p>
     </div>
-
-    <!-- Languages -->
-    <div class="mt-5 grid sm:grid-cols-3 gap-3.5">
-      {languages.map((lang, i) => (
-        <div class="box p-4 flex items-center gap-2.5 animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
-          <span class="text-xl">{lang.flag}</span>
-          <div>
-            <div class="font-mono font-bold text-[13.5px] text-text-primary" data-es={lang.nameEs} data-en={lang.nameEn}>{lang.nameEs}</div>
-            <div class="font-mono text-[11px] text-text-muted" data-es={lang.levelEs} data-en={lang.levelEn}>{lang.levelEs}</div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Certifications -->
-    <div class="mt-7">
-      <div class="font-mono font-bold text-[11px] tracking-wider text-text-muted uppercase mb-3 animate-on-scroll" data-es="// certificaciones_microsoft" data-en="// microsoft_certifications">// certificaciones_microsoft</div>
-      <div class="grid md:grid-cols-2 gap-3">
-        {certifications.map((cert, i) => (
-          <div class="box p-5 hover:border-accent transition-colors animate-on-scroll" style={`transition-delay: ${i * 0.05}s`}>
-            <div class="flex justify-between items-center">
-              <div class="flex items-center gap-2">
-                <span class="font-mono font-bold text-[12.5px] text-accent">{cert.code}</span>
-                <span class={`font-mono text-[10px] px-1.5 py-px border ${levelStyles[cert.level]}`}>{cert.level}</span>
-              </div>
-              <span class="font-mono text-[11px] text-text-muted" data-es={cert.dateEs} data-en={cert.dateEn}>{cert.dateEs}</span>
+    <div class="stack">
+      <div class="stack__groups">
+        {
+          t.groups.map((g) => (
+            <div class="group replica" data-reveal>
+              <h3>{g.title}</h3>
+              <ul>
+                {g.items.map((i) => (
+                  <li>
+                    {i.text}
+                    {'badge' in i && <span>{i.badge}</span>}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 class="mt-2 font-mono font-bold text-[13.5px] text-text-primary">{cert.name}</h3>
-            <p class="mt-1.5 font-mono text-xs leading-normal text-text-secondary" data-es={cert.descEs} data-en={cert.descEn}>{cert.descEs}</p>
+          ))
+        }
+      </div>
+      <div class="certs" data-reveal>
+        <h3>{t.certsTitle}</h3>
+        {
+          certs.map((c) => (
             <a
-              href={cert.link}
+              class="cert"
+              href={c.url}
               target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block mt-2.5 font-mono font-bold text-[11.5px] text-accent hover:opacity-80 transition-opacity"
-              data-es="[verificar ↗]"
-              data-en="[verify ↗]"
+              rel="noopener"
             >
-              [verificar ↗]
+              <img src={`/img/badges/${c.badge}.png`} alt="" width="58" height="60" loading="lazy" />
+              <span>
+                <b>{c.code}</b> · {c.level}
+              </span>
+              <small>{c.name}</small>
+              <span class="sr-only">, {t.verifyHint}</span>
+              <i class="cert__go" aria-hidden="true">↗</i>
             </a>
-          </div>
-        ))}
+          ))
+        }
+        <div class="cert cert--next">
+          <img
+            class="cert__pending"
+            src={`/img/badges/${certInProgress.badge}.png`}
+            alt=""
+            width="58"
+            height="60"
+            loading="lazy"
+          />
+          <span>
+            <b>{certInProgress.code}</b> · {t.inProgress}
+          </span>
+          <small>{certInProgress.name}</small>
+        </div>
+        <p class="certs__note">{t.certsNote} {t.fundamentals}</p>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .stack {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .stack__groups {
+    grid-column: span 8;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-content: start;
+    align-self: start;
+  }
+  .group {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    display: grid;
+    gap: 14px;
+    align-content: start;
+  }
+  .group h3 {
+    font-size: var(--t4);
+  }
+  .group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .group li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .group li span {
+    margin-left: auto;
+    font: 400 12px/1 var(--mono);
+    color: var(--muted);
+  }
+  .certs {
+    grid-column: 9 / span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 26px;
+    border-radius: 18px;
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .certs h3 {
+    font-size: var(--t4);
+    color: var(--bg);
+    margin-bottom: 10px;
+  }
+  .cert {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 0 14px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    text-decoration: none;
+    color: inherit;
+  }
+  .cert img {
+    grid-row: 1 / span 2;
+    width: 44px;
+    height: auto;
+  }
+  .cert span {
+    font-size: 15px;
+  }
+  .cert span b {
+    font: 500 14px/1 var(--mono);
+  }
+  .cert small {
+    grid-column: 2;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+  .cert__go {
+    grid-row: 1 / span 2;
+    grid-column: 3;
+    font-style: normal;
+    opacity: 0.4;
+    transition:
+      opacity 0.15s,
+      transform 0.15s;
+  }
+  a.cert:hover .cert__go {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+  a.cert:hover span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cert__pending {
+    filter: grayscale(1);
+    opacity: 0.35;
+  }
+  .certs__note {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 1023px) {
+    .stack__groups,
+    .certs {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .stack__groups {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<style is:global>
+  [data-theme='dark'] .certs .cert {
+    border-color: rgb(0 0 0 / 0.14);
+  }
+</style>

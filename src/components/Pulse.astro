@@ -1,0 +1,212 @@
+---
+import { home } from '../i18n/home';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  /** Muestra el botón "Simular una caída" (se activa en la fase 8). */
+  interactive?: boolean;
+}
+const { lang = 'es', interactive = false } = Astro.props;
+const t = home[lang].pulse;
+---
+
+<div class="pulse" id="estado" data-sim={JSON.stringify(t.sim)} data-normal={t.label}>
+  <div class:list={['wrap pulse__bar', { 'pulse__bar--static': !interactive }]}>
+    <div class="pulse__label">
+      <span class="pulse__dot"></span>
+      <span class="pulse__txt">{t.label}</span>
+    </div>
+    <svg class="pulse__line" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        class="beat"
+        d="M0 20h70l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h60"
+      ></path>
+      <path class="flat" d="M0 20H600"></path>
+    </svg>
+    {interactive && <button class="btn btn--secondary pulse__btn" type="button">{t.button}</button>}
+  </div>
+</div>
+
+<style>
+  .pulse {
+    border-top: 1px solid var(--line);
+  }
+  .pulse__bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    height: 76px;
+  }
+  .pulse__bar--static {
+    grid-template-columns: auto 1fr;
+  }
+  .pulse__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 400 13px/1 var(--mono);
+    color: var(--muted);
+    min-width: 250px;
+  }
+  .pulse__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #16a36a;
+  }
+  .pulse__line {
+    width: 100%;
+    height: 40px;
+    overflow: visible;
+  }
+  .pulse__line path {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .beat {
+    stroke: var(--accent);
+    stroke-dasharray: 600;
+    animation: beat 3.2s linear infinite;
+  }
+  @keyframes beat {
+    from {
+      stroke-dashoffset: 600;
+    }
+    to {
+      stroke-dashoffset: -600;
+    }
+  }
+  .flat {
+    stroke: #e5484d;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  :global(.is-down) .beat {
+    opacity: 0;
+  }
+  :global(.is-down) .flat {
+    opacity: 1;
+  }
+  :global(.is-down) .pulse__dot {
+    background: #e5484d;
+  }
+
+  @media (max-width: 1023px) {
+    .pulse__label {
+      min-width: 0;
+    }
+  }
+  @media (max-width: 639px) {
+    .pulse__bar {
+      grid-template-columns: 1fr auto;
+      height: auto;
+      padding: 14px 0;
+    }
+    .pulse__bar--static {
+      grid-template-columns: 1fr;
+    }
+    .pulse__line {
+      display: none;
+    }
+    .pulse__txt {
+      font-size: 12px;
+    }
+    .pulse__btn {
+      height: 40px;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+<script>
+  // Simulacro de caída y recuperación. El RTO que se muestra es el tiempo real que mide el navegador
+  // (performance.now) entre el clic y el momento en que el simulacro da por recuperado el servicio.
+  const pulse = document.querySelector<HTMLElement>('.pulse');
+  const btn = document.querySelector<HTMLButtonElement>('.pulse__btn');
+  if (pulse && btn) {
+    const root = document.documentElement;
+    const sim = JSON.parse(pulse.dataset.sim ?? '{}') as Record<string, string>;
+    const normal = pulse.dataset.normal ?? '';
+    const txt = pulse.querySelector<HTMLElement>('.pulse__txt')!;
+    const en = root.lang === 'en';
+    let busy = false;
+
+    // Barra de incidente: se arma al correr el simulacro y se pega debajo de la nav
+    function incidentBar() {
+      let inc = document.querySelector<HTMLElement>('.incident');
+      if (!inc) {
+        inc = document.createElement('div');
+        inc.className = 'incident';
+        inc.setAttribute('role', 'status');
+        inc.setAttribute('aria-live', 'polite');
+        inc.hidden = true;
+        inc.innerHTML =
+          '<div class="wrap incident__bar"><span class="incident__msg"></span><span class="incident__meta"></span></div><div class="incident__prog"><i></i></div>';
+        document.querySelector('header.nav')?.after(inc);
+      }
+      return inc;
+    }
+
+    // Mientras la "región primaria" está caída, el contenido no responde (ni al teclado)
+    const setInert = (on: boolean) =>
+      document.querySelectorAll<HTMLElement>('main, footer.closing').forEach((el) => (el.inert = on));
+
+    btn.addEventListener('click', () => {
+      if (busy) return;
+      busy = true;
+      btn.disabled = true;
+      const t0 = performance.now();
+      const inc = incidentBar();
+      const msg = inc.querySelector<HTMLElement>('.incident__msg')!;
+      const meta = inc.querySelector<HTMLElement>('.incident__meta')!;
+      const bar = inc.querySelector<HTMLElement>('.incident__prog i')!;
+      const say = (m: string, mm = '', ok = false) => {
+        msg.textContent = m;
+        meta.textContent = mm;
+        inc.classList.toggle('is-ok', ok);
+      };
+
+      inc.hidden = false;
+      bar.style.transition = 'none';
+      bar.style.width = '0';
+      root.classList.remove('is-recovering');
+      root.classList.add('is-down');
+      setInert(true);
+      say(sim.detecting, en ? 't+0.0 s' : 't+0,0 s');
+      txt.textContent = sim.noHeartbeat;
+
+      setTimeout(() => {
+        const n = document.querySelectorAll('main > section').length;
+        say(sim.failing.replace('{n}', String(n)), sim.failingMeta);
+        requestAnimationFrame(() => {
+          bar.style.transition = 'width 1s linear';
+          bar.style.width = '100%';
+        });
+      }, 700);
+
+      setTimeout(() => {
+        let rto = ((performance.now() - t0) / 1000).toFixed(1);
+        if (!en) rto = rto.replace('.', ',');
+        root.classList.remove('is-down');
+        root.classList.add('is-recovering');
+        setInert(false);
+        say(sim.recovered, sim.rto.replace('{rto}', rto), true);
+        txt.textContent = sim.secondary;
+
+        setTimeout(() => {
+          inc.hidden = true;
+          root.classList.remove('is-recovering');
+          txt.textContent = normal;
+          busy = false;
+          btn.disabled = false;
+        }, 4200);
+      }, 1800);
+    });
+  }
+</script>

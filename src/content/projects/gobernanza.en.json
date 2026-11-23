@@ -1,0 +1,54 @@
+{
+  "id": "gobernanza",
+  "lang": "en",
+  "order": 3,
+  "size": "md",
+  "featured": false,
+  "kind": "Governance · Readymind",
+  "status": "Advanced development",
+  "statusTone": "plan",
+  "title": "Azure governance as code",
+  "summary": "Azure rules for many clients from one repository, with approvals and no secrets.",
+  "tags": [
+    "EPAC",
+    "Lighthouse",
+    "Terraform",
+    "OIDC"
+  ],
+  "metric": {
+    "value": "Multi-tenant",
+    "label": "foundation of a governance service"
+  },
+  "lead": "Azure rules for many clients, managed from one place and with approval.",
+  "kpis": [
+    {
+      "value": "Multi-tenant",
+      "label": "from one repository"
+    },
+    {
+      "value": "0",
+      "label": "stored secrets"
+    }
+  ],
+  "problem": "Applying security and cost rules to each client by hand is slow, hard to audit and easy to break.",
+  "idea": "Write the rules once, version them and apply them across clients after an approval, without storing passwords anywhere.",
+  "change": "It's the foundation of a reusable governance service at Readymind. In advanced development.",
+  "role": "I designed the architecture to run many clients from one repository, built the flow that requires approval before each change and the passwordless authentication.",
+  "topics": [
+    "Governance",
+    "Multi-client",
+    "In development"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "mini": {
+    "type": "graph",
+    "top": "Pull request",
+    "core": "Azure Policy",
+    "leaves": [
+      "Tenant A",
+      "Tenant B",
+      "Tenant C"
+    ]
+  }
+}

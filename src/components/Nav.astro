@@ -1,194 +1,320 @@
 ---
-// Anchors are prefixed with '/' so they always resolve to the homepage
-// sections, even when clicked from a routed page like /articulos.
-const navLinks = [
-  { href: '/#about', labelEs: './sobre mí', labelEn: './about' },
-  { href: '/#experience', labelEs: './experiencia', labelEn: './experience' },
-  { href: '/#stack', labelEs: './stack', labelEn: './stack' },
-  { href: '/articulos', hrefEs: '/articulos', hrefEn: '/en/articulos', labelEs: './artículos', labelEn: './articles' },
-  { href: '/#contact', labelEs: './contacto', labelEn: './contact' },
+import Logo from './Logo.astro';
+import { homePath, useUi, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  /** URL de la misma página en el otro idioma. Sin traducción, el botón de idioma no se muestra. */
+  alternateHref?: string;
+  /** Muestra el botón de búsqueda (paleta ⌘K, fase 8). */
+  search?: boolean;
+}
+const { lang = 'es', alternateHref, search = false } = Astro.props;
+const t = useUi(lang);
+
+// Los anchors llevan el prefijo de la home para que funcionen también desde /articulos, etc.
+const home = homePath(lang);
+const links = [
+  { id: 'proyectos', label: t.nav.projects },
+  { id: 'blog', label: t.nav.blog },
+  { id: 'charlas', label: t.nav.talks },
+  { id: 'sobre-mi', label: t.nav.about },
+];
+const mobileLinks = [
+  { id: 'proyectos', label: t.nav.projects },
+  { id: 'experiencias', label: t.nav.experience },
+  { id: 'stack', label: t.nav.stack },
+  { id: 'blog', label: t.nav.blog },
+  { id: 'charlas', label: t.nav.talks },
+  { id: 'newsletter', label: t.nav.newsletter },
+  { id: 'sobre-mi', label: t.nav.about },
 ];
 ---
 
-<header
-  id="nav"
-  class="sticky top-0 z-50 border-b border-border bg-surface/90 backdrop-blur-md"
->
-  <nav class="max-w-[1200px] mx-auto px-5 sm:px-10">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2.5 font-mono font-semibold text-sm text-text-primary">
-        <span class="pulse-square w-2 h-2 bg-accent"></span>~/santiago-daros
-      </a>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <Logo href={home} label={t.homeAria} animated />
 
-      <!-- Desktop nav -->
-      <div class="hidden md:flex items-center gap-1">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="font-mono text-xs text-text-secondary px-3.5 py-2 border border-transparent hover:border-border hover:bg-surface-3 hover:text-text-primary transition-colors"
-            data-es={link.labelEs}
-            data-en={link.labelEn}
-            data-href-es={link.hrefEs}
-            data-href-en={link.hrefEn}
-          >
-            {link.labelEs}
+    <nav class="nav__links" aria-label={t.mainNavAria}>
+      {links.map((l) => <a href={`${home}#${l.id}`} data-section={l.id}>{l.label}</a>)}
+    </nav>
+
+    <div class="nav__right">
+      {
+        search && (
+          <button class="icon-btn" type="button" data-open-palette aria-label={t.searchAria} title={t.searchTitle}>
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <circle cx="9" cy="9" r="5.5" />
+              <path d="m13.2 13.2 4 4" />
+            </svg>
+          </button>
+        )
+      }
+      {
+        alternateHref && (
+          <a class="lang-btn" href={alternateHref} hreflang={lang === 'es' ? 'en' : 'es'} lang={lang === 'es' ? 'en' : 'es'} aria-label={t.switchLangAria}>
+            {t.switchLangText}
           </a>
-        ))}
-
-        <!-- Language toggle -->
-        <button
-          id="lang-toggle"
-          class="ml-2.5 h-[30px] px-2 border border-border bg-surface-3 text-text-primary hover:border-accent transition-colors flex items-center gap-1.5 font-mono text-[11px] font-semibold"
-          aria-label="Cambiar idioma"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
-          </svg>
-          <span class="lang-label">EN</span>
-        </button>
-
-        <!-- Theme toggle -->
-        <button
-          id="theme-toggle"
-          class="w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary hover:border-accent transition-colors flex items-center justify-center"
-          aria-label="Cambiar tema"
-        >
-          <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-          </svg>
-          <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile: lang + theme + menu -->
-      <div class="flex md:hidden items-center gap-2">
-        <button
-          id="lang-toggle-m"
-          class="h-[30px] px-2 border border-border bg-surface-3 text-text-primary flex items-center gap-1 font-mono text-[11px] font-semibold"
-          aria-label="Cambiar idioma"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/>
-          </svg>
-          <span class="lang-label">EN</span>
-        </button>
-        <button
-          id="theme-toggle-m"
-          class="w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary flex items-center justify-center"
-          aria-label="Cambiar tema"
-        >
-          <svg id="icon-moon-m" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-          </svg>
-          <svg id="icon-sun-m" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-        </button>
-        <button
-          id="menu-btn"
-          class="w-[30px] h-[30px] border border-border bg-surface-3 text-text-primary flex items-center justify-center"
-          aria-label="Menu"
-        >
-          <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
-          </svg>
-          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
-            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-          </svg>
-        </button>
-      </div>
+        )
+      }
+      <button
+        class="theme-btn"
+        type="button"
+        data-theme-toggle
+        data-label-to-dark={t.themeToDark}
+        data-label-to-light={t.themeToLight}
+        aria-label={t.themeToDark}
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="4" />
+          <path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4" />
+        </svg>
+      </button>
+      <a class="btn btn--primary nav__cta" data-link="email" href="#contacto">{t.cta}</a>
+      <button
+        class="icon-btn menu-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mnav"
+        aria-label={t.menuOpen}
+        data-label-open={t.menuOpen}
+        data-label-close={t.menuClose}
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7h14M3 13h14" /></svg>
+      </button>
     </div>
+  </div>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-border">
-      <ul class="pt-3 space-y-1">
-        {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class="mobile-link block font-mono text-xs text-text-secondary px-3 py-2.5 border border-transparent hover:border-border hover:bg-surface-3 hover:text-text-primary transition-colors"
-              data-es={link.labelEs}
-              data-en={link.labelEn}
-              data-href-es={link.hrefEs}
-              data-href-en={link.hrefEn}
-            >
-              {link.labelEs}
-            </a>
-          </li>
-        ))}
-      </ul>
+  <nav class="mnav" id="mnav" aria-label={t.menuAria} hidden>
+    <div class="wrap mnav__list">
+      {mobileLinks.map((l) => <a href={`${home}#${l.id}`}>{l.label}</a>)}
+      <a class="btn btn--primary" data-link="email" href="#contacto">{t.cta}</a>
     </div>
   </nav>
 </header>
 
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
-
-  menuBtn?.addEventListener('click', () => {
-    const isOpen = !mobileMenu?.classList.contains('hidden');
-    mobileMenu?.classList.toggle('hidden');
-    iconOpen?.classList.toggle('hidden', !isOpen);
-    iconClose?.classList.toggle('hidden', isOpen);
-  });
-
-  document.querySelectorAll('.mobile-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-    });
-  });
-
-  // Theme toggle (desktop + mobile buttons)
-  const html = document.documentElement;
-  const moons = [document.getElementById('icon-moon'), document.getElementById('icon-moon-m')];
-  const suns = [document.getElementById('icon-sun'), document.getElementById('icon-sun-m')];
-
-  function applyIcons(isLight: boolean) {
-    moons.forEach((m) => m?.classList.toggle('hidden', isLight));
-    suns.forEach((s) => s?.classList.toggle('hidden', !isLight));
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', isLight ? '#faf8f3' : '#0b0b0d');
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__bar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav__links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+  }
+  .nav__links a {
+    position: relative;
+    white-space: nowrap;
+    padding: 10px 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+    font: 500 15px/1 var(--text);
+    transition: color 0.15s;
+  }
+  .nav__links a:hover,
+  .nav__links a[aria-current='true'] {
+    color: var(--ink);
+  }
+  .nav__links a[aria-current='true']::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 2px;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .icon-btn,
+  .lang-btn,
+  .theme-btn {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      color 0.15s,
+      background 0.15s;
+  }
+  .icon-btn:hover,
+  .lang-btn:hover,
+  .theme-btn:hover {
+    color: var(--ink);
+    background: var(--surface);
+  }
+  .icon-btn svg,
+  .theme-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+  }
+  .lang-btn {
+    font: 500 13px/1 var(--mono);
+  }
+  .nav__cta {
+    height: 40px;
+    padding: 0 18px;
+    margin-left: 8px;
+    font-size: 14px;
+  }
+  .menu-btn {
+    display: none;
+  }
+  .mnav {
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .mnav__list {
+    display: grid;
+    padding: 12px 0 20px;
+  }
+  .mnav__list a:not(.btn) {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font: 500 20px/1 var(--display);
+    letter-spacing: -0.02em;
+  }
+  .mnav__list .btn {
+    margin-top: 18px;
+    justify-content: center;
+  }
+  .mnav[hidden] {
+    display: none;
   }
 
-  if (localStorage.getItem('theme') === 'light') {
-    html.classList.add('light');
-    applyIcons(true);
-  }
-
-  ['theme-toggle', 'theme-toggle-m'].forEach((id) => {
-    document.getElementById(id)?.addEventListener('click', () => {
-      const isLight = html.classList.toggle('light');
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
-      applyIcons(isLight);
-    });
-  });
-
-  // Active section indicator — only meaningful on the homepage, where the
-  // section ids below actually exist; a no-op elsewhere.
-  const sectionIds = ['about', 'experience', 'stack', 'contact'];
-  const navAnchors = Array.from(document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="/#"]'));
-
-  function updateActive() {
-    let current = '';
-    for (const id of sectionIds) {
-      const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= 120) current = id;
+  @media (max-width: 1023px) {
+    .nav__links {
+      display: none;
     }
-    navAnchors.forEach((a) => {
-      const on = a.getAttribute('href') === `/#${current}`;
-      a.classList.toggle('text-accent', on);
-      a.classList.toggle('border-border', on);
-      a.classList.toggle('bg-surface-3', on);
+    .menu-btn {
+      display: grid;
+    }
+  }
+  @media (max-width: 639px) {
+    .nav__bar {
+      gap: 10px;
+    }
+    .nav__right {
+      gap: 6px;
+    }
+    .nav__cta {
+      display: none;
+    }
+    .icon-btn,
+    .lang-btn,
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+    }
+  }
+</style>
+
+<script>
+  // Tema: el valor inicial lo fija el script inline del <head> (Layout) antes de pintar.
+  const root = document.documentElement;
+  const themeBtns = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+
+  function paintTheme(theme: string) {
+    root.setAttribute('data-theme', theme);
+    themeBtns.forEach((b) => {
+      b.setAttribute('aria-label', (theme === 'dark' ? b.dataset.labelToLight : b.dataset.labelToDark) ?? '');
     });
   }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
+  paintTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+
+  themeBtns.forEach((b) =>
+    b.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      paintTheme(next);
+      try {
+        localStorage.setItem('sdr-theme', next);
+      } catch {}
+    })
+  );
+
+  // Sin preferencia guardada, acompaña los cambios del sistema.
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem('sdr-theme');
+    } catch {}
+    if (saved !== 'light' && saved !== 'dark') paintTheme(e.matches ? 'dark' : 'light');
+  });
+
+  // Menú móvil
+  const menuBtn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const mnav = document.getElementById('mnav');
+  function setMenu(open: boolean) {
+    if (!menuBtn || !mnav) return;
+    mnav.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', (open ? menuBtn.dataset.labelClose : menuBtn.dataset.labelOpen) ?? '');
+  }
+  menuBtn?.addEventListener('click', () => setMenu(Boolean(mnav?.hidden)));
+  mnav?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setMenu(false);
+  });
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mnav && !mnav.hidden) {
+      setMenu(false);
+      menuBtn?.focus();
+    }
+  });
+
+  // Link activo según la sección visible (solo tiene efecto en la home, donde existen los ids).
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav__links a[data-section]'));
+  const byId = new Map(links.map((a) => [a.dataset.section as string, a]));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          const a = byId.get(e.target.id);
+          if (!a) return;
+          if (e.isIntersecting) {
+            links.forEach((l) => l.removeAttribute('aria-current'));
+            a.setAttribute('aria-current', 'true');
+          } else if (a.getAttribute('aria-current')) {
+            a.removeAttribute('aria-current');
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    byId.forEach((_a, id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  }
 </script>
