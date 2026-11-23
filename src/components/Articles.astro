@@ -1,141 +1,182 @@
 ---
-// Ordered newest → oldest; the first one renders as the featured card
-const publishedArticles = [
-  {
-    tags: ['AzurePolicy', 'Governance', 'DINE'],
-    titleEs: 'Seguridad por defecto: forzando políticas que nadie puede saltarse',
-    titleEn: 'Secure by default: enforcing policies no one can bypass',
-    descEs: '¿Cuántas veces un servidor nuevo llega a producción sin el agente de monitoreo o fuera de la política de backup? Azure Policy con DeployIfNotExists (DINE) para una infraestructura que se protege sola desde el momento en que se crea.',
-    descEn: 'How often does a new server reach production without the monitoring agent or outside the backup policy? Azure Policy with DeployIfNotExists (DINE) for infrastructure that protects itself from the moment it is created.',
-    dateEs: '· 24 May 2026',
-    dateEn: '· May 24, 2026',
-    link: 'https://www.linkedin.com/feed/update/urn:li:activity:7464336931917545472/',
-  },
-  {
-    tags: ['AzureResourceGraph', 'KQL', 'FinOps'],
-    titleEs: 'Crónica de una auditoría: el cliente que perdía presupuesto por borrar servidores a medias',
-    titleEn: 'Audit chronicle: the client losing budget by half-deleting servers',
-    descEs: 'Discos e IPs públicas huérfanas consumiendo presupuesto: dos querys de KQL en Azure Resource Graph que recuperaron casi 2000 USD mensuales en una sola tarde.',
-    descEn: 'Orphaned disks and public IPs draining budget: two KQL queries in Azure Resource Graph that recovered almost 2,000 USD per month in a single afternoon.',
-    dateEs: '· 17 May 2026',
-    dateEn: '· May 17, 2026',
-    link: 'https://www.linkedin.com/feed/update/urn:li:activity:7461807759743721472/',
-  },
-  {
-    tags: ['AzureBlobStorage', 'CostOptimization', 'DataTiering'],
-    titleEs: 'Almacenamiento inteligente: bajar costos archivando datos viejos',
-    titleEn: 'Intelligent Storage: Reducing Costs by Archiving Old Data',
-    descEs: 'Diseñar soluciones que equilibren escalabilidad, seguridad y costo-eficiencia es un desafío constante; hoy analizamos cómo aplicarlo en el almacenamiento de datos inactivos en Azure.',
-    descEn: 'Designing solutions that balance scalability, security and cost-efficiency is a constant challenge; here we look at how to apply it to inactive data storage in Azure.',
-    dateEs: '· 20 Abr 2026 · 5 min',
-    dateEn: '· Apr 20, 2026 · 5 min',
-    link: 'https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf',
-  },
-];
+// Sección Blog de la home: artículo destacado + lista (artículos y los 3 posts de LinkedIn más recientes).
+import { formatDate, getBlogIndex, getFeaturedArticle, articleHref, getReadingTime } from '../lib/blog';
+import { blogText, tagLabel } from '../i18n/blog';
+import { paths, type Lang } from '../i18n';
 
-const [featured, ...older] = publishedArticles;
-
-const articleUpcoming = [
-  { tags: ['AzureAD', 'EntraID'], titleEs: 'Migración de identidades on-premise a Azure AD', titleEn: 'On-premise identity migration to Azure AD' },
-  { tags: ['AzureArc', 'Hybrid'], titleEs: 'Azure Arc: integrando infraestructura On-Prem con la nube', titleEn: 'Azure Arc: integrating On-Prem infrastructure with the cloud' },
-];
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = blogText[lang];
+const featured = await getFeaturedArticle(lang);
+const items = await getBlogIndex(lang);
+// En la home: los artículos propios y los 3 posts más recientes (la versión extendida va en el destacado)
+const list = [...items.filter((i) => i.kind === 'article'), ...items.filter((i) => i.kind === 'post').slice(0, 3)];
+// Texto grande de la portada: el título hasta los dos puntos
+const coverTitle = featured?.data.title.split(':')[0];
 ---
 
-<section id="articles" class="border-b border-border">
-  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-16">
-    <div class="flex justify-between items-end flex-wrap gap-2.5 mb-8">
+<section id="blog" class="section ground-surface">
+  <div class="wrap">
+    <div class="head" data-reveal>
       <div>
-        <p class="section-label animate-on-scroll" data-es="04 // articulos.sh" data-en="04 // articles.sh">04 // articulos.sh</p>
-        <h2 class="section-heading animate-on-scroll">
-          <span data-es="Contenido técnico " data-en="Technical content ">Contenido técnico </span><span class="accent-serif" data-es="para la comunidad" data-en="for the community">para la comunidad</span>
-        </h2>
+        <span class="eyebrow">{t.home.eyebrow}</span>
+        <h2>{t.home.title}</h2>
       </div>
-      <a
-        href="/articulos"
-        class="font-mono font-semibold text-xs text-text-secondary hover:text-accent transition-colors animate-on-scroll"
-        data-es="[ver_todos →]"
-        data-en="[see_all →]"
-      >
-        [ver_todos →]
-      </a>
+      <p>{t.home.note}</p>
     </div>
-
-    <!-- Featured: newest published article -->
-    <div class="box-alt p-6 animate-on-scroll">
-      <div class="inline-flex items-center gap-[7px] font-mono font-bold text-[11px] text-tgreen border px-2 py-[3px] mb-3.5" style="border-color: var(--color-green)">
-        <span class="pulse-square w-1.5 h-1.5"></span><span data-es="último publicado" data-en="latest published">último publicado</span>
-      </div>
-      <h3 class="font-mono font-bold text-lg sm:text-[19px] text-text-primary leading-snug" data-es={featured.titleEs} data-en={featured.titleEn}>{featured.titleEs}</h3>
-      <p class="mt-2.5 font-mono text-[13.5px] leading-relaxed text-text-secondary max-w-[760px]" data-es={featured.descEs} data-en={featured.descEn}>{featured.descEs}</p>
-      <div class="mt-4 flex justify-between items-center flex-wrap gap-3">
-        <div class="flex flex-wrap gap-2 font-mono text-[11.5px] text-text-muted">
-          {featured.tags.map((tg) => (
-            <span>#{tg}</span>
-          ))}
-          <span data-es={featured.dateEs} data-en={featured.dateEn}>{featured.dateEs}</span>
-        </div>
-        <a
-          href={featured.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-mono font-bold text-[12.5px] text-accent hover:opacity-80 transition-opacity"
-          data-es="[leer_en_linkedin ↗]"
-          data-en="[read_on_linkedin ↗]"
-        >
-          [leer_en_linkedin ↗]
-        </a>
-      </div>
-    </div>
-
-    <!-- Older published articles, newest first -->
-    <div class="mt-3 flex flex-col gap-2.5">
-      {older.map((art, i) => (
-        <div class="box p-5 hover:border-accent transition-colors animate-on-scroll" style={`transition-delay: ${i * 0.06}s`}>
-          <div class="flex items-center gap-2 mb-2 font-mono text-[11px] text-tgreen">
-            <span class="w-1.5 h-1.5 bg-tgreen inline-block"></span><span data-es="publicado" data-en="published">publicado</span>
-          </div>
-          <h3 class="font-mono font-bold text-[15px] text-text-primary leading-snug" data-es={art.titleEs} data-en={art.titleEn}>{art.titleEs}</h3>
-          <p class="mt-1.5 font-mono text-xs leading-relaxed text-text-secondary max-w-[720px]" data-es={art.descEs} data-en={art.descEn}>{art.descEs}</p>
-          <div class="mt-3 flex justify-between items-center flex-wrap gap-2.5">
-            <div class="flex flex-wrap gap-2 font-mono text-[11px] text-text-muted">
-              {art.tags.map((tg) => (
-                <span>#{tg}</span>
-              ))}
-              <span data-es={art.dateEs} data-en={art.dateEn}>{art.dateEs}</span>
-            </div>
-            <a
-              href={art.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-mono font-bold text-[11.5px] text-accent hover:opacity-80 transition-opacity"
-              data-es="[leer ↗]"
-              data-en="[read ↗]"
+    <div class="blog">
+      {
+        featured && (
+          <a class="post--feat replica" data-reveal href={articleHref(featured)}>
+            <div
+              class:list={['post__cover', { 'post__cover--img': featured.data.cover }]}
+              style={featured.data.cover ? `--cover: url(${featured.data.cover})` : undefined}
+              aria-hidden="true"
             >
-              [leer ↗]
-            </a>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <!-- Upcoming -->
-    <div class="mt-3 flex flex-col gap-2.5">
-      {articleUpcoming.map((art, i) => (
-        <div
-          class="grid sm:grid-cols-[130px_1fr] gap-2 sm:gap-5 p-4 border border-dashed border-border animate-on-scroll"
-          style={`transition-delay: ${i * 0.06}s`}
-        >
-          <div class="font-mono text-[11.5px] text-text-muted" data-es="próximamente" data-en="coming soon">próximamente</div>
-          <div>
-            <div class="font-mono text-sm text-text-secondary" data-es={art.titleEs} data-en={art.titleEn}>{art.titleEs}</div>
-            <div class="mt-1.5 flex gap-2 font-mono text-[11px] text-text-muted">
-              {art.tags.map((tg) => (
-                <span>#{tg}</span>
-              ))}
+              <span class="big">{coverTitle}</span>
             </div>
-          </div>
-        </div>
-      ))}
+            <div class="post__body">
+              <div class="post__meta">
+                <span class="tag">{featured.data.category}</span>
+                <span>{t.featuredMeta(getReadingTime(featured.body))}</span>
+              </div>
+              <h3>{featured.data.title}</h3>
+              <p class="muted">{featured.data.description}</p>
+            </div>
+          </a>
+        )
+      }
+      <div class="posts">
+        {
+          list.map((i) => (
+            <a
+              class="post"
+              data-reveal
+              href={i.href}
+              {...(i.external ? { target: '_blank', rel: 'noopener' } : {})}
+              {...(i.inSpanish ? { hreflang: 'es' } : {})}
+            >
+              <div class="post__meta">
+                <span class="tag">{tagLabel(i.tag, lang)}</span>
+                <span>
+                  {formatDate(i.date, lang)} · {t.kinds[i.kind]}
+                </span>
+              </div>
+              <h3>{i.title}</h3>
+            </a>
+          ))
+        }
+        <a class="link all" href={paths[lang].blog}>{t.home.seeAll}</a>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .blog {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .post--feat {
+    grid-column: span 7;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .post--feat:hover {
+    transform: translateY(-2px);
+    color: var(--ink);
+  }
+  .post__cover {
+    height: 250px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    background: var(--ink);
+    color: var(--bg);
+  }
+  :global([data-theme='dark']) .post__cover:not(.post__cover--img) {
+    background: #000;
+  }
+  .post__cover--img {
+    height: 300px;
+    justify-content: flex-end;
+    background-color: #0b0c0e;
+    background-image: var(--cover);
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .post__cover .big {
+    font: var(--display-weight) 40px/1 var(--display);
+    letter-spacing: var(--track);
+    color: #fff;
+  }
+  .post__body {
+    display: grid;
+    gap: 10px;
+    padding: 26px 28px;
+  }
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .post__meta .tag {
+    color: var(--accent);
+  }
+  .post--feat h3 {
+    font-size: var(--t3);
+    line-height: 1.12;
+  }
+  .posts {
+    grid-column: 8 / span 5;
+    display: flex;
+    flex-direction: column;
+  }
+  .post {
+    display: grid;
+    gap: 6px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .post:first-child {
+    padding-top: 0;
+  }
+  .post h3 {
+    font-size: var(--t4);
+    line-height: 1.2;
+    transition: color 0.15s;
+  }
+  .post:hover h3 {
+    color: var(--accent);
+  }
+  .all {
+    align-self: flex-start;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1023px) {
+    .post--feat,
+    .posts {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

@@ -1,4 +1,7 @@
 ---
+import { blogText } from '../../i18n/blog';
+import type { Lang } from '../../i18n';
+
 interface Reference {
   title: string;
   source: string;
@@ -6,31 +9,57 @@ interface Reference {
 }
 interface Props {
   references: Reference[];
-  lang?: 'es' | 'en';
+  lang?: Lang;
 }
 const { references, lang = 'es' } = Astro.props;
 ---
 
 {
   references.length > 0 && (
-    <section class="mt-14 pt-8 border-t border-border">
-      <p class="font-mono text-xs text-accent mb-4">{lang === 'es' ? '// referencias' : '// references'}</p>
-      <ol class="flex flex-col gap-2.5">
+    <section class="refs">
+      <span class="eyebrow">{blogText[lang].article.references}</span>
+      <ol>
         {references.map((ref, i) => (
-          <li id={`ref-${i + 1}`} class="font-mono text-[13px] text-text-secondary leading-relaxed scroll-mt-24">
-            <span class="text-text-muted">[{i + 1}]</span>{' '}
-            <a
-              href={ref.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-text-primary underline underline-offset-4 hover:text-accent transition-colors"
-            >
+          <li id={`ref-${i + 1}`}>
+            <a href={ref.url} target="_blank" rel="noopener">
               {ref.title}
             </a>
-            <span class="text-text-muted"> — {ref.source}</span>
+            <span class="muted"> — {ref.source}</span>
           </li>
         ))}
       </ol>
     </section>
   )
 }
+
+<style>
+  .refs {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 14px;
+  }
+  .refs ol {
+    margin: 0;
+    padding-left: 1.4em;
+    display: grid;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .refs li {
+    scroll-margin-top: 96px;
+  }
+  .refs li::marker {
+    font-family: var(--mono);
+    color: var(--muted);
+  }
+  .refs a {
+    color: var(--ink);
+    text-underline-offset: 3px;
+  }
+  .refs a:hover {
+    color: var(--accent);
+  }
+</style>

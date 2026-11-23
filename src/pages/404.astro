@@ -2,37 +2,98 @@
 import Layout from '@/layouts/Layout.astro';
 ---
 
-<Layout title="404 — Santiago Da Ros" description="Página no encontrada.">
+<Layout title="404 · Santiago Da Ros" description="Esta página no tiene réplica.">
   <main>
-    <section class="border-b border-border">
-      <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-24 sm:py-32 text-center">
-        <p class="font-mono text-sm text-accent">
-          $ cat 404.md<span class="cursor-blink" aria-hidden="true"></span>
-        </p>
-        <h1 class="mt-5 font-serif text-5xl sm:text-6xl text-text-primary leading-tight">
-          <span class="accent-serif">404</span>
-        </h1>
-        <p
-          class="mt-4 font-mono text-sm text-text-secondary max-w-[52ch] mx-auto"
-          data-es="command not found: esta ruta no existe."
-          data-en="command not found: this route doesn't exist."
-        >
-          command not found: esta ruta no existe.
-        </p>
-        <div class="flex flex-wrap justify-center gap-3 mt-8">
-          <a href="/" class="btn-solid" data-es="./home →" data-en="./home →">./home →</a>
-          <a
-            href="/articulos"
-            class="btn-box"
-            data-es="./artículos →"
-            data-en="./articles →"
-            data-href-es="/articulos"
-            data-href-en="/en/articulos"
-          >
-            ./artículos →
-          </a>
+    <div class="wrap nf">
+      <!-- Español por defecto; el script elige el idioma según la ruta (/en/…) -->
+      <div class="nf__copy" data-lang-block="es">
+        <span class="eyebrow">Error 404 · Región primaria sin respuesta</span>
+        <h1>Esta página no tiene réplica</h1>
+        <p class="nf__lead">Lo que buscabas no existe o se movió. La buena noticia: el resto del sitio sí está replicado.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/">Ir a la región secundaria</a>
+          <a class="btn btn--secondary" href="/articulos">Blog</a>
         </div>
       </div>
-    </section>
+      <div class="nf__copy" data-lang-block="en" hidden>
+        <span class="eyebrow">Error 404 · Primary region not responding</span>
+        <h1>This page has no replica</h1>
+        <p class="nf__lead">What you were looking for doesn't exist or was moved. The good news: the rest of the site is replicated.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/en/">Go to the secondary region</a>
+          <a class="btn btn--secondary" href="/en/articulos">Blog</a>
+        </div>
+      </div>
+      <div class="nf__trace" aria-hidden="true">
+        <span>GET /<b class="nf__path">página</b></span>
+        <span class="err">× 404 · primary · 12 ms</span>
+        <span class="ok" data-lang-block="es">✓ failover → secundaria · 0,4 s</span>
+        <span class="ok" data-lang-block="en" hidden>✓ failover → secondary · 0.4 s</span>
+      </div>
+    </div>
   </main>
 </Layout>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 20px;
+    padding: 64px 0;
+  }
+  .nf__copy {
+    display: grid;
+    gap: 20px;
+    justify-items: start;
+  }
+  .nf__copy[hidden],
+  .ok[hidden] {
+    display: none;
+  }
+  .nf h1 {
+    font-size: var(--t1);
+    line-height: 1;
+    max-width: 14ch;
+  }
+  .nf__lead {
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 44ch;
+  }
+  .nf__trace {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    margin-top: 24px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+    font: 400 14px/1.4 var(--mono);
+    color: var(--muted);
+  }
+  .nf__trace .err {
+    color: #e5484d;
+  }
+  .nf__trace .ok {
+    color: var(--ok);
+  }
+</style>
+
+<script>
+  // La 404 es una sola página estática: el idioma y la ruta que falló se leen del navegador.
+  const path = decodeURIComponent(location.pathname).replace(/^\//, '') || 'página';
+  const en = location.pathname.startsWith('/en/') || location.pathname === '/en';
+  const out = document.querySelector('.nf__path');
+  if (out) out.textContent = path;
+  document.querySelectorAll<HTMLElement>('[data-lang-block]').forEach((el) => {
+    el.hidden = el.dataset.langBlock !== (en ? 'en' : 'es');
+  });
+  if (en) {
+    document.documentElement.lang = 'en';
+    document.title = '404 · Santiago Da Ros';
+  }
+</script>

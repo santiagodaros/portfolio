@@ -17,6 +17,8 @@ interface Props {
   ogImageAlt?: string;
   publishedTime?: Date;
   modifiedTime?: Date;
+  /** URL canónica externa, si la página se publicó antes en otro sitio (p. ej. un artículo de LinkedIn). */
+  canonical?: string;
   /** URLs reales por idioma de esta página, p. ej. { es: '/articulos/x', en: '/en/articulos/y' }.
    *  Sin esto, la página no tiene traducción: no se muestra el botón de idioma y el hreflang apunta a sí misma. */
   alternates?: Partial<Record<Lang, string>>;
@@ -31,24 +33,26 @@ const {
   ogImageAlt = 'Santiago Da Ros presentando, junto al título De cloud al producto',
   publishedTime,
   modifiedTime,
+  canonical,
   alternates,
 } = Astro.props;
 
 const ogImage = new URL(ogImagePath, Astro.site);
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const canonicalUrl = canonical ? new URL(canonical) : pageUrl;
 
 const hreflangLinks = alternates
   ? Object.entries(alternates).map(([hreflang, href]) => ({
       hreflang,
       href: new URL(href, Astro.site).toString(),
     }))
-  : [{ hreflang: lang, href: canonicalUrl.toString() }];
-const xDefaultHref = alternates?.es ? new URL(alternates.es, Astro.site).toString() : canonicalUrl.toString();
+  : [{ hreflang: lang, href: pageUrl.toString() }];
+const xDefaultHref = alternates?.es ? new URL(alternates.es, Astro.site).toString() : pageUrl.toString();
 const alternateHref = alternates?.[otherLang(lang)];
 ---
 
 <!doctype html>
-<html lang={lang} class={lang === 'en' ? 'en' : undefined} data-theme="light">
+<html lang={lang} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -79,7 +83,7 @@ const alternateHref = alternates?.[otherLang(lang)];
     <meta property="og:site_name" content="Santiago Da Ros" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={pageUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

@@ -1,10 +1,6 @@
 /* Tokens, base y primitivas del rediseño. Fuente de verdad: design/prototype/index.html.
    Las fuentes (Geist y Geist Mono) se importan en Layout.astro desde @fontsource-variable. */
 
-/* Capa de compatibilidad con el diseño anterior: la usan solo los componentes del blog
-   y la home vieja. Se borra en la fase 4 (blog). */
-@import './legacy.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
