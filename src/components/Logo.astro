@@ -1,0 +1,25 @@
+---
+// Logo: círculo abierto (cloud) + cuadrado sólido (producto).
+// `animated` dibuja el círculo y hace aparecer el cuadrado al cargar (clase .loaded en <html>).
+interface Props {
+  href: string;
+  label?: string;
+  animated?: boolean;
+}
+const { href, label, animated = false } = Astro.props;
+---
+
+<a class:list={['logo', { 'logo--nav': animated }]} href={href} aria-label={label}>
+  {
+    animated ? (
+      <svg viewBox="0 0 54 36" aria-hidden="true">
+        <circle class="m-cloud" cx="13" cy="18" r="11" fill="none" stroke="var(--accent)" stroke-width="3" pathLength="100" />
+        <rect class="m-prod" x="28" y="7" width="22" height="22" rx="4" fill="var(--accent)" />
+      </svg>
+    ) : (
+      <svg aria-hidden="true">
+        <use href="#sdr" />
+      </svg>
+    )
+  }Santiago Da Ros
+</a>

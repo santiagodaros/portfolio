@@ -1,25 +1,34 @@
 ---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import geistLatin from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import '../styles/global.css';
+import Sprite from '../components/Sprite.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { otherLang, type Lang } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
-  lang?: 'es' | 'en';
+  lang?: Lang;
   type?: 'website' | 'article';
   ogImagePath?: string;
+  ogImageAlt?: string;
   publishedTime?: Date;
   modifiedTime?: Date;
-  /** Real per-language URLs for this page, e.g. { es: '/articulos/x', en: '/en/articulos/y' }.
-   *  Falls back to a self + x-default alternate when omitted (page has no translation). */
-  alternates?: Partial<Record<'es' | 'en', string>>;
+  /** URLs reales por idioma de esta página, p. ej. { es: '/articulos/x', en: '/en/articulos/y' }.
+   *  Sin esto, la página no tiene traducción: no se muestra el botón de idioma y el hreflang apunta a sí misma. */
+  alternates?: Partial<Record<Lang, string>>;
 }
 
 const {
-  title = 'Santiago Da Ros — Cloud & Infrastructure Engineer',
-  description = 'Senior Cloud & Infrastructure Engineer especializado en Azure, automatización con PowerShell, Active Directory y arquitectura de soluciones empresariales.',
+  title = 'Santiago Da Ros: ingeniero de producto y cloud en Azure',
+  description = 'Santiago Da Ros, ingeniero cloud que construye producto. Herramientas sobre Azure para portales, automatización, gobernanza y recuperación ante desastres, con IA en el flujo de trabajo.',
   lang = 'es',
   type = 'website',
-  ogImagePath = '/og-image.png',
+  ogImagePath = '/og.png',
+  ogImageAlt = 'Santiago Da Ros presentando, junto al título De cloud al producto',
   publishedTime,
   modifiedTime,
   alternates,
@@ -35,178 +44,112 @@ const hreflangLinks = alternates
     }))
   : [{ hreflang: lang, href: canonicalUrl.toString() }];
 const xDefaultHref = alternates?.es ? new URL(alternates.es, Astro.site).toString() : canonicalUrl.toString();
+const alternateHref = alternates?.[otherLang(lang)];
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class={lang === 'en' ? 'en' : undefined} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      // Antes de pintar: marca que hay JS y fija el tema.
+      // Preferencia guardada → preferencia del sistema → claro.
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var t = null;
+        try {
+          t = localStorage.getItem('sdr-theme');
+        } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        d.setAttribute('data-theme', t);
+      })();
+    </script>
+    <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Santiago Lucas Da Ros" />
+    <meta name="author" content="Santiago Da Ros" />
+    <meta name="theme-color" content="#1f2de6" />
     <link rel="canonical" href={canonicalUrl} />
     {hreflangLinks.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Santiago Da Ros" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={lang === 'es' ? 'es_AR' : 'en_US'} />
-    {type === 'article' && publishedTime && (
-      <meta property="article:published_time" content={publishedTime.toISOString()} />
-    )}
-    {type === 'article' && modifiedTime && (
-      <meta property="article:modified_time" content={modifiedTime.toISOString()} />
-    )}
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_AR'} />
+    {
+      type === 'article' && publishedTime && (
+        <meta property="article:published_time" content={publishedTime.toISOString()} />
+      )
+    }
+    {
+      type === 'article' && modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+      )
+    }
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="theme-color" content="#0b0b0d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <link
       rel="alternate"
       type="application/rss+xml"
       title="Santiago Da Ros — Blog"
       href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'}
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500;1,6..72,600&display=swap"
-      rel="stylesheet"
-    />
-    <title>{title}</title>
+    <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
   </head>
-  <body class="min-h-screen">
-    <!-- Scroll progress bar -->
-    <div id="scroll-bar" class="fixed top-0 left-0 h-0.5 z-[100]" style="width:0%; background: linear-gradient(90deg, rgb(var(--color-accent-dim)), rgb(var(--color-accent)));"></div>
-
+  <body>
+    <Sprite />
+    <Nav lang={lang} alternateHref={alternateHref} />
     <slot />
-
-    <!-- Scroll to top -->
-    <button
-      id="scroll-top"
-      class="fixed bottom-6 right-6 z-50 w-9 h-9 border border-border bg-surface-3 text-text-secondary hover:text-accent hover:border-accent transition-all duration-300 opacity-0 translate-y-4 pointer-events-none flex items-center justify-center"
-      aria-label="Scroll to top"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m18 15-6-6-6 6"/>
-      </svg>
-    </button>
+    <Footer lang={lang} />
 
     <script>
-      // Scroll-driven fade-up (IntersectionObserver — cross-browser replacement
-      // for the design's animation-timeline: view(), Chrome-only)
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-      );
-      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-        observer.observe(el);
-      });
+      // Animación de entrada del logo (el timeout cubre pestañas donde rAF está en pausa)
+      const markLoaded = () => document.documentElement.classList.add('loaded');
+      requestAnimationFrame(markLoaded);
+      setTimeout(markLoaded, 80);
 
-      // Landing on a page with a #hash (e.g. a nav link from /articulos to
-      // /#about) can silently fail to auto-scroll in some browsers when
-      // `scroll-behavior: smooth` is set — restore it manually, offset for
-      // the sticky nav height.
-      if (location.hash) {
-        const target = document.querySelector(location.hash);
-        if (target) {
-          requestAnimationFrame(() => {
-            const navHeight = document.getElementById('nav')?.offsetHeight ?? 0;
-            const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
-            window.scrollTo({ top, behavior: 'auto' });
-          });
-        }
+      // Aparición al hacer scroll. Solo se oculta con JS (html.js) y sin movimiento reducido.
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px' }
+        );
+        items.forEach((el, i) => {
+          // Las grillas de tarjetas entran escalonadas, de a tres
+          const staggered = el.matches('.sol, .talk, .pillar, .group');
+          el.style.transitionDelay = `${(staggered ? i % 3 : 0) * 80}ms`;
+          io.observe(el);
+        });
       }
 
-      // Scroll to top + progress bar
-      const scrollTopBtn = document.getElementById('scroll-top');
-      const scrollBar = document.getElementById('scroll-bar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          scrollTopBtn?.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-        } else {
-          scrollTopBtn?.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-        }
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        if (scrollBar && total > 0) scrollBar.style.width = (window.scrollY / total) * 100 + '%';
-      }, { passive: true });
-      scrollTopBtn?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      // El email no está en el HTML estático: se arma en el cliente para que no lo cosechen bots.
+      const email = atob('c2FudGlhZ29sdWNhc2Rhcm9zQGdtYWlsLmNvbQ==');
+      document.querySelectorAll<HTMLAnchorElement>('a[data-link="email"]').forEach((a) => {
+        a.href = `mailto:${email}`;
       });
-    </script>
-
-    <script define:vars={{ pageLang: lang, fixedLang: Boolean(alternates) }}>
-      // Plain-JS bridge: routed pages (blog) pass their real URL-implied
-      // language here so the toggle script below can force-sync to it,
-      // instead of trusting a possibly-stale localStorage value.
-      window.__pageLang = pageLang;
-      window.__fixedLang = fixedLang;
-    </script>
-
-    <script>
-      // i18n language toggle: swaps data-es/data-en text, CV links and
-      // toggles html.en for rich dual blocks ([data-i18n])
-      (function () {
-        function applyLang(lang: string) {
-          document.documentElement.lang = lang;
-          document.documentElement.classList.toggle('en', lang === 'en');
-          document.querySelectorAll<HTMLElement>('[data-en][data-es]').forEach((el) => {
-            el.textContent = (lang === 'en' ? el.dataset.en : el.dataset.es) ?? '';
-          });
-          document.querySelectorAll<HTMLAnchorElement>('[data-href-es][data-href-en]').forEach((el) => {
-            el.href = (lang === 'en' ? el.dataset.hrefEn : el.dataset.hrefEs) ?? el.href;
-            const filename = lang === 'en' ? el.dataset.filenameEn : el.dataset.filenameEs;
-            if (filename) {
-              el.download = filename;
-            } else {
-              el.removeAttribute('download');
-            }
-          });
-          document.querySelectorAll('.lang-label').forEach((label) => {
-            label.textContent = lang === 'en' ? 'ES' : 'EN';
-          });
-          localStorage.setItem('lang', lang);
-        }
-
-        // Routed pages (blog) are fixed to the language their URL implies:
-        // sync localStorage to match instead of trusting a stale value from
-        // browsing a different route. Toggle-native pages (home) keep
-        // reading the stored preference as before.
-        const fixedLang = (window as any).__fixedLang === true;
-        const pageLang = (window as any).__pageLang as string;
-        const activeLang = fixedLang ? pageLang : localStorage.getItem('lang') || 'es';
-        if (fixedLang) localStorage.setItem('lang', pageLang);
-        if (activeLang === 'en') applyLang('en');
-
-        ['lang-toggle', 'lang-toggle-m'].forEach((id) => {
-          document.getElementById(id)?.addEventListener('click', () => {
-            const current = localStorage.getItem('lang') || 'es';
-            const next = current === 'es' ? 'en' : 'es';
-            // Content pages (e.g. blog posts) set window.__langAltUrl to the
-            // real URL of their translation, if one exists — the toggle then
-            // navigates there instead of swapping text in place, since the
-            // translated content lives on a different route entirely.
-            const altUrl = (window as any).__langAltUrl?.[next];
-            if (altUrl) {
-              localStorage.setItem('lang', next);
-              window.location.href = altUrl;
-              return;
-            }
-            applyLang(next);
-          });
-        });
-      })();
     </script>
   </body>
 </html>

@@ -1,8 +1,164 @@
 ---
+import Logo from './Logo.astro';
+import { contact, homePath, paths, useUi, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = useUi(lang);
+const f = t.footer;
+const home = homePath(lang);
+const p = paths[lang];
+const year = new Date().getFullYear();
 ---
-<footer class="border-t border-border">
-  <div class="max-w-[1200px] mx-auto px-5 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11.5px] text-text-muted">
-    <span>~/santiago-daros © {new Date().getFullYear()}</span>
-    <span>Astro + Tailwind</span>
+
+<footer class="closing" id="contacto">
+  <div class="wrap">
+    <div class="close__head">
+      <div>
+        <h2>{f.title}</h2>
+        <p>{f.text}</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" data-link="email" href="#contacto">
+          {f.emailBtn}
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h8M5 2.5 8.5 6 5 9.5"></path></svg>
+        </a>
+        <a class="btn btn--secondary" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="sig"><Logo href={home} /></div>
+      <div>
+        <h3>{f.groups.work}</h3>
+        <ul>
+          <li><a href={`${home}#proyectos`}>{t.nav.projects}</a></li>
+          <li><a href={`${home}#experiencias`}>{t.nav.experience}</a></li>
+          <li><a href={`${home}#stack`}>{t.nav.stack}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>{f.groups.content}</h3>
+        <ul>
+          <li><a href={p.blog}>{t.nav.blog}</a></li>
+          <li><a href={p.kql}>{f.kql}</a></li>
+          <li><a href={`${home}#newsletter`}>{t.nav.newsletter}</a></li>
+          <li><a href={`${home}#charlas`}>{t.nav.talks}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>{f.groups.about}</h3>
+        <ul>
+          <li><a href={`${home}#sobre-mi`}>{f.career}</a></li>
+          <li><a href={p.cv} target="_blank" rel="noopener">{f.cv}</a></li>
+          <li><a href={p.now}>{f.now}</a></li>
+          <li><a href={p.status}>{f.status}</a></li>
+          <li><a href={p.speaker}>{f.speaker}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>{f.groups.contact}</h3>
+        <ul>
+          <li><a data-link="email" href="#contacto">{f.email}</a></li>
+          <li><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href={contact.github} target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© {year} Santiago Da Ros · Buenos Aires</span>
+      <span>{f.legal}</span>
+    </div>
   </div>
 </footer>
+
+<style>
+  .closing {
+    padding: 96px 0 40px;
+  }
+  .close__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-bottom: 64px;
+  }
+  .close__head h2 {
+    font-size: var(--t2);
+    line-height: 1.04;
+    max-width: 13ch;
+  }
+  .close__head p {
+    color: var(--muted);
+    font-size: 19px;
+    margin-top: 12px;
+    max-width: 44ch;
+  }
+  .foot {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .foot > div {
+    grid-column: span 2;
+  }
+  .foot > div:first-child {
+    grid-column: span 4;
+  }
+  .sig {
+    display: grid;
+    gap: 14px;
+    max-width: 30ch;
+    align-self: start;
+  }
+  .foot h3 {
+    font: 500 13px/1 var(--text);
+    color: var(--muted);
+    letter-spacing: 0;
+    margin-bottom: 12px;
+  }
+  .foot ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .foot a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .foot a:hover {
+    color: var(--accent);
+  }
+  .legal {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 1023px) {
+    .foot > div:first-child {
+      grid-column: 1 / -1;
+    }
+    .foot > div {
+      grid-column: span 6;
+    }
+  }
+  @media (max-width: 639px) {
+    .closing {
+      padding-top: 80px;
+    }
+  }
+</style>
