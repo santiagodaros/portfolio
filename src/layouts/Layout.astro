@@ -7,6 +7,7 @@ import Analytics from '@vercel/analytics/astro';
 import Sprite from '../components/Sprite.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CommandPalette from '../components/CommandPalette.astro';
 import { otherLang, type Lang } from '../i18n';
 
 interface Props {
@@ -127,9 +128,10 @@ const alternateHref = alternates?.[otherLang(lang)];
   </head>
   <body>
     <Sprite />
-    <Nav lang={lang} alternateHref={alternateHref} />
+    <Nav lang={lang} alternateHref={alternateHref} search />
     <slot />
     <Footer lang={lang} />
+    <CommandPalette lang={lang} alternateHref={alternateHref} />
 
     <script>
       // Animación de entrada del logo (el timeout cubre pestañas donde rAF está en pausa)

@@ -24,6 +24,16 @@ const es = {
   pulse: {
     label: 'Región primaria · latido normal',
     button: 'Simular una caída',
+    sim: {
+      noHeartbeat: 'Región primaria · sin latido',
+      detecting: 'Región primaria sin respuesta. Detectando la caída…',
+      // {n} = cantidad de secciones de la página, contada al momento de correr el simulacro
+      failing: 'Failover a la región secundaria: levantando {n} secciones en orden',
+      failingMeta: 'grupo 1 → 2 → 3',
+      recovered: 'Recuperado en la región secundaria. No se perdió nada.',
+      rto: 'RTO {rto} s · RPO 0',
+      secondary: 'Región secundaria · latido normal',
+    },
   },
   projects: {
     eyebrow: 'Proyectos',
@@ -218,6 +228,15 @@ const en: typeof es = {
   pulse: {
     label: 'Primary region · healthy heartbeat',
     button: 'Simulate an outage',
+    sim: {
+      noHeartbeat: 'Primary region · no heartbeat',
+      detecting: 'Primary region not responding. Detecting the outage…',
+      failing: 'Failing over to the secondary region: bringing up {n} sections in order',
+      failingMeta: 'group 1 → 2 → 3',
+      recovered: 'Recovered in the secondary region. Nothing was lost.',
+      rto: 'RTO {rto} s · RPO 0',
+      secondary: 'Secondary region · healthy heartbeat',
+    },
   },
   projects: {
     eyebrow: 'Projects',

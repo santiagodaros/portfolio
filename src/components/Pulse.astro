@@ -11,7 +11,7 @@ const { lang = 'es', interactive = false } = Astro.props;
 const t = home[lang].pulse;
 ---
 
-<div class="pulse" id="estado">
+<div class="pulse" id="estado" data-sim={JSON.stringify(t.sim)} data-normal={t.label}>
   <div class:list={['wrap pulse__bar', { 'pulse__bar--static': !interactive }]}>
     <div class="pulse__label">
       <span class="pulse__dot"></span>
@@ -86,6 +86,15 @@ const t = home[lang].pulse;
     opacity: 0;
     transition: opacity 0.2s;
   }
+  :global(.is-down) .beat {
+    opacity: 0;
+  }
+  :global(.is-down) .flat {
+    opacity: 1;
+  }
+  :global(.is-down) .pulse__dot {
+    background: #e5484d;
+  }
 
   @media (max-width: 1023px) {
     .pulse__label {
@@ -114,3 +123,90 @@ const t = home[lang].pulse;
     }
   }
 </style>
+
+<script>
+  // Simulacro de caída y recuperación. El RTO que se muestra es el tiempo real que mide el navegador
+  // (performance.now) entre el clic y el momento en que el simulacro da por recuperado el servicio.
+  const pulse = document.querySelector<HTMLElement>('.pulse');
+  const btn = document.querySelector<HTMLButtonElement>('.pulse__btn');
+  if (pulse && btn) {
+    const root = document.documentElement;
+    const sim = JSON.parse(pulse.dataset.sim ?? '{}') as Record<string, string>;
+    const normal = pulse.dataset.normal ?? '';
+    const txt = pulse.querySelector<HTMLElement>('.pulse__txt')!;
+    const en = root.lang === 'en';
+    let busy = false;
+
+    // Barra de incidente: se arma al correr el simulacro y se pega debajo de la nav
+    function incidentBar() {
+      let inc = document.querySelector<HTMLElement>('.incident');
+      if (!inc) {
+        inc = document.createElement('div');
+        inc.className = 'incident';
+        inc.setAttribute('role', 'status');
+        inc.setAttribute('aria-live', 'polite');
+        inc.hidden = true;
+        inc.innerHTML =
+          '<div class="wrap incident__bar"><span class="incident__msg"></span><span class="incident__meta"></span></div><div class="incident__prog"><i></i></div>';
+        document.querySelector('header.nav')?.after(inc);
+      }
+      return inc;
+    }
+
+    // Mientras la "región primaria" está caída, el contenido no responde (ni al teclado)
+    const setInert = (on: boolean) =>
+      document.querySelectorAll<HTMLElement>('main, footer.closing').forEach((el) => (el.inert = on));
+
+    btn.addEventListener('click', () => {
+      if (busy) return;
+      busy = true;
+      btn.disabled = true;
+      const t0 = performance.now();
+      const inc = incidentBar();
+      const msg = inc.querySelector<HTMLElement>('.incident__msg')!;
+      const meta = inc.querySelector<HTMLElement>('.incident__meta')!;
+      const bar = inc.querySelector<HTMLElement>('.incident__prog i')!;
+      const say = (m: string, mm = '', ok = false) => {
+        msg.textContent = m;
+        meta.textContent = mm;
+        inc.classList.toggle('is-ok', ok);
+      };
+
+      inc.hidden = false;
+      bar.style.transition = 'none';
+      bar.style.width = '0';
+      root.classList.remove('is-recovering');
+      root.classList.add('is-down');
+      setInert(true);
+      say(sim.detecting, en ? 't+0.0 s' : 't+0,0 s');
+      txt.textContent = sim.noHeartbeat;
+
+      setTimeout(() => {
+        const n = document.querySelectorAll('main > section').length;
+        say(sim.failing.replace('{n}', String(n)), sim.failingMeta);
+        requestAnimationFrame(() => {
+          bar.style.transition = 'width 1s linear';
+          bar.style.width = '100%';
+        });
+      }, 700);
+
+      setTimeout(() => {
+        let rto = ((performance.now() - t0) / 1000).toFixed(1);
+        if (!en) rto = rto.replace('.', ',');
+        root.classList.remove('is-down');
+        root.classList.add('is-recovering');
+        setInert(false);
+        say(sim.recovered, sim.rto.replace('{rto}', rto), true);
+        txt.textContent = sim.secondary;
+
+        setTimeout(() => {
+          inc.hidden = true;
+          root.classList.remove('is-recovering');
+          txt.textContent = normal;
+          busy = false;
+          btn.disabled = false;
+        }, 4200);
+      }, 1800);
+    });
+  }
+</script>
