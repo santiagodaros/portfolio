@@ -29,14 +29,21 @@ const {
   description = 'Santiago Da Ros, ingeniero cloud que construye producto. Herramientas sobre Azure para portales, automatización, gobernanza y recuperación ante desastres, con IA en el flujo de trabajo.',
   lang = 'es',
   type = 'website',
-  ogImagePath = '/og.png',
-  ogImageAlt = 'Santiago Da Ros presentando, junto al título De cloud al producto',
+  ogImagePath: ogImagePathProp,
+  ogImageAlt: ogImageAltProp,
   publishedTime,
   modifiedTime,
   canonical,
   alternates,
 } = Astro.props;
 
+// Imagen para redes: la de la home en el idioma de la página, salvo que la página traiga la suya (artículos)
+const ogImagePath = ogImagePathProp ?? (lang === 'en' ? '/og-en.png' : '/og.png');
+const ogImageAlt =
+  ogImageAltProp ??
+  (lang === 'en'
+    ? 'Santiago Da Ros presenting, next to the title From cloud to product'
+    : 'Santiago Da Ros presentando, junto al título De cloud al producto');
 const ogImage = new URL(ogImagePath, Astro.site);
 const pageUrl = new URL(Astro.url.pathname, Astro.site);
 const canonicalUrl = canonical ? new URL(canonical) : pageUrl;
