@@ -1,0 +1,52 @@
+{
+  "id": "backups",
+  "lang": "en",
+  "order": 5,
+  "size": "md",
+  "featured": false,
+  "kind": "Cost and continuity · Readymind",
+  "status": "In progress",
+  "statusTone": "plan",
+  "title": "Backups by criticality tier",
+  "summary": "Each server backed up by how critical it is, spending less on fast copies.",
+  "tags": [
+    "Azure Backup",
+    "KQL",
+    "Tags"
+  ],
+  "metric": {
+    "value": "3 tiers",
+    "label": "without migrating what works"
+  },
+  "lead": "Each server protected according to its value to the business, not all the same.",
+  "kpis": [
+    {
+      "value": "3",
+      "label": "protection tiers"
+    },
+    {
+      "value": "0",
+      "label": "forced migrations"
+    }
+  ],
+  "problem": "Every server was backed up with the same policy, paying for fast copies even where they weren't needed.",
+  "idea": "Classify servers into three tiers by how critical they are and give each tier the protection and cost it deserves, without touching what already works.",
+  "change": "Less spent on fast copies, a cleanup of orphaned backups and a policy you can explain in one sentence. In progress.",
+  "role": "I audited the existing backups and policies, classified servers by criticality, designed the three policies and the orphan cleanup, and planned the rollout without migrating what already works.",
+  "topics": [
+    "FinOps",
+    "Continuity",
+    "In progress"
+  ],
+  "links": [],
+  "note": "I show the what and the why. Code and client data stay inside Readymind.",
+  "mini": {
+    "type": "graph",
+    "core": "Azure Backup",
+    "leaves": [
+      "Tier 1",
+      "Tier 2",
+      "Tier 3"
+    ]
+  }
+}

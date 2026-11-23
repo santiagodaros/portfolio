@@ -175,6 +175,11 @@
 .btn--secondary:hover {
   color: var(--tonal-ink);
 }
+.btn--sm {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 14px;
+}
 .btn svg {
   width: 12px;
   height: 12px;

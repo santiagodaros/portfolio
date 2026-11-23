@@ -1,0 +1,59 @@
+{
+  "id": "drlive",
+  "lang": "es",
+  "order": 4,
+  "size": "md",
+  "featured": false,
+  "kind": "Observabilidad · Readymind",
+  "status": "Demo en vivo",
+  "statusTone": "plan",
+  "title": "DR Live",
+  "summary": "Muestra en tiempo real una prueba de recuperación y el costo de cada minuto de caída.",
+  "tags": [
+    "Next.js",
+    "Server-Sent Events",
+    "Azure Monitor"
+  ],
+  "metric": {
+    "value": "Tiempo real",
+    "label": "presentado en un webinar"
+  },
+  "lead": "Ver una recuperación en tiempo real, y lo que cuesta cada minuto de caída.",
+  "kpis": [
+    {
+      "value": "En vivo",
+      "label": "durante el webinar"
+    },
+    {
+      "value": "15–20",
+      "label": "asistentes"
+    }
+  ],
+  "problem": "Hablar de RTO y RPO frente a la dirección suele quedar en abstracto. Es difícil dimensionar qué significa una hora de caída si nunca la viste.",
+  "idea": "Una pantalla que muestra en vivo cómo avanza una prueba de recuperación, grupo por grupo, junto al costo acumulado de cada minuto de caída.",
+  "change": "La conversación pasa de conceptos a algo que se ve. Lo usé en el webinar \"El DR que no se prueba no es un DR\".",
+  "role": "Diseñé la pantalla, programé el seguimiento en tiempo real de cada grupo y el cálculo del costo por minuto de caída, y lo usé en vivo en el webinar.",
+  "topics": [
+    "Continuidad",
+    "Comunicación con el negocio"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "mini": {
+    "type": "notes",
+    "items": [
+      {
+        "title": "Grupo 2 en línea",
+        "meta": "ahora"
+      },
+      {
+        "title": "Replicación al día",
+        "meta": "1 min"
+      },
+      {
+        "title": "Prueba iniciada",
+        "meta": "12 min"
+      }
+    ]
+  }
+}

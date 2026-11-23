@@ -25,6 +25,14 @@ const es = {
     label: 'Región primaria · latido normal',
     button: 'Simular una caída',
   },
+  projects: {
+    eyebrow: 'Proyectos',
+    title: 'Lo que construí este año',
+    note: 'Construidas con mi equipo en Readymind, partner de Microsoft, más un proyecto open source propio. Muestro qué resuelven y qué cambiaron; el código y los datos de clientes quedan adentro.',
+    more: 'Ver el proyecto →',
+    close: 'Cerrar',
+    sections: { problem: 'El problema', idea: 'La idea', change: 'Qué cambió', role: 'Mi rol' },
+  },
   how: {
     eyebrow: 'Cómo trabajo',
     title: 'Construyo la herramienta y opero la nube donde corre',
@@ -175,6 +183,14 @@ const en: typeof es = {
   pulse: {
     label: 'Primary region · healthy heartbeat',
     button: 'Simulate an outage',
+  },
+  projects: {
+    eyebrow: 'Projects',
+    title: 'What I built this year',
+    note: 'Built with my team at Readymind, a Microsoft partner, plus an open source project of my own. I show what they solve and what they changed; code and client data stay inside.',
+    more: 'See the project →',
+    close: 'Close',
+    sections: { problem: 'The problem', idea: 'The idea', change: 'What changed', role: 'My role' },
   },
   how: {
     eyebrow: 'How I work',

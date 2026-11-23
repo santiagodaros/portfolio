@@ -1,0 +1,67 @@
+{
+  "id": "portal",
+  "lang": "es",
+  "order": 0,
+  "size": "lg",
+  "featured": true,
+  "kind": "Producto interno · Readymind",
+  "status": "En producción",
+  "statusTone": "live",
+  "title": "Portal de operaciones CSP",
+  "summary": "Une el trabajo de los account managers con Partner Center: accesos, costos, licencias y compras de toda la cartera en un solo lugar y en solo lectura.",
+  "tags": [
+    "React",
+    "TypeScript",
+    "PostgreSQL",
+    "Container Apps",
+    "Entra ID",
+    "Partner Center API"
+  ],
+  "lead": "Un solo lugar para ver accesos, costos, licencias y compras de toda la cartera de clientes.",
+  "kpis": [
+    {
+      "value": "204",
+      "label": "clientes en 6 países"
+    },
+    {
+      "value": "9",
+      "label": "integraciones de solo lectura"
+    }
+  ],
+  "problem": "La información que un account manager necesita para atender a un cliente estaba repartida entre portales distintos. Responder algo simple, como cuántas licencias se pagan sin usar, llevaba tiempo y dependía de quién supiera dónde buscar.",
+  "idea": "Juntar todo en un portal propio que lee las fuentes de Microsoft sin poder modificarlas, muestra a cada persona solo lo que le corresponde y pide una doble aprobación antes de cualquier compra.",
+  "change": "El equipo consulta la cartera completa en un lugar, detecta licencias sin asignar y renovaciones a tiempo, y las compras quedan registradas y aprobadas.",
+  "role": "Relevé con los account managers qué necesitaban, definí el alcance y los permisos por rol, diseñé las pantallas, programé las integraciones de solo lectura con Microsoft, armé el circuito de compras con doble aprobación y lo puse en producción en Azure.",
+  "topics": [
+    "Producto interno",
+    "FinOps",
+    "Seguridad por defecto"
+  ],
+  "links": [],
+  "note": "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.",
+  "flow": {
+    "ariaLabel": "Esquema del portal CSP: lee en solo lectura Partner Center, Microsoft Graph y Azure Resource Manager, procesa en el portal y muestra al equipo accesos, costos, licencias y compras con aprobación.",
+    "inLabel": "Fuentes · solo lectura",
+    "sources": [
+      "Partner Center",
+      "Microsoft Graph",
+      "Azure Resource Manager"
+    ],
+    "coreTitle": "Portal CSP",
+    "coreItems": [
+      "Lecturas nocturnas automáticas",
+      "Base de datos con acceso por rol",
+      "Login con Entra ID",
+      "Compras con doble aprobación"
+    ],
+    "badge": "9 integraciones",
+    "outLabel": "Lo que ve el equipo",
+    "outputs": [
+      "Accesos y permisos",
+      "Costos por cliente",
+      "Licencias sin asignar",
+      "Compras con aprobación"
+    ],
+    "note": "Esquema de cómo funciona. Sin capturas ni datos de clientes."
+  }
+}

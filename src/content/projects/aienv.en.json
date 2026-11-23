@@ -1,0 +1,76 @@
+{
+  "id": "aienv",
+  "lang": "en",
+  "order": 6,
+  "size": "wide",
+  "featured": false,
+  "kind": "Own project · open source",
+  "status": "Published",
+  "statusTone": "live",
+  "title": "ai-env",
+  "summary": "A harness to run infrastructure with AI agents: the intelligence lives in the controls, not the model.",
+  "tags": [
+    "Claude Code",
+    "Plugins",
+    "Git worktrees",
+    "PowerShell"
+  ],
+  "metric": {
+    "value": "Open source",
+    "label": "on GitHub"
+  },
+  "lead": "A harness to run critical infrastructure with AI agents, with the rigor production demands.",
+  "kpis": [
+    {
+      "value": "4",
+      "label": "design invariants"
+    },
+    {
+      "value": "Open source",
+      "label": "on GitHub"
+    }
+  ],
+  "problem": "A language model is probabilistic and production demands determinism. Pasting thousands of lines into a chat hoping the model \"remembers not to break anything\" isn't engineering.",
+  "idea": "Put the intelligence in the control scaffolding: separate control from execution, validate with schemas instead of asking the model nicely, send only the context needed and verify every result externally.",
+  "change": "I work with agents that orchestrate tasks in isolated environments, never see credentials and close nothing without independent evidence. It installs itself on all my machines.",
+  "role": "I designed, built and open-sourced it: the plugins, the agent workflows, the isolated-environment scripts and the verification rules.",
+  "topics": [],
+  "links": [
+    {
+      "label": "View on GitHub ↗",
+      "href": "https://github.com/santiagodaros/ai-env",
+      "primary": true
+    },
+    {
+      "label": "Read the post ↗",
+      "href": "https://www.linkedin.com/posts/santiagodaros_harness-engineering-ugcPost-7515527328849022976-ruBx/",
+      "primary": false
+    }
+  ],
+  "note": "Personal project. PRs and issues are welcome.",
+  "mini": {
+    "type": "terminal",
+    "lines": [
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "isolated worktree per task"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "secrets kept out of context"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "schema validated"
+      },
+      {
+        "mark": "✓",
+        "tone": "ok",
+        "text": "external verification"
+      }
+    ]
+  }
+}
