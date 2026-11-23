@@ -48,38 +48,8 @@ const items = await getBlogIndex(lang);
 </main>
 
 <style>
-  .reader__top {
-    border-bottom: 1px solid var(--line);
-  }
-  .reader__wrap {
-    width: min(100% - 40px, 720px);
-    margin-inline: auto;
-  }
-  .reader__topbar {
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-  }
-  .en-note {
-    margin: 28px 0 0;
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: var(--tonal);
-    color: var(--tonal-ink);
-    font-size: 14px;
-  }
-  h1 {
+  .reader h1 {
     margin-top: 56px;
-    font-size: clamp(34px, 5vw, 52px);
-    line-height: 1.05;
-  }
-  .reader__lead {
-    margin-top: 20px;
-    font-size: 20px;
-    line-height: 1.55;
-    color: var(--muted);
   }
   .en-note + h1 {
     margin-top: 40px;

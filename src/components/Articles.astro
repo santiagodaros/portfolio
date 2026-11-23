@@ -2,6 +2,8 @@
 // Sección Blog de la home: artículo destacado + lista (artículos y los 3 posts de LinkedIn más recientes).
 import { formatDate, getBlogIndex, getFeaturedArticle, articleHref, getReadingTime } from '../lib/blog';
 import { blogText, tagLabel } from '../i18n/blog';
+import { home } from '../i18n/home';
+import { kqlFileName } from '../data/kql';
 import { paths, type Lang } from '../i18n';
 
 interface Props {
@@ -9,6 +11,8 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const t = blogText[lang];
+const guide = home[lang].guide;
+const kqlFile = `/recursos/${kqlFileName[lang]}`;
 const featured = await getFeaturedArticle(lang);
 const items = await getBlogIndex(lang);
 // En la home: los artículos propios y los 3 posts más recientes (la versión extendida va en el destacado)
@@ -69,6 +73,21 @@ const coverTitle = featured?.data.title.split(':')[0];
           ))
         }
         <a class="link all" href={paths[lang].blog}>{t.home.seeAll}</a>
+      </div>
+    </div>
+    <div class="magnet replica" data-reveal>
+      <div class="magnet__copy">
+        <span class="eyebrow">{guide.eyebrow}</span>
+        <h3>{guide.title}</h3>
+        <p>{guide.text}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href={paths[lang].kql}>{guide.read}</a>
+          <a class="btn btn--secondary" href={kqlFile} download={kqlFileName[lang]}>{guide.download}</a>
+        </div>
+      </div>
+      <div class="magnet__file" aria-hidden="true">
+        <span class="magnet__ext">.kql</span>
+        <code>{guide.sample.map((line) => <><span>{line}</span><br /></>)}</code>
       </div>
     </div>
   </div>
@@ -173,10 +192,79 @@ const coverTitle = featured?.data.title.split(':')[0];
     margin-top: 20px;
   }
 
+  /* Guía gratuita (KQL) */
+  .magnet {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: center;
+    padding: 36px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--card);
+  }
+  .magnet__copy {
+    grid-column: span 7;
+    display: grid;
+    gap: 14px;
+    justify-items: start;
+  }
+  .magnet__copy h3 {
+    font-size: var(--t3);
+    line-height: 1.1;
+  }
+  .magnet__copy p {
+    color: var(--muted);
+  }
+  .magnet__file {
+    grid-column: 9 / span 4;
+    position: relative;
+    padding: 22px;
+    border-radius: 18px;
+    background: var(--ink);
+    color: #c9cdd4;
+    font: 400 12.5px/1.7 var(--mono);
+    transform: rotate(2deg);
+    transition: transform 0.4s;
+  }
+  .magnet__file code {
+    display: block;
+    white-space: pre;
+  }
+  :global([data-theme='dark']) .magnet__file {
+    background: #000;
+  }
+  .magnet:hover .magnet__file {
+    transform: rotate(0);
+  }
+  .magnet__ext {
+    position: absolute;
+    top: -12px;
+    right: 18px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font: 600 13px/1 var(--mono);
+  }
+
   @media (max-width: 1023px) {
     .post--feat,
     .posts {
       grid-column: 1 / -1;
+    }
+    .magnet__copy,
+    .magnet__file {
+      grid-column: 1 / -1;
+    }
+    .magnet {
+      padding: 24px;
+    }
+  }
+  @media (max-width: 639px) {
+    .magnet__file {
+      display: none;
     }
   }
 </style>
