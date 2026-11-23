@@ -247,6 +247,112 @@
   flex-wrap: wrap;
 }
 
+/* ── Secciones ── */
+.section {
+  padding: 112px 0;
+  isolation: isolate;
+}
+@media (max-width: 639px) {
+  .section {
+    padding: 80px 0;
+  }
+}
+
+.ground-surface {
+  background: var(--surface);
+}
+.ground-ink {
+  background: var(--ink);
+  color: var(--bg);
+}
+[data-theme='dark'] .ground-ink {
+  background: #000;
+  color: #eef0f3;
+}
+.ground-ink .head p {
+  color: color-mix(in srgb, currentColor 70%, transparent);
+}
+.ground-ink .tag {
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+/* El cobalto sobre fondo negro no llega a contraste AA: se aclara solo en esta banda */
+.ground-ink .eyebrow {
+  color: #8b93ff;
+}
+
+/* Cabecera de sección: eyebrow + h2 a la izquierda, nota a la derecha */
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+.head > div {
+  grid-column: span 7;
+  display: grid;
+  gap: 14px;
+}
+.head h2 {
+  font-size: var(--t2);
+  line-height: 1.04;
+}
+.head p {
+  grid-column: 9 / span 4;
+  color: var(--muted);
+  font-size: 17px;
+}
+@media (max-width: 1023px) {
+  .head > div,
+  .head p {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Foto con radio de 24px y degradé cobalto en el tercio inferior */
+.ph {
+  position: relative;
+  display: block;
+  margin: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.ph::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 35%;
+  background: linear-gradient(transparent, rgb(31 45 230 / 0.35));
+  pointer-events: none;
+}
+.ph img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* "Réplica" al pasar el mouse: un contorno cobalto que se desplaza detrás de la tarjeta */
+.replica {
+  position: relative;
+}
+.replica::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1.5px solid var(--accent);
+  z-index: -1;
+  opacity: 0;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.2s;
+  pointer-events: none;
+}
+.replica:hover::before {
+  opacity: 1;
+  transform: translate(7px, -7px);
+}
+
 /* ── Aparición al hacer scroll ──
    Solo se oculta si hay JS (clase .js en <html>): sin JS todo el contenido se ve. */
 .js [data-reveal] {

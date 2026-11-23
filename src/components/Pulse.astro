@@ -1,0 +1,116 @@
+---
+import { home } from '../i18n/home';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  /** Muestra el botón "Simular una caída" (se activa en la fase 8). */
+  interactive?: boolean;
+}
+const { lang = 'es', interactive = false } = Astro.props;
+const t = home[lang].pulse;
+---
+
+<div class="pulse" id="estado">
+  <div class:list={['wrap pulse__bar', { 'pulse__bar--static': !interactive }]}>
+    <div class="pulse__label">
+      <span class="pulse__dot"></span>
+      <span class="pulse__txt">{t.label}</span>
+    </div>
+    <svg class="pulse__line" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+      <path
+        class="beat"
+        d="M0 20h70l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h60"
+      ></path>
+      <path class="flat" d="M0 20H600"></path>
+    </svg>
+    {interactive && <button class="btn btn--secondary pulse__btn" type="button">{t.button}</button>}
+  </div>
+</div>
+
+<style>
+  .pulse {
+    border-top: 1px solid var(--line);
+  }
+  .pulse__bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    height: 76px;
+  }
+  .pulse__bar--static {
+    grid-template-columns: auto 1fr;
+  }
+  .pulse__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 400 13px/1 var(--mono);
+    color: var(--muted);
+    min-width: 250px;
+  }
+  .pulse__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #16a36a;
+  }
+  .pulse__line {
+    width: 100%;
+    height: 40px;
+    overflow: visible;
+  }
+  .pulse__line path {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .beat {
+    stroke: var(--accent);
+    stroke-dasharray: 600;
+    animation: beat 3.2s linear infinite;
+  }
+  @keyframes beat {
+    from {
+      stroke-dashoffset: 600;
+    }
+    to {
+      stroke-dashoffset: -600;
+    }
+  }
+  .flat {
+    stroke: #e5484d;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  @media (max-width: 1023px) {
+    .pulse__label {
+      min-width: 0;
+    }
+  }
+  @media (max-width: 639px) {
+    .pulse__bar {
+      grid-template-columns: 1fr auto;
+      height: auto;
+      padding: 14px 0;
+    }
+    .pulse__bar--static {
+      grid-template-columns: 1fr;
+    }
+    .pulse__line {
+      display: none;
+    }
+    .pulse__txt {
+      font-size: 12px;
+    }
+    .pulse__btn {
+      height: 40px;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+  }
+</style>

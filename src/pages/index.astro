@@ -1,20 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
+import Pulse from '../components/Pulse.astro';
+import HowIWork from '../components/HowIWork.astro';
 import Experience from '../components/Experience.astro';
 import Skills from '../components/Skills.astro';
-import Articles from '../components/Articles.astro';
-import Contact from '../components/Contact.astro';
+import About from '../components/About.astro';
+
+const lang = 'es';
 ---
 
-<Layout>
-  <main>
-    <Hero />
-    <About />
-    <Experience />
-    <Skills />
-    <Articles />
-    <Contact />
+<Layout lang={lang}>
+  <main id="top">
+    <Hero lang={lang} />
+    <Pulse lang={lang} />
+    <HowIWork lang={lang} />
+    <Experience lang={lang} />
+    <Skills lang={lang} />
+    <About lang={lang} />
   </main>
 </Layout>
