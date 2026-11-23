@@ -1,0 +1,340 @@
+---
+// Paleta de comandos (⌘K / Ctrl+K). Un <dialog> nativo con búsqueda por texto sobre secciones, proyectos,
+// artículos, páginas y acciones. El índice se arma en el build desde las colecciones, por idioma.
+import { getProjects, projectHash } from '../lib/projects';
+import { articleHref, getPublishedArticles } from '../lib/blog';
+import { kqlFileName } from '../data/kql';
+import { paletteText } from '../i18n/palette';
+import { homePath, otherLang, paths, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  /** URL de esta página en el otro idioma (si existe). */
+  alternateHref?: string;
+}
+const { lang = 'es', alternateHref } = Astro.props;
+const t = paletteText[lang];
+const home = homePath(lang);
+const p = paths[lang];
+
+type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' };
+
+const [projects, own] = await Promise.all([getProjects(lang), getPublishedArticles(lang)]);
+// En inglés también se listan los artículos que solo existen en español (como en el índice del blog)
+const spanishOnly =
+  lang === 'en'
+    ? (await getPublishedArticles('es')).filter(
+        (a) => !own.some((o) => o.data.translationKey && o.data.translationKey === a.data.translationKey)
+      )
+    : [];
+
+const g = t.groups;
+const items: Item[] = [
+  { g: g.sections, i: '01', t: t.sections.projects, h: `${home}#proyectos` },
+  { g: g.sections, i: '03', t: t.sections.experience, h: `${home}#experiencias` },
+  { g: g.sections, i: '04', t: t.sections.stack, h: `${home}#stack` },
+  { g: g.sections, i: '05', t: t.sections.blog, h: `${home}#blog` },
+  { g: g.sections, i: '06', t: t.sections.talks, h: `${home}#charlas` },
+  { g: g.sections, i: '07', t: t.sections.about, h: `${home}#sobre-mi` },
+  ...projects.map((x) => ({ g: g.projects, i: x.id.charAt(0).toUpperCase() + x.id.charAt(1), t: x.title, h: `${home}#${projectHash(x.id)}` })),
+  ...[...own, ...spanishOnly].map((a) => ({
+    g: g.articles,
+    i: a.data.category.slice(0, 2),
+    t: a.data.title,
+    h: articleHref(a),
+  })),
+  { g: g.articles, i: 'Bl', t: t.allPosts, h: p.blog },
+  { g: g.articles, i: 'Kq', t: t.guide, h: p.kql },
+  { g: g.pages, i: '/n', t: t.now, h: p.now },
+  { g: g.pages, i: '●', t: t.status, h: p.status },
+  { g: g.pages, i: 'Mic', t: t.speaker, h: p.speaker },
+  { g: g.actions, i: '⚡', t: t.outage, a: 'outage' },
+  { g: g.actions, i: '◐', t: t.theme, a: 'theme' },
+  { g: g.actions, i: 'Aa', t: t.lang, h: alternateHref ?? homePath(otherLang(lang)) },
+  { g: g.actions, i: '↓', t: t.kql, a: 'kql' },
+  { g: g.actions, i: '@', t: t.subscribe, h: `${home}#newsletter` },
+  { g: g.actions, i: '✉', t: t.contact, h: '#contacto' },
+];
+---
+
+<dialog
+  class="palette"
+  aria-label={t.aria}
+  data-items={JSON.stringify(items)}
+  data-home={home}
+  data-kql={`/recursos/${kqlFileName[lang]}`}
+  data-kql-name={kqlFileName[lang]}
+  data-empty={t.empty}
+>
+  <div class="palette__box">
+    <div class="palette__in">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"></circle><path d="m14 14 4 4"></path></svg>
+      <input
+        type="text"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="palette-list"
+        aria-autocomplete="list"
+        placeholder={t.placeholder}
+        aria-label={t.inputLabel}
+        autocomplete="off"
+      />
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="palette__list" id="palette-list" role="listbox"></ul>
+    <div class="palette__foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> {t.navigate}</span>
+      <span><kbd>Enter</kbd> {t.open}</span>
+    </div>
+  </div>
+</dialog>
+
+<style is:global>
+  .palette {
+    width: min(100% - 32px, 640px);
+    max-height: none;
+    margin: 12vh auto auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+  }
+  .palette::backdrop {
+    background: rgb(11 12 14 / 0.45);
+    backdrop-filter: blur(3px);
+  }
+  .palette__box {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.5);
+  }
+  .palette__in {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .palette__in svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+  }
+  .palette__in input {
+    flex: 1;
+    height: 58px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: 400 17px/1 var(--text);
+    outline: none;
+  }
+  .palette__list {
+    max-height: 52vh;
+    margin: 0;
+    padding: 8px;
+    overflow: auto;
+    list-style: none;
+  }
+  .palette__list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .palette__list li[aria-selected='true'] {
+    background: var(--tonal);
+    color: var(--tonal-ink);
+  }
+  .palette__list .grp {
+    padding: 12px 12px 6px;
+    font: 500 12px/1 var(--text);
+    color: var(--muted);
+    cursor: default;
+  }
+  .palette__list .ico {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font: 500 12px/1 var(--mono);
+  }
+  .palette__foot {
+    display: flex;
+    gap: 18px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .palette kbd {
+    padding: 4px 6px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--muted);
+    font: 500 11px/1 var(--mono);
+  }
+  @media (max-width: 639px) {
+    .palette {
+      margin-top: 8vh;
+    }
+  }
+</style>
+
+<script>
+  type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' };
+
+  const dlg = document.querySelector<HTMLDialogElement>('dialog.palette');
+  if (dlg) {
+    const input = dlg.querySelector<HTMLInputElement>('input')!;
+    const list = dlg.querySelector<HTMLUListElement>('.palette__list')!;
+    const all: Item[] = JSON.parse(dlg.dataset.items ?? '[]');
+    let shown: Item[] = [];
+    let sel = 0;
+
+    // Sin tildes ni mayúsculas, para que "caida" encuentre "caída"
+    const norm = (x: string) => x.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+    function render() {
+      const q = norm(input.value.trim());
+      shown = all.filter((c) => !q || norm(`${c.t} ${c.g}`).includes(q));
+      sel = Math.min(sel, Math.max(shown.length - 1, 0));
+      list.replaceChildren();
+      if (!shown.length) {
+        const li = document.createElement('li');
+        li.className = 'grp';
+        li.setAttribute('role', 'presentation');
+        li.textContent = dlg!.dataset.empty ?? '';
+        list.append(li);
+        input.removeAttribute('aria-activedescendant');
+        return;
+      }
+      let last = '';
+      shown.forEach((c, i) => {
+        if (c.g !== last) {
+          const g = document.createElement('li');
+          g.className = 'grp';
+          g.setAttribute('role', 'presentation');
+          g.textContent = c.g;
+          list.append(g);
+          last = c.g;
+        }
+        const li = document.createElement('li');
+        li.id = `palette-opt-${i}`;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', String(i === sel));
+        const ico = document.createElement('span');
+        ico.className = 'ico';
+        ico.textContent = c.i;
+        const label = document.createElement('span');
+        label.textContent = c.t;
+        li.append(ico, label);
+        li.addEventListener('click', () => run(c));
+        li.addEventListener('mousemove', () => {
+          if (sel !== i) {
+            sel = i;
+            mark();
+          }
+        });
+        list.append(li);
+      });
+      mark();
+    }
+
+    function mark() {
+      list.querySelectorAll<HTMLElement>('[role=option]').forEach((li, i) => {
+        li.setAttribute('aria-selected', String(i === sel));
+        if (i === sel) {
+          li.scrollIntoView({ block: 'nearest' });
+          input.setAttribute('aria-activedescendant', li.id);
+        }
+      });
+    }
+
+    // Navega a una URL; en la misma página solo cambia el hash (abre modales, hace scroll)
+    function go(h: string) {
+      const [path, hash] = h.split('#');
+      const clean = (s: string) => s.replace(/\/$/, '') || '/';
+      const here = clean(location.pathname);
+      if (hash && (!path || clean(path) === here)) location.hash = hash;
+      else location.href = h;
+    }
+
+    function run(c: Item) {
+      dlg!.close();
+      if (c.h) return go(c.h);
+      if (c.a === 'theme') document.querySelector<HTMLButtonElement>('[data-theme-toggle]')?.click();
+      if (c.a === 'kql') {
+        const a = document.createElement('a');
+        a.href = dlg!.dataset.kql ?? '';
+        a.download = dlg!.dataset.kqlName ?? '';
+        a.click();
+      }
+      if (c.a === 'outage') {
+        const btn = document.querySelector<HTMLButtonElement>('.pulse__btn');
+        if (btn) {
+          location.hash = 'estado';
+          setTimeout(() => btn.click(), 350);
+        } else {
+          go(`${dlg!.dataset.home ?? '/'}#estado`);
+        }
+      }
+    }
+
+    function open() {
+      if (dlg!.open) return;
+      input.value = '';
+      sel = 0;
+      render();
+      dlg!.showModal();
+      input.focus();
+    }
+
+    document.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('[data-open-palette]')) open();
+    });
+    addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        dlg!.open ? dlg!.close() : open();
+      }
+    });
+    input.addEventListener('input', () => {
+      sel = 0;
+      render();
+    });
+    input.addEventListener('keydown', (e) => {
+      const n = Math.max(shown.length, 1);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        sel = (sel + 1) % n;
+        mark();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        sel = (sel - 1 + n) % n;
+        mark();
+      } else if (e.key === 'Enter' && shown[sel]) {
+        e.preventDefault();
+        run(shown[sel]);
+      }
+    });
+    // Click en el fondo cierra
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close();
+    });
+  }
+</script>
