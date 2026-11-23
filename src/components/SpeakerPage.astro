@@ -1,0 +1,138 @@
+---
+import ReaderPage from './ReaderPage.astro';
+import { pagesText } from '../i18n/pages';
+import { contact, homePath, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = pagesText[lang];
+const s = t.speaker;
+---
+
+<ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={s.crumb}>
+  <div class="reader__meta">
+    <span class="tag">{s.tag}</span>
+    <span>{s.meta}</span>
+  </div>
+  <h1>{s.title}</h1>
+  <p class="reader__lead">{s.lead}</p>
+  <div class="prose">
+    <h2>{s.shortBioTitle}</h2>
+    <div class="bio">
+      <p>{s.shortBio}</p>
+      <button type="button" class="btn btn--secondary" data-copy-bio data-label={s.copyBio} data-copied={s.copied} data-fail={s.copyFail}>
+        {s.copyBio}
+      </button>
+    </div>
+    <h2>{s.longBioTitle}</h2>
+    <div class="bio">
+      <p>{s.longBio}</p>
+      <button type="button" class="btn btn--secondary" data-copy-bio data-label={s.copyBio} data-copied={s.copied} data-fail={s.copyFail}>
+        {s.copyBio}
+      </button>
+    </div>
+    <h2>{s.photosTitle}</h2>
+    <div class="kit-photos">
+      {
+        s.photos.map((p) => (
+          <a href={`/img/${p.file}.jpg`} download={p.download}>
+            <img src={`/img/${p.file}.webp`} alt={p.alt} loading="lazy" width="400" height="500" />
+            <span>{p.label}</span>
+          </a>
+        ))
+      }
+    </div>
+    <h2>{s.topicsTitle}</h2>
+    <div class="topics">
+      {
+        s.topics.map((x) => (
+          <div class="topic replica">
+            <b>{x.title}</b>
+            <p>{x.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    <h2>{s.formatsTitle}</h2>
+    <ul>{s.formats.map((f) => <li>{f}</li>)}</ul>
+    <h2>{s.contactTitle}</h2>
+    <div class="reader__actions">
+      <a class="btn btn--primary" data-link="email" href="#contacto">{s.email}</a>
+      <a class="btn btn--secondary" href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</ReaderPage>
+
+<style>
+  .bio {
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+  }
+  .bio p {
+    margin: 0;
+  }
+  .kit-photos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 22px 0;
+  }
+  .kit-photos a {
+    display: grid;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .kit-photos img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+  .topics {
+    display: grid;
+    gap: 12px;
+    margin: 22px 0;
+  }
+  .topic {
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+  }
+  .topic b {
+    font: 500 19px/1.25 var(--display);
+    letter-spacing: -0.02em;
+  }
+  .topic p {
+    margin: 6px 0 0;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  @media (max-width: 1023px) {
+    .kit-photos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  // "Copiar bio": copia el texto del párrafo anterior al botón
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-bio]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.previousElementSibling?.textContent ?? '';
+      let msg = btn.dataset.copied ?? 'Copied';
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        msg = btn.dataset.fail ?? 'Select and copy';
+      }
+      btn.textContent = msg;
+      setTimeout(() => (btn.textContent = btn.dataset.label ?? 'Copy'), 1600);
+    });
+  });
+</script>

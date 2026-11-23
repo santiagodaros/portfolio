@@ -1,0 +1,53 @@
+---
+import ReaderPage from './ReaderPage.astro';
+import { pagesText } from '../i18n/pages';
+import { homePath, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = pagesText[lang];
+const n = t.now;
+---
+
+<ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={n.crumb}>
+  <div class="reader__meta">
+    <span class="tag">{n.tag}</span>
+    <span>{n.date}</span>
+  </div>
+  <h1>{n.title}</h1>
+  <p class="reader__lead">{n.lead}</p>
+  <div class="now">
+    {
+      n.items.map((i) => (
+        <div class="now__item">
+          <div>
+            <b>{i.title}</b>
+            <p>{i.text}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</ReaderPage>
+
+<style>
+  .now {
+    display: grid;
+    gap: 4px;
+    margin: 40px 0;
+  }
+  .now__item {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .now__item b {
+    font: 500 21px/1.2 var(--display);
+  }
+  .now__item p {
+    margin-top: 6px;
+    font-size: 17px;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+// Guía "Las 10 consultas de KQL que corro en toda auditoría de Azure".
+import ReaderPage from './ReaderPage.astro';
+import CodeBlock from './CodeBlock.astro';
+import { kqlFileName, kqlQueries } from '../data/kql';
+import { homePath, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+
+const text = {
+  es: {
+    back: '← Volver al inicio',
+    crumb: 'Guía gratuita',
+    tag: 'Guía gratuita',
+    meta: '10 consultas · Azure Resource Graph',
+    title: 'Las 10 consultas de KQL que corro en toda auditoría de Azure',
+    lead: 'Todas son de solo lectura y corren en el explorador de Resource Graph o con',
+    leadEnd: 'Copiá la que necesites o bajá el archivo completo.',
+    download: 'Descargar el archivo .kql',
+    subscribe: 'Suscribirme al newsletter',
+    copy: 'Copiar',
+    copied: 'Copiado',
+    copyFail: 'Seleccioná y copiá',
+  },
+  en: {
+    back: '← Back home',
+    crumb: 'Free guide',
+    tag: 'Free guide',
+    meta: '10 queries · Azure Resource Graph',
+    title: 'The 10 KQL queries I run in every Azure audit',
+    lead: 'All of them are read-only and run in the Resource Graph explorer or with',
+    leadEnd: 'Copy the one you need or download the whole file.',
+    download: 'Download the .kql file',
+    subscribe: 'Subscribe to the newsletter',
+    copy: 'Copy',
+    copied: 'Copied',
+    copyFail: 'Select and copy',
+  },
+}[lang];
+const queries = kqlQueries[lang];
+const file = `/recursos/${kqlFileName[lang]}`;
+---
+
+<ReaderPage backHref={homePath(lang)} backLabel={text.back} crumb={text.crumb}>
+  <div class="reader__meta">
+    <span class="tag">{text.tag}</span>
+    <span>{text.meta}</span>
+  </div>
+  <h1>{text.title}</h1>
+  <p class="reader__lead">{text.lead} <code>Search-AzGraph</code>. {text.leadEnd}</p>
+  <div class="reader__actions" style="margin-top: 28px">
+    <a class="btn btn--primary" href={file} download={kqlFileName[lang]}>{text.download}</a>
+    <a class="btn btn--secondary" href={`${homePath(lang)}#newsletter`}>{text.subscribe}</a>
+  </div>
+  <div class="prose">
+    {
+      queries.map((q, i) => (
+        <>
+          <h2>{String(i + 1).padStart(2, '0')}. {q.title}</h2>
+          <p>{q.desc}</p>
+          <CodeBlock label="KQL" code={q.query} copy={text.copy} copied={text.copied} copyFail={text.copyFail} />
+        </>
+      ))
+    }
+  </div>
+</ReaderPage>

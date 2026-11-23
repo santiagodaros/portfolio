@@ -1,0 +1,23 @@
+---
+// Envoltorio de las páginas de lectura simples (guía KQL, ahora, estado, speaker):
+// barra superior con "volver" + etiqueta, y columna de 720 px.
+interface Props {
+  backHref: string;
+  backLabel: string;
+  crumb: string;
+}
+const { backHref, backLabel, crumb } = Astro.props;
+---
+
+<main class="reader">
+  <header class="reader__top">
+    <div class="reader__wrap reader__topbar">
+      <a class="link" href={backHref}>{backLabel}</a>
+      <span class="muted">{crumb}</span>
+    </div>
+  </header>
+  <div class="reader__wrap">
+    <slot />
+    <div style="height: 96px"></div>
+  </div>
+</main>

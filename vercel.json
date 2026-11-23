@@ -1,0 +1,8 @@
+{
+  "headers": [
+    {
+      "source": "/recursos/:file.kql",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    }
+  ]
+}
