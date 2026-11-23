@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add("js");window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<title>Santiago Da Ros: ingeniero de producto y cloud en Azure</title>
+<meta name="description" content="Santiago Da Ros, ingeniero cloud que construye producto. Herramientas sobre Azure para portales, automatización, gobernanza y recuperación ante desastres, con IA en el flujo de trabajo.">
+<meta name="author" content="Santiago Da Ros">
+<meta name="theme-color" content="#1f2de6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f2de6'/%3E%3Ccircle cx='11' cy='16' r='5.5' fill='none' stroke='white' stroke-width='2.4'/%3E%3Crect x='17.5' y='10.5' width='11' height='11' rx='2' fill='white'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://portfolio-santiagodaros.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="Santiago Da Ros">
+<meta property="og:title" content="Santiago Da Ros · De cloud al producto">
+<meta property="og:description" content="Santiago Da Ros, ingeniero cloud que construye producto. Herramientas sobre Azure para portales, automatización, gobernanza y recuperación ante desastres, con IA en el flujo de trabajo.">
+<meta property="og:url" content="https://portfolio-santiagodaros.vercel.app/">
+<meta property="og:image" content="https://portfolio-santiagodaros.vercel.app/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Santiago Da Ros presentando, junto al título De cloud al producto">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://portfolio-santiagodaros.vercel.app/img/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "name": "Santiago Da Ros", "jobTitle": "Cloud & Product Engineer", "address": {"@type": "PostalAddress", "addressLocality": "Buenos Aires", "addressCountry": "AR"}, "url": "https://portfolio-santiagodaros.vercel.app/", "image": "https://portfolio-santiagodaros.vercel.app/img/og.png", "knowsAbout": ["Microsoft Azure", "Entra ID", "Terraform", "Azure Policy", "Azure Site Recovery", "FinOps", "PowerShell", "TypeScript"], "sameAs": ["https://github.com/santiagodaros", "https://www.linkedin.com/in/santiagodaros/"]}, {"@type": "Blog", "name": "Blog de Santiago Da Ros", "inLanguage": "es", "author": {"@type": "Person", "name": "Santiago Da Ros"}}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0f3; --surface:#e2e5ea; --card:#ffffff; --ink:#0b0c0e; --muted:#5d6470; --line:rgb(11 12 14 / .12);
+  --accent:#1f2de6; --accent-hover:#1520c8; --tonal:#dfe2fb; --tonal-ink:#141c9e;
+  --ok-bg:#e3f4ec; --ok:#0d6b45;
+  --display:"Geist",system-ui,sans-serif; --text:"Geist",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+  --display-weight:500; --track:-0.045em;
+  --r-lg:20px; --r-md:12px;
+  --wrap:min(100% - 160px, 1280px);
+}
+[data-theme="dark"]{--bg:#0b0c0e;--surface:#141518;--card:#1a1c20;--ink:#eef0f3;--muted:#9aa0a8;--line:rgb(238 240 243 / .12);--tonal:rgb(255 255 255 / .08);--tonal-ink:#eef0f3;--ok-bg:rgb(20 145 95 / .18);--ok:#6fd3a5}
+[data-theme="dark"]{--accent:#5b67ff;--accent-hover:#7a84ff}
+*{box-sizing:border-box} html,body{margin:0} html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--text);-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+a{color:var(--accent)} a:hover{color:var(--accent-hover)}
+h1,h2,h3{font-family:var(--display);font-weight:var(--display-weight);margin:0;letter-spacing:var(--track)}
+p{margin:0}
+.wrap{width:var(--wrap);margin-inline:auto}
+.muted{color:var(--muted)}
+.eyebrow{font:500 13px/1 var(--mono);color:var(--accent);letter-spacing:0}
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 22px;border-radius:999px;font:500 15px/1 var(--text);text-decoration:none;transition:transform .15s,background .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(1px)}
+.btn--primary{background:var(--accent);color:#fff} .btn--primary:hover{background:var(--accent-hover);color:#fff}
+.btn--secondary{background:var(--tonal);color:var(--tonal-ink)} .btn--secondary:hover{color:var(--tonal-ink)}
+.btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.btn:hover svg{transform:translateX(2px)}
+.link{font-weight:500;text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .2s}
+.link:hover{background-size:100% 1px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.tag{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;border:1px solid var(--line);font:400 13px/1 var(--mono);color:var(--muted);white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:4px 10px;border-radius:999px;background:var(--ok-bg);color:var(--ok)}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status--plan{background:var(--tonal);color:var(--tonal-ink)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav__bar{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:9px;white-space:nowrap;color:var(--ink);text-decoration:none;font:600 17px/1 var(--display);letter-spacing:-0.03em}
+.logo:hover{color:var(--ink)}
+.logo svg{width:30px;height:30px;flex:none}
+.nav__links{display:flex;gap:2px}
+.nav__links a{white-space:nowrap;padding:10px 12px;color:var(--ink);text-decoration:none;font:500 15px/1 var(--text);border-radius:8px}
+.nav__links a:hover{background:var(--tonal)}
+
+section{padding:112px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:currentColor}
+.ground-accent{background:var(--accent);color:#fff}
+.ground-accent .eyebrow,.ground-accent .pillar__n{color:#fff}
+.ground-accent .head p,.ground-accent .pillar p{color:rgb(255 255 255 / .78)}
+.ground-accent .pillar{border-color:#fff}
+.ground-accent .tag{border-color:rgb(255 255 255 / .35);color:#fff}
+.motif{position:absolute;pointer-events:none}
+.motif path{fill:none;stroke:currentColor;stroke-linecap:round}
+.pmark{width:40px;height:40px;border-radius:11px;background:var(--ink);color:var(--bg);display:grid;place-items:center;flex:none}
+.pmark svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pmark--accent{background:var(--accent);color:#fff}
+.theme-btn{width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.theme-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.nav__right{display:flex;gap:10px;align-items:center}
+.sig{display:grid;gap:14px;max-width:30ch}
+.sig p{color:var(--muted)}
+.head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:48px}
+.head > div{grid-column:span 7;display:grid;gap:14px}
+.head h2{font-size:52px;line-height:1.04}
+.head p{grid-column:9 / span 4;color:var(--muted);font-size:17px}
+.ground-surface{background:var(--surface)}
+
+/* hero */
+.hero{padding:72px 0 88px}
+.hero__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.hero__copy{grid-column:span 7;display:grid;gap:22px}
+.hero h1{font-size:76px;line-height:1.0;letter-spacing:calc(var(--track) - .01em)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero__lead{font-size:20px;line-height:1.5;color:var(--muted);max-width:52ch}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:40px;margin-top:12px;padding-top:24px;border-top:1px solid var(--line)}
+.facts strong{display:block;font:var(--display-weight) 34px/1 var(--display);letter-spacing:var(--track)}
+.facts span{font-size:14px;color:var(--muted)}
+.hero__photo{grid-column:9 / span 4;position:relative}
+.photo{aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:var(--accent);color:#fff}
+.hero{position:relative;overflow:hidden}
+.hero .motif{right:-120px;top:40px;width:760px;color:var(--accent);opacity:.09}
+.photo{position:relative;display:grid;place-items:center}.photo__fallback{display:none;width:46%;color:#fff}.photo--empty .photo__fallback{display:block}
+.photo::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;background:linear-gradient(transparent,rgb(31 45 230 / .35))}
+.photo img{position:absolute;inset:0;object-position:50% 30%;width:100%;height:100%;object-fit:cover;display:block}
+.float{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:0 18px 40px -24px rgb(0 0 0 / .4);font-size:13px;display:grid;gap:2px}
+.float b{font-weight:500;font-size:14px}
+.float--a{left:-56px;bottom:72px} .float--b{right:-24px;top:32px}
+
+/* tech strip */
+.strip{padding:28px 0;border-block:1px solid var(--line)}
+.strip__row{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.strip__label{font-size:14px;color:var(--muted);margin-right:8px}
+.tech{display:inline-flex;align-items:center;gap:8px;font:500 15px/1 var(--text)}
+.tech i{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font:600 11px/1 var(--mono);font-style:normal;color:#fff}
+
+/* featured project */
+.feature{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:40px;overflow:hidden}
+.feature__copy{grid-column:span 4;display:flex;flex-direction:column;gap:16px}
+.feature__copy h3{font-size:34px;line-height:1.08}
+.feature__copy p{color:var(--muted)}
+.feature__ui{grid-column:5 / span 8;align-self:stretch}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line)}
+.kpis strong{display:block;font:var(--display-weight) 28px/1 var(--display)}
+.kpis span{font-size:13px;color:var(--muted)}
+.app{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;height:440px;background:var(--bg)}
+.app__pane{position:relative;overflow:hidden;background:var(--card)}
+.app__pane+.app__pane{border-left:1px solid var(--line)}
+.app__pane::after{content:"";position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,var(--card));pointer-events:none}
+.bar{display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+.bar b{color:var(--ink);font-weight:500}
+.dots{display:flex;gap:6px} .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.rows-ui{list-style:none;margin:0;padding:0}
+.rows-ui li{display:grid;grid-template-columns:28px 1fr auto;gap:1px 10px;padding:9px 14px;border-bottom:1px solid var(--line);font-size:13px;align-items:center}
+.av{grid-row:1 / span 2;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:500 10px/1 var(--mono);background:var(--bg)}
+.rows-ui b{font-weight:500} .rows-ui .sub{grid-column:2;color:var(--muted)}
+.chip{grid-row:1 / span 2;grid-column:3;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--bg);color:var(--muted)}
+.chip--you{background:var(--tonal);color:var(--tonal-ink)} .chip--done{background:var(--ok-bg);color:var(--ok)}
+.report{padding:20px 22px}
+.report__top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.report__num{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+.report__num strong{font:var(--display-weight) 52px/1 var(--display);letter-spacing:-0.04em}
+.chart{display:flex;align-items:flex-end;gap:7px;height:130px;margin-top:20px;border-bottom:1px solid var(--line)}
+.chart i{flex:1;border-radius:4px 4px 0 0;background:var(--surface)} .chart i:last-child{background:var(--accent)}
+.tbl{margin-top:16px;font-size:13px}
+.tbl div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+
+/* solutions grid */
+.solutions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.sol{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--ink);transition:transform .2s,box-shadow .2s}
+.sol:hover{transform:translateY(-2px);box-shadow:0 24px 48px -32px rgb(0 0 0 / .45);color:var(--ink)}
+.sol__top{display:flex;align-items:center;gap:12px}
+.sol__top .sol__kind{margin-right:auto}
+.sol__kind{font-size:13px;color:var(--muted)}
+.sol h3{font-size:23px;line-height:1.15}
+.sol p{color:var(--muted);font-size:15px}
+.sol__metric{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.sol__metric strong{font:var(--display-weight) 26px/1 var(--display);letter-spacing:var(--track)}
+.sol__metric span{font-size:13px;color:var(--muted)}
+.mini{height:150px;border-radius:14px;background:var(--bg);position:relative;overflow:hidden;font:400 12px/1.6 var(--mono)}
+.mini .ln{display:flex;gap:8px;padding:0 14px} .mini .ln:first-child{padding-top:14px}
+.mini .ok{color:var(--ok)} .mini .mut{color:var(--muted)}
+.mini .node{position:absolute;padding:5px 9px;border-radius:8px;background:var(--card);border:1px solid var(--line);font:500 11px/1 var(--text)}
+.mini .node--core{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mini svg{position:absolute;inset:0;width:100%;height:100%} .mini line{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3;opacity:.6}
+.mini .note{margin:10px 12px 0;background:var(--card);border-radius:10px;padding:7px 10px;font:400 12px/1.4 var(--text);display:flex;justify-content:space-between}
+.mini .check{display:flex;gap:8px;align-items:center;padding:3px 14px;font:400 12px/1.4 var(--text)}
+.mini .box{width:13px;height:13px;border-radius:4px;border:1.5px solid var(--muted)} .mini .done .box{background:var(--ink);border-color:var(--ink)}
+.mini .done span:last-child{text-decoration:line-through;color:var(--muted)}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pillar{border-top:2px solid var(--ink);padding-top:24px;display:grid;gap:12px;align-content:start}
+.pillar__n{font:500 13px/1 var(--mono);color:var(--accent)}
+.pillar h3{font-size:28px}
+.pillar p{color:var(--muted)}
+
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.stack__groups{grid-column:span 8;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.group{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:14px;align-content:start}
+.group h3{font-size:19px}
+.group ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.group li{display:flex;align-items:center;gap:10px;font-size:15px}
+.group li i{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font:600 11px/1 var(--mono);font-style:normal;color:#fff;flex:none}
+.group li span{margin-left:auto;font:400 12px/1 var(--mono);color:var(--muted)}
+.certs{grid-column:9 / span 4;background:var(--ink);color:var(--bg);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:18px}
+.certs h3{font-size:24px;color:var(--bg)}
+.cert{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center;padding:12px 0;border-top:1px solid rgb(255 255 255 / .12)}
+[data-theme="dark"] .cert{border-color:rgb(0 0 0 / .14)}
+.cert b{grid-row:1 / span 2;font:500 15px/1 var(--mono);padding:8px 10px;border-radius:10px;background:rgb(255 255 255 / .1)}
+[data-theme="dark"] .cert b{background:rgb(0 0 0 / .08)}
+.cert span{font-size:14px} .cert small{font-size:12px;opacity:.65}
+.cert--next b{background:transparent;border:1px dashed currentColor}
+
+
+/* ---------- identidad: replicación + latido ---------- */
+.logo--nav .m-replica{transform:translate(-6px,6px);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.loaded .logo--nav .m-replica{transform:none}
+.logo--nav .m-beat{stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s .5s ease-out}
+.loaded .logo--nav .m-beat{stroke-dashoffset:0}
+.logo--nav:hover .m-replica{transform:translate(1px,-1px)}
+.sys{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);font:500 13px/1 var(--text);color:var(--muted)}
+.sys i{width:7px;height:7px;border-radius:50%;background:#16a36a;box-shadow:0 0 0 0 rgb(22 163 106 / .5);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgb(22 163 106 / .45)}70%,100%{box-shadow:0 0 0 7px rgb(22 163 106 / 0)}}
+.pulse{border-top:1px solid var(--line)}
+.pulse__bar{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;height:76px}
+.pulse__label{display:flex;align-items:center;gap:10px;font:400 13px/1 var(--mono);color:var(--muted);min-width:250px}
+.pulse__dot{width:8px;height:8px;border-radius:50%;background:#16a36a}
+.pulse__line{width:100%;height:40px;overflow:visible}
+.pulse__line path{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.beat{stroke:var(--accent);stroke-dasharray:600;animation:beat 3.2s linear infinite}
+@keyframes beat{from{stroke-dashoffset:600}to{stroke-dashoffset:-600}}
+.flat{stroke:#e5484d;opacity:0;transition:opacity .2s}
+.marquee{display:flex;overflow:hidden;border-block:1px solid var(--line);padding:22px 0;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee__track{display:flex;gap:44px;padding-right:44px;margin:0;list-style:none;flex:none;animation:marq 48s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-100%)}}
+.marquee li{display:flex;align-items:center;gap:10px;font:500 22px/1 var(--display);letter-spacing:-0.03em;white-space:nowrap;color:var(--muted)}
+.marquee li::after{content:"";width:6px;height:6px;border-radius:2px;background:var(--accent);margin-left:34px}
+.marquee img,.group li img{width:22px;height:22px;object-fit:contain}
+.group li img{width:20px;height:20px}
+/* incidente simulado */
+.incident{position:sticky;top:68px;z-index:19;background:#1a0f10;color:#ffd9d9;font:500 14px/1.3 var(--text)}
+.incident.is-ok{background:#0c2a1d;color:#c9f5df}
+.incident__bar{display:flex;justify-content:space-between;gap:16px;padding:12px 0}
+.incident__meta{font:400 13px/1.3 var(--mono);opacity:.8}
+.incident__prog{height:2px;background:rgb(255 255 255 / .12)} .incident__prog i{display:block;height:100%;width:0;background:currentColor}
+main,.closing{transition:filter .35s,opacity .35s}
+.is-down main,.is-down .closing{filter:grayscale(1) contrast(.85);opacity:.45;pointer-events:none}
+.is-down .beat{opacity:0} .is-down .flat{opacity:1}
+.is-down .pulse__dot,.is-down .sys i{background:#e5484d;animation:none}
+.is-recovering main{animation:restore .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes restore{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+/* aparición al hacer scroll: cada bloque "se replica" */
+.js [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.js [data-reveal].in{opacity:1;transform:none}
+.eyebrow::before{transition:width .6s .2s}
+.js .head:not(.in) .eyebrow::before{width:0}
+.js .feature:not(.in) .chart i{transform:scaleY(.05)}
+.chart i{transform-origin:bottom;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.chart i:nth-child(n){transition-delay:calc(var(--i,0) * 40ms)}
+.photo img{transition:transform 1.2s cubic-bezier(.2,.8,.2,1)} .hero__photo:hover .photo img{transform:scale(1.03)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js [data-reveal]{opacity:1;transform:none}
+  .marquee__track{flex-wrap:wrap} .marquee__track[aria-hidden]{display:none} .marquee{-webkit-mask:none;mask:none}
+}
+@media (max-width:1023px){.sys{display:none}.pulse__label{min-width:0}}
+@media (max-width:639px){.pulse__bar{grid-template-columns:1fr auto;height:auto;padding:14px 0}.pulse__line{display:none}.pulse__txt{font-size:12px}}
+
+
+/* ---------- lector del blog ---------- */
+.reader{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;display:none;animation:readerIn .35s cubic-bezier(.2,.8,.2,1)}
+.reader:target{display:block}
+@keyframes readerIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.reader__progress{position:sticky;top:0;height:3px;z-index:2} .reader__progress i{display:block;height:100%;width:0;background:var(--accent)}
+.reader__top{position:sticky;top:3px;z-index:1;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.reader__wrap{width:min(100% - 40px,720px);margin-inline:auto}
+.reader__topbar{height:60px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.reader__meta{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted);margin:56px 0 18px}
+.reader h1{font-size:clamp(34px,5vw,52px);line-height:1.05}
+.reader__lead{font-size:20px;line-height:1.55;color:var(--muted);margin-top:20px}
+.reader__cover{margin:36px 0 8px;background:var(--ink);color:#c9cdd4;border-radius:20px;padding:32px;font:400 14px/1.7 var(--mono);white-space:pre;overflow:auto;position:relative}
+.reader__cover::after{content:"";position:absolute;right:24px;bottom:24px;width:34px;height:34px;border-radius:9px;background:var(--accent)}
+[data-theme="dark"] .reader__cover{background:#000}
+.prose{font-size:18px;line-height:1.75}
+.prose p,.prose ul,.prose ol{margin:22px 0}
+.prose h2{font-size:28px;line-height:1.15;margin:52px 0 0}
+.prose li{margin:10px 0;padding-left:4px}
+.prose code{font:400 .85em/1 var(--mono);background:var(--surface);padding:2px 6px;border-radius:6px}
+.code{margin:26px 0;border-radius:16px;overflow:hidden;background:#0b0c0e;border:1px solid var(--line)}
+.code__bar{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 8px 16px;font:400 12px/1 var(--mono);color:#9aa0a8;border-bottom:1px solid rgb(255 255 255 / .08)}
+.code__copy{font:500 12px/1 var(--text);color:#eef0f3;background:rgb(255 255 255 / .08);border:0;border-radius:999px;padding:8px 12px;min-height:32px;cursor:pointer}
+.code pre{margin:0;padding:18px;overflow:auto;font:400 13.5px/1.65 var(--mono);color:#e6e8eb}
+.code pre code{background:none;padding:0;font:inherit}
+.callout{margin:30px 0;padding:20px 22px;border-left:3px solid var(--accent);background:var(--tonal);color:var(--tonal-ink);border-radius:0 14px 14px 0}
+.reader__end{margin:64px 0 96px;padding-top:32px;border-top:1px solid var(--line);display:grid;gap:24px}
+.author{display:flex;gap:14px;align-items:center} .author img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 25%}
+.author div{display:grid;gap:2px} .author span{font-size:14px}
+.reader__actions{display:flex;gap:12px;flex-wrap:wrap}
+.next{display:grid;gap:4px;padding:22px;border:1px solid var(--line);border-radius:18px;text-decoration:none;color:var(--ink);background:var(--card)}
+.next b{font:500 21px/1.25 var(--display);letter-spacing:-0.03em} .next:hover b{color:var(--accent)}
+.index{display:grid;margin:40px 0 96px}
+.index__item{display:grid;gap:8px;padding:28px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.index__item .reader__meta{margin:0}
+.index__item h2{font-size:26px;line-height:1.2;transition:color .15s} a.index__item:hover h2{color:var(--accent)}
+.index__item--soon h2{color:var(--muted)}
+.reading{overflow:hidden}
+
+
+/* ---------- réplica al pasar el mouse ---------- */
+section,.reader{isolation:isolate}
+.sol,.talk,.group,.feature,.post--feat,.next,.magnet,.topic{position:relative}
+.sol::before,.talk::before,.group::before,.post--feat::before,.next::before,.magnet::before,.topic::before{content:"";position:absolute;inset:-1px;border-radius:inherit;border:1.5px solid var(--accent);z-index:-1;opacity:0;transform:translate(0,0);transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .2s;pointer-events:none}
+.sol:hover::before,.talk:hover::before,.group:hover::before,.post--feat:hover::before,.next:hover::before,.magnet:hover::before,.topic:hover::before{opacity:1;transform:translate(7px,-7px)}
+.talk,.group,.post--feat{overflow:visible}.talk__visual{border-radius:22px 22px 0 0}.post__cover{border-radius:24px 24px 0 0}
+/* ---------- nav extra ---------- */
+.kbd-btn,.lang-btn{height:44px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 14px/1 var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:0 12px}
+.lang-btn{width:44px;justify-content:center;padding:0;font-family:var(--mono)}
+kbd{font:500 11px/1 var(--mono);padding:4px 6px;border-radius:6px;background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.kbd-btn span{color:var(--muted)}
+@media (max-width:1400px){.kbd-btn span{display:none}.sys{display:none}}
+.sys{white-space:nowrap}
+@media (max-width:639px){.kbd-btn{display:none}}
+/* ---------- guía ---------- */
+.magnet{margin-top:56px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:36px}
+.magnet__copy{grid-column:span 7;display:grid;gap:14px;justify-items:start}
+.magnet__copy h3{font-size:32px;line-height:1.1}.magnet__copy p{color:var(--muted)}
+.magnet__file{grid-column:9 / span 4;background:var(--ink);color:#c9cdd4;border-radius:18px;padding:22px;font:400 12.5px/1.7 var(--mono);position:relative;transform:rotate(2deg);transition:transform .4s}
+.magnet:hover .magnet__file{transform:rotate(0)}
+.magnet__ext{position:absolute;top:-12px;right:18px;background:var(--accent);color:#fff;font:600 13px/1 var(--mono);padding:8px 10px;border-radius:8px}
+/* ---------- newsletter ---------- */
+.nl{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
+.nl__copy{grid-column:span 6;display:grid;gap:14px}.nl__copy h2{font-size:52px;line-height:1.04}.nl__copy p{color:rgb(255 255 255 / .8);font-size:18px}
+.nl__form{grid-column:8 / span 5;display:grid;gap:10px}
+.nl__form label{font-size:14px;font-weight:500}
+.nl__row{display:flex;gap:8px;background:#fff;border-radius:999px;padding:6px}
+.nl__row input{flex:1;min-width:0;border:0;background:transparent;font:400 16px/1 var(--text);padding:0 14px;color:#0b0c0e;outline:none}
+.nl__row .btn{background:var(--ink);color:#fff}
+.nl__row:focus-within{outline:2px solid #fff;outline-offset:3px}
+.nl__msg{font-size:14px;color:rgb(255 255 255 / .8)}
+/* ---------- paleta ---------- */
+.palette{padding:0;border:0;background:transparent;width:min(100% - 32px,640px);margin:12vh auto auto;max-height:none}
+.palette::backdrop{background:rgb(11 12 14 / .45);backdrop-filter:blur(3px)}
+.palette__box{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 40px 80px -30px rgb(0 0 0 / .5)}
+.palette__in{display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line)}
+.palette__in svg{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:1.8;stroke-linecap:round}
+.palette__in input{flex:1;height:58px;border:0;background:transparent;font:400 17px/1 var(--text);color:var(--ink);outline:none}
+.palette__list{list-style:none;margin:0;padding:8px;max-height:52vh;overflow:auto}
+.palette__list li{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;cursor:pointer;font-size:15px}
+.palette__list li small{margin-left:auto;color:var(--muted);font:400 12px/1 var(--mono)}
+.palette__list li[aria-selected="true"]{background:var(--tonal);color:var(--tonal-ink)}
+.palette__list .grp{font:500 12px/1 var(--text);color:var(--muted);padding:12px 12px 6px;cursor:default}
+.palette__list .ico{width:28px;height:28px;border-radius:8px;background:var(--surface);display:grid;place-items:center;font:500 12px/1 var(--mono);flex:none}
+.palette__foot{display:flex;gap:18px;padding:10px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+/* ---------- speaker, ahora, estado, 404 ---------- */
+.bio{display:grid;gap:12px;justify-items:start}.bio p{margin:0}
+.kit-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.kit-photos a{display:grid;gap:8px;text-decoration:none;font-size:14px;color:var(--muted)}
+.kit-photos img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px}
+.topics{display:grid;gap:12px;margin:22px 0}
+.topic{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.topic b{font:500 19px/1.25 var(--display);letter-spacing:-0.02em}.topic p{margin:6px 0 0;color:var(--muted);font-size:16px}
+.now{display:grid;gap:4px;margin:40px 0}
+.now__item{display:grid;grid-template-columns:40px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}
+.now__item b{font:500 21px/1.2 var(--display)}.now__item p{color:var(--muted);margin-top:6px;font-size:17px}
+.banner-ok{display:flex;align-items:center;gap:12px;margin:28px 0 12px;padding:18px 20px;border-radius:14px;background:var(--ok-bg);color:var(--ok);font-weight:500}
+.up{display:grid;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-top:20px}
+.up__row{display:grid;gap:10px;padding:18px 20px;border-bottom:1px solid var(--line)}.up__row:last-child{border-bottom:0}
+.up__head{display:flex;justify-content:space-between;gap:12px}.up__head b{font-weight:500}
+.st{font-size:13px;font-weight:500}.st--ok{color:var(--ok)}.st--maint{color:var(--accent)}
+.up__bars{display:flex;gap:2px;height:30px}.up__bars i{flex:1;border-radius:2px;background:#16a36a}
+.up__bars i.maint{background:var(--accent);opacity:.55}.up__bars i.inc{background:#f5a524}
+.up__note{font-size:13px}
+.log{display:grid;margin:20px 0}
+.log__item{display:grid;gap:4px;padding:18px 0;border-bottom:1px solid var(--line)}
+.log__item time{font:400 13px/1 var(--mono);color:var(--muted)}.log__item b{font:500 19px/1.3 var(--display)}.log__item p{margin:2px 0 0;color:var(--muted);font-size:16px}
+.nf{min-height:calc(100vh - 63px);display:grid;align-content:center;gap:20px;justify-items:start;padding:40px 0}
+.nf__trace{display:grid;gap:8px;margin-top:24px;font:400 14px/1.4 var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;width:100%}
+.nf__trace .err{color:#e5484d}.nf__trace .ok{color:var(--ok)}
+.en-note{display:none;margin:20px 0 0;padding:12px 16px;border-radius:12px;background:var(--tonal);color:var(--tonal-ink);font-size:14px}
+html[lang="en"] .en-note{display:block}
+@media (max-width:1023px){.magnet__copy,.magnet__file,.nl__copy,.nl__form{grid-column:1 / -1}.magnet{padding:24px}.nl__copy h2{font-size:38px}}
+@media (max-width:639px){.kit-photos{grid-template-columns:1fr 1fr}.magnet__file{display:none}.nl__row{flex-direction:column;border-radius:18px}.nl__row input{height:48px}}
+
+/* experiencia */
+.ground-ink{background:var(--ink);color:var(--bg)}
+[data-theme="dark"] .ground-ink{background:#000;color:#eef0f3}
+.ground-ink .head p,.ground-ink .xp__copy p{color:color-mix(in srgb,currentColor 70%,transparent)}
+.ground-ink .tag{border-color:color-mix(in srgb,currentColor 25%,transparent);color:inherit}
+.xp{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.xp__photo{grid-column:span 7;position:relative;margin:0}
+.xp__photo img{width:100%;height:auto;aspect-ratio:7/6;object-fit:cover;border-radius:24px;display:block}
+.xp__photo figcaption{position:absolute;left:20px;bottom:20px;background:var(--accent);color:#fff;border-radius:12px;padding:10px 14px;font:500 14px/1.3 var(--text);display:grid;gap:2px}
+.xp__photo figcaption span{font:400 12px/1 var(--mono);opacity:.8}
+.xp__copy{grid-column:9 / span 4;display:grid;gap:18px;justify-items:start}
+.xp__copy h3{font-size:30px;line-height:1.1}
+.xp__role{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.xp__role li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px}
+.xp__role svg{width:22px;height:22px;color:var(--accent)}
+.xp__mini{width:62%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;border-radius:18px;display:block;margin-top:8px}
+@media (max-width:1023px){.xp__photo,.xp__copy{grid-column:1 / -1}.xp__mini{width:45%}}
+
+/* blog */
+.blog{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.post--feat{grid-column:span 7;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:transform .2s}
+.post--feat:hover{transform:translateY(-2px);color:var(--ink)}
+.post__cover{height:250px;background:var(--ink);color:var(--bg);padding:28px;display:flex;flex-direction:column;justify-content:space-between;font:400 13px/1.7 var(--mono);position:relative;overflow:hidden}
+.post__cover code{display:block;color:#c9cdd4} .post__cover code b{color:#fff;font-weight:500}
+[data-theme="dark"] .post__cover{background:#000}
+.post__cover .big{font:var(--display-weight) 40px/1 var(--display);letter-spacing:var(--track);color:#fff}
+.post__body{padding:26px 28px;display:grid;gap:10px}
+.post__meta{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.post--feat h3{font-size:30px;line-height:1.12}
+.posts{grid-column:8 / span 5;display:flex;flex-direction:column}
+.post{display:grid;gap:6px;padding:20px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.post:first-child{padding-top:0}
+.post h3{font-size:21px;line-height:1.2;transition:color .15s} .post:hover h3{color:var(--accent)}
+.post--soon h3{color:var(--muted)}
+
+/* talks */
+.talks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.talk{border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.talk__visual{height:190px;position:relative;padding:20px;display:flex;flex-direction:column;justify-content:space-between;color:#fff;
+  background:radial-gradient(120% 80% at 80% 120%,#6f8a52 0 40%,transparent 41%),radial-gradient(90% 60% at 5% 115%,#58733f 0 42%,transparent 43%),linear-gradient(#4f86c4,#9dbfe0)}
+.talk__visual--2{background:radial-gradient(100% 90% at 100% 0%,#f0b46b 0 30%,transparent 31%),linear-gradient(135deg,#1b2a4a,#3b4f7a)}
+.talk__visual--3{background:repeating-linear-gradient(135deg,var(--surface) 0 12px,var(--bg) 12px 24px);color:var(--muted)}
+.talk__type{align-self:flex-start;font:500 12px/1 var(--mono);padding:6px 10px;border-radius:999px;background:rgb(0 0 0 / .28)}
+.talk__visual--3 .talk__type{background:var(--card);color:var(--muted)}
+.live{display:inline-flex;align-items:center;gap:6px;font:500 13px/1 var(--text)} .live::before{content:"";width:8px;height:8px;border-radius:50%;background:#ff5a4f}
+.talk__body{padding:22px;display:grid;gap:8px}
+.talk__body h3{font-size:22px;line-height:1.18}
+.talk__meta{font-size:14px;color:var(--muted)}
+
+/* about */
+.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.about__text{grid-column:span 6;display:grid;gap:18px}
+.about__text h2{font-size:44px;line-height:1.06}
+.about__text p{font-size:18px;color:var(--muted)}
+.timeline{grid-column:8 / span 5;list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+.timeline li{padding:0 0 26px 24px;position:relative;display:grid;gap:4px}
+.timeline li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.timeline time{font:400 13px/1 var(--mono);color:var(--muted)}
+.timeline b{font:var(--display-weight) 20px/1.2 var(--display)}
+.timeline span{color:var(--muted);font-size:15px}
+
+/* close */
+.closing{padding:112px 0 40px}
+.close__head{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
+.close__head h2{font-size:52px;line-height:1.04;max-width:13ch}
+.close__head p{color:var(--muted);font-size:19px;margin-top:12px;max-width:44ch}
+.close__word{font:var(--display-weight) clamp(80px,17vw,240px)/.86 var(--display);letter-spacing:-0.05em;margin:48px 0 56px}
+.close__word{display:flex;align-items:center;gap:.12em}.close__word svg{width:.78em;height:.78em;flex:none}
+.foot{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;padding-top:32px;border-top:1px solid var(--line);font-size:15px}
+.foot > div:first-child{grid-column:span 4} .foot > div{grid-column:span 2}
+.foot h3{font:500 13px/1 var(--text);color:var(--muted);letter-spacing:0;margin-bottom:12px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px} .foot a{color:var(--ink);text-decoration:none} .foot a:hover{color:var(--accent)}
+.legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:40px;font-size:13px;color:var(--muted)}
+
+
+@media (max-width:1100px){ .float--a{left:-16px} }
+@media (max-width:1023px){
+  :root{--wrap:min(100% - 80px, 1280px)}
+  .nav__links{display:none}
+  .hero h1{font-size:56px}
+  .hero__copy,.hero__photo{grid-column:1 / -1} .hero__photo{max-width:420px}
+  .head > div,.head p{grid-column:1 / -1}
+  .feature{padding:24px} .feature__copy,.feature__ui{grid-column:1 / -1}
+  .solutions,.talks,.pillars{grid-template-columns:1fr 1fr}
+  .stack__groups,.certs,.post--feat,.posts,.about__text,.timeline{grid-column:1 / -1}
+  .foot > div:first-child{grid-column:1 / -1} .foot > div{grid-column:span 6}
+}
+@media (max-width:639px){
+  :root{--wrap:calc(100% - 40px)}
+  section{padding:80px 0}
+  .hero h1{font-size:42px} .hero__lead{font-size:17px}
+  .head h2,.close__head h2,.about__text h2{font-size:34px}
+  .facts{gap:20px} .facts strong{font-size:26px}
+  .float{display:none}
+  .solutions,.talks,.pillars,.stack__groups{grid-template-columns:1fr}
+  .app{grid-template-columns:1fr} .app__pane:first-child{display:none}
+  .nav .btn{display:none}
+}
+/* ---------- pulido estético ---------- */
+:root{--t1:68px;--t2:48px;--t3:28px;--t4:21px}
+.hero h1{font-size:var(--t1);max-width:12.5ch}
+.head h2,.close__head h2,.about__text h2,.nl__copy h2{font-size:var(--t2)}
+.feature__copy h3,.magnet__copy h3,.xp__copy h3,.post--feat h3,.pillar h3,.sol--lg h3{font-size:var(--t3)}
+.sol h3,.talk__body h3,.post h3,.group h3,.certs h3{font-size:var(--t4)}
+.tags{gap:0;row-gap:4px}
+.tag{height:auto;padding:0;border:0!important;border-radius:0;background:none;font:400 13px/1.4 var(--mono);color:var(--muted)}
+.tags .tag+.tag::before{content:"·";margin:0 8px;opacity:.6}
+.ground-ink .tag{color:color-mix(in srgb,currentColor 65%,transparent)}
+.post__meta .tag,.reader__meta .tag{color:var(--accent)}
+.status{background:none;padding:0;color:var(--ok)}
+.status--plan{background:none;color:var(--accent)}
+.solutions{grid-template-columns:repeat(12,minmax(0,1fr))}
+.sol{grid-column:span 4}
+.sol--a{grid-column:span 7;order:1}.sol--b{grid-column:span 5;order:2}
+.sol--d{order:3}.sol--c{order:4}.sol--e{order:5}
+.sol--wide{grid-column:1 / -1;order:6;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,4fr) minmax(0,3fr);grid-template-areas:"top mini metric" "h mini metric" "p mini tags";column-gap:28px;row-gap:10px;align-items:start}
+.sol--wide .sol__top{grid-area:top}.sol--wide h3{grid-area:h}.sol--wide p{grid-area:p}.sol--wide .mini{grid-area:mini;height:132px}.sol--wide .tags{grid-area:tags;align-self:end}.sol--wide .sol__metric{grid-area:metric;margin:0;padding:0;border:0;flex-direction:column;align-items:flex-start;gap:4px}
+.sol--lg .mini{height:200px;font-size:13px}
+.sol--lg .sol__metric strong{font-size:34px}
+.mini{background:#0b0c0e;color:#c9cdd4;border:1px solid rgb(255 255 255 / .06)}
+[data-theme="dark"] .mini{background:#000}
+.mini .ok{color:#8b93ff}.mini .mut{color:#6b7280}
+.mini .note{background:rgb(255 255 255 / .06);color:#e6e8eb;font-family:var(--mono)}
+.mini .note .mut{color:#8b93ff}
+.mini .check{color:#e6e8eb;font-family:var(--mono)}
+.mini .box{border-color:#6b7280}.mini .done .box{background:#5b67ff;border-color:#5b67ff}
+.mini .done span:last-child{color:#6b7280}
+.mini .node{background:#16181c;border-color:rgb(255 255 255 / .14);color:#e6e8eb;font-family:var(--mono)}
+.mini .node--core{background:var(--accent);border-color:var(--accent);color:#fff}
+.mini line{stroke:#6b7280}
+.talk__visual{height:210px;background:#0b0c0e!important;color:#fff;padding:20px 22px;display:grid;grid-template-rows:auto 1fr auto;align-items:end;position:relative;overflow:hidden}
+[data-theme="dark"] .talk__visual{background:#000!important}
+.talk__type{background:none!important;padding:0;color:#8b93ff!important;font:500 12px/1 var(--mono);align-self:start}
+.talk__big{font:500 54px/.92 var(--display);letter-spacing:-0.05em;align-self:end}
+.talk__sub,.talk__visual .live{font-size:13px;color:#9aa0a8;margin-top:10px}
+.talk__mark{position:absolute;right:20px;bottom:20px;width:30px;height:30px}
+.talk__visual--next{background:repeating-linear-gradient(135deg,#0b0c0e 0 14px,#121419 14px 28px)!important}
+.talk__visual--next .talk__big{color:#6b7280}
+.xp__photo{border-radius:24px;overflow:hidden}
+.xp__photo::after,.ph::after{content:"";position:absolute;inset:auto 0 0 0;height:35%;background:linear-gradient(transparent,rgb(31 45 230 / .35));pointer-events:none}
+.xp__photo img{border-radius:0}
+.ph{position:relative;display:block;width:62%;margin-top:8px;border-radius:24px;overflow:hidden}
+.ph .xp__mini{width:100%;margin:0;border-radius:0}
+.xp__photo figcaption{z-index:1}
+.kit-photos img{border-radius:24px}
+.hero__lead{max-width:44ch}
+@media (max-width:1023px){
+  :root{--t1:52px;--t2:40px;--t3:26px}
+  .sol,.sol--a,.sol--b{grid-column:span 6}
+  .sol--wide{grid-template-columns:1fr;grid-template-areas:"top" "h" "p" "mini" "metric" "tags"}
+  .sol--wide .sol__metric{flex-direction:row;align-items:baseline;gap:8px}
+  .ph{width:45%}
+}
+@media (max-width:639px){
+  :root{--t1:40px;--t2:32px;--t3:24px}
+  .sol,.sol--a,.sol--b{grid-column:1 / -1}
+  .sol--lg .mini{height:160px}
+  .talk__big{font-size:44px}
+  .nav__bar{gap:10px}.nav__right{gap:6px}
+  .lang-btn,.theme-btn{width:40px;height:40px}
+  .hero{padding:40px 0 64px}
+  .facts{grid-template-columns:repeat(3,1fr);gap:12px}.facts span{font-size:12px}
+  .pulse__btn{height:40px;padding:0 14px;font-size:14px}
+  .palette{margin-top:8vh}
+  .ph{width:70%}
+  .sol__metric{flex-wrap:wrap}.sol__metric strong,.sol--lg .sol__metric strong{font-size:24px}
+  .eyebrow{font-size:12px}
+}
+
+/* fotos nuevas */
+.xp__gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;margin-top:8px}
+.xp__gallery .ph{width:100%!important;margin:0}
+.xp__gallery img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 50%;display:block}
+.about{align-items:center}
+.about__photo{grid-column:span 4;margin:0;width:auto!important}
+.about__photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block}
+.about__text{grid-column:5 / span 4}
+.timeline{grid-column:9 / span 4}
+.kit-photos{grid-template-columns:repeat(4,1fr)}
+.author img{object-position:50% 30%}
+@media (max-width:1023px){.about__photo{grid-column:1 / span 6}.about__text,.timeline{grid-column:1 / -1}.kit-photos{grid-template-columns:1fr 1fr}}
+@media (max-width:639px){.about__photo{grid-column:1 / -1;max-width:320px}}
+
+/* ---------- menos slop ---------- */
+.eyebrow::before{display:none}
+
+.now__item{grid-template-columns:1fr}
+.sk{display:block;height:9px;border-radius:5px;background:var(--surface)}
+.sk--sm{height:7px;opacity:.8}
+.sk--num{width:84px;height:44px;border-radius:10px;background:var(--surface)}
+.rows-ui li .sk{grid-column:2;align-self:center}
+.rows-ui .sub{display:block;padding-top:4px}
+.av{background:var(--surface)}
+.tbl .sk{display:inline-block}
+.ui-note{margin-top:10px;font-size:13px;color:var(--muted)}
+.draft{font:500 12px/1 var(--mono);color:#b45309;background:#fef3c7;padding:6px 8px;border-radius:6px}
+[data-theme="dark"] .draft{background:rgb(245 158 11 / .15);color:#fbbf24}
+.sol__top{min-height:24px}
+.feature__ui{display:flex;flex-direction:column}.feature__ui .app{flex:none}
+
+/* ---------- navbar ---------- */
+.nav__bar{height:64px}
+.nav__links{position:absolute;left:50%;transform:translateX(-50%);gap:4px}
+.nav__links a{color:var(--muted);padding:10px 14px;border-radius:999px;position:relative;transition:color .15s}
+.nav__links a:hover{background:none;color:var(--ink)}
+.nav__links a[aria-current="true"]{color:var(--ink)}
+.nav__links a[aria-current="true"]::after{content:"";position:absolute;left:50%;bottom:2px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--accent)}
+.nav__right{gap:4px}
+.icon-btn,.nav .lang-btn,.nav .theme-btn{width:40px;height:40px;border:0;border-radius:999px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;transition:color .15s,background .15s}
+.icon-btn:hover,.nav .lang-btn:hover,.nav .theme-btn:hover{color:var(--ink);background:var(--surface)}
+.icon-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.nav .lang-btn{font:500 13px/1 var(--mono)}
+.nav__cta{height:40px;padding:0 18px;margin-left:8px;font-size:14px}
+.menu-btn{display:none}
+.mnav{border-top:1px solid var(--line);background:var(--bg)}
+.mnav__list{display:grid;padding:12px 0 20px}
+.mnav__list a:not(.btn){padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font:500 20px/1 var(--display);letter-spacing:-0.02em}
+.mnav__list .btn{margin-top:18px;justify-content:center}
+.incident{top:64px}
+@media (max-width:1023px){.nav__links{display:none}.menu-btn{display:grid}}
+@media (max-width:639px){.nav__cta{display:none}.nav .lang-btn,.nav .theme-btn,.icon-btn{width:38px;height:38px}}
+.mnav .btn{display:inline-flex!important}
+
+.talk__visual{text-decoration:none}
+.talk__body p:not(.talk__meta){color:var(--muted);font-size:15px}
+.talk__play{position:absolute;top:50%;right:22px;width:52px;height:52px;margin-top:-34px;border-radius:50%;background:var(--accent);display:grid;place-items:center;transition:transform .2s}
+.talk__play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
+a.talk__visual:hover .talk__play{transform:scale(1.08)}
+.talk__link{font-weight:500;text-decoration:none;font-size:15px;justify-self:start}
+.talk__link:hover{text-decoration:underline}
+.stack__groups{align-content:start;align-self:start}
+.group li img{width:20px;height:20px;object-fit:contain;flex:none}
+
+/* certificaciones con insignias oficiales */
+.certs{gap:6px}.certs h3{margin-bottom:10px}
+.cert{grid-template-columns:44px 1fr auto;gap:0 14px;padding:10px 0;text-decoration:none;color:inherit}
+.cert img,.cert__ph{grid-row:1 / span 2;width:44px;height:auto}
+.cert__ph{height:46px;border:1.5px dashed rgb(255 255 255 / .3);border-radius:10px}
+[data-theme="dark"] .cert__ph{border-color:rgb(0 0 0 / .3)}
+.cert span{font-size:15px}.cert span b{font:500 14px/1 var(--mono);padding:0;background:none;border:0;grid-row:auto}
+.cert small{grid-column:2;font-size:13px;opacity:.7}
+.cert__go{grid-row:1 / span 2;grid-column:3;font-style:normal;opacity:.4;transition:opacity .15s,transform .15s}
+a.cert:hover .cert__go{opacity:1;transform:translate(2px,-2px)}
+a.cert:hover span{text-decoration:underline;text-underline-offset:3px}
+.certs__note{font-size:12px;opacity:.6;margin-top:6px}
+.cert__pending{filter:grayscale(1);opacity:.35}
+
+.photo__cap{margin-top:14px;font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.closing{padding:96px 0 40px}
+.close__head{padding-bottom:64px}
+.foot .sig{align-self:start}
+
+.talk__visual--img{height:auto;aspect-ratio:16/9;padding:0;display:block}
+.talk__visual--img img{width:100%;height:100%;object-fit:cover;display:block}
+.talk__visual--img .talk__play{top:auto;bottom:14px;right:14px;margin:0;width:44px;height:44px;box-shadow:0 8px 20px -6px rgb(0 0 0 / .6)}
+.talk__visual--img:hover img{filter:brightness(1.08)}
+
+/* logo: de cloud al producto */
+.logo svg{width:40px;height:27px}
+.logo--nav .m-cloud{stroke-dasharray:100;stroke-dashoffset:100;transition:stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1)}
+.loaded .logo--nav .m-cloud{stroke-dashoffset:0}
+.logo--nav .m-prod{transform-box:fill-box;transform-origin:center;transform:scale(.4);opacity:0;transition:transform .5s .55s cubic-bezier(.2,1.4,.4,1),opacity .3s .55s}
+.loaded .logo--nav .m-prod{transform:none;opacity:1}
+.logo--nav:hover .m-prod{transform:translateX(2px)}
+.talk__mark{width:40px;height:27px}
+@media (prefers-reduced-motion:reduce){.logo--nav .m-cloud{stroke-dashoffset:0}.logo--nav .m-prod{transform:none;opacity:1}}
+
+.post__cover--img{height:300px;background:#0b0c0e url(img/blog-rto.webp) center top/cover no-repeat;justify-content:flex-end}
+.reader__img{width:100%;height:auto;display:block;border-radius:20px;margin:36px 0 8px}
+
+/* esquema del portal CSP */
+.flow{position:relative;display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:stretch;min-height:420px;border:1px solid var(--line);border-radius:16px;background:var(--bg);padding:22px;gap:0;overflow:hidden}
+.flow__col{display:flex;flex-direction:column;justify-content:center;gap:14px;position:relative;z-index:1}
+.flow__label{font:500 12px/1 var(--mono);color:var(--muted);margin-bottom:4px}
+.flow__col--out .flow__label{padding-left:28px}
+.flow__node,.flow__card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:500 14px/1.2 var(--text)}
+.flow__col--in .flow__node{margin-right:28px}
+.flow__col--out .flow__card{margin-left:28px;display:flex;align-items:center;gap:10px}
+.flow__card i{width:8px;height:8px;border-radius:2px;background:var(--accent);flex:none}
+.flow__node::after,.flow__card::before{content:"";position:absolute;top:50%;height:2px;width:29px;background:repeating-linear-gradient(90deg,var(--accent) 0 6px,transparent 6px 12px);background-size:12px 2px;animation:flowdash 1s linear infinite}
+.flow__node::after{left:100%}
+.flow__card::before{right:100%}
+.flow__col--out .flow__card:nth-child(odd)::before{animation-delay:-.5s}
+@keyframes flowdash{to{background-position:12px 0}}
+.flow__core{background:#0b0c0e;color:#eef0f3;border-radius:16px;padding:24px 22px;display:flex;flex-direction:column;justify-content:center;gap:12px;position:relative;box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 14%,transparent)}
+[data-theme="dark"] .flow__core{background:#000}
+.flow__mark{width:40px;height:27px}
+.flow__core b{font:500 24px/1.1 var(--display);letter-spacing:-0.03em}
+.flow__core ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:13.5px;color:#b7bcc5}
+.flow__core li{display:flex;gap:8px;align-items:baseline}.flow__core li::before{content:"";width:5px;height:5px;border-radius:50%;background:#5b67ff;flex:none;transform:translateY(-2px)}
+.flow__badge{align-self:flex-start;font:500 12px/1 var(--mono);color:#fff;background:var(--accent);padding:7px 10px;border-radius:999px;margin-top:4px}
+@media (max-width:1023px){.flow{grid-template-columns:1fr;gap:18px}.flow__col--in .flow__node,.flow__col--out .flow__card{margin:0}.flow__col--out .flow__label{padding:0}.flow__node::after,.flow__card::before{display:none}}
+
+/* paneles de proyecto */
+.drawer{position:fixed;inset:0;z-index:62;display:none}
+.drawer:target{display:block}
+.drawer__bg{position:absolute;inset:0;background:rgb(11 12 14 / .45);backdrop-filter:blur(3px);animation:fadeIn .25s ease}
+.drawer__panel{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);overflow-y:auto;padding:28px 36px 48px;box-shadow:-30px 0 60px -30px rgb(0 0 0 / .45);animation:slideIn .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fadeIn{from{opacity:0}}
+.drawer__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.drawer__x{width:40px;height:40px;border-radius:999px;display:grid;place-items:center;text-decoration:none;color:var(--ink);font-size:26px;line-height:1;background:var(--surface)}
+.drawer__x:hover{color:var(--ink);background:var(--tonal)}
+.drawer h2{font-size:36px;line-height:1.05}
+.drawer__lead{font-size:19px;line-height:1.5;color:var(--muted);margin-top:14px}
+.drawer__kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0 8px}
+.drawer__kpis div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.drawer__kpis strong{display:block;font:500 26px/1.05 var(--display);letter-spacing:-0.03em}
+.drawer__kpis span{font-size:13px;color:var(--muted)}
+.drawer h3{font:500 13px/1 var(--mono);color:var(--accent);margin:28px 0 8px;letter-spacing:0}
+.drawer p{font-size:16.5px;line-height:1.65}
+.drawer .tags{margin-top:28px}
+.drawer__note{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px!important;color:var(--muted)}
+.sol__more{font-size:14px;font-weight:500;color:var(--accent);margin-top:4px}
+.sol:hover .sol__more{text-decoration:underline;text-underline-offset:3px}
+.feature__more{align-self:flex-start;font-size:15px}
+@media (max-width:639px){.drawer__panel{padding:22px 20px 40px}.drawer h2{font-size:30px}}
+@media (prefers-reduced-motion:reduce){.drawer__panel,.drawer__bg{animation:none}}
+
+/* paneles de proyecto: modal centrado */
+.drawer__panel{top:50%;left:50%;right:auto;bottom:auto;width:min(760px,calc(100% - 32px));max-height:min(86vh,900px);transform:translate(-50%,-50%);border-radius:24px;border:1px solid var(--line);padding:32px 40px 40px;box-shadow:0 40px 100px -30px rgb(0 0 0 / .55);animation:popIn .32s cubic-bezier(.2,.9,.3,1.15)}
+@keyframes popIn{from{opacity:0;transform:translate(-50%,-46%) scale(.96)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+.drawer__kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.drawer__body{display:grid;grid-template-columns:1fr 1fr;gap:4px 32px}
+.drawer__body h3{margin-top:24px}
+.feature{cursor:pointer}
+.feature .btn-more{align-self:flex-start;margin-top:4px}
+@media (max-width:639px){.drawer__panel{padding:24px 20px 32px;border-radius:20px;max-height:90vh}.drawer__body{grid-template-columns:1fr}}
+
+/* modal sin scroll */
+.drawer__panel{width:min(1000px,calc(100% - 40px));max-height:calc(100vh - 40px);padding:28px 36px 26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);column-gap:36px;grid-template-areas:"top top" "note note" "title kpis" "lead kpis" "body body" "tags foot";align-items:start;scrollbar-width:none}
+.drawer__panel::-webkit-scrollbar{display:none}
+.drawer__top{grid-area:top;margin-bottom:10px}
+.drawer__panel .en-note{grid-area:note;margin:0 0 10px}
+.drawer__panel h2{grid-area:title;font-size:clamp(26px,3.2vh,34px)}
+.drawer__lead{grid-area:lead;font-size:16px!important;margin-top:8px}
+.drawer__kpis{grid-area:kpis;margin:0;grid-template-columns:1fr 1fr;align-self:center}
+.drawer__kpis div{padding:12px 14px}
+.drawer__kpis strong{font-size:22px}
+.drawer__body{grid-area:body;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 24px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.drawer__body h3{margin:0 0 8px}
+.drawer__body p{font-size:14.5px;line-height:1.55}
+.drawer__panel>.tags{grid-area:tags;margin-top:20px}
+.drawer__note{grid-area:foot;margin:20px 0 0!important;padding:0!important;border:0!important;text-align:right;font-size:12.5px!important}
+@media (max-width:900px){.drawer__panel{grid-template-columns:1fr;grid-template-areas:"top" "note" "title" "lead" "kpis" "body" "tags" "foot"}.drawer__kpis{margin-top:16px}.drawer__body{grid-template-columns:1fr 1fr;gap:16px 24px}.drawer__note{text-align:left}}
+@media (max-width:560px){.drawer__body{grid-template-columns:1fr}.drawer__panel{max-height:calc(100vh - 24px);padding:22px 20px}}
+a.cert,a.cert:hover,a.cert:focus{color:inherit}
+a.cert:hover .cert__go{opacity:1}
+
+.talk{display:flex;flex-direction:column}
+.talk__body{flex:1;display:flex;flex-direction:column;gap:8px}
+.talk__body .talk__link{margin-top:auto;padding-top:10px}
+.talk__visual--next{height:auto;aspect-ratio:16/9}
+.talks{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:639px){.talks{grid-template-columns:1fr}}
+.btn--sm{height:38px;padding:0 16px;font-size:14px}
+.drawer .tags{align-items:center;gap:16px}
+.drawer .tags .tag+.tag::before{content:none}
+[data-theme="dark"] .post__cover--img,.post__cover--img{background:#0b0c0e url(img/blog-rto.webp) center top/cover no-repeat}
+.post__cover--img,[data-theme="dark"] .post__cover--img{background-size:100% auto!important;background-position:center top!important}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sdr" viewBox="0 0 54 36"><circle cx="13" cy="18" r="11" fill="none" stroke="var(--accent)" stroke-width="3"/><rect x="28" y="7" width="22" height="22" rx="4" fill="var(--accent)"/></symbol>
+  <symbol id="converge" viewBox="0 0 32 32"><path d="M2 6c9 0 11 10 18 10M2 16h18M2 26c9 0 11-10 18-10h7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="28" cy="16" r="3" fill="currentColor"/></symbol>
+</svg>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="logo logo--nav" href="#top" aria-label="Santiago Da Ros, inicio"><svg viewBox="0 0 54 36" aria-hidden="true"><circle class="m-cloud" cx="13" cy="18" r="11" fill="none" stroke="var(--accent)" stroke-width="3" pathLength="100"/><rect class="m-prod" x="28" y="7" width="22" height="22" rx="4" fill="var(--accent)"/></svg>Santiago Da Ros</a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#proyectos">Proyectos</a><a href="#blog">Blog</a><a href="#charlas">Charlas</a><a href="#sobre-mi">Sobre mí</a>
+    </nav>
+    <div class="nav__right">
+      <button class="icon-btn" type="button" data-open-palette aria-label="Buscar en el sitio (⌘K)" title="Buscar · ⌘K"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="m13.2 13.2 4 4"/></svg></button>
+      <button class="lang-btn" type="button" aria-label="Switch to English">EN</button>
+            <button class="theme-btn" type="button" aria-label="Cambiar a tema oscuro"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="4"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4M14.6 14.6 16 16M4 16l1.4-1.4M14.6 5.4 16 4"/></svg></button>
+      <a class="btn btn--primary nav__cta" data-link="email" href="#contacto">Escribime</a>
+      <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Abrir el menú"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7h14M3 13h14"/></svg></button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Menú" hidden>
+    <div class="wrap mnav__list"><a href="#proyectos">Proyectos</a><a href="#experiencias">Experiencias</a><a href="#stack">Stack</a><a href="#blog">Blog</a><a href="#charlas">Charlas</a><a href="#newsletter">Newsletter</a><a href="#sobre-mi">Sobre mí</a><a class="btn btn--primary" data-link="email" href="#contacto">Escribime</a></div>
+  </nav>
+</header>
+<div class="incident" role="status" aria-live="polite" hidden>
+  <div class="wrap incident__bar"><span class="incident__msg"></span><span class="incident__meta"></span></div>
+  <div class="incident__prog"><i></i></div>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow">Cloud &amp; Product Engineer · Buenos Aires</span>
+        <h1>De cloud al <em>producto</em></h1>
+        <p class="hero__lead">Diseño, construyo y opero herramientas sobre Azure en Readymind: algunas las usa mi equipo cada día y otras llegan a clientes corporativos.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#contacto">Escribirme por email <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h8M5 2.5 8.5 6 5 9.5"/></svg></a>
+          <a class="btn btn--secondary" data-cv href="cv/CV_Santiago_Da_Ros_ES.pdf" target="_blank" rel="noopener">Descargar CV</a>
+        </div>
+        <div class="facts">
+          <div><strong>204</strong><span>clientes en un portal en producción</span></div>
+          <div><strong>5</strong><span>herramientas internas en un año</span></div>
+          <div><strong>6</strong><span>certificaciones de Microsoft</span></div>
+        </div>
+      </div>
+      <div class="hero__photo">
+        <div class="photo"><img src="img/hero.webp" alt="Santiago Da Ros presentando con un micrófono" width="1000" height="1250"></div>
+        <p class="photo__cap"><span class="status">Demo en vivo</span> Agentic Banking Buildathon de Belo · octubre 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse" id="estado">
+    <div class="wrap pulse__bar">
+      <div class="pulse__label"><span class="pulse__dot"></span><span class="pulse__txt">Región primaria · latido normal</span></div>
+      <svg class="pulse__line" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="beat" d="M0 20h70l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h80l8-12 10 26 8-14h60"/>
+        <path class="flat" d="M0 20H600"/>
+      </svg>
+      <button class="btn btn--secondary pulse__btn" type="button">Simular una caída</button>
+    </div>
+  </div>
+
+  <section id="proyectos">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Proyectos</span><h2>Lo que construí este año</h2></div>
+        <p>Construidas con mi equipo en Readymind, partner de Microsoft, más un proyecto open source propio. Muestro qué resuelven y qué cambiaron; el código y los datos de clientes quedan adentro.</p>
+      </div>
+
+      <article class="feature" data-reveal>
+        <div class="feature__copy">
+          <div class="sol__top"><span class="sol__kind">Producto interno · Readymind</span><span class="status">En producción</span></div>
+          <h3>Portal de operaciones CSP</h3>
+          <p>Une el trabajo de los account managers con Partner Center: accesos, costos, licencias y compras de toda la cartera en un solo lugar y en solo lectura.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span><span class="tag">Container Apps</span><span class="tag">Entra ID</span><span class="tag">Partner Center API</span></div>
+          <a class="btn btn--secondary btn-more" href="#p-portal">Ver el proyecto →</a>
+          <div class="kpis"><div><strong>204</strong><span>clientes en 6 países</span></div><div><strong>9</strong><span>integraciones de solo lectura</span></div></div>
+        </div>
+        <div class="feature__ui">
+          <div class="flow" role="img" aria-label="Esquema del portal CSP: lee en solo lectura Partner Center, Microsoft Graph y Azure Resource Manager, procesa en el portal y muestra al equipo accesos, costos, licencias y compras con aprobación.">
+            <div class="flow__col flow__col--in">
+              <span class="flow__label">Fuentes · solo lectura</span>
+              <div class="flow__node">Partner Center</div>
+              <div class="flow__node">Microsoft Graph</div>
+              <div class="flow__node">Azure Resource Manager</div>
+            </div>
+            <div class="flow__core">
+              <svg class="flow__mark" aria-hidden="true"><use href="#sdr"/></svg>
+              <b>Portal CSP</b>
+              <ul><li>Lecturas nocturnas automáticas</li><li>Base de datos con acceso por rol</li><li>Login con Entra ID</li><li>Compras con doble aprobación</li></ul>
+              <span class="flow__badge">9 integraciones</span>
+            </div>
+            <div class="flow__col flow__col--out">
+              <span class="flow__label">Lo que ve el equipo</span>
+              <div class="flow__card"><i></i>Accesos y permisos</div>
+              <div class="flow__card"><i></i>Costos por cliente</div>
+              <div class="flow__card"><i></i>Licencias sin asignar</div>
+              <div class="flow__card"><i></i>Compras con aprobación</div>
+            </div>
+          </div>
+          <p class="ui-note">Esquema de cómo funciona. Sin capturas ni datos de clientes.</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="solutions">
+        <a class="sol sol--lg sol--a" data-reveal href="#p-failover">
+          <div class="sol__top"><span class="sol__kind">Recuperación ante desastres · Readymind</span><span class="status">En uso</span></div>
+          <h3>Prueba automatizada de recuperación</h3>
+          <div class="mini" aria-hidden="true"><div class="ln"><span class="mut">&gt;</span>Start-TestFailover -Plan prod</div><div class="ln"><span class="ok">✓</span>grupo-1/identidad <span class="mut">9 min</span></div><div class="ln"><span class="ok">✓</span>grupo-2/bases <span class="mut">12 min</span></div><div class="ln"><span class="ok">✓</span>grupo-3/apps <span class="mut">14 min</span></div><div class="ln"><span class="ok">●</span>Listo · reporte guardado</div></div>
+          <p>Prueba 20 servidores en paralelo con controles de seguridad y evidencia para auditoría.</p>
+          <div class="tags"><span class="tag">PowerShell</span><span class="tag">Site Recovery</span><span class="tag">Automation</span></div>
+          <div class="sol__metric"><strong>2 h → 45 min</strong><span>62% menos tiempo</span></div><span class="sol__more">Ver el proyecto →</span>
+        </a>
+        <a class="sol sol--c" data-reveal href="#p-drlive">
+          <div class="sol__top"><span class="sol__kind">Observabilidad · Readymind</span><span class="status status--plan">Demo en vivo</span></div>
+          <h3>DR Live</h3>
+          <div class="mini" aria-hidden="true"><div class="note"><b>Grupo 2 en línea</b><span class="mut">ahora</span></div><div class="note"><b>Replicación al día</b><span class="mut">1 min</span></div><div class="note"><b>Prueba iniciada</b><span class="mut">12 min</span></div></div>
+          <p>Muestra en tiempo real una prueba de recuperación y el costo de cada minuto de caída.</p>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">Server-Sent Events</span><span class="tag">Azure Monitor</span></div>
+          <div class="sol__metric"><strong>Tiempo real</strong><span>presentado en un webinar</span></div><span class="sol__more">Ver el proyecto →</span>
+        </a>
+        <a class="sol sol--lg sol--b" data-reveal href="#p-auditoria">
+          <div class="sol__top"><span class="sol__kind">Seguridad e identidad · Readymind</span><span class="status">En uso</span></div>
+          <h3>Auditoría automática de Azure y M365</h3>
+          <div class="mini" aria-hidden="true"><div class="check done" style="padding-top:14px"><span class="box"></span><span>MFA para todos</span></div><div class="check done"><span class="box"></span><span>Legacy auth bloqueada</span></div><div class="check"><span class="box"></span><span>Roles con PIM</span></div><div class="check"><span class="box"></span><span>Conditional Access por riesgo</span></div><div class="check"><span class="box"></span><span>Reenvío externo</span></div></div>
+          <p>Revisa identidad, acceso y configuración en solo lectura y entrega un plan priorizado.</p>
+          <div class="tags"><span class="tag">PowerShell</span><span class="tag">Microsoft Graph</span><span class="tag">Resource Graph</span></div>
+          <div class="sol__metric"><strong>209</strong><span>controles por corrida</span></div><span class="sol__more">Ver el proyecto →</span>
+        </a>
+        <a class="sol sol--d" data-reveal href="#p-gobernanza">
+          <div class="sol__top"><span class="sol__kind">Gobernanza · Readymind</span><span class="status status--plan">Desarrollo avanzado</span></div>
+          <h3>Gobernanza de Azure como código</h3>
+          <div class="mini" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="50" y1="22" x2="50" y2="48"/><line x1="50" y1="52" x2="18" y2="78"/><line x1="50" y1="52" x2="50" y2="78"/><line x1="50" y1="52" x2="82" y2="78"/></svg><span class="node" style="left:50%;top:10%;transform:translateX(-50%)">Pull request</span><span class="node node--core" style="left:50%;top:42%;transform:translateX(-50%)">Azure Policy</span><span class="node" style="left:6%;top:74%">Tenant A</span><span class="node" style="left:50%;top:74%;transform:translateX(-50%)">Tenant B</span><span class="node" style="right:6%;top:74%">Tenant C</span></div>
+          <p>Las reglas de Azure de varios clientes desde un repositorio, con aprobación y sin secretos.</p>
+          <div class="tags"><span class="tag">EPAC</span><span class="tag">Lighthouse</span><span class="tag">Terraform</span><span class="tag">OIDC</span></div>
+          <div class="sol__metric"><strong>Multi-tenant</strong><span>base de un servicio de gobernanza</span></div><span class="sol__more">Ver el proyecto →</span>
+        </a>
+        <a class="sol sol--e" data-reveal href="#p-backups">
+          <div class="sol__top"><span class="sol__kind">Costos y continuidad · Readymind</span><span class="status status--plan">En curso</span></div>
+          <h3>Backups por nivel de criticidad</h3>
+          <div class="mini" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="50" y1="32" x2="18" y2="74"/><line x1="50" y1="32" x2="50" y2="74"/><line x1="50" y1="32" x2="82" y2="74"/></svg><span class="node node--core" style="left:50%;top:18%;transform:translateX(-50%)">Azure Backup</span><span class="node" style="left:6%;top:70%">Nivel 1</span><span class="node" style="left:50%;top:70%;transform:translateX(-50%)">Nivel 2</span><span class="node" style="right:6%;top:70%">Nivel 3</span></div>
+          <p>Cada servidor respaldado según qué tan crítico es, con menos gasto en copias rápidas.</p>
+          <div class="tags"><span class="tag">Azure Backup</span><span class="tag">KQL</span><span class="tag">Tags</span></div>
+          <div class="sol__metric"><strong>3 niveles</strong><span>sin migrar lo que funciona</span></div><span class="sol__more">Ver el proyecto →</span>
+        </a>
+        <a class="sol sol--wide sol--f" data-reveal href="#p-aienv">
+          <div class="sol__top"><span class="sol__kind">Proyecto propio · open source</span><span class="status">Publicado</span></div>
+          <h3>ai-env</h3>
+          <div class="mini" aria-hidden="true"><div class="ln"><span class="ok">✓</span>worktree aislado por tarea</div><div class="ln"><span class="ok">✓</span>secretos fuera del contexto</div><div class="ln"><span class="ok">✓</span>esquema validado</div><div class="ln"><span class="ok">✓</span>verificación externa</div></div>
+          <p>Un arnés para operar infraestructura con agentes de IA: la inteligencia está en el control, no en el modelo.</p>
+          <div class="tags"><span class="tag">Claude Code</span><span class="tag">Plugins</span><span class="tag">Git worktrees</span><span class="tag">PowerShell</span></div>
+          <div class="sol__metric"><strong>Open source</strong><span>en GitHub</span></div>
+        <span class="sol__more">Ver el proyecto →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ground-surface">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Cómo trabajo</span><h2>Construyo la herramienta y opero la nube donde corre</h2></div>
+        <p>Uso IA para ir más rápido. Cada cambio lo reviso yo.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar" data-reveal><span class="pillar__n">Producto</span><h3>Del problema a la herramienta</h3><p>Relevo cómo se hace hoy la tarea y quién la sufre, diseño la solución y la dejo en manos del equipo.</p><div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">PostgreSQL</span></div></div>
+        <div class="pillar" data-reveal><span class="pillar__n">Plataforma</span><h3>Azure seguro por defecto</h3><p>Identidad, redes, infraestructura como código y CI/CD. Solo lectura cuando alcanza, menor privilegio y cero secretos en el código.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">Entra ID</span><span class="tag">GitHub Actions</span></div></div>
+        <div class="pillar" data-reveal><span class="pillar__n">IA en el flujo</span><h3>Agentes con revisión propia</h3><p>Claude Code con skills propias e integraciones MCP para automatizar, investigar y construir. Cada cambio pasa por mi revisión.</p><div class="tags"><span class="tag">Claude Code</span><span class="tag">MCP</span><span class="tag">Skills</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencias" class="ground-ink">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Experiencias</span><h2>Mi primer hackatón</h2></div>
+        <p>Un día para armar un producto en equipo y presentarlo frente al jurado.</p>
+      </div>
+      <div class="xp">
+        <figure class="xp__photo" data-reveal>
+          <img src="img/pitch.webp" alt="Santiago presentando el producto del equipo frente a una pantalla" width="1400" height="1179" loading="lazy">
+          <figcaption><span>Octubre de 2026 · Buenos Aires</span>Agentic Banking Buildathon de Belo</figcaption>
+        </figure>
+        <div class="xp__copy" data-reveal>
+          <span class="eyebrow">Primer hackatón</span>
+          <h3>Belo Business: la tarjeta corporativa que rinde hasta el vencimiento</h3>
+          <p>En equipo construimos sobre la API de Belo una plataforma para que una empresa controle sus tarjetas y sus gastos. Un copiloto prepara cada pago y una persona lo revisa y lo autoriza.</p>
+          <ul class="xp__role">
+            <li><svg aria-hidden="true"><use href="#converge"/></svg><span><b>La idea:</b> lo que gastás con la tarjeta queda invertido en USDT hasta el día antes del vencimiento. Un agente compra y vende los dólares por detrás para pagar el resumen con el rendimiento ganado.</span></li>
+            <li><svg aria-hidden="true"><use href="#converge"/></svg><span><b>Mi parte:</b> esa idea y el motor de reglas que decide qué gasto pasa, cuál se frena y cuál va a revisión.</span></li>
+            <li><svg aria-hidden="true"><use href="#converge"/></svg><span><b>La demo:</b> la presenté en vivo ante el jurado y los demás equipos.</span></li>
+          </ul>
+          <div class="tags"><span class="tag">API de Belo</span><span class="tag">MCP</span><span class="tag">USDT</span><span class="tag">Agentes con aprobación humana</span></div>
+          <div class="xp__gallery"><span class="ph"><img src="img/build-sq.webp" alt="Santiago trabajando con su equipo durante el hackatón" width="800" height="800" loading="lazy"></span><span class="ph"><img src="img/screen.webp" alt="Pantalla de apertura del Hackathon agentic banking de Belo, octubre de 2026" width="800" height="800" loading="lazy"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Stack</span><h2>Tecnologías y certificaciones</h2></div>
+        <p>Agrupado por para qué lo uso.</p>
+      </div>
+      <div class="stack">
+        <div class="stack__groups">
+          <div class="group" data-reveal><h3>Cloud e identidad</h3><ul>
+            <li><img src="img/tech/azure.svg" alt="" onerror="this.remove()">Azure<span>principal</span></li>
+            <li><img src="img/tech/entra-id.svg" alt="" onerror="this.remove()">Entra ID y Conditional Access</li>
+            <li><img src="img/tech/azure-arc.svg" alt="" onerror="this.remove()">Azure Arc y Lighthouse</li>
+            <li><img src="img/tech/site-recovery.svg" alt="" onerror="this.remove()">Site Recovery y Backup</li></ul></div>
+          <div class="group" data-reveal><h3>Infraestructura como código y CI/CD</h3><ul>
+            <li><img src="img/tech/terraform.svg" alt="" onerror="this.remove()">Terraform</li>
+            <li><img src="img/tech/github-actions.svg" alt="" onerror="this.remove()">GitHub Actions</li>
+            <li><img src="img/tech/azure-devops.svg" alt="" onerror="this.remove()">Azure DevOps</li>
+            <li><img src="img/tech/docker.svg" alt="" onerror="this.remove()">Docker y Container Apps</li></ul></div>
+          <div class="group" data-reveal><h3>Producto y datos</h3><ul>
+            <li><img src="img/tech/typescript.svg" alt="" onerror="this.remove()">TypeScript, React y Next.js</li>
+            <li><img src="img/tech/postgresql.svg" alt="" onerror="this.remove()">PostgreSQL y PostgREST</li>
+            <li><img src="img/tech/supabase.svg" alt="" onerror="this.remove()">Supabase y Vercel</li>
+            <li><img src="img/tech/python.svg" alt="" onerror="this.remove()">Python y SQL</li></ul></div>
+          <div class="group" data-reveal><h3>Automatización e IA</h3><ul>
+            <li><img src="img/tech/powershell.svg" alt="" onerror="this.remove()">PowerShell y Azure Automation</li>
+            <li><img src="img/tech/claude-code.svg" alt="" onerror="this.remove()">Claude Code</li>
+            <li><img src="img/tech/servidores-mcp.svg" alt="" onerror="this.remove()">Servidores MCP</li>
+            <li><img src="img/tech/kql.svg" alt="" onerror="this.remove()">KQL y Resource Graph</li></ul></div>
+        </div>
+        <div class="certs" data-reveal>
+          <h3>Certificaciones de Microsoft</h3>
+          <a class="cert" href="https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/52B2C739515C753F?sharingId=51E475397D223B51" target="_blank" rel="noopener" aria-label="Verificar AZ-305 Azure Solutions Architect en Microsoft Learn"><img src="img/badges/az305.png" alt="" width="58" height="60"><span><b>AZ-305</b> · Expert</span><small>Azure Solutions Architect</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <a class="cert" href="https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/B197406E6B136315?sharingId=51E475397D223B51" target="_blank" rel="noopener" aria-label="Verificar AZ-400 DevOps Engineer en Microsoft Learn"><img src="img/badges/az400.png" alt="" width="58" height="60"><span><b>AZ-400</b> · Expert</span><small>DevOps Engineer</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <a class="cert" href="https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/C0139EE975EA1CB8?sharingId=51E475397D223B51" target="_blank" rel="noopener" aria-label="Verificar AZ-700 Network Engineer en Microsoft Learn"><img src="img/badges/az700.png" alt="" width="58" height="60"><span><b>AZ-700</b> · Associate</span><small>Network Engineer</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <a class="cert" href="https://learn.microsoft.com/es-es/users/santiagodaros-6508/credentials/fbbbbe9c2857a9c9" target="_blank" rel="noopener" aria-label="Verificar SC-300 Identity and Access Administrator en Microsoft Learn"><img src="img/badges/sc300.png" alt="" width="58" height="60"><span><b>SC-300</b> · Associate</span><small>Identity and Access Administrator</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <a class="cert" href="https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51" target="_blank" rel="noopener" aria-label="Verificar AZ-104 Azure Administrator en Microsoft Learn"><img src="img/badges/az104.png" alt="" width="58" height="60"><span><b>AZ-104</b> · Associate</span><small>Azure Administrator</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <a class="cert" href="https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/809D828790013ACB?sharingId=51E475397D223B51" target="_blank" rel="noopener" aria-label="Verificar AZ-800/801 Windows Server Hybrid Administrator en Microsoft Learn"><img src="img/badges/az800.png" alt="" width="58" height="60"><span><b>AZ-800/801</b> · Associate</span><small>Windows Server Hybrid Administrator</small><i class="cert__go" aria-hidden="true">↗</i></a>
+          <div class="cert cert--next"><img class="cert__pending" src="img/badges/sc100.png" alt="" width="58" height="60"><span><b>SC-100</b> · En curso</span><small>Cybersecurity Architect</small></div>
+          <p class="certs__note">Cada una se verifica en Microsoft Learn.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" class="ground-surface">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Blog</span><h2>Notas de trabajo sobre Azure</h2></div>
+        <p>Primero una versión corta en LinkedIn; cuando el tema lo pide, la versión extendida acá.</p>
+      </div>
+      <div class="blog">
+        <a class="post--feat" data-reveal href="#art-rto">
+          <div class="post__cover post__cover--img" aria-hidden="true">
+            <span class="big">Backup no es continuidad</span>
+          </div>
+          <div class="post__body">
+            <div class="post__meta"><span class="tag">DR</span><span>Versión extendida · 6 min</span></div>
+            <h3>El plan de recuperación que nunca se probó</h3>
+            <p class="muted">La diferencia entre RPO y RTO, y por qué un plan que nunca se ejecutó es solo una hipótesis.</p>
+          </div>
+        </a>
+        <div class="posts">
+          <a class="post" data-reveal href="#art-archivo"><div class="post__meta"><span class="tag">Almacenamiento</span><span>20 de abril de 2026 · Artículo</span></div><h3>Almacenamiento inteligente: bajar costos archivando datos viejos</h3></a>
+          <a class="post" data-reveal href="https://www.linkedin.com/posts/santiagodaros_harness-engineering-ugcPost-7515527328849022976-ruBx/" target="_blank" rel="noopener"><div class="post__meta"><span class="tag">IA</span><span>12 de octubre de 2026 · LinkedIn ↗</span></div><h3>Un LLM es un motor probabilístico. Producción exige determinismo.</h3></a><a class="post" data-reveal href="https://www.linkedin.com/posts/santiagodaros_dr-ugcPost-7503474772933124096-K1Bi/" target="_blank" rel="noopener"><div class="post__meta"><span class="tag">DR</span><span>9 de septiembre de 2026 · LinkedIn ↗</span></div><h3>Cuando el DR funciona, pero el RTO no alcanza</h3></a><a class="post" data-reveal href="https://www.linkedin.com/posts/santiagodaros_recovery-news-ugcPost-7500562075858137089-TkXY/" target="_blank" rel="noopener"><div class="post__meta"><span class="tag">Identidad</span><span>1 de septiembre de 2026 · LinkedIn ↗</span></div><h3>Backup y recovery nativo de identidades en Microsoft Entra</h3></a>
+          <a class="link" href="#articulos" style="margin-top:20px;align-self:flex-start">Ver todo el blog</a>
+        </div>
+      </div>
+      <div class="magnet" data-reveal>
+        <div class="magnet__copy"><span class="eyebrow">Guía gratuita</span><h3>Las 10 consultas de KQL que corro en toda auditoría</h3><p>Huérfanos, backups faltantes, puertos abiertos, costos y más. Solo lectura, listas para copiar.</p>
+          <div class="btn-row"><a class="btn btn--primary" href="#guia-kql">Leer la guía</a><button class="btn btn--secondary" type="button" data-download-kql>Descargar .kql</button></div></div>
+        <div class="magnet__file" aria-hidden="true"><span class="magnet__ext">.kql</span><code>// 03. VMs sin Azure Backup<br>resources<br>| where type == "microsoft.compute/<br>&nbsp;&nbsp;virtualmachines"<br>| join kind = leftouter (…)<br>| where isempty(vault)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="charlas">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div><span class="eyebrow">Charlas y sesiones</span><h2>Webinars, charlas y demos en vivo</h2></div>
+        <p>Casi siempre con una demo en vivo.</p>
+      </div>
+      <div class="talks">
+        <article class="talk" data-reveal>
+          <a class="talk__visual talk__visual--img" href="https://www.youtube.com/watch?v=YytZS8YZHMY" target="_blank" rel="noopener" aria-label="Ver en YouTube: El DR que no se prueba no es un DR"><img src="img/talk-dr.webp" alt="" width="1280" height="720" loading="lazy"><span class="talk__play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M7 5.5v9l7.5-4.5z"/></svg></span></a>
+          <div class="talk__body"><h3>El DR que no se prueba no es un DR</h3><p>Webinar sobre recuperación ante desastres en Azure, con una prueba real de punta a punta.</p><p class="talk__meta">Noviembre de 2026 · entre 15 y 20 asistentes</p><div class="tags"><span class="tag">Site Recovery</span><span class="tag">DR Live</span></div><a class="talk__link" href="https://www.youtube.com/watch?v=YytZS8YZHMY" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>
+        </article>
+        <article class="talk" data-reveal>
+          <a class="talk__visual talk__visual--img" href="https://www.youtube.com/watch?v=L-HVPeHXO9o" target="_blank" rel="noopener" aria-label="Ver en YouTube: SRE en Microsoft Fabric: confiabilidad y escala"><img src="img/talk-fabric.webp" alt="" width="1280" height="720" loading="lazy"><span class="talk__play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M7 5.5v9l7.5-4.5z"/></svg></span></a>
+          <div class="talk__body"><h3>SRE en Microsoft Fabric: confiabilidad y escala</h3><p>Charla en Fabric Day, con la comunidad Microsoft Speakers Hub en Español.</p><p class="talk__meta">2026 · comunidad de habla hispana</p><div class="tags"><span class="tag">Microsoft Fabric</span></div><a class="talk__link" href="https://www.youtube.com/watch?v=L-HVPeHXO9o" target="_blank" rel="noopener">Ver en YouTube ↗</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="ground-accent newsletter">
+    <div class="wrap nl">
+      <div class="nl__copy" data-reveal><span class="eyebrow">Newsletter</span><h2>Una decisión de Azure por semana</h2><p>Un caso real y la consulta o el script que lo resolvió. Un mail por semana.</p></div>
+      <form class="nl__form" data-reveal data-subscribe novalidate>
+        <label for="nl-email">Tu email de trabajo</label>
+        <div class="nl__row"><input id="nl-email" name="email_address" type="email" autocomplete="email" placeholder="nombre@empresa.com" required><button class="btn" type="submit">Suscribirme</button></div>
+        <p class="nl__msg" role="status" aria-live="polite">Gratis. Te das de baja con un clic.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="sobre-mi" class="ground-surface">
+    <div class="wrap about">
+      <figure class="about__photo ph" data-reveal><img src="img/retrato.webp" alt="Retrato de Santiago Da Ros en la oficina de Readymind" width="800" height="1000" loading="lazy"></figure>
+      <div class="about__text">
+        <span class="eyebrow">Sobre mí</span>
+        <h2>Empecé en infraestructura y terminé construyendo producto</h2>
+        <p>Trabajo en una consultora partner de Microsoft con cuentas corporativas de varios países. Empecé en infraestructura y hoy paso buena parte del tiempo construyendo las herramientas que el equipo usa con los clientes.</p>
+        <p>Publico cada semana en LinkedIn para líderes de IT de Latinoamérica: bajo lo complejo a decisiones concretas.</p>
+        <div class="btn-row"><a class="btn btn--secondary" data-cv href="cv/CV_Santiago_Da_Ros_ES.pdf" target="_blank" rel="noopener">Descargar CV</a><a class="btn btn--secondary" data-link="linkedin" href="#contacto">LinkedIn</a></div>
+      </div>
+      <ol class="timeline" data-reveal>
+        <li><time>Octubre 2026</time><b>Agentic Banking Buildathon · Belo</b><span>Primer hackatón: Belo Business, la idea de rendimiento en USDT, el motor de reglas y la demo en vivo.</span></li>
+        <li><time>Octubre 2025 – hoy</time><b>Cloud Engineer · Readymind</b><span>Cuentas corporativas, herramientas internas y preventa técnica. Acompaño a un trainee.</span></li>
+        <li><time>Mayo – octubre 2025</time><b>Programa de formación Cloud · Readymind</b><span>Infraestructura en Azure, automatización y datos.</span></li>
+        <li><time>2027</time><b>Lic. en Gestión de Tecnología de la Información · UADE</b><span>Antes, Ciencias de la Computación en la UBA.</span></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="closing" id="contacto">
+  <div class="wrap">
+    <div class="close__head">
+      <div><h2>¿Hablamos?</h2><p>Escribime si querés hablar de cloud, de producto o de una charla para tu comunidad.</p></div>
+      <div class="btn-row"><a class="btn btn--primary" data-link="email" href="#contacto">Escribirme por email <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h8M5 2.5 8.5 6 5 9.5"/></svg></a><a class="btn btn--secondary" data-link="linkedin" href="#contacto">LinkedIn</a></div>
+    </div>
+    <div class="foot">
+      <div class="sig"><a class="logo" href="#top"><svg aria-hidden="true"><use href="#sdr"/></svg>Santiago Da Ros</a></div>
+      <div><h3>Trabajo</h3><ul><li><a href="#proyectos">Proyectos</a></li><li><a href="#experiencias">Experiencias</a></li><li><a href="#stack">Stack</a></li></ul></div>
+      <div><h3>Contenido</h3><ul><li><a href="#articulos">Blog</a></li><li><a href="#guia-kql">Guía KQL</a></li><li><a href="#newsletter">Newsletter</a></li><li><a href="#charlas">Charlas</a></li></ul></div>
+      <div><h3>Sobre mí</h3><ul><li><a href="#sobre-mi">Trayectoria</a></li><li><a data-cv href="cv/CV_Santiago_Da_Ros_ES.pdf" target="_blank" rel="noopener">CV</a></li><li><a href="#ahora">Ahora</a></li><li><a href="#estado-carrera">Estado</a></li><li><a href="#speaker">Speaker kit</a></li></ul></div>
+      <div><h3>Contacto</h3><ul><li><a data-link="email" href="#contacto">Email</a></li><li><a data-link="linkedin" href="#contacto">LinkedIn</a></li><li><a data-link="github" href="https://github.com/santiagodaros">GitHub</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Santiago Da Ros · Buenos Aires</span><span>Los nombres de productos son marcas de sus dueños</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-btn');
+  function set(t){root.setAttribute('data-theme',t);btn.setAttribute('aria-label',document.documentElement.lang==='en'?(t==='dark'?'Switch to light theme':'Switch to dark theme'):(t==='dark'?'Cambiar a tema claro':'Cambiar a tema oscuro'))}
+  try{var t=localStorage.getItem('sdr-theme'); if(t) set(t)}catch(e){}
+  btn.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='dark'?'light':'dark';set(t);try{localStorage.setItem('sdr-theme',t)}catch(e){}});
+})();
+</script>
+<article class="reader" id="art-rto" aria-label="El plan de recuperación que nunca se probó">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#blog">← Volver al blog</a><span class="muted">6 min de lectura</span></div></header>
+  <div class="reader__wrap">
+    <div class="reader__meta"><span class="draft">Versión extendida · en revisión</span><span class="tag">DR</span><span>Julio de 2026</span></div>
+    <h1>El plan de recuperación que nunca se probó</h1>
+    <p class="reader__lead">Por qué tener backup no es tener continuidad, y qué cambia cuando la prueba de recuperación deja de ser un evento y pasa a ser una rutina.</p>
+    <img class="reader__img" src="img/blog-rto.webp" alt="Línea de tiempo: el RPO va del último backup al incidente y el RTO del incidente a la operación restaurada, pasando por detectar, decidir, restaurar, validar y reconectar." width="1600" height="560">
+    <div class="prose">
+<p>En la mayoría de los comités de tecnología, la pregunta "¿tenemos backup?" se responde con un sí y la conversación termina ahí. El problema es que esa pregunta mide la protección del dato, no la capacidad real de volver a operar. Son dos métricas distintas, y confundirlas es una de las brechas más caras en la gestión de infraestructura.</p>
+<h2>RPO y RTO no miden lo mismo</h2>
+<ul><li><b>RPO (Recovery Point Objective):</b> cuánta información está dispuesta a perder la compañía. Lo responde la política de respaldo: si el backup corre cada 24 horas, el RPO es de 24 horas.</li>
+<li><b>RTO (Recovery Time Objective):</b> cuánto tarda el negocio en volver a operar. No lo responde el backup, sino el procedimiento completo: detectar, decidir, restaurar, validar y reconectar dependencias.</li></ul>
+<h2>Donde se rompen los planes</h2>
+<p>La distancia entre esas dos métricas es donde se rompen los planes de continuidad. Restaurar volúmenes de varios TB desde almacenamiento frío no es una operación de minutos. Sumando el tiempo de decisión, la validación funcional y el reordenamiento de dependencias, un RTO que en el papel figuraba en 4 horas puede convertirse en dos jornadas de operación detenida.</p>
+<p>Lo vi en un caso real: servidores Linux críticos cuya versión de kernel quedaba fuera de la matriz de soporte de Azure Site Recovery. La salida estándar, restaurar desde los backups de Veeam, funcionaba, pero rehidratar discos completos desde un backup en frío estiraba el RTO a cifras inaceptables. Lo conté en <a href="https://www.linkedin.com/posts/santiagodaros_dr-ugcPost-7503474772933124096-K1Bi/" target="_blank" rel="noopener">este post</a>.</p>
+<h2>Un plan que nunca se ejecutó es una hipótesis</h2>
+<p>Las pruebas de failover son el único momento en que aparecen las dependencias no documentadas, los servicios que levantan en el orden equivocado y las credenciales vencidas. Descubrir eso durante una contingencia real cuesta muchísimo más que descubrirlo en una prueba planificada.</p>
+<p>Por eso automatizamos el test failover con Site Recovery: hoy probamos 20 servidores en paralelo, por grupos y en una red aislada que no toca producción, y la validación pasó de unas 2 horas a 45 minutos, con evidencia para auditoría. Probar dejó de ser un evento caro y pasó a ser una rutina.</p>
+<h2>Qué medir en la próxima prueba</h2>
+<ol><li>El tiempo total, de punta a punta, contra el RTO que figura en el papel.</li><li>El orden real de arranque y las dependencias que no estaban documentadas.</li><li>Quién tomó cada decisión y cuánto se tardó en tomarla.</li><li>Qué se validó funcionalmente, además de "la VM encendió".</li></ol>
+<aside class="callout">Antes de dar por cubierta la continuidad, la pregunta no es "¿tenemos backup?", sino <b>"¿cuándo fue la última vez que ejecutamos una recuperación completa y cuánto tardamos realmente?"</b>. Una estrategia de resiliencia no se mide por lo que está documentado, sino por lo que se demostró bajo prueba.</aside>
+<p>¿Con qué frecuencia ejecutan pruebas reales de recuperación en sus organizaciones? Lo charlamos en <a href="https://www.linkedin.com/posts/santiagodaros_portada-rto-vs-rpo-ugcPost-7487954044368502784-Y4q-/" target="_blank" rel="noopener">el post original</a>.</p>
+    </div>
+    <footer class="reader__end">
+      <div class="author"><img src="img/retrato.webp" alt="" width="56" height="56"><div><b>Santiago Da Ros</b><span class="muted">Cloud Engineer en Readymind. De cloud al producto.</span></div></div>
+      <div class="reader__actions"><a class="btn btn--primary" href="https://www.linkedin.com/posts/santiagodaros_portada-rto-vs-rpo-ugcPost-7487954044368502784-Y4q-/" target="_blank" rel="noopener">Comentar en LinkedIn ↗</a><a class="btn btn--secondary" href="#newsletter">Recibir el próximo</a></div>
+      <a class="next" href="#art-archivo"><span class="muted">Siguiente</span><b>Almacenamiento inteligente: bajar costos archivando datos viejos</b></a>
+    </footer>
+  </div>
+</article>
+<article class="reader" id="art-archivo" aria-label="Almacenamiento inteligente: bajar costos archivando datos viejos">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#blog">← Volver al blog</a><span class="muted">4 min de lectura</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="reader__meta"><span class="tag">Almacenamiento</span><span>20 de abril de 2026</span></div>
+    <h1>Almacenamiento inteligente: bajar costos archivando datos viejos</h1>
+    <p class="reader__lead">Cómo una política de ciclo de vida en Blob Storage mueve sola los datos inactivos a Archive, y qué hay que tener en cuenta antes de aplicarla.</p>
+    <div class="reader__cover" aria-hidden="true"><code>&quot;prefixMatch&quot;: [&quot;backups/&quot;]
+&quot;tierToArchive&quot;: {
+  &quot;daysAfterModificationGreaterThan&quot;: 90
+}</code></div>
+    <div class="prose">
+<p>Diseñar soluciones que equilibren escalabilidad, seguridad y costo es un desafío constante. Hoy lo aplicamos a los datos inactivos en Azure.</p>
+<p>Tener cantidades masivas de información inactiva u obsoleta en la nube se convierte rápido en un agujero negro para el presupuesto: años de registros de auditoría o backups viejos ocupando el almacenamiento más caro sin aportar valor diario.</p>
+<h2>Tiering automático con políticas de ciclo de vida</h2>
+<p>Azure Blob Storage permite definir políticas de ciclo de vida que mueven los datos "fríos" al nivel Archive. Corren de forma nativa y en segundo plano, sin impacto operativo: el motor evalúa los metadatos de cada blob y lo pasa al nivel más eficiente en costo.</p>
+<p>El impacto es grande: se pasa de tarifas estándar a fracciones de centavo, con proyecciones de ahorro de hasta un 90% para esos conjuntos de datos.</p>
+<h2>Lo que exige Archive</h2>
+<ul><li><b>Rehidratación:</b> Archive está offline. Para leer un blob hay que rehidratarlo, con latencias de horas.</li><li><b>Early deletion:</b> si un blob se modifica, se lee o se borra antes de los 180 días de retención mínima, Azure cobra una penalización.</li></ul>
+<h2>Un ejemplo</h2>
+<p>Esta regla busca los blobs de la carpeta <code>backups</code> y, si no se modificaron en 90 días, los pasa a Archive:</p>
+<div class="code"><div class="code__bar"><span>JSON</span><button type="button" class="code__copy">Copiar</button></div><pre><code>{
+  &quot;rules&quot;: [{
+    &quot;name&quot;: &quot;backups-a-archive&quot;,
+    &quot;enabled&quot;: true,
+    &quot;type&quot;: &quot;Lifecycle&quot;,
+    &quot;definition&quot;: {
+      &quot;filters&quot;: { &quot;blobTypes&quot;: [&quot;blockBlob&quot;], &quot;prefixMatch&quot;: [&quot;backups/&quot;] },
+      &quot;actions&quot;: {
+        &quot;baseBlob&quot;: {
+          &quot;tierToArchive&quot;: { &quot;daysAfterModificationGreaterThan&quot;: 90 }
+        }
+      }
+    }
+  }]
+}</code></pre></div>
+<aside class="callout">Con estas reglas el costo del almacenamiento deja de ser estático, donde pagás lo mismo sin importar si el dato se usa, y pasa a ser <b>dinámico: ajusta el nivel y el costo según el ciclo de vida de la información</b>.</aside>
+<p>Para quienes ya usan Archive: ¿cuál fue su mayor desafío al equilibrar el ahorro frente a los tiempos de rehidratación? Publicado originalmente en <a href="https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf/" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </div>
+    <footer class="reader__end">
+      <div class="author"><img src="img/retrato.webp" alt="" width="56" height="56"><div><b>Santiago Da Ros</b><span class="muted">Cloud Engineer en Readymind. De cloud al producto.</span></div></div>
+      <div class="reader__actions"><a class="btn btn--primary" href="https://www.linkedin.com/pulse/almacenamiento-inteligente-bajar-costos-archivando-datos-da-ros-xciuf/" target="_blank" rel="noopener">Comentar en LinkedIn ↗</a><a class="btn btn--secondary" href="#newsletter">Recibir el próximo</a></div>
+      <a class="next" href="#art-rto"><span class="muted">Siguiente</span><b>El plan de recuperación que nunca se probó</b></a>
+    </footer>
+  </div>
+</article>
+<section class="reader" id="articulos" aria-label="Todos los artículos">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#blog">← Volver al inicio</a><span class="muted">Blog</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <h1>Blog</h1>
+    <p class="reader__lead">Publico primero una versión corta en LinkedIn y, cuando el tema lo pide, la versión extendida acá.</p>
+    <div class="index">
+      <a class="index__item" href="#art-archivo"><div class="reader__meta"><span class="tag">Almacenamiento</span><span>20 de abril de 2026</span><span>Artículo</span></div><h2>Almacenamiento inteligente: bajar costos archivando datos viejos</h2><p class="muted">Políticas de ciclo de vida en Blob Storage para mover datos inactivos a Archive.</p></a>
+      <a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_harness-engineering-ugcPost-7515527328849022976-ruBx/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">IA</span><span>12 de octubre de 2026</span><span>Post en LinkedIn ↗</span></div><h2>Un LLM es un motor probabilístico. Producción exige determinismo.</h2><p class="muted">ai-env, mi arnés para operar infraestructura con agentes: control separado de ejecución, validación formal y verificación externa.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_dr-ugcPost-7503474772933124096-K1Bi/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">DR</span><span>9 de septiembre de 2026</span><span>Post en LinkedIn ↗</span></div><h2>Cuando el DR funciona, pero el RTO no alcanza</h2><p class="muted">Servidores Linux fuera de la matriz de Site Recovery y un restore desde Veeam demasiado lento: cómo achicamos la brecha.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_recovery-news-ugcPost-7500562075858137089-TkXY/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">Identidad</span><span>1 de septiembre de 2026</span><span>Post en LinkedIn ↗</span></div><h2>Backup y recovery nativo de identidades en Microsoft Entra</h2><p class="muted">Por qué respaldar identidades, roles y políticas cambia los planes de recuperación.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_portada-riesgos-t%C3%A9cnicos-ugcPost-7497371647340068866-JN9t/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">Estrategia</span><span>23 de agosto de 2026</span><span>Post en LinkedIn ↗</span></div><h2>El cuello de botella en IT es traducir el riesgo al negocio</h2><p class="muted">De especificaciones a continuidad operativa: cómo presentar riesgos técnicos para que se aprueben.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_3-entornos-ugcPost-7492940673638354945-Riw8/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">Consultoría</span><span>11 de agosto de 2026</span><span>Post en LinkedIn ↗</span></div><h2>3 entornos, 3 tecnologías y una semana de adaptabilidad</h2><p class="muted">Relevar Microsoft 365, Azure y Active Directory en paralelo sin perder la foto completa.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_portada-relevamiento-ugcPost-7490098208787042306-5U5R/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">Consultoría</span><span>3 de agosto de 2026</span><span>Post en LinkedIn ↗</span></div><h2>Lo que aprendés al presentar un relevamiento de infraestructura</h2><p class="muted">La parte técnica es el 20%; el resto es entender la historia detrás de cada hallazgo.</p></a><a class="index__item" href="#art-rto"><div class="reader__meta"><span class="tag">DR</span><span>28 de julio de 2026</span><span>Versión extendida</span></div><h2>El plan de recuperación que nunca se probó</h2><p class="muted">Tener backup no es tener continuidad: la diferencia entre RPO y RTO.</p></a><a class="index__item" href="https://www.linkedin.com/posts/santiagodaros_portada-sla-ugcPost-7485686396255596544-Q1FT/" target="_blank" rel="noopener"><div class="reader__meta"><span class="tag">FinOps</span><span>22 de julio de 2026</span><span>Post en LinkedIn ↗</span></div><h2>El mito del 99,99%: cuándo la alta disponibilidad es un desperdicio</h2><p class="muted">La brecha financiera entre tres y cuatro nueves, y cómo alinear el SLA con el negocio.</p></a>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.reader').forEach(function(r){
+    var bar=r.querySelector('.reader__progress i');
+    r.addEventListener('scroll',function(){var m=r.scrollHeight-r.clientHeight;bar.style.width=(m>0?r.scrollTop/m*100:0)+'%'});
+  });
+  function sync(){var open=!!document.querySelector('.reader:target,.drawer:target');document.documentElement.classList.toggle('reading',open);var r=document.querySelector('.reader:target,.drawer:target');if(r){r.scrollTop=0;document.title=(r.querySelector('h1,h2')||{}).textContent+' · Santiago Da Ros'}else document.title='Santiago Da Ros: ingeniero de producto y cloud en Azure'}
+  addEventListener('hashchange',sync);sync();
+  document.querySelectorAll('.code__copy').forEach(function(b){b.addEventListener('click',function(){var t=b.closest('.code').querySelector('code').textContent;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copiado'},function(){b.textContent='Seleccioná y copiá'}).finally(function(){setTimeout(function(){b.textContent='Copiar'},1600)})})});
+  document.querySelectorAll('.share').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank','noopener')})});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('.reader:target'))location.hash='blog'});
+})();
+</script>
+<section class="reader" id="guia-kql" aria-label="Guía de consultas KQL">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#top">← Volver al inicio</a><span class="muted">Guía gratuita</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="reader__meta"><span class="tag">Guía gratuita</span><span>10 consultas · Azure Resource Graph</span></div>
+    <h1>Las 10 consultas de KQL que corro en toda auditoría de Azure</h1>
+    <p class="reader__lead">Todas son de solo lectura y corren en el explorador de Resource Graph o con <code>Search-AzGraph</code>. Copiá la que necesites o bajá el archivo completo.</p>
+    <div class="reader__actions" style="margin-top:28px"><button class="btn btn--primary" type="button" data-download-kql>Descargar el archivo .kql</button><a class="btn btn--secondary" href="#newsletter">Recibir una por semana</a></div>
+    <div class="prose"><h2>01. Recursos huérfanos: discos, IP públicas y NICs</h2><p>Lo que quedó suelto después de borrar VMs y se sigue pagando.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.compute/disks&quot; and tostring(properties.diskState) == &quot;Unattached&quot;
+| project tipo = &quot;Disco sin adjuntar&quot;, name, resourceGroup, subscriptionId
+| union (resources
+    | where type == &quot;microsoft.network/publicipaddresses&quot; and isnull(properties.ipConfiguration)
+    | project tipo = &quot;IP pública sin asociar&quot;, name, resourceGroup, subscriptionId)
+| union (resources
+    | where type == &quot;microsoft.network/networkinterfaces&quot;
+        and isnull(properties.virtualMachine) and isnull(properties.privateEndpoint)
+    | project tipo = &quot;NIC sin VM&quot;, name, resourceGroup, subscriptionId)</code></pre></div><h2>02. Estado de encendido de las VMs</h2><p>Cuántas están encendidas, apagadas o desasignadas. Una VM apagada sin desasignar se sigue cobrando.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.compute/virtualmachines&quot;
+| extend estado = tostring(properties.extended.instanceView.powerState.code)
+| summarize vms = count() by estado
+| order by vms desc</code></pre></div><h2>03. VMs sin Azure Backup</h2><p>Máquinas que no aparecen como protegidas en ningún Recovery Services Vault.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.compute/virtualmachines&quot;
+| extend vmId = tolower(id)
+| join kind = leftouter (
+    recoveryservicesresources
+    | where type == &quot;microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems&quot;
+    | extend vmId = tolower(tostring(properties.sourceResourceId))
+    | project vmId, vault = tostring(split(id, &quot;/&quot;)[8])
+  ) on vmId
+| where isempty(vault)
+| project name, resourceGroup, location, subscriptionId</code></pre></div><h2>04. Reglas de NSG abiertas a Internet en RDP o SSH</h2><p>La puerta más común para un incidente.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.network/networksecuritygroups&quot;
+| mv-expand regla = properties.securityRules
+| where regla.properties.direction == &quot;Inbound&quot; and regla.properties.access == &quot;Allow&quot;
+| where tostring(regla.properties.sourceAddressPrefix) in (&quot;*&quot;, &quot;Internet&quot;, &quot;0.0.0.0/0&quot;)
+| extend puerto = tostring(regla.properties.destinationPortRange)
+| where puerto in (&quot;22&quot;, &quot;3389&quot;, &quot;*&quot;)
+| project nsg = name, regla = tostring(regla.name), puerto, resourceGroup, subscriptionId</code></pre></div><h2>05. Cuentas de almacenamiento con acceso público o TLS viejo</h2><p>Blobs que se pueden leer sin autenticación y cuentas que aceptan TLS 1.0 o 1.1.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.storage/storageaccounts&quot;
+| extend accesoPublico = tobool(properties.allowBlobPublicAccess),
+         tls = tostring(properties.minimumTlsVersion)
+| where accesoPublico == true or tls != &quot;TLS1_2&quot;
+| project name, accesoPublico, tls, resourceGroup, subscriptionId</code></pre></div><h2>06. SQL Servers con acceso de red público</h2><p>Candidatos a private endpoint.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where type == &quot;microsoft.sql/servers&quot;
+| where tostring(properties.publicNetworkAccess) == &quot;Enabled&quot;
+| project name, resourceGroup, location, subscriptionId</code></pre></div><h2>07. Recursos sin tag de responsable</h2><p>Sin owner, nadie decide si se apaga, se paga o se borra.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| where isempty(tostring(tags[&quot;owner&quot;]))
+| summarize recursos = count() by type
+| order by recursos desc</code></pre></div><h2>08. Recomendaciones de costo de Azure Advisor</h2><p>Lo que Microsoft ya detectó y nadie aplicó.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>advisorresources
+| where type == &quot;microsoft.advisor/recommendations&quot;
+| where tostring(properties.category) == &quot;Cost&quot;
+| project impacto = tostring(properties.impact),
+          problema = tostring(properties.shortDescription.problem),
+          recurso = tostring(properties.resourceMetadata.resourceId)
+| order by impacto asc</code></pre></div><h2>09. Secure Score de Defender por suscripción</h2><p>Un número para seguir mes a mes.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>securityresources
+| where type == &quot;microsoft.security/securescores&quot;
+| extend puntaje = round(todouble(properties.score.percentage) * 100, 1)
+| project subscriptionId, puntaje
+| order by puntaje asc</code></pre></div><h2>10. Recursos por región</h2><p>Para detectar despliegues fuera de las regiones permitidas antes de escribir la policy.</p><div class="code"><div class="code__bar"><span>KQL</span><button type="button" class="code__copy">Copiar</button></div><pre><code>resources
+| summarize recursos = count() by location
+| order by recursos desc</code></pre></div>
+      
+    </div>
+    <div style="height:96px"></div>
+  </div>
+</section>
+<section class="reader" id="speaker" aria-label="Speaker kit">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#top">← Volver al inicio</a><span class="muted">Speaker kit</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="reader__meta"><span class="tag">Speaker kit</span><span>Para organizadores de eventos y comunidades</span></div>
+    <h1>Santiago Da Ros como speaker</h1>
+    <p class="reader__lead">Todo lo que necesitás para presentarme en tu evento: bio, fotos, temas y formatos. Charlas en español; en inglés, a coordinar.</p>
+    <div class="prose">
+      <h2>Bio corta</h2><div class="bio"><p>Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región.</p><button type="button" class="btn btn--secondary" data-copy-prev>Copiar bio</button></div>
+      <h2>Bio larga</h2><div class="bio"><p>Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región. Trabaja en identidad, gobernanza, FinOps y recuperación ante desastres,, y diseñó una prueba automatizada de recuperación ante desastres que hoy usa su equipo. Tiene seis certificaciones de Microsoft, entre ellas AZ-305 y AZ-400, y habló en Fabric Day con la comunidad Microsoft Speakers Hub en Español. Sus charlas muestran el trabajo funcionando, con demos en vivo.</p><button type="button" class="btn btn--secondary" data-copy-prev>Copiar bio</button></div>
+      <h2>Fotos</h2>
+      <div class="kit-photos">
+        <a href="img/retrato.jpg" download="santiago-da-ros-retrato.jpg"><img src="img/retrato.webp" alt="Retrato de Santiago Da Ros" loading="lazy"><span>Retrato · descargar</span></a>
+        <a href="img/hero.jpg" download="santiago-da-ros-charla.jpg"><img src="img/hero.webp" alt="Santiago presentando con un micrófono" loading="lazy"><span>Charla · descargar</span></a>
+        <a href="img/pitch.jpg" download="santiago-da-ros-escenario.jpg"><img src="img/pitch.webp" alt="Santiago en un escenario frente a una pantalla" loading="lazy"><span>Escenario · descargar</span></a>
+        <a href="img/build.jpg" download="santiago-da-ros-taller.jpg"><img src="img/build.webp" alt="Santiago trabajando en un hackatón" loading="lazy"><span>Taller · descargar</span></a>
+      </div>
+      <h2>Temas</h2>
+      <div class="topics"><div class="topic"><b>Recuperación ante desastres con una prueba real</b><p>Cómo validar un plan de DR sin miedo, con Site Recovery, automatización y evidencia para auditoría. Demo en vivo de una caída y su recuperación.</p></div><div class="topic"><b>Gobernanza de Azure como código</b><p>Azure Policy, EPAC, Lighthouse y GitHub Actions para gobernar varios tenants desde un repositorio, sin secretos.</p></div><div class="topic"><b>FinOps con KQL: el ahorro que nadie reclama</b><p>Consultas de Resource Graph para encontrar gasto oculto y convertirlo en un reporte que alguien lea.</p></div><div class="topic"><b>IA en operaciones cloud, con revisión humana</b><p>Agentes, skills e integraciones MCP aplicados al trabajo diario de un equipo de infraestructura.</p></div></div>
+      <h2>Formatos</h2>
+      <ul><li>Charla de 30 a 45 minutos con demo en vivo.</li><li>Taller práctico de 90 minutos con laboratorio en Azure.</li><li>Panel o entrevista sobre carrera cloud y producto.</li></ul>
+      <h2>Contacto</h2>
+      <div class="reader__actions"><a class="btn btn--primary" data-link="email" href="#contacto">Escribirme por email</a><a class="btn btn--secondary" data-link="linkedin" href="#contacto">LinkedIn</a></div>
+    </div>
+    <div style="height:96px"></div>
+  </div>
+</section>
+<section class="reader" id="ahora" aria-label="En qué ando ahora">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#top">← Volver al inicio</a><span class="muted">/ahora</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="reader__meta"><span class="tag">Ahora</span><span>Actualizado en noviembre de 2026</span></div>
+    <h1>En qué ando ahora</h1>
+    <p class="reader__lead">Una página que actualizo cada mes con lo que estoy estudiando, construyendo y aprendiendo. La idea viene del movimiento /now.</p>
+    <div class="now">
+      <div class="now__item"><div><b>Estudiando</b><p>SC-100, Cybersecurity Architect, para rendirla antes de fin de año. Después, IA y datos en Azure.</p></div></div>
+      <div class="now__item"><div><b>Construyendo</b><p>Este sitio y su blog, y dashboards de monitoreo con alertas por mail.</p></div></div>
+      <div class="now__item"><div><b>Preparando</b><p>Una nueva sesión para Microsoft Speakers Hub en Español y el próximo webinar con demo en vivo.</p></div></div>
+      <div class="now__item"><div><b>Aprendiendo</b><p>Inglés, para trabajar y dar charlas en inglés, y producto: cómo decidir qué construir y qué no.</p></div></div>
+      <div class="now__item"><div><b>Empezando</b><p>La Licenciatura en Gestión de Tecnología de la Información en la UADE, en marzo de 2027.</p></div></div>
+    </div>
+    <div style="height:96px"></div>
+  </div>
+</section>
+<section class="reader" id="estado-carrera" aria-label="Página de estado">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#top">← Volver al inicio</a><span class="muted">Estado</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="reader__meta"><span class="tag">Página de estado</span><span>Actualizada en noviembre de 2026</span></div>
+    <h1>Estado de Santiago Da Ros</h1>
+    <div class="banner-ok"><span class="pulse__dot"></span>Todos los sistemas principales operativos</div>
+    <div class="up"><div class="up__row"><div class="up__head"><b>Azure e identidad</b><span class="st st--ok">Operativo</span></div><span class="muted up__note">6 certificaciones activas</span></div><div class="up__row"><div class="up__head"><b>Producto</b><span class="st st--ok">Operativo</span></div><span class="muted up__note">5 herramientas en uso</span></div><div class="up__row"><div class="up__head"><b>Blog</b><span class="st st--ok">Operativo</span></div><span class="muted up__note">Un artículo por semana</span></div><div class="up__row"><div class="up__head"><b>Charlas</b><span class="st st--ok">Operativo</span></div><span class="muted up__note">Próxima sesión en 2027</span></div><div class="up__row"><div class="up__head"><b>SC-100</b><span class="st st--maint">Mantenimiento programado</span></div><span class="muted up__note">Examen antes de fin de año</span></div>
+    <div class="prose">
+      <h2>Incidentes resueltos</h2>
+      <div class="log">
+        
+        <div class="log__item"><time>Octubre 2026</time><b>Primer hackatón, con un día de plazo</b><p>Causa: no había producto. Solución: Belo Business, construida en equipo sobre la API de Belo y presentada en vivo. Yo propuse el rendimiento en USDT hasta el vencimiento y armé el motor de reglas.</p></div>
+        <div class="log__item"><time>2026</time><b>Licencias pagas sin asignar en toda la cartera</b><p>Causa: la información estaba repartida en más de 200 tenants. Solución: el Portal de operaciones CSP, en solo lectura y en producción.</p></div>
+      </div>
+      <h2>Mantenimientos programados</h2>
+      <div class="log">
+        <div class="log__item"><time>Diciembre 2026</time><b>Examen SC-100</b><p>Impacto esperado: ninguno. Después de la ventana, el componente de seguridad sube de nivel.</p></div>
+        <div class="log__item"><time>Marzo 2027</time><b>Comienzo de la licenciatura en la UADE</b><p>Los jueves tienen capacidad reducida.</p></div>
+      </div>
+    </div>
+    <div style="height:96px"></div>
+  </div>
+</section>
+<section class="reader" id="sin-replica" aria-label="Página no encontrada">
+  <div class="reader__progress"><i></i></div>
+  <header class="reader__top"><div class="reader__wrap reader__topbar"><a class="link" href="#top">← Volver al inicio</a><span class="muted">404</span></div></header>
+  <div class="reader__wrap">
+    <p class="en-note">This page is in Spanish. An English version is on the way.</p>
+    <div class="nf">
+      <span class="eyebrow">Error 404 · Región primaria sin respuesta</span>
+      <h1>Esta página no tiene réplica</h1>
+      <p class="reader__lead">Lo que buscabas no existe o se movió. La buena noticia: el resto del sitio sí está replicado.</p>
+      <div class="reader__actions"><a class="btn btn--primary" href="#top">Ir a la región secundaria</a><button class="btn btn--secondary" type="button" data-open-palette>Buscar en el sitio</button></div>
+      <div class="nf__trace" aria-hidden="true"><span>GET /<b class="nf__path">página</b></span><span class="err">× 404 · primary · 12 ms</span><span class="ok">✓ failover → secundaria · 0,4 s</span></div>
+    </div>
+  </div>
+</section>
+<section class="drawer" id="p-portal" aria-label="Portal de operaciones CSP">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-portal-t">
+    <header class="drawer__top"><span class="sol__kind">Producto interno · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-portal-t">Portal de operaciones CSP</h2>
+    <p class="drawer__lead">Un solo lugar para ver accesos, costos, licencias y compras de toda la cartera de clientes.</p>
+    <div class="drawer__kpis"><div><strong>204</strong><span>clientes en 6 países</span></div><div><strong>9</strong><span>integraciones de solo lectura</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>La información que un account manager necesita para atender a un cliente estaba repartida entre portales distintos. Responder algo simple, como cuántas licencias se pagan sin usar, llevaba tiempo y dependía de quién supiera dónde buscar.</p></div>
+    <div><h3>La idea</h3><p>Juntar todo en un portal propio que lee las fuentes de Microsoft sin poder modificarlas, muestra a cada persona solo lo que le corresponde y pide una doble aprobación antes de cualquier compra.</p></div>
+    <div><h3>Qué cambió</h3><p>El equipo consulta la cartera completa en un lugar, detecta licencias sin asignar y renovaciones a tiempo, y las compras quedan registradas y aprobadas.</p></div>
+    <div><h3>Mi rol</h3><p>Relevé con los account managers qué necesitaban, definí el alcance y los permisos por rol, diseñé las pantallas, programé las integraciones de solo lectura con Microsoft, armé el circuito de compras con doble aprobación y lo puse en producción en Azure.</p></div></div>
+    <div class="tags"><span class="tag">Producto interno</span><span class="tag">FinOps</span><span class="tag">Seguridad por defecto</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-failover" aria-label="Prueba automatizada de recuperación">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-failover-t">
+    <header class="drawer__top"><span class="sol__kind">Recuperación ante desastres · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-failover-t">Prueba automatizada de recuperación</h2>
+    <p class="drawer__lead">Probar un plan de recuperación dejó de ser un evento caro y pasó a ser una rutina.</p>
+    <div class="drawer__kpis"><div><strong>2 h → 45 min</strong><span>por prueba</span></div><div><strong>20</strong><span>servidores en paralelo</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Validar que un plan de recuperación funcione de verdad llevaba unas dos horas de trabajo manual. Como probar era caro, se probaba poco, y un plan que no se prueba es solo una hipótesis.</p></div>
+    <div><h3>La idea</h3><p>Automatizar la prueba completa: levantar los servidores por grupos en un entorno aislado que no toca producción, con controles de seguridad, y dejar un reporte como evidencia para auditoría.</p></div>
+    <div><h3>Qué cambió</h3><p>La validación pasó a tardar 45 minutos, un 62% menos, y se puede repetir cuando haga falta. Las sorpresas aparecen en la prueba y no durante una caída real.</p></div>
+    <div><h3>Mi rol</h3><p>Definí el orden de recuperación por grupos de servidores, escribí la automatización sobre Site Recovery, sumé los controles que impiden tocar producción y armé el reporte que queda como evidencia.</p></div></div>
+    <div class="tags"><span class="tag">Continuidad</span><span class="tag">Automatización</span><span class="tag">Evidencia para auditoría</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-auditoria" aria-label="Auditoría automática de Azure y M365">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-auditoria-t">
+    <header class="drawer__top"><span class="sol__kind">Seguridad e identidad · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-auditoria-t">Auditoría automática de Azure y M365</h2>
+    <p class="drawer__lead">Un relevamiento de seguridad repetible, que no depende de quién lo haga.</p>
+    <div class="drawer__kpis"><div><strong>209</strong><span>controles por corrida</span></div><div><strong>0</strong><span>cambios en el entorno</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Relevar la seguridad de un entorno de Azure, identidad y Microsoft 365 a mano lleva días, y el resultado cambia según la persona que lo hace.</p></div>
+    <div><h3>La idea</h3><p>Una auditoría que corre sola, solo con permisos de lectura, revisa identidad, accesos y configuración, y entrega un plan priorizado que se puede presentar a la dirección.</p></div>
+    <div><h3>Qué cambió</h3><p>Los relevamientos son más rápidos y comparables entre clientes, y la conversación con el cliente arranca desde un diagnóstico claro y no desde una lista de 50 problemas.</p></div>
+    <div><h3>Mi rol</h3><p>Elegí y escribí los 209 controles de identidad, acceso y configuración, los programé para correr solo con permisos de lectura, diseñé el informe con el plan priorizado y lo presento a los clientes.</p></div></div>
+    <div class="tags"><span class="tag">Seguridad</span><span class="tag">Identidad</span><span class="tag">Relevamientos</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-drlive" aria-label="DR Live">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-drlive-t">
+    <header class="drawer__top"><span class="sol__kind">Observabilidad · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-drlive-t">DR Live</h2>
+    <p class="drawer__lead">Ver una recuperación en tiempo real, y lo que cuesta cada minuto de caída.</p>
+    <div class="drawer__kpis"><div><strong>En vivo</strong><span>durante el webinar</span></div><div><strong>15–20</strong><span>asistentes</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Hablar de RTO y RPO frente a la dirección suele quedar en abstracto. Es difícil dimensionar qué significa una hora de caída si nunca la viste.</p></div>
+    <div><h3>La idea</h3><p>Una pantalla que muestra en vivo cómo avanza una prueba de recuperación, grupo por grupo, junto al costo acumulado de cada minuto de caída.</p></div>
+    <div><h3>Qué cambió</h3><p>La conversación pasa de conceptos a algo que se ve. Lo usé en el webinar "El DR que no se prueba no es un DR".</p></div>
+    <div><h3>Mi rol</h3><p>Diseñé la pantalla, programé el seguimiento en tiempo real de cada grupo y el cálculo del costo por minuto de caída, y lo usé en vivo en el webinar.</p></div></div>
+    <div class="tags"><span class="tag">Continuidad</span><span class="tag">Comunicación con el negocio</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-gobernanza" aria-label="Gobernanza de Azure como código">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-gobernanza-t">
+    <header class="drawer__top"><span class="sol__kind">Gobernanza · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-gobernanza-t">Gobernanza de Azure como código</h2>
+    <p class="drawer__lead">Las reglas de Azure de varios clientes, gestionadas desde un solo lugar y con aprobación.</p>
+    <div class="drawer__kpis"><div><strong>Multi-tenant</strong><span>desde un repositorio</span></div><div><strong>0</strong><span>secretos guardados</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Aplicar reglas de seguridad y costo en cada cliente a mano es lento, difícil de auditar y fácil de romper.</p></div>
+    <div><h3>La idea</h3><p>Escribir las reglas una vez, versionarlas y aplicarlas en varios clientes con una aprobación previa, sin guardar contraseñas en ningún lado.</p></div>
+    <div><h3>Qué cambió</h3><p>Es la base de un servicio de gobernanza reutilizable dentro de Readymind. Está en desarrollo avanzado.</p></div>
+    <div><h3>Mi rol</h3><p>Diseñé la arquitectura para operar varios clientes desde un repositorio, armé el flujo que pide aprobación antes de aplicar cada cambio y la autenticación sin contraseñas guardadas.</p></div></div>
+    <div class="tags"><span class="tag">Gobernanza</span><span class="tag">Multi-cliente</span><span class="tag">En desarrollo</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-backups" aria-label="Backups por nivel de criticidad">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-backups-t">
+    <header class="drawer__top"><span class="sol__kind">Costos y continuidad · Readymind</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+        <h2 id="p-backups-t">Backups por nivel de criticidad</h2>
+    <p class="drawer__lead">Cada servidor protegido según lo que vale para el negocio, no todos igual.</p>
+    <div class="drawer__kpis"><div><strong>3</strong><span>niveles de protección</span></div><div><strong>0</strong><span>migraciones forzadas</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Todos los servidores se respaldaban con la misma política, pagando copias rápidas incluso donde no hacían falta.</p></div>
+    <div><h3>La idea</h3><p>Clasificar los servidores en tres niveles según qué tan críticos son y darle a cada nivel la protección y el costo que corresponden, sin tocar lo que ya funciona.</p></div>
+    <div><h3>Qué cambió</h3><p>Menos gasto en copias rápidas, una limpieza de respaldos huérfanos y una política que se explica en una frase. Está en curso.</p></div>
+    <div><h3>Mi rol</h3><p>Audité los respaldos y políticas existentes, clasifiqué los servidores por criticidad, diseñé las tres políticas y la limpieza de copias huérfanas, y armé el plan para aplicarlo sin migrar lo que ya funciona.</p></div></div>
+    <div class="tags"><span class="tag">FinOps</span><span class="tag">Continuidad</span><span class="tag">En curso</span></div>
+    <p class="drawer__note">Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.</p>
+  </div>
+</section>
+<section class="drawer" id="p-aienv" aria-label="ai-env">
+  <a class="drawer__bg" href="#proyectos" aria-label="Cerrar" tabindex="-1"></a>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="p-aienv-t">
+    <header class="drawer__top"><span class="sol__kind">Proyecto propio · open source</span><a class="drawer__x" href="#proyectos" aria-label="Cerrar">×</a></header>
+    <h2 id="p-aienv-t">ai-env</h2>
+    <p class="drawer__lead">Un arnés para operar infraestructura crítica con agentes de IA, con el mismo rigor que pide producción.</p>
+    <div class="drawer__kpis"><div><strong>4</strong><span>invariantes de diseño</span></div><div><strong>Open source</strong><span>en GitHub</span></div></div>
+    <div class="drawer__body"><div><h3>El problema</h3><p>Un modelo de lenguaje es probabilístico y producción exige determinismo. Pegar miles de líneas en un chat esperando que el modelo "recuerde no romper nada" no es ingeniería.</p></div><div><h3>La idea</h3><p>Poner la inteligencia en el andamiaje de control: separar el control de la ejecución, validar con esquemas en vez de pedirle cosas al modelo, mandarle solo el contexto necesario y verificar cada resultado por fuera.</p></div><div><h3>Qué cambió</h3><p>Trabajo con agentes que orquestan tareas en entornos aislados, nunca ven credenciales y no cierran nada sin evidencia independiente. Se instala solo en todos mis equipos.</p></div><div><h3>Mi rol</h3><p>Lo diseñé, lo construí y lo publiqué como open source: los plugins, los flujos de trabajo con agentes, los scripts de entornos aislados y las reglas de verificación.</p></div></div>
+    <div class="tags"><a class="btn btn--primary btn--sm" href="https://github.com/santiagodaros/ai-env" target="_blank" rel="noopener">Ver en GitHub ↗</a><a class="talk__link" href="https://www.linkedin.com/posts/santiagodaros_harness-engineering-ugcPost-7515527328849022976-ruBx/" target="_blank" rel="noopener">Leer el post ↗</a></div>
+    <p class="drawer__note">Proyecto personal. Los PRs y los issues son bienvenidos.</p>
+  </div>
+</section>
+<dialog class="palette" aria-label="Paleta de comandos">
+  <div class="palette__box">
+    <div class="palette__in"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m14 14 4 4"/></svg><input type="text" placeholder="Buscá un proyecto, un artículo o un comando" aria-label="Buscar" autocomplete="off"><kbd>Esc</kbd></div>
+    <ul class="palette__list" role="listbox"></ul>
+    <div class="palette__foot"><span><kbd>↑</kbd><kbd>↓</kbd> para moverte</span><span><kbd>Enter</kbd> para abrir</span></div>
+  </div>
+</dialog>
+<script>
+(function(){
+  var root=document.documentElement;
+  requestAnimationFrame(function(){root.classList.add('loaded')});
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // aparición + contadores
+  function count(el){var n=+el.dataset.count;if(reduce){return}var t0=null;function f(t){t0=t0||t;var p=Math.min((t-t0)/900,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)}el.textContent='0';requestAnimationFrame(f)}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(function(el,i){el.style.transitionDelay=((el.matches('.sol,.talk,.pillar,.group')?(i%3):0)*80)+'ms';io.observe(el)});
+    var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);co.unobserve(e.target)}})});
+    document.querySelectorAll('[data-count]').forEach(function(el){co.observe(el)});
+  } else document.querySelectorAll('[data-reveal]').forEach(function(el){el.classList.add('in')});
+  // simulacro de caída y recuperación
+  var btn=document.querySelector('.pulse__btn'),inc=document.querySelector('.incident'),msg=inc.querySelector('.incident__msg'),meta=inc.querySelector('.incident__meta'),bar=inc.querySelector('.incident__prog i'),
+      ptxt=document.querySelector('.pulse__txt'),stxt=document.querySelector('.sys__txt')||{},busy=false;
+  function set(m,mm,ok){msg.textContent=m;meta.textContent=mm||'';inc.classList.toggle('is-ok',!!ok)}
+  btn.addEventListener('click',function(){
+    if(busy)return;busy=true;btn.disabled=true;var t0=performance.now();
+    inc.hidden=false;bar.style.transition='none';bar.style.width='0';
+    root.classList.remove('is-recovering');root.classList.add('is-down');
+    var en=document.documentElement.lang==='en';set(en?'Primary region not responding. Detecting the outage…':'Región primaria sin respuesta. Detectando la caída…','t+0,0 s');ptxt.textContent=en?'Primary region · no heartbeat':'Región primaria · sin latido';stxt.textContent=en?'Incident':'Incidente';
+    setTimeout(function(){
+      set(en?'Failing over to the secondary region: bringing up 7 sections in order':'Failover a la región secundaria: levantando 7 secciones en orden',en?'group 1 → 2 → 3':'grupo 1 → 2 → 3');
+      requestAnimationFrame(function(){bar.style.transition='width 1s linear';bar.style.width='100%'});
+    },700);
+    setTimeout(function(){
+      var rto=((performance.now()-t0)/1000).toFixed(1).replace('.',',');
+      root.classList.remove('is-down');root.classList.add('is-recovering');
+      if(en)rto=rto.replace(',','.');set(en?'Recovered in the secondary region. Nothing was lost.':'Recuperado en la región secundaria. No se perdió nada.','RTO '+rto+' s · RPO 0',true);
+      ptxt.textContent=en?'Secondary region · healthy heartbeat':'Región secundaria · latido normal';stxt.textContent=(en?'Recovered · RTO ':'Recuperado · RTO ')+rto+' s';
+      setTimeout(function(){inc.hidden=true;root.classList.remove('is-recovering');stxt.textContent=en?'All systems operational':'Todo operativo';ptxt.textContent=en?'Primary region · healthy heartbeat':'Región primaria · latido normal';busy=false;btn.disabled=false},4200);
+    },1800);
+  });
+})();
+</script>
+<script>
+(function(){
+  /* Configurá estos datos antes de publicar en Vercel */
+  var CONFIG={
+    email:'santiagolucasdaros@gmail.com',
+    cal:'',                   // tu link de Cal.com: 'https://cal.com/usuario/20min'
+    linkedin:'https://www.linkedin.com/in/santiagodaros/',
+    github:'https://github.com/santiagodaros',
+    subscribe:'https://app.kit.com/forms/10232631/subscriptions'   // Kit, formulario "Newsletter portfolio"
+  };
+  var root=document.documentElement;
+  document.querySelectorAll('[data-link]').forEach(function(a){var k=a.dataset.link,v=CONFIG[k];if(!v)return;a.href=k==='email'?'mailto:'+v:v;if(k!=='email'){a.target='_blank';a.rel='noopener'}});
+
+  /* descarga del .kql */
+  var KQL="// Las 10 consultas de KQL que corro en toda auditoría de Azure\n// Santiago Da Ros · solo lectura · Azure Resource Graph\n\n// 01. Recursos huérfanos: discos, IP públicas y NICs\n// Lo que quedó suelto después de borrar VMs y se sigue pagando.\nresources\n| where type == \"microsoft.compute/disks\" and tostring(properties.diskState) == \"Unattached\"\n| project tipo = \"Disco sin adjuntar\", name, resourceGroup, subscriptionId\n| union (resources\n    | where type == \"microsoft.network/publicipaddresses\" and isnull(properties.ipConfiguration)\n    | project tipo = \"IP pública sin asociar\", name, resourceGroup, subscriptionId)\n| union (resources\n    | where type == \"microsoft.network/networkinterfaces\"\n        and isnull(properties.virtualMachine) and isnull(properties.privateEndpoint)\n    | project tipo = \"NIC sin VM\", name, resourceGroup, subscriptionId)\n\n// 02. Estado de encendido de las VMs\n// Cuántas están encendidas, apagadas o desasignadas. Una VM apagada sin desasignar se sigue cobrando.\nresources\n| where type == \"microsoft.compute/virtualmachines\"\n| extend estado = tostring(properties.extended.instanceView.powerState.code)\n| summarize vms = count() by estado\n| order by vms desc\n\n// 03. VMs sin Azure Backup\n// Máquinas que no aparecen como protegidas en ningún Recovery Services Vault.\nresources\n| where type == \"microsoft.compute/virtualmachines\"\n| extend vmId = tolower(id)\n| join kind = leftouter (\n    recoveryservicesresources\n    | where type == \"microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems\"\n    | extend vmId = tolower(tostring(properties.sourceResourceId))\n    | project vmId, vault = tostring(split(id, \"/\")[8])\n  ) on vmId\n| where isempty(vault)\n| project name, resourceGroup, location, subscriptionId\n\n// 04. Reglas de NSG abiertas a Internet en RDP o SSH\n// La puerta más común para un incidente.\nresources\n| where type == \"microsoft.network/networksecuritygroups\"\n| mv-expand regla = properties.securityRules\n| where regla.properties.direction == \"Inbound\" and regla.properties.access == \"Allow\"\n| where tostring(regla.properties.sourceAddressPrefix) in (\"*\", \"Internet\", \"0.0.0.0/0\")\n| extend puerto = tostring(regla.properties.destinationPortRange)\n| where puerto in (\"22\", \"3389\", \"*\")\n| project nsg = name, regla = tostring(regla.name), puerto, resourceGroup, subscriptionId\n\n// 05. Cuentas de almacenamiento con acceso público o TLS viejo\n// Blobs que se pueden leer sin autenticación y cuentas que aceptan TLS 1.0 o 1.1.\nresources\n| where type == \"microsoft.storage/storageaccounts\"\n| extend accesoPublico = tobool(properties.allowBlobPublicAccess),\n         tls = tostring(properties.minimumTlsVersion)\n| where accesoPublico == true or tls != \"TLS1_2\"\n| project name, accesoPublico, tls, resourceGroup, subscriptionId\n\n// 06. SQL Servers con acceso de red público\n// Candidatos a private endpoint.\nresources\n| where type == \"microsoft.sql/servers\"\n| where tostring(properties.publicNetworkAccess) == \"Enabled\"\n| project name, resourceGroup, location, subscriptionId\n\n// 07. Recursos sin tag de responsable\n// Sin owner, nadie decide si se apaga, se paga o se borra.\nresources\n| where isempty(tostring(tags[\"owner\"]))\n| summarize recursos = count() by type\n| order by recursos desc\n\n// 08. Recomendaciones de costo de Azure Advisor\n// Lo que Microsoft ya detectó y nadie aplicó.\nadvisorresources\n| where type == \"microsoft.advisor/recommendations\"\n| where tostring(properties.category) == \"Cost\"\n| project impacto = tostring(properties.impact),\n          problema = tostring(properties.shortDescription.problem),\n          recurso = tostring(properties.resourceMetadata.resourceId)\n| order by impacto asc\n\n// 09. Secure Score de Defender por suscripción\n// Un número para seguir mes a mes.\nsecurityresources\n| where type == \"microsoft.security/securescores\"\n| extend puntaje = round(todouble(properties.score.percentage) * 100, 1)\n| project subscriptionId, puntaje\n| order by puntaje asc\n\n// 10. Recursos por región\n// Para detectar despliegues fuera de las regiones permitidas antes de escribir la policy.\nresources\n| summarize recursos = count() by location\n| order by recursos desc";
+  document.querySelectorAll('[data-download-kql]').forEach(function(b){b.addEventListener('click',function(){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([KQL],{type:'text/plain'}));a.download='10-consultas-kql-auditoria-azure.kql';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)})});
+
+  /* copiar bio */
+  document.querySelectorAll('[data-copy-prev]').forEach(function(b){b.addEventListener('click',function(){var t=b.previousElementSibling.textContent;var l=b.textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copiada'},function(){b.textContent='Seleccioná el texto'}).finally(function(){setTimeout(function(){b.textContent=l},1600)})})});
+
+  /* newsletter */
+  document.querySelectorAll('[data-subscribe]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var i=f.querySelector('input'),m=f.querySelector('.nl__msg'),en=root.lang==='en';
+    if(!i.value||!i.checkValidity()){m.textContent=en?'Check the email: it looks incomplete.':'Revisá el email: parece incompleto.';i.focus();return}
+    if(!CONFIG.subscribe){m.textContent=en?'Thanks! Sign-ups open when the site launches.':'¡Gracias! La suscripción se habilita cuando el sitio esté publicado.';return}
+    fetch(CONFIG.subscribe,{method:'POST',body:new FormData(f),mode:'no-cors'}).then(function(){m.textContent=en?'Done. Check your inbox to confirm.':'Listo. Revisá tu correo para confirmar.';f.reset()},function(){m.textContent=en?'Could not subscribe. Try again in a minute.':'No se pudo suscribir. Probá de nuevo en un minuto.'})})});
+
+  /* 404: un hash que no existe muestra la página sin réplica */
+  function check(){var h=decodeURIComponent(location.hash.slice(1));if(!h||h==='sin-replica')return;var el=document.getElementById(h);if(!el){var pth=document.querySelector('.nf__path');if(pth)pth.textContent=h;location.replace('#sin-replica')}}
+  addEventListener('hashchange',check);check();
+
+  /* paleta de comandos */
+  var dlg=document.querySelector('.palette'),inp=dlg.querySelector('input'),list=dlg.querySelector('.palette__list'),sel=0,items=[];
+  function T(es,en){return root.lang==='en'?en:es}
+  function cmds(){return [
+    {g:T('Secciones','Sections'),i:'01',t:T('Proyectos','Projects'),h:'#proyectos'},
+    {g:T('Secciones','Sections'),i:'03',t:T('Experiencias','Experience'),h:'#experiencias'},
+    {g:T('Secciones','Sections'),i:'04',t:'Stack',h:'#stack'},
+    {g:T('Proyectos','Projects'),i:'ai',t:'ai-env (open source)',h:'#p-aienv'},
+    {g:T('Secciones','Sections'),i:'05',t:'Blog',h:'#blog'},
+    {g:T('Secciones','Sections'),i:'06',t:T('Charlas','Talks'),h:'#charlas'},
+    {g:T('Secciones','Sections'),i:'07',t:T('Sobre mí','About'),h:'#sobre-mi'},
+    {g:T('Artículos','Articles'),i:'DR',t:'El plan de recuperación que nunca se probó',h:'#art-rto'},
+    {g:T('Artículos','Articles'),i:'St',t:'Almacenamiento inteligente: bajar costos archivando datos viejos',h:'#art-archivo'},
+    {g:T('Artículos','Articles'),i:'Bl',t:T('Todo el blog','All posts'),h:'#articulos'},
+    {g:T('Artículos','Articles'),i:'Kq',t:T('Guía: las 10 consultas de KQL','Guide: 10 KQL queries'),h:'#guia-kql'},
+    {g:T('Páginas','Pages'),i:'/n',t:T('Ahora: en qué ando','Now'),h:'#ahora'},
+    {g:T('Páginas','Pages'),i:'●',t:T('Página de estado','Status page'),h:'#estado-carrera'},
+    {g:T('Páginas','Pages'),i:'Mic',t:'Speaker kit',h:'#speaker'},
+    {g:T('Acciones','Actions'),i:'⚡',t:T('Simular una caída','Simulate an outage'),a:function(){location.hash='estado';setTimeout(function(){document.querySelector('.pulse__btn').click()},350)}},
+    {g:T('Acciones','Actions'),i:'◐',t:T('Cambiar el tema','Toggle theme'),a:function(){document.querySelector('.theme-btn').click()}},
+    {g:T('Acciones','Actions'),i:'Aa',t:T('Read in English','Leer en español'),a:function(){document.querySelector('.lang-btn').click()}},
+    {g:T('Acciones','Actions'),i:'↓',t:T('Descargar las consultas .kql','Download the .kql queries'),a:function(){document.querySelector('[data-download-kql]').click()}},
+    {g:T('Acciones','Actions'),i:'@',t:T('Suscribirme al newsletter','Subscribe to the newsletter'),h:'#newsletter'},
+    {g:T('Acciones','Actions'),i:'✉',t:T('Escribirme','Contact me'),h:'#contacto'}
+  ]}
+  function norm(x){return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+  function render(){var q=norm(inp.value.trim());items=cmds().filter(function(c){return !q||norm(c.t+' '+c.g).indexOf(q)>-1});sel=Math.min(sel,Math.max(items.length-1,0));list.innerHTML='';var last='';
+    if(!items.length){list.innerHTML='<li class="grp">'+T('Sin resultados. Probá con “caída”, “KQL” o “speaker”.','No results. Try “outage”, “KQL” or “speaker”.')+'</li>';return}
+    items.forEach(function(c,i){if(c.g!==last){var g=document.createElement('li');g.className='grp';g.textContent=c.g;list.appendChild(g);last=c.g}
+      var li=document.createElement('li');li.setAttribute('role','option');li.setAttribute('aria-selected',i===sel);li.innerHTML='<span class="ico"></span><span></span>';li.children[0].textContent=c.i;li.children[1].textContent=c.t;
+      li.addEventListener('click',function(){run(c)});li.addEventListener('mousemove',function(){if(sel!==i){sel=i;mark()}});list.appendChild(li)})}
+  function mark(){list.querySelectorAll('[role=option]').forEach(function(li,i){li.setAttribute('aria-selected',i===sel);if(i===sel)li.scrollIntoView({block:'nearest'})})}
+  function run(c){dlg.close();if(c.h)location.hash=c.h.slice(1);else c.a()}
+  function open(){if(dlg.open)return;inp.value='';sel=0;render();dlg.showModal();inp.focus()}
+  document.querySelectorAll('[data-open-palette]').forEach(function(b){b.addEventListener('click',open)});
+  addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();dlg.open?dlg.close():open()}});
+  inp.addEventListener('input',function(){sel=0;render()});
+  inp.addEventListener('keydown',function(e){if(e.key==='ArrowDown'){e.preventDefault();sel=(sel+1)%Math.max(items.length,1);mark()}else if(e.key==='ArrowUp'){e.preventDefault();sel=(sel-1+items.length)%Math.max(items.length,1);mark()}else if(e.key==='Enter'&&items[sel]){e.preventDefault();run(items[sel])}});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+
+  /* idioma: español / inglés */
+  var EN={"Proyectos": "Projects", "Experiencias": "Experience", "Blog": "Blog", "Charlas": "Talks", "Sobre mí": "About", "Todo operativo": "All systems operational", "Escribirme por email": "Email me", "Buscar": "Search", "Cloud & Product Engineer · Buenos Aires": "Cloud & Product Engineer · Buenos Aires", "Productos B2B en": "B2B products on", "Diseño, construyo y opero las herramientas que un equipo de consultoría usa cada día con clientes corporativos, con IA en el flujo.": "I design, build and run the tools a consulting team uses every day with enterprise clients, with AI in the workflow.", ", de la infraestructura al cliente": ", from infrastructure to the customer", "Diseño, desarrollo y opero herramientas que un equipo de consultoría usa todos los días con clientes corporativos: portales, automatizaciones, auditorías y recuperación ante desastres, con IA en el flujo de trabajo.": "I design, build and run the tools a consulting team uses every day with enterprise clients: portals, automation, audits and disaster recovery, with AI in the workflow.", "Ver proyectos": "See projects", "clientes en un portal en producción": "clients in a production portal", "herramientas internas en un año": "internal tools in one year", "certificaciones de Microsoft": "Microsoft certifications", "Demo en vivo": "Live demo", "En producción": "In production", "Portal de operaciones CSP": "CSP operations portal", "Región primaria · latido normal": "Primary region · healthy heartbeat", "Simular una caída": "Simulate an outage", "01 · Proyectos": "01 · Projects", "Soluciones que nacieron de un problema real": "Solutions born from a real problem", "Productos internos, automatizaciones y servicios para clientes. Cada uno con su stack y lo que cambió.": "Internal products, automation and client services. Each with its stack and what it changed.", "Producto interno": "Internal product", "Une el trabajo de los account managers con Partner Center: accesos, costos, licencias y compras de toda la cartera en un solo lugar y en solo lectura.": "Connects account managers' work with Partner Center: access, costs, licenses and purchases for the whole portfolio in one read-only place.", "clientes en 6 países": "clients in 6 countries", "integraciones de solo lectura": "read-only integrations", "Licencias": "Licenses", "Pendiente": "Pending", "M365 E3 sin asignar": "Unassigned M365 E3", "Revisando": "Reviewing", "Renovación en 30 días": "Renewal in 30 days", "Aprobar": "Approve", "Compra con doble factor": "Purchase with 2FA", "Resuelto": "Resolved", "Teams sin uso": "Unused Teams", "Licencias sin asignar en la cartera": "Unassigned licenses across the portfolio", "14 días": "14 days", "Recuperación ante desastres": "Disaster recovery", "En uso": "In use", "Prueba automatizada de recuperación": "Automated recovery test", "Listo · reporte guardado": "Done · report saved", "Prueba 20 servidores en paralelo con controles de seguridad y evidencia para auditoría.": "Tests 20 servers in parallel with safety checks and audit evidence.", "62% menos tiempo": "62% less time", "Observabilidad": "Observability", "Grupo 2 en línea": "Group 2 online", "ahora": "now", "Replicación al día": "Replication up to date", "Prueba iniciada": "Test started", "Muestra en tiempo real una prueba de recuperación y el costo de cada minuto de caída.": "Shows a recovery test in real time and the cost of every minute of downtime.", "Tiempo real": "Real time", "presentado en un webinar": "presented in a webinar", "Seguridad e identidad": "Security and identity", "Auditoría automática de Azure y M365": "Automated Azure and M365 audit", "MFA para todos": "MFA for everyone", "Legacy auth bloqueada": "Legacy auth blocked", "Roles con PIM": "Roles with PIM", "Conditional Access por riesgo": "Risk-based Conditional Access", "Reenvío externo": "External forwarding", "Revisa identidad, acceso y configuración en solo lectura y entrega un plan priorizado.": "Reviews identity, access and configuration read-only and delivers a prioritized plan.", "controles por corrida": "checks per run", "Gobernanza": "Governance", "Desarrollo avanzado": "Advanced development", "Gobernanza de Azure como código": "Azure governance as code", "Las reglas de Azure de varios clientes desde un repositorio, con aprobación y sin secretos.": "Azure rules for many clients from one repository, with approvals and no secrets.", "base de un servicio de gobernanza": "foundation of a governance service", "Costos y continuidad": "Cost and continuity", "En curso": "In progress", "Backups por nivel de criticidad": "Backups by criticality tier", "Nivel 1": "Tier 1", "Nivel 2": "Tier 2", "Nivel 3": "Tier 3", "Cada servidor respaldado según qué tan crítico es, con menos gasto en copias rápidas.": "Each server backed up by how critical it is, spending less on fast copies.", "3 niveles": "3 tiers", "sin migrar lo que funciona": "without migrating what works", "Producto propio": "My own product", "Próximamente": "Coming soon", "de la idea al lanzamiento": "from idea to launch", "02 · Cómo trabajo": "02 · How I work", "Producto, plataforma e IA en el mismo flujo": "Product, platform and AI in one workflow", "No elijo entre construir el producto y operar la nube: hago las dos cosas, con IA para ir más rápido.": "I don't choose between building the product and running the cloud: I do both, with AI to move faster.", "Producto": "Product", "Del problema a la herramienta": "From problem to tool", "Relevo cómo se hace hoy la tarea y quién la sufre, diseño la solución y la dejo en manos del equipo.": "I map how the task is done today and who suffers it, design the solution and hand it to the team.", "Plataforma": "Platform", "Azure seguro por defecto": "Secure-by-default Azure", "Identidad, redes, infraestructura como código y CI/CD. Solo lectura cuando alcanza, menor privilegio y cero secretos en el código.": "Identity, networking, infrastructure as code and CI/CD. Read-only when enough, least privilege and zero secrets in code.", "IA en el flujo": "AI in the workflow", "Agentes con revisión propia": "Agents with my own review", "Claude Code con skills propias e integraciones MCP para automatizar, investigar y construir. Cada cambio pasa por mi revisión.": "Claude Code with custom skills and MCP integrations to automate, research and build. Every change goes through my review.", "03 · Experiencias": "03 · Experience", "Un producto en un día, presentado en vivo": "A product in one day, demoed live", "Hackatones y eventos donde construyo con otros contra reloj y lo muestro funcionando.": "Hackathons and events where I build with others against the clock and show it working.", "Octubre de 2026 · Buenos Aires": "October 2026 · Buenos Aires", "Agentic Banking Buildathon de Belo": "Belo's Agentic Banking Buildathon", "Primer hackatón": "First hackathon", "En equipo construimos sobre la API de Belo un panel para controlar tarjetas y gastos de una empresa. El copiloto prepara cada pago y una persona lo revisa y lo autoriza.": "As a team we built, on Belo's API, a dashboard to control a company's cards and spend. The copilot prepares each payment and a person reviews and approves it.", "Mi parte:": "My part:", "el motor de reglas que decide qué gasto pasa, cuál se frena y cuál va a revisión.": "the rules engine that decides which expense passes, which is blocked and which goes to review.", "La demo:": "The demo:", "la presenté en vivo ante el jurado y los demás equipos.": "I presented it live to the judges and the other teams.", "API de Belo": "Belo API", "Agentes con aprobación humana": "Agents with human approval", "04 · Stack": "04 · Stack", "Tecnologías y certificaciones": "Technologies and certifications", "Lo que uso en proyectos reales, agrupado por para qué lo uso.": "What I use in real projects, grouped by what I use it for.", "Cloud e identidad": "Cloud and identity", "principal": "primary", "Entra ID y Conditional Access": "Entra ID and Conditional Access", "Azure Arc y Lighthouse": "Azure Arc and Lighthouse", "Site Recovery y Backup": "Site Recovery and Backup", "Infraestructura como código y CI/CD": "Infrastructure as code and CI/CD", "Docker y Container Apps": "Docker and Container Apps", "Producto y datos": "Product and data", "TypeScript, React y Next.js": "TypeScript, React and Next.js", "PostgreSQL y PostgREST": "PostgreSQL and PostgREST", "Supabase y Vercel": "Supabase and Vercel", "Python y SQL": "Python and SQL", "Automatización e IA": "Automation and AI", "PowerShell y Azure Automation": "PowerShell and Azure Automation", "Servidores MCP": "MCP servers", "KQL y Resource Graph": "KQL and Resource Graph", "Certificaciones de Microsoft": "Microsoft certifications", "05 · Blog": "05 · Blog", "Lo que aprendo, explicado para decidir": "What I learn, explained so you can decide", "Casos reales de Azure contados para que un equipo técnico pueda tomar una decisión concreta.": "Real Azure cases told so a technical team can make a concrete decision. Articles in Spanish.", "Almacenamiento": "Storage", "Identidad": "Identity", "Híbrido": "Hybrid", "Ver todos los artículos": "See all articles", "17 de mayo de 2026 · 7 min": "May 17, 2026 · 7 min", "24 de mayo de 2026 · 8 min": "May 24, 2026 · 8 min", "20 de abril de 2026 · 5 min": "April 20, 2026 · 5 min", "Guía gratuita": "Free guide", "Las 10 consultas de KQL que corro en toda auditoría": "The 10 KQL queries I run in every audit", "Huérfanos, backups faltantes, puertos abiertos, costos y más. Solo lectura, listas para copiar.": "Orphans, missing backups, open ports, costs and more. Read-only, ready to copy.", "Leer la guía": "Read the guide", "Descargar .kql": "Download .kql", "06 · Charlas y sesiones": "06 · Talks and sessions", "Webinars, charlas y demos en vivo": "Webinars, talks and live demos", "Muestro el trabajo funcionando, no solo diapositivas.": "I show the work running, not just slides.", "Recuperación ante desastres en Azure, con una prueba real": "Disaster recovery on Azure, with a real test", "Noviembre de 2026 · entre 15 y 20 asistentes": "November 2026 · 15 to 20 attendees", "Charla": "Talk", "2026 · comunidad de habla hispana": "2026 · Spanish-speaking community", "Próxima sesión": "Next session", "Propuesta enviada": "Proposal sent", "Nueva sesión en Microsoft Speakers Hub en Español": "New session at Microsoft Speakers Hub en Español", "2027 · fecha por confirmar": "2027 · date to be confirmed", "Ver el speaker kit": "See the speaker kit", "Newsletter": "Newsletter", "Una decisión de Azure por semana": "One Azure decision a week", "Un caso real, la consulta o el script que lo resuelve y qué decidir. Cinco minutos de lectura, sin relleno.": "A real case, the query or script that solves it and what to decide. Five-minute read, no filler.", "Tu email de trabajo": "Your work email", "Suscribirme": "Subscribe", "Gratis. Te das de baja con un clic.": "Free. Unsubscribe in one click.", "07 · Sobre mí": "07 · About", "Ingeniero cloud que se enamoró del producto": "A cloud engineer who fell for product", "Trabajo en una consultora partner de Microsoft con cuentas corporativas de varios países. Empecé en infraestructura y hoy paso buena parte del tiempo construyendo las herramientas que el equipo usa con los clientes.": "I work at a Microsoft partner consultancy with enterprise accounts across several countries. I started in infrastructure and now spend much of my time building the tools the team uses with clients.", "Publico cada semana en LinkedIn para líderes de IT de Latinoamérica: bajo lo complejo a decisiones concretas.": "I publish weekly on LinkedIn for IT leaders in Latin America: I turn complexity into concrete decisions.", "Octubre 2026": "October 2026", "Octubre 2025 – hoy": "October 2025 – today", "Cuentas corporativas, herramientas internas y preventa técnica. Acompaño a un trainee.": "Enterprise accounts, internal tools and technical presales. I mentor a trainee.", "Mayo – octubre 2025": "May – October 2025", "Programa de formación Cloud · Readymind": "Cloud training program · Readymind", "Infraestructura en Azure, automatización y datos.": "Azure infrastructure, automation and data.", "Lic. en Gestión de Tecnología de la Información · UADE": "B.Sc. in IT Management · UADE", "Antes, Ciencias de la Computación en la UBA.": "Previously, Computer Science at UBA.", "¿Tenés un proceso que puede ser producto?": "Got a process that could be a product?", "Contame qué tarea se repite en tu equipo y vemos cómo llevarla a Azure.": "Tell me which task keeps repeating in your team and let's see how to take it to Azure.", "Agendá 20 minutos": "Book 20 minutes", "De lo complejo a una decisión concreta.": "From complexity to a clear decision.", "Trabajo": "Work", "Contenido": "Content", "Trayectoria": "Career", "Ahora": "Now", "Estado": "Status", "Guía KQL": "KQL guide", "Contacto": "Contact", "Agendar": "Book a call", "© 2026 Santiago Da Ros · Buenos Aires": "© 2026 Santiago Da Ros · Buenos Aires", "Los nombres de productos son marcas de sus dueños": "Product names are trademarks of their owners", "Lo que construí este año": "What I built this year", "Herramientas internas, automatizaciones para clientes y un producto propio.": "Internal tools, client automation and a product of my own.", "Cómo trabajo": "How I work", "Construyo la herramienta y opero la nube donde corre": "I build the tool and run the cloud it lives on", "Uso IA para ir más rápido. Cada cambio lo reviso yo.": "I use AI to move faster. I review every change myself.", "Mi primer hackatón": "My first hackathon", "Un día para armar un producto en equipo y presentarlo frente al jurado.": "One day to build a product as a team and pitch it to the judges.", "Agrupado por para qué lo uso.": "Grouped by what I use it for.", "Notas de trabajo sobre Azure": "Working notes on Azure", "Lo que voy resolviendo con clientes, con las consultas y scripts que usé.": "What I solve with clients, with the queries and scripts I used. In Spanish.", "Charlas y sesiones": "Talks and sessions", "Casi siempre con una demo en vivo.": "Almost always with a live demo.", "Un caso real y la consulta o el script que lo resolvió. Un mail por semana.": "A real case and the query or script that solved it. One email a week.", "Esquema del portal. Los datos de clientes no se publican.": "Portal sketch. Client data is not published.", "últimos 14 días": "last 14 days", "Diseño, construyo y opero herramientas sobre Azure en Readymind: algunas las usa mi equipo cada día y otras llegan a clientes corporativos.": "I design, build and run tools on Azure at Readymind: some my team uses every day, others reach enterprise clients.", "Empecé en infraestructura y terminé construyendo producto": "I started in infrastructure and ended up building product", "Construidas con mi equipo en Readymind, partner de Microsoft. Muestro qué resuelven y qué cambiaron; el código y los datos de clientes quedan adentro.": "Built with my team at Readymind, a Microsoft partner. I show what they solve and what they changed; code and client data stay inside.", "¿Hablamos?": "Let's talk?", "Escribime si querés hablar de cloud, de producto o de una charla para tu comunidad.": "Write to me about cloud, product or a talk for your community.", "Producto interno · Readymind": "Internal product · Readymind", "Recuperación ante desastres · Readymind": "Disaster recovery · Readymind", "Observabilidad · Readymind": "Observability · Readymind", "Seguridad e identidad · Readymind": "Security and identity · Readymind", "Gobernanza · Readymind": "Governance · Readymind", "Costos y continuidad · Readymind": "Cost and continuity · Readymind", "De cloud al ": "From cloud to ", "producto": "product", "Escribime": "Contact", "DR que no": "DR you", "se prueba": "don't test", "DR que no se prueba": "DR you don't test", "Con demo en vivo": "With a live demo", "Recuperación ante desastres en Azure, con una prueba real de punta a punta.": "Disaster recovery on Azure, with an end-to-end real test. In Spanish.", "Ver en YouTube ↗": "Watch on YouTube ↗", "Cada una se verifica en Microsoft Learn.": "Each one is verifiable on Microsoft Learn.", " · En curso": " · In progress", "Belo Business: la tarjeta corporativa que rinde hasta el vencimiento": "Belo Business: the corporate card that earns until the due date", "En equipo construimos sobre la API de Belo una plataforma para que una empresa controle sus tarjetas y sus gastos. Un copiloto prepara cada pago y una persona lo revisa y lo autoriza.": "As a team we built, on Belo's API, a platform for a company to control its cards and spend. A copilot prepares each payment and a person reviews and approves it.", "La idea:": "The idea:", "lo que gastás con la tarjeta queda invertido en USDT hasta el día antes del vencimiento. Un agente compra y vende los dólares por detrás para pagar el resumen con el rendimiento ganado.": "what you spend on the card stays invested in USDT until the day before the due date. An agent buys and sells the dollars behind the scenes to pay the statement with the yield earned.", "esa idea y el motor de reglas que decide qué gasto pasa, cuál se frena y cuál va a revisión.": "that idea and the rules engine that decides which expense passes, which is blocked and which goes to review.", "Primer hackatón: Belo Business, la idea de rendimiento en USDT, el motor de reglas y la demo en vivo.": "First hackathon: Belo Business, the USDT yield idea, the rules engine and the live demo.", "Agentic Banking Buildathon de Belo · octubre 2026": "Belo's Agentic Banking Buildathon · October 2026", "El DR que no se prueba no es un DR": "DR that isn't tested isn't DR (in Spanish)", "Webinar sobre recuperación ante desastres en Azure, con una prueba real de punta a punta.": "Webinar on disaster recovery on Azure, with an end-to-end real test.", "SRE en Microsoft Fabric: confiabilidad y escala": "SRE in Microsoft Fabric: reliability and scale (in Spanish)", "Charla en Fabric Day, con la comunidad Microsoft Speakers Hub en Español.": "Talk at Fabric Day, with the Microsoft Speakers Hub en Español community.", "Primero una versión corta en LinkedIn; cuando el tema lo pide, la versión extendida acá.": "A short version on LinkedIn first; when the topic calls for it, the extended version here. In Spanish.", "Backup no es continuidad": "Backup is not continuity", "Versión extendida · 6 min": "Extended version · 6 min", "El plan de recuperación que nunca se probó": "The recovery plan that was never tested", "La diferencia entre RPO y RTO, y por qué un plan que nunca se ejecutó es solo una hipótesis.": "The difference between RPO and RTO, and why a plan never executed is just a hypothesis.", "Almacenamiento inteligente: bajar costos archivando datos viejos": "Smart storage: cutting costs by archiving old data", "20 de abril de 2026 · Artículo": "April 20, 2026 · Article", "Ver todo el blog": "See the whole blog", "Un LLM es un motor probabilístico. Producción exige determinismo.": "An LLM is a probabilistic engine. Production demands determinism.", "Cuando el DR funciona, pero el RTO no alcanza": "When DR works, but the RTO falls short", "Backup y recovery nativo de identidades en Microsoft Entra": "Native identity backup and recovery in Microsoft Entra", "12 de octubre de 2026 · LinkedIn ↗": "October 12, 2026 · LinkedIn ↗", "9 de septiembre de 2026 · LinkedIn ↗": "September 9, 2026 · LinkedIn ↗", "1 de septiembre de 2026 · LinkedIn ↗": "September 1, 2026 · LinkedIn ↗", "IA": "AI", "Fuentes · solo lectura": "Sources · read-only", "Portal CSP": "CSP portal", "Lecturas nocturnas automáticas": "Automated nightly reads", "Base de datos con acceso por rol": "Role-based database access", "Login con Entra ID": "Sign-in with Entra ID", "Compras con doble aprobación": "Purchases with double approval", "9 integraciones": "9 integrations", "Lo que ve el equipo": "What the team sees", "Accesos y permisos": "Access and permissions", "Costos por cliente": "Cost per client", "Licencias sin asignar": "Unassigned licenses", "Compras con aprobación": "Purchases with approval", "Esquema de cómo funciona. Sin capturas ni datos de clientes.": "How it works, sketched. No screenshots or client data.", "Ver el proyecto →": "See the project →", "Ver el speaker kit →": "See the speaker kit →", "Descargar CV": "Download CV", "CV": "CV", "Proyecto propio · open source": "Own project · open source", "Publicado": "Published", "Un arnés para operar infraestructura con agentes de IA: la inteligencia está en el control, no en el modelo.": "A harness to run infrastructure with AI agents: the intelligence lives in the controls, not the model.", "Open source": "Open source", "en GitHub": "on GitHub", "Construidas con mi equipo en Readymind, partner de Microsoft, más un proyecto open source propio. Muestro qué resuelven y qué cambiaron; el código y los datos de clientes quedan adentro.": "Built with my team at Readymind, a Microsoft partner, plus an open source project of my own. I show what they solve and what they changed; code and client data stay inside.", "worktree aislado por tarea": "isolated worktree per task", "secretos fuera del contexto": "secrets kept out of context", "esquema validado": "schema validated", "verificación externa": "external verification", "Un solo lugar para ver accesos, costos, licencias y compras de toda la cartera de clientes.": "One place to see access, costs, licenses and purchases across the whole client portfolio.", "El problema": "The problem", "La idea": "The idea", "Qué cambió": "What changed", "Mi rol": "My role", "La información que un account manager necesita para atender a un cliente estaba repartida entre portales distintos. Responder algo simple, como cuántas licencias se pagan sin usar, llevaba tiempo y dependía de quién supiera dónde buscar.": "The information an account manager needs to serve a client was spread across different portals. Answering something simple, like how many licenses are paid for but unused, took time and depended on who knew where to look.", "Juntar todo en un portal propio que lee las fuentes de Microsoft sin poder modificarlas, muestra a cada persona solo lo que le corresponde y pide una doble aprobación antes de cualquier compra.": "Bring everything into one portal that reads Microsoft's sources without being able to change them, shows each person only what they should see, and requires double approval before any purchase.", "El equipo consulta la cartera completa en un lugar, detecta licencias sin asignar y renovaciones a tiempo, y las compras quedan registradas y aprobadas.": "The team checks the whole portfolio in one place, spots unassigned licenses and renewals in time, and every purchase is logged and approved.", "Relevé con los account managers qué necesitaban, definí el alcance y los permisos por rol, diseñé las pantallas, programé las integraciones de solo lectura con Microsoft, armé el circuito de compras con doble aprobación y lo puse en producción en Azure.": "I gathered requirements with the account managers, defined the scope and role-based permissions, designed the screens, built the read-only Microsoft integrations, set up the double-approval purchase flow and shipped it to production on Azure.", "FinOps": "FinOps", "Seguridad por defecto": "Secure by default", "Muestro el qué y el porqué. El código y los datos de clientes quedan dentro de Readymind.": "I show the what and the why. Code and client data stay inside Readymind.", "Probar un plan de recuperación dejó de ser un evento caro y pasó a ser una rutina.": "Testing a recovery plan went from an expensive event to a routine.", "2 h → 45 min": "2 h → 45 min", "por prueba": "per test", "servidores en paralelo": "servers in parallel", "Validar que un plan de recuperación funcione de verdad llevaba unas dos horas de trabajo manual. Como probar era caro, se probaba poco, y un plan que no se prueba es solo una hipótesis.": "Validating that a recovery plan really works took about two hours of manual work. Because testing was expensive, it rarely happened, and an untested plan is just a hypothesis.", "Automatizar la prueba completa: levantar los servidores por grupos en un entorno aislado que no toca producción, con controles de seguridad, y dejar un reporte como evidencia para auditoría.": "Automate the full test: bring servers up in groups in an isolated environment that never touches production, with safety checks, and leave a report as audit evidence.", "La validación pasó a tardar 45 minutos, un 62% menos, y se puede repetir cuando haga falta. Las sorpresas aparecen en la prueba y no durante una caída real.": "Validation now takes 45 minutes, 62% less, and can be repeated whenever needed. Surprises show up in the test, not during a real outage.", "Definí el orden de recuperación por grupos de servidores, escribí la automatización sobre Site Recovery, sumé los controles que impiden tocar producción y armé el reporte que queda como evidencia.": "I defined the recovery order by server group, wrote the automation on top of Site Recovery, added the checks that prevent touching production and built the report that serves as evidence.", "Continuidad": "Continuity", "Automatización": "Automation", "Evidencia para auditoría": "Audit evidence", "Un relevamiento de seguridad repetible, que no depende de quién lo haga.": "A repeatable security assessment that doesn't depend on who runs it.", "cambios en el entorno": "changes to the environment", "Relevar la seguridad de un entorno de Azure, identidad y Microsoft 365 a mano lleva días, y el resultado cambia según la persona que lo hace.": "Assessing the security of an Azure, identity and Microsoft 365 environment by hand takes days, and the result changes with the person doing it.", "Una auditoría que corre sola, solo con permisos de lectura, revisa identidad, accesos y configuración, y entrega un plan priorizado que se puede presentar a la dirección.": "An audit that runs on its own with read-only permissions, reviews identity, access and configuration, and delivers a prioritized plan ready to present to leadership.", "Los relevamientos son más rápidos y comparables entre clientes, y la conversación con el cliente arranca desde un diagnóstico claro y no desde una lista de 50 problemas.": "Assessments are faster and comparable across clients, and the conversation starts from a clear diagnosis instead of a list of 50 problems.", "Elegí y escribí los 209 controles de identidad, acceso y configuración, los programé para correr solo con permisos de lectura, diseñé el informe con el plan priorizado y lo presento a los clientes.": "I chose and wrote the 209 identity, access and configuration checks, built them to run with read-only permissions, designed the report with the prioritized plan and present it to clients.", "Seguridad": "Security", "Relevamientos": "Assessments", "Ver una recuperación en tiempo real, y lo que cuesta cada minuto de caída.": "Watch a recovery in real time, and what every minute of downtime costs.", "En vivo": "Live", "durante el webinar": "during the webinar", "asistentes": "attendees", "Hablar de RTO y RPO frente a la dirección suele quedar en abstracto. Es difícil dimensionar qué significa una hora de caída si nunca la viste.": "Talking about RTO and RPO with leadership tends to stay abstract. It's hard to grasp what an hour of downtime means if you've never seen one.", "Una pantalla que muestra en vivo cómo avanza una prueba de recuperación, grupo por grupo, junto al costo acumulado de cada minuto de caída.": "A screen that shows a recovery test progressing live, group by group, next to the running cost of every minute of downtime.", "La conversación pasa de conceptos a algo que se ve. Lo usé en el webinar \"El DR que no se prueba no es un DR\".": "The conversation moves from concepts to something you can see. I used it in the webinar \"DR that isn't tested isn't DR\".", "Diseñé la pantalla, programé el seguimiento en tiempo real de cada grupo y el cálculo del costo por minuto de caída, y lo usé en vivo en el webinar.": "I designed the screen, built the real-time tracking of each group and the cost-per-minute calculation, and used it live in the webinar.", "Comunicación con el negocio": "Business communication", "Las reglas de Azure de varios clientes, gestionadas desde un solo lugar y con aprobación.": "Azure rules for many clients, managed from one place and with approval.", "desde un repositorio": "from one repository", "secretos guardados": "stored secrets", "Aplicar reglas de seguridad y costo en cada cliente a mano es lento, difícil de auditar y fácil de romper.": "Applying security and cost rules to each client by hand is slow, hard to audit and easy to break.", "Escribir las reglas una vez, versionarlas y aplicarlas en varios clientes con una aprobación previa, sin guardar contraseñas en ningún lado.": "Write the rules once, version them and apply them across clients after an approval, without storing passwords anywhere.", "Es la base de un servicio de gobernanza reutilizable dentro de Readymind. Está en desarrollo avanzado.": "It's the foundation of a reusable governance service at Readymind. In advanced development.", "Diseñé la arquitectura para operar varios clientes desde un repositorio, armé el flujo que pide aprobación antes de aplicar cada cambio y la autenticación sin contraseñas guardadas.": "I designed the architecture to run many clients from one repository, built the flow that requires approval before each change and the passwordless authentication.", "Multi-cliente": "Multi-client", "En desarrollo": "In development", "Cada servidor protegido según lo que vale para el negocio, no todos igual.": "Each server protected according to its value to the business, not all the same.", "niveles de protección": "protection tiers", "migraciones forzadas": "forced migrations", "Todos los servidores se respaldaban con la misma política, pagando copias rápidas incluso donde no hacían falta.": "Every server was backed up with the same policy, paying for fast copies even where they weren't needed.", "Clasificar los servidores en tres niveles según qué tan críticos son y darle a cada nivel la protección y el costo que corresponden, sin tocar lo que ya funciona.": "Classify servers into three tiers by how critical they are and give each tier the protection and cost it deserves, without touching what already works.", "Menos gasto en copias rápidas, una limpieza de respaldos huérfanos y una política que se explica en una frase. Está en curso.": "Less spent on fast copies, a cleanup of orphaned backups and a policy you can explain in one sentence. In progress.", "Audité los respaldos y políticas existentes, clasifiqué los servidores por criticidad, diseñé las tres políticas y la limpieza de copias huérfanas, y armé el plan para aplicarlo sin migrar lo que ya funciona.": "I audited the existing backups and policies, classified servers by criticality, designed the three policies and the orphan cleanup, and planned the rollout without migrating what already works.", "Un arnés para operar infraestructura crítica con agentes de IA, con el mismo rigor que pide producción.": "A harness to run critical infrastructure with AI agents, with the rigor production demands.", "invariantes de diseño": "design invariants", "Un modelo de lenguaje es probabilístico y producción exige determinismo. Pegar miles de líneas en un chat esperando que el modelo \"recuerde no romper nada\" no es ingeniería.": "A language model is probabilistic and production demands determinism. Pasting thousands of lines into a chat hoping the model \"remembers not to break anything\" isn't engineering.", "Poner la inteligencia en el andamiaje de control: separar el control de la ejecución, validar con esquemas en vez de pedirle cosas al modelo, mandarle solo el contexto necesario y verificar cada resultado por fuera.": "Put the intelligence in the control scaffolding: separate control from execution, validate with schemas instead of asking the model nicely, send only the context needed and verify every result externally.", "Trabajo con agentes que orquestan tareas en entornos aislados, nunca ven credenciales y no cierran nada sin evidencia independiente. Se instala solo en todos mis equipos.": "I work with agents that orchestrate tasks in isolated environments, never see credentials and close nothing without independent evidence. It installs itself on all my machines.", "Lo diseñé, lo construí y lo publiqué como open source: los plugins, los flujos de trabajo con agentes, los scripts de entornos aislados y las reglas de verificación.": "I designed, built and open-sourced it: the plugins, the agent workflows, the isolated-environment scripts and the verification rules.", "Ver en GitHub ↗": "View on GitHub ↗", "Leer el post ↗": "Read the post ↗", "Proyecto personal. Los PRs y los issues son bienvenidos.": "Personal project. PRs and issues are welcome.", "← Volver al blog": "← Back to the blog", "6 min de lectura": "6 min read", "Versión extendida · en revisión": "Extended version · in review", "Julio de 2026": "July 2026", "Por qué tener backup no es tener continuidad, y qué cambia cuando la prueba de recuperación deja de ser un evento y pasa a ser una rutina.": "Why having backups isn't having continuity, and what changes when recovery testing stops being an event and becomes a routine.", "En la mayoría de los comités de tecnología, la pregunta \"¿tenemos backup?\" se responde con un sí y la conversación termina ahí. El problema es que esa pregunta mide la protección del dato, no la capacidad real de volver a operar. Son dos métricas distintas, y confundirlas es una de las brechas más caras en la gestión de infraestructura.": "In most technology committees, the question \"do we have backups?\" gets a yes and the conversation ends there. The problem is that the question measures data protection, not the real ability to get back to operating. They're two different metrics, and confusing them is one of the most expensive gaps in infrastructure management.", "RPO y RTO no miden lo mismo": "RPO and RTO don't measure the same thing", "RPO (Recovery Point Objective):": "RPO (Recovery Point Objective):", "cuánta información está dispuesta a perder la compañía. Lo responde la política de respaldo: si el backup corre cada 24 horas, el RPO es de 24 horas.": "how much data the company is willing to lose. The backup policy answers it: if backups run every 24 hours, the RPO is 24 hours.", "RTO (Recovery Time Objective):": "RTO (Recovery Time Objective):", "cuánto tarda el negocio en volver a operar. No lo responde el backup, sino el procedimiento completo: detectar, decidir, restaurar, validar y reconectar dependencias.": "how long the business takes to operate again. Backups don't answer it; the full procedure does: detect, decide, restore, validate and reconnect dependencies.", "Donde se rompen los planes": "Where plans break", "La distancia entre esas dos métricas es donde se rompen los planes de continuidad. Restaurar volúmenes de varios TB desde almacenamiento frío no es una operación de minutos. Sumando el tiempo de decisión, la validación funcional y el reordenamiento de dependencias, un RTO que en el papel figuraba en 4 horas puede convertirse en dos jornadas de operación detenida.": "The gap between those two metrics is where continuity plans break. Restoring multi-TB volumes from cold storage isn't a matter of minutes. Add decision time, functional validation and reordering dependencies, and an RTO that read 4 hours on paper can turn into two days of halted operations.", "Lo vi en un caso real: servidores Linux críticos cuya versión de kernel quedaba fuera de la matriz de soporte de Azure Site Recovery. La salida estándar, restaurar desde los backups de Veeam, funcionaba, pero rehidratar discos completos desde un backup en frío estiraba el RTO a cifras inaceptables. Lo conté en": "I saw it in a real case: critical Linux servers whose kernel version fell outside Azure Site Recovery's support matrix. The standard fallback, restoring from Veeam backups, worked, but rehydrating full disks from a cold backup stretched the RTO to unacceptable numbers. I wrote about it in", "este post": "this post", "Un plan que nunca se ejecutó es una hipótesis": "A plan that was never executed is a hypothesis", "Las pruebas de failover son el único momento en que aparecen las dependencias no documentadas, los servicios que levantan en el orden equivocado y las credenciales vencidas. Descubrir eso durante una contingencia real cuesta muchísimo más que descubrirlo en una prueba planificada.": "Failover tests are the only time undocumented dependencies, services starting in the wrong order and expired credentials show up. Finding that out during a real incident costs far more than finding it in a planned test.", "Por eso automatizamos el test failover con Site Recovery: hoy probamos 20 servidores en paralelo, por grupos y en una red aislada que no toca producción, y la validación pasó de unas 2 horas a 45 minutos, con evidencia para auditoría. Probar dejó de ser un evento caro y pasó a ser una rutina.": "That's why we automated test failover with Site Recovery: today we test 20 servers in parallel, in groups and on an isolated network that never touches production, and validation went from about 2 hours to 45 minutes, with audit evidence. Testing stopped being an expensive event and became a routine.", "Qué medir en la próxima prueba": "What to measure in your next test", "El tiempo total, de punta a punta, contra el RTO que figura en el papel.": "Total end-to-end time, against the RTO on paper.", "El orden real de arranque y las dependencias que no estaban documentadas.": "The real startup order and the dependencies nobody documented.", "Quién tomó cada decisión y cuánto se tardó en tomarla.": "Who made each decision and how long it took.", "Qué se validó funcionalmente, además de \"la VM encendió\".": "What was functionally validated, beyond \"the VM turned on\".", "Antes de dar por cubierta la continuidad, la pregunta no es \"¿tenemos backup?\", sino": "Before calling continuity covered, the question isn't \"do we have backups?\", but", "\"¿cuándo fue la última vez que ejecutamos una recuperación completa y cuánto tardamos realmente?\"": "\"when did we last run a full recovery, and how long did it really take?\"", ". Una estrategia de resiliencia no se mide por lo que está documentado, sino por lo que se demostró bajo prueba.": ". A resilience strategy isn't measured by what's documented, but by what has been proven under test.", "¿Con qué frecuencia ejecutan pruebas reales de recuperación en sus organizaciones? Lo charlamos en": "How often does your organization run real recovery tests? Let's talk in", "el post original": "the original post", "Cloud Engineer en Readymind. De cloud al producto.": "Cloud Engineer at Readymind. From cloud to product.", "Comentar en LinkedIn ↗": "Comment on LinkedIn ↗", "Recibir el próximo": "Get the next one", "Siguiente": "Next"}, nodes=[];
+  var scope=[document.querySelector('.nav'),document.querySelector('main'),document.querySelector('.closing'),document.querySelector('.incident'),document.getElementById('art-rto')].concat([].slice.call(document.querySelectorAll('.drawer')));
+  scope.forEach(function(sc){if(!sc)return;var w=document.createTreeWalker(sc,NodeFilter.SHOW_TEXT,{acceptNode:function(n){return n.parentNode.closest('.reader:not(#art-rto),script,style,code,pre')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}});
+    var n;while(n=w.nextNode()){var k=n.nodeValue.replace(/\s+/g,' ').trim();if(EN[k])nodes.push({n:n,es:n.nodeValue,en:n.nodeValue.replace(n.nodeValue.trim(),EN[k])})}});
+  var attrs=[['#nl-email','placeholder','nombre@empresa.com','name@company.com'],['.theme-btn','aria-label','Cambiar a tema oscuro','Switch to dark theme']];
+  var lb=document.querySelector('.lang-btn');
+  function setLang(l){root.lang=l;nodes.forEach(function(x){x.n.nodeValue=l==='en'?x.en:x.es});attrs.forEach(function(a){var el=document.querySelector(a[0]);if(el)el.setAttribute(a[1],l==='en'?a[3]:a[2])});
+    lb.textContent=l==='en'?'ES':'EN';lb.setAttribute('aria-label',l==='en'?'Ver en español':'Switch to English');
+    document.querySelector('meta[name=description]').content=l==='en'?'Santiago Da Ros, a cloud engineer who builds product. Tools on Azure for portals, automation, governance and disaster recovery, with AI in the workflow.':"Santiago Da Ros, ingeniero cloud que construye producto. Herramientas sobre Azure para portales, automatización, gobernanza y recuperación ante desastres, con IA en el flujo de trabajo.";
+    try{localStorage.setItem('sdr-lang',l)}catch(e){}}
+  lb.addEventListener('click',function(){setLang(root.lang==='en'?'es':'en')});
+  try{var sl=localStorage.getItem('sdr-lang');if(sl==='en')setLang('en')}catch(e){}
+  window.__sdrLang=function(){return root.lang};
+})();
+</script>
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),m=document.getElementById('mnav'),root=document.documentElement;
+  function set(o){m.hidden=!o;b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?(root.lang==='en'?'Close menu':'Cerrar el menú'):(root.lang==='en'?'Open menu':'Abrir el menú'))}
+  b.addEventListener('click',function(){set(m.hidden)});
+  m.addEventListener('click',function(e){if(e.target.closest('a'))set(false)});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden){set(false);b.focus()}});
+  var links=[].slice.call(document.querySelectorAll('.nav__links a')),map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var a=map[e.target.id];if(!a)return;if(e.isIntersecting){links.forEach(function(l){l.removeAttribute('aria-current')});a.setAttribute('aria-current','true')}else if(a.getAttribute('aria-current')){a.removeAttribute('aria-current')}})},{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }
+})();
+</script>
+<script>
+(function(){var f=document.querySelector('.feature');if(!f)return;f.addEventListener('click',function(e){if(e.target.closest('a,button'))return;window.__openProject?__openProject('p-portal'):location.hash='p-portal'})})();
+</script>
+<script>
+(function(){
+  var y=0,root=document.documentElement;
+  function keep(){y=scrollY;requestAnimationFrame(function(){scrollTo(0,y)});setTimeout(function(){scrollTo(0,y)},30)}
+  document.addEventListener('click',function(e){
+    var open=e.target.closest('a[href^="#p-"]');
+    if(open){y=scrollY;e.preventDefault();location.hash=open.getAttribute('href').slice(1);scrollTo(0,y);return}
+    var close=e.target.closest('.drawer__x,.drawer__bg');
+    if(close){e.preventDefault();closeIt()}
+  },true);
+  function closeIt(){var yy=scrollY;location.hash='';history.replaceState(null,'',location.pathname+location.search);scrollTo(0,yy);requestAnimationFrame(function(){scrollTo(0,yy)})}
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&document.querySelector('.drawer:target')){e.stopImmediatePropagation();closeIt()}},true);
+  window.__openProject=function(id){y=scrollY;location.hash=id;scrollTo(0,y)};
+})();
+</script>
+<script>
+(function(){var root=document.documentElement;function upd(){var en=root.lang==='en';document.querySelectorAll('[data-cv]').forEach(function(a){a.href=en?'cv/CV_Santiago_Da_Ros_EN.pdf':'cv/CV_Santiago_Da_Ros_ES.pdf'})}
+new MutationObserver(upd).observe(root,{attributes:true,attributeFilter:['lang']});upd()})();
+</script>
+</body>
+</html>
