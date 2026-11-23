@@ -19,6 +19,15 @@ const blog = defineCollection({
     translationKey: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    /** Portada de la tarjeta destacada y del artículo (ruta en /public). */
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+    /** Portada de código para artículos sin imagen (bloque oscuro con el fragmento). */
+    coverCode: z.string().optional(),
+    /** Si el artículo se publicó antes en otro sitio (p. ej. LinkedIn), su URL original. */
+    canonical: z.string().url().optional(),
+    /** Post de LinkedIn donde se comenta el artículo. */
+    linkedin: z.string().url().optional(),
     references: z
       .array(
         z.object({
@@ -37,6 +46,20 @@ const series = defineCollection({
     name: z.string(),
     description: z.string(),
     lang: z.enum(['es', 'en']),
+  }),
+});
+
+// Posts de LinkedIn que se listan en el blog ("Post en LinkedIn ↗"). Un archivo por post.
+// Si `articleSlug` está, el índice lleva a la versión extendida en el sitio en vez de a LinkedIn.
+const linkedin = defineCollection({
+  type: 'data',
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    tag: z.string(),
+    summary: z.string(),
+    url: z.string().url(),
+    articleSlug: z.string().optional(),
   }),
 });
 
@@ -113,4 +136,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, series, projects };
+export const collections = { blog, series, linkedin, projects };

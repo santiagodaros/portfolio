@@ -1,39 +1,65 @@
 ---
+// Recuadro dentro de un artículo MDX. `info` no lleva etiqueta; las demás variantes sí,
+// para que el significado no dependa solo del color.
+import { blogText } from '../../i18n/blog';
+import type { Lang } from '../../i18n';
+
 interface Props {
   variant?: 'info' | 'tip' | 'warning' | 'danger';
-  /** Defaults to 'es' — pass lang="en" explicitly in English MDX content. */
-  lang?: 'es' | 'en';
+  /** Por defecto 'es': pasar lang="en" en el contenido MDX en inglés. */
+  lang?: Lang;
 }
 const { variant = 'info', lang = 'es' } = Astro.props;
-
-const styles: Record<string, { color: string; labelEs: string; labelEn: string }> = {
-  info: { color: 'rgb(var(--color-accent))', labelEs: 'nota', labelEn: 'note' },
-  tip: { color: 'var(--color-green)', labelEs: 'tip', labelEn: 'tip' },
-  warning: { color: '#f5a623', labelEs: 'atención', labelEn: 'warning' },
-  danger: { color: '#f87171', labelEs: 'riesgo', labelEn: 'danger' },
-};
-const s = styles[variant] ?? styles.info;
-const label = lang === 'es' ? s.labelEs : s.labelEn;
+const label = variant === 'info' ? undefined : blogText[lang].article.calloutLabels[variant];
 ---
 
-<div class="box-alt my-6 border-l-2 px-5 py-4" style={`border-left-color: ${s.color}`}>
-  <p class="font-mono text-[11px] font-bold uppercase tracking-wide mb-2" style={`color: ${s.color}`}>
-    // {label}
-  </p>
-  <div class="callout-body font-mono text-[15px] leading-relaxed text-text-secondary">
-    <slot />
-  </div>
-</div>
+<aside class:list={['callout', `callout--${variant}`]}>
+  {label && <p class="callout__label">{label}</p>}
+  <div class="callout__body"><slot /></div>
+</aside>
 
 <style>
-  .callout-body :global(strong) {
-    color: var(--color-text-primary);
-    font-weight: 600;
+  .callout {
+    margin: 30px 0;
+    padding: 20px 22px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 14px 14px 0;
+    background: var(--tonal);
+    color: var(--tonal-ink);
   }
-  .callout-body :global(p) {
+  .callout__label {
+    margin: 0 0 6px !important;
+    font: 500 12px/1 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .callout__body :global(p) {
     margin: 0;
   }
-  .callout-body :global(p + p) {
+  .callout__body :global(p + p) {
     margin-top: 0.75em;
+  }
+  .callout--tip {
+    border-left-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+  .callout--warning {
+    border-left-color: #d97706;
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .callout--danger {
+    border-left-color: #e5484d;
+    background: #fde8e8;
+    color: #9b1c1c;
+  }
+  :global([data-theme='dark']) .callout--warning {
+    background: rgb(245 158 11 / 0.15);
+    color: #fbbf24;
+  }
+  :global([data-theme='dark']) .callout--danger {
+    background: rgb(229 72 77 / 0.16);
+    color: #ff9ea1;
   }
 </style>

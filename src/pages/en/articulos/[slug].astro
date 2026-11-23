@@ -27,7 +27,7 @@ const jsonLd = {
   datePublished: entry.data.date.toISOString(),
   dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
   inLanguage: entry.data.lang,
-  mainEntityOfPage: canonicalUrl,
+  mainEntityOfPage: entry.data.canonical ?? canonicalUrl,
   image: new URL(`/og/${entry.slug}.png`, Astro.site).toString(),
   author: {
     '@type': 'Person',
@@ -45,8 +45,9 @@ const jsonLd = {
   ogImagePath={`/og/${entry.slug}.png`}
   publishedTime={entry.data.date}
   modifiedTime={entry.data.updated}
+  canonical={entry.data.canonical}
   alternates={alternates}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <ArticlePage entry={entry} translation={translation} />
+  <ArticlePage entry={entry} />
 </Layout>
