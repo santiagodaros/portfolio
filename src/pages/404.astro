@@ -76,7 +76,10 @@ import Layout from '@/layouts/Layout.astro';
     color: var(--muted);
   }
   .nf__trace .err {
-    color: #e5484d;
+    color: #c9262b;
+  }
+  :global([data-theme='dark']) .nf__trace .err {
+    color: #ff7a7e;
   }
   .nf__trace .ok {
     color: var(--ok);

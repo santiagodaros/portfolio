@@ -17,20 +17,6 @@ export async function getFeaturedArticle(lang: 'es' | 'en'): Promise<BlogEntry |
   return articles.find((a) => a.data.featured) ?? articles[0];
 }
 
-export async function getRelatedArticles(entry: BlogEntry, limit = 3): Promise<BlogEntry[]> {
-  const articles = await getPublishedArticles(entry.data.lang);
-  const scored = articles
-    .filter((a) => a.slug !== entry.slug)
-    .map((a) => {
-      const sharedTags = a.data.tags.filter((t) => entry.data.tags.includes(t)).length;
-      const sameCategory = a.data.category === entry.data.category ? 1 : 0;
-      return { entry: a, score: sharedTags * 2 + sameCategory };
-    })
-    .filter((s) => s.score > 0)
-    .sort((a, b) => b.score - a.score);
-  return scored.slice(0, limit).map((s) => s.entry);
-}
-
 export async function getTranslation(entry: BlogEntry): Promise<BlogEntry | undefined> {
   if (!entry.data.translationKey) return undefined;
   const otherLang = entry.data.lang === 'es' ? 'en' : 'es';
@@ -131,20 +117,6 @@ export async function getNextArticle(entry: BlogEntry): Promise<BlogEntry | unde
   if (articles.length < 2) return undefined;
   const i = articles.findIndex((a) => a.slug === entry.slug);
   return articles[(i + 1) % articles.length];
-}
-
-// Series: los datos se mantienen (colección `series` y campo `series` de los artículos),
-// pero el rediseño no tiene UI de series por ahora.
-export async function getSeriesWithCount(lang: 'es' | 'en') {
-  const [seriesEntries, articles] = await Promise.all([
-    getCollection('series', (e) => e.data.lang === lang),
-    getPublishedArticles(lang),
-  ]);
-  return seriesEntries.map((s) => ({
-    slug: s.id,
-    data: s.data,
-    count: articles.filter((a) => a.data.series === s.id).length,
-  }));
 }
 
 // Reading time is estimated from the raw MDX source (entry.body): close

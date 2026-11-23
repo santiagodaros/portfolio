@@ -2,8 +2,6 @@
 // ES: design/prototype/index.html (#ahora, #estado-carrera, #speaker). Son borradores que Santiago revisa
 // antes de publicar (docs/REDISENO.md §11). EN: traducción mía (el prototipo no traduce estas páginas).
 
-import type { Lang } from './index';
-
 const es = {
   back: '← Volver al inicio',
   now: {
@@ -229,7 +227,3 @@ const en: typeof es = {
 };
 
 export const pagesText = { es, en };
-
-export function pageLang(lang: Lang) {
-  return pagesText[lang];
-}

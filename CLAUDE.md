@@ -1,6 +1,6 @@
 # Portfolio de Santiago Da Ros
 
-Sitio personal en Astro 4 + MDX + Tailwind, desplegado en Vercel. El rediseño en curso se guía por `docs/REDISENO.md` y el prototipo `design/prototype/index.html`.
+Sitio personal en Astro 4 + MDX, desplegado en Vercel. El rediseño se guía por `docs/REDISENO.md` y el prototipo `design/prototype/index.html`.
 
 ## Reglas
 
@@ -10,6 +10,15 @@ Sitio personal en Astro 4 + MDX + Tailwind, desplegado en Vercel. El rediseño e
 - **Sin dependencias de más:** solo las necesarias (Geist, Vercel Analytics). Nada de UI kits ni state managers.
 - **Contenido real:** no inventes artículos, métricas, charlas ni proyectos. Si falta un dato, preguntá.
 - **Accesibilidad y movimiento:** foco visible, navegación por teclado y `prefers-reduced-motion` en toda animación.
+
+## Estructura
+
+- **Idioma por la URL:** `/` es español y `/en/` inglés. Los componentes reciben `lang` por props y leen los textos de `src/i18n/` (`home.ts`, `blog.ts`, `pages.ts`, `newsletter.ts`, `palette.ts`). No hay toggle en el cliente.
+- **Una página nueva con traducción:** crear las dos rutas, pasar `alternates={{ es, en }}` al `Layout` (da el `hreflang` y el botón de idioma) y sumar el par en `translated` de `astro.config.mjs` (sitemap).
+- **Contenido:** `src/content/` (`blog`, `projects`, `linkedin`, `series`). Los proyectos y los posts de LinkedIn son un JSON por entrada; los artículos son MDX con `lang` y `translationKey`.
+- **Estilos:** tokens y primitivas en `src/styles/global.css` (claro y `[data-theme="dark"]`); el resto es CSS dentro de cada componente. Tailwind quedó solo por su reset (`preflight`).
+- **Colores:** `--accent` es para texto y gráficos; `--accent-fill` para rellenos con texto blanco encima (en oscuro son distintos para cumplir contraste AA).
+- **Variables:** `PUBLIC_KIT_FORM_ID` (ver `.env.example`; copiarlo a `.env`). Sin ella el formulario del newsletter queda deshabilitado.
 
 ## Comandos
 
