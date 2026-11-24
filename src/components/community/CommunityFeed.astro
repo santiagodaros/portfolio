@@ -1,0 +1,298 @@
+---
+// Lista visual de la comunidad: pestañas con cantidad, tarjetas y (en la página) filtro por área. La usan la home
+// (resumida: `limit`, las pestañas filtran en el lugar y "Ver todo" despliega) y el hub /comunidad (completa, una
+// URL por pestaña). Es el mismo componente, así que las dos se ven y se comportan igual.
+import FeedCard from './FeedCard.astro';
+import ArticuloProximo from '../ArticuloProximo.astro';
+import { communityText, communityPaths, hubHref } from '../../i18n/community';
+import { AREAS, areaLabels, areaShort } from '../../lib/areas';
+import { csvFileName, countLastYear, getAvailableTabs, getContributions, type TabId } from '../../lib/contributions';
+import { getFeedItems, getSoonArticles } from '../../lib/feed';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Pestaña activa en el hub; sin ella, "Todo". */
+  tab?: TabId;
+  /** Home: muestra solo las primeras N y deja "Ver todo". Sin límite, muestra todo (hub). */
+  limit?: number;
+  /** Filtro por área (hub). */
+  showAreas?: boolean;
+  /** Nivel de los títulos de las tarjetas (2 en el hub, 3 en la home). */
+  level?: 2 | 3;
+}
+const { lang, tab, limit: wanted = 0, showAreas = false, level = 3 } = Astro.props;
+const t = communityText[lang].hub;
+
+const all = await getFeedItems(lang);
+const tabs = await getAvailableTabs();
+const items = tab ? all.filter((i) => i.tab === tab) : all;
+const soon = !tab || tab === 'articulos' ? await getSoonArticles(lang) : [];
+// En la home, `wanted` es el espacio en celdas de la grilla de 3 columnas. La tarjeta "Próximamente" y la charla
+// destacada ocupan dos celdas cada una: se descuentan para que las filas queden completas.
+const feat = !tab && all[0]?.upcoming === true;
+const limit = wanted ? wanted - 2 * soon.length - (feat ? 1 : 0) : 0;
+const total = countLastYear(await getContributions(lang)).total;
+
+const tabList = [
+  { id: 'all' as const, label: t.tabs.all, count: all.length, href: hubHref(lang) },
+  ...tabs.map((id) => ({ id, label: t.tabs[id], count: all.filter((i) => i.tab === id).length, href: hubHref(lang, id) })),
+];
+const areasPresent = AREAS.filter((a) => items.some((i) => i.area === a));
+const csvName = csvFileName[lang];
+---
+
+<div
+  class="feed"
+  data-feed
+  data-limit={limit || undefined}
+  data-tab={tab ?? 'all'}
+  data-showing={t.showing(0, 0).replace('0', '{x}').replace('0', '{y}')}
+  data-more-label={t.more}
+  data-less-label={t.less}
+>
+  <div class="feed__bar">
+    <nav class="tabs" aria-label={t.tabsAria}>
+      {
+        tabList.map((x) => (
+          <a href={x.href} data-tab-link={x.id} aria-current={x.id === (tab ?? 'all') ? 'page' : undefined}>
+            {x.label}
+            <span class="tabs__n">{x.count}</span>
+          </a>
+        ))
+      }
+    </nav>
+    <p class="feed__year">
+      {t.lastYear(total)}
+      <span aria-hidden="true"> · </span>
+      <a class="link" href={communityPaths[lang].csv} download={csvName}>{t.csv}</a>
+    </p>
+  </div>
+
+  {
+    showAreas && areasPresent.length > 1 && (
+      <div class="areas" data-areas role="group" aria-label={t.areaFilter}>
+        <span class="areas__label">{t.areaFilter}</span>
+        <button type="button" data-area="" aria-pressed="true">{t.allAreas}</button>
+        {areasPresent.map((a) => <button type="button" data-area={a} aria-pressed="false" title={areaLabels[lang][a]}>{areaShort[lang][a]}</button>)}
+      </div>
+    )
+  }
+
+  <div class="feed__grid">
+    {
+      soon.map((e) => (
+        <div class="feed__soon" data-feed-item data-pin data-tab="articulos" data-area={e.data.area}>
+          <ArticuloProximo entry={e} level={level} />
+        </div>
+      ))
+    }
+    {
+      items.map((item, i) => (
+        <FeedCard item={item} lang={lang} feat={feat && i === 0} level={level} late={limit > 0 && i >= limit} />
+      ))
+    }
+  </div>
+  <p class="muted feed__empty" data-empty hidden>{t.empty}</p>
+
+  <div class="feed__foot">
+    <p class="muted" data-count></p>
+    {limit > 0 && items.length > limit && <a class="btn btn--secondary btn--sm" data-more href={hubHref(lang)} aria-expanded="false">{t.more}</a>}
+  </div>
+</div>
+
+<style>
+  .feed {
+    display: grid;
+    gap: 20px;
+  }
+  .feed__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 24px;
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .tabs a:hover {
+    border-color: var(--accent);
+  }
+  .tabs a[aria-current='page'] {
+    border-color: var(--accent-fill);
+    background: var(--accent-fill);
+    color: #fff;
+  }
+  .tabs__n {
+    font: 500 13px/1 var(--mono);
+    color: var(--muted);
+  }
+  .tabs a[aria-current='page'] .tabs__n {
+    color: #fff;
+  }
+  .feed__year {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .areas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .areas__label {
+    font: 500 12px/1 var(--mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  /* Sin JS los botones no hacen nada: se ocultan */
+  :global(html:not(.js)) .areas {
+    display: none;
+  }
+  .areas button {
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .areas button[aria-pressed='true'] {
+    border-color: var(--accent-fill);
+    background: var(--accent-fill);
+    color: #fff;
+  }
+  .feed__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  @media (min-width: 700px) {
+    .feed__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: dense;
+    }
+    .feed__soon {
+      grid-column: span 2;
+    }
+  }
+  @media (min-width: 1024px) {
+    .feed__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  /* Antes de que cargue el JS, las que pasan el límite no se ven (la home muestra un resumen) */
+  .feed[data-limit] :global([data-late]) {
+    display: none;
+  }
+  .feed :global([data-feed-item][hidden]) {
+    display: none;
+  }
+  .feed__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+  }
+  .feed__foot p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .feed__empty {
+    margin: 0;
+  }
+</style>
+
+<script>
+  // Pestañas en el lugar (home), "Ver todo" y filtro por área. Sin JS: las pestañas son links al hub y el filtro no aparece.
+  document.querySelectorAll<HTMLElement>('[data-feed]').forEach((feed) => {
+    const limit = Number(feed.dataset.limit ?? 0);
+    const items = Array.from(feed.querySelectorAll<HTMLElement>('[data-feed-item]'));
+    const tabLinks = Array.from(feed.querySelectorAll<HTMLAnchorElement>('[data-tab-link]'));
+    const areaBtns = Array.from(feed.querySelectorAll<HTMLButtonElement>('[data-areas] button'));
+    const more = feed.querySelector<HTMLAnchorElement>('[data-more]');
+    const count = feed.querySelector<HTMLElement>('[data-count]');
+    const empty = feed.querySelector<HTMLElement>('[data-empty]');
+    let tab = feed.dataset.tab ?? 'all';
+    let area = '';
+    let expanded = false;
+
+    const render = () => {
+      const match = items.filter((el) => (tab === 'all' || el.dataset.tab === tab) && (!area || el.dataset.area === area));
+      const pinned = match.filter((el) => 'pin' in el.dataset);
+      const cards = match.filter((el) => !('pin' in el.dataset));
+      const cap = limit && !expanded ? limit : cards.length;
+      items.forEach((el) => {
+        el.removeAttribute('data-late');
+        const ci = cards.indexOf(el);
+        el.hidden = !(pinned.includes(el) || (ci >= 0 && ci < cap));
+      });
+      const shown = Math.min(cap, cards.length);
+      if (count) {
+        count.hidden = !limit;
+        count.textContent = (feed.dataset.showing ?? '').replace('{x}', String(shown)).replace('{y}', String(cards.length));
+      }
+      if (more) {
+        more.hidden = !limit || cards.length <= limit;
+        more.textContent = expanded ? feed.dataset.lessLabel ?? '' : feed.dataset.moreLabel ?? '';
+        more.setAttribute('aria-expanded', String(expanded));
+      }
+      if (empty) empty.hidden = match.length > 0;
+    };
+
+    // Home: las pestañas filtran en el lugar. En el hub son links (cada pestaña tiene su URL).
+    if (limit) {
+      tabLinks.forEach((a) =>
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          tab = a.dataset.tabLink ?? 'all';
+          expanded = false;
+          tabLinks.forEach((x) => (x === a ? x.setAttribute('aria-current', 'page') : x.removeAttribute('aria-current')));
+          render();
+        })
+      );
+      more?.addEventListener('click', (e) => {
+        e.preventDefault();
+        expanded = !expanded;
+        render();
+      });
+    }
+
+    areaBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        area = b.dataset.area ?? '';
+        areaBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        const url = new URL(location.href);
+        if (area) url.searchParams.set('area', area);
+        else url.searchParams.delete('area');
+        history.replaceState(null, '', url);
+        render();
+      })
+    );
+    const initial = new URL(location.href).searchParams.get('area') ?? '';
+    if (initial && areaBtns.some((b) => b.dataset.area === initial)) {
+      area = initial;
+      areaBtns.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.area === initial)));
+    }
+    render();
+  });
+</script>

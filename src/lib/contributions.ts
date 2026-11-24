@@ -37,6 +37,10 @@ export type Contribution = {
   count?: number;
   /** Posts con versión extendida en el sitio. */
   extendedHref?: string;
+  /** Una o dos líneas para la tarjeta (descripción del artículo, resumen del post). */
+  summary?: string;
+  /** Portada de la tarjeta (artículos con imagen). */
+  image?: { src: string; width: number; height: number };
 };
 
 const SITE = 'https://portfolio-santiagodaros.vercel.app';
@@ -104,6 +108,8 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
       language: a.data.lang,
       inSpanish: a.data.lang !== lang,
       reach: es.data.reach,
+      summary: a.data.description,
+      image: a.data.cover ? { src: a.data.cover, width: 1600, height: 560 } : undefined,
     });
   }
 
@@ -124,6 +130,7 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
       inSpanish: lang === 'en',
       reach: p.data.reach,
       extendedHref: spanish ? articleHref(articleFor(spanish)) : undefined,
+      summary: p.data.summary,
     });
   }
 

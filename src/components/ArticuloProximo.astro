@@ -8,8 +8,11 @@ import { upcomingArticleText as t } from '../i18n/blog';
 
 interface Props {
   entry: CollectionEntry<'blog'>;
+  /** Nivel del título (2 bajo el h1 del hub, 3 bajo el h2 de la home). */
+  level?: 2 | 3;
 }
-const { entry } = Astro.props;
+const { entry, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
 const publishAt = entry.data.publishAt!;
 const TZ = 'America/Argentina/Buenos_Aires';
 
@@ -49,7 +52,7 @@ const href = `${articleHref(entry)}/`;
     <span class="soon__sr" data-soon-sr>{t.sr(entry.data.title, whenLong)}</span>
     <div aria-hidden="true" class="soon__text">
       <span class="soon__tag" data-soon-tag>{t.tag}</span>
-      <h3 data-soon-title>{entry.data.title}</h3>
+      <Heading data-soon-title>{entry.data.title}</Heading>
       <p class="soon__desc">{entry.data.description}</p>
       <p class="soon__when">{t.releases(whenShort)}</p>
       <p class="soon__count" data-soon-count></p>
@@ -63,7 +66,9 @@ const href = `${articleHref(entry)}/`;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     border: 1px solid var(--line);
-    border-radius: 24px;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    border-radius: 22px;
     background: var(--card);
     color: var(--muted);
     overflow: hidden;
@@ -79,8 +84,8 @@ const href = `${articleHref(entry)}/`;
   }
   .soon__body {
     display: grid;
-    align-content: center;
-    padding: 24px 26px 26px;
+    align-content: start;
+    padding: 22px 24px 24px;
   }
   .soon__text {
     display: grid;
@@ -97,6 +102,7 @@ const href = `${articleHref(entry)}/`;
     text-transform: uppercase;
     color: var(--muted);
   }
+  .soon h2,
   .soon h3 {
     margin: 0;
     font: var(--display-weight) 24px/1.2 var(--display);
@@ -131,16 +137,6 @@ const href = `${articleHref(entry)}/`;
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
-  @media (min-width: 900px) {
-    .soon {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      align-items: center;
-    }
-    .soon__body {
-      padding: 28px 32px;
-    }
-  }
-
   /* Ya salió: se vuelve un link normal */
   .soon:not(.soon--wait) {
     color: var(--ink);
@@ -151,6 +147,7 @@ const href = `${articleHref(entry)}/`;
     filter: none;
     opacity: 1;
   }
+  .soon:not(.soon--wait) h2,
   .soon:not(.soon--wait) h3 {
     color: var(--ink);
   }
@@ -158,6 +155,7 @@ const href = `${articleHref(entry)}/`;
     color: var(--accent);
     border-color: var(--accent);
   }
+  .soon:not(.soon--wait):hover h2,
   .soon:not(.soon--wait):hover h3 {
     color: var(--accent);
   }

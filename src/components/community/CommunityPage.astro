@@ -1,26 +1,11 @@
 ---
-// Hub /comunidad (EN /en/community): todo lo que comparto, con contadores de los últimos 12 meses,
-// pestañas con URL propia, filtro por área y descarga del CSV.
-import TalkCard from './TalkCard.astro';
-import ArticuloProximo from '../ArticuloProximo.astro';
-import { getUpcomingArticles } from '../../lib/blog';
-import { communityText, communityPaths, hubHref } from '../../i18n/community';
-import {
-  csvFileName,
-  countLastYear,
-  getAvailableTabs,
-  getContributions,
-  monthKey,
-  monthLabel,
-  tabTypes,
-  typeLabel,
-  type ContributionType,
-  type TabId,
-} from '../../lib/contributions';
-import { getPastTalks, getUpcomingTalks, formatPartialDate } from '../../lib/talks';
-import { AREAS, areaLabels, areaShort } from '../../lib/areas';
+// Hub /comunidad (EN /en/community): la misma lista visual de la home, completa y con una URL por pestaña,
+// filtro por área y descarga del CSV.
+import CommunityFeed from './CommunityFeed.astro';
+import { communityText } from '../../i18n/community';
 import { getProfiles } from '../../data/profiles';
 import { homePath, type Lang } from '../../i18n';
+import type { TabId } from '../../lib/contributions';
 
 interface Props {
   lang: Lang;
@@ -29,37 +14,7 @@ interface Props {
 }
 const { lang, tab } = Astro.props;
 const t = communityText[lang].hub;
-const items = await getContributions(lang);
-const counters = countLastYear(items);
-const tabs = await getAvailableTabs();
 const profiles = getProfiles(['sessionize', 'youtube', 'github', 'qa', 'learn', 'linkedin']);
-
-const visible = tab ? items.filter((c) => (tabTypes[tab] as readonly ContributionType[]).includes(c.type)) : items;
-const areasPresent = AREAS.filter((a) => visible.some((c) => c.area === a));
-
-// Línea de tiempo por mes
-const months = new Map<string, typeof visible>();
-for (const c of visible) months.set(monthKey(c), [...(months.get(monthKey(c)) ?? []), c]);
-const timeline = [...months.entries()].sort((a, b) => b[0].localeCompare(a[0]));
-
-// Artículos programados: tarjeta "Próximamente" arriba de todo, en "Todo" y en "Artículos" (solo en español)
-const soon = lang === 'es' && (!tab || tab === 'articulos') ? await getUpcomingArticles() : [];
-
-const [upcoming, past] = tab === 'charlas' ? await Promise.all([getUpcomingTalks(lang), getPastTalks(lang)]) : [[], []];
-
-const statCards = [
-  { n: counters.talks, label: t.counters.talks },
-  { n: counters.articles, label: t.counters.articles },
-  { n: counters.posts, label: t.counters.posts },
-  { n: counters.repos, label: t.counters.repos },
-  ...(counters.forumAnswers > 0 ? [{ n: counters.forumAnswers, label: t.counters.forumAnswers }] : []),
-];
-const tabList: { id: 'all' | TabId; label: string; href: string }[] = [
-  { id: 'all', label: t.tabs.all, href: hubHref(lang) },
-  ...tabs.map((id) => ({ id, label: t.tabs[id], href: hubHref(lang, id) })),
-];
-const csvHref = communityPaths[lang].csv;
-const csvName = csvFileName[lang];
 ---
 
 <main id="main" tabindex="-1" class="hub">
@@ -74,117 +29,19 @@ const csvName = csvFileName[lang];
     <div class="hub__head">
       <h1>{t.title}</h1>
       <p class="hub__lead">{t.lead}</p>
+      {
+        profiles.length > 0 && (
+          <div class="hub__profiles">
+            <span class="hub__label">{t.profilesTitle}</span>
+            <ul>
+              {profiles.map((p) => <li><a class="link" href={p.url} target="_blank" rel="noopener">{p.label}</a></li>)}
+            </ul>
+          </div>
+        )
+      }
     </div>
 
-    <section class="hub__stats" aria-label={t.countersTitle}>
-      <h2 class="hub__label">{t.countersTitle}</h2>
-      <ul class="stats">
-        {
-          statCards.map((s) => (
-            <li class="stat">
-              <strong>{s.n}</strong>
-              <span>{s.label}</span>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-
-    {
-      profiles.length > 0 && (
-        <div class="hub__profiles">
-          <span class="hub__label">{t.profilesTitle}</span>
-          <ul>
-            {profiles.map((p) => <li><a class="link" href={p.url} target="_blank" rel="noopener">{p.label}</a></li>)}
-          </ul>
-        </div>
-      )
-    }
-
-    <div class="hub__bar">
-      <nav class="tabs" aria-label={t.tabsAria}>
-        {
-          tabList.map((x) => (
-            <a href={x.href} aria-current={x.id === (tab ?? 'all') ? 'page' : undefined}>
-              {x.label}
-            </a>
-          ))
-        }
-      </nav>
-      <a class="btn btn--secondary btn--sm hub__csv" href={csvHref} download={csvName}>
-        {t.csv}
-      </a>
-    </div>
-
-    {
-      areasPresent.length > 1 && (
-        <div class="areas" data-areas role="group" aria-label={t.areaFilter}>
-          <span class="hub__label">{t.areaFilter}</span>
-          <button type="button" data-area="" aria-pressed="true">{t.allAreas}</button>
-          {areasPresent.map((a) => <button type="button" data-area={a} aria-pressed="false" title={areaLabels[lang][a]}>{areaShort[lang][a]}</button>)}
-        </div>
-      )
-    }
-
-    {soon.length > 0 && <div class="soon-list">{soon.map((e) => <ArticuloProximo entry={e} />)}</div>}
-
-    {
-      tab === 'charlas' ? (
-        <>
-          <section class="talks-block">
-            <h2>{t.upcoming}</h2>
-            {upcoming.length > 0 ? (
-              <div class="talk-grid">{upcoming.map((x) => <TalkCard talk={x} lang={lang} />)}</div>
-            ) : (
-              <p class="muted">{t.noUpcoming}</p>
-            )}
-          </section>
-          <section class="talks-block">
-            <h2>{t.previous}</h2>
-            <div class="talk-grid">{past.map((x) => <TalkCard talk={x} lang={lang} />)}</div>
-          </section>
-        </>
-      ) : (
-        <div class="timeline" data-timeline>
-          {timeline.map(([key, list]) => (
-            <section class="month" data-month>
-              <h2 class="month__title">{monthLabel(key, lang)}</h2>
-              <ul class="list">
-                {list.map((c) => (
-                  <li class="item" data-area-item={c.area}>
-                    <div class="item__meta">
-                      <time datetime={c.date.toISOString().slice(0, 10)}>{formatPartialDate(c.date, c.datePrecision, lang)}</time>
-                      <span class="chip chip--type">{typeLabel(c, lang)}</span>
-                      <span class="chip">{areaShort[lang][c.area]}</span>
-                      {c.inSpanish && <span class="chip chip--lang">{t.inSpanish}</span>}
-                      {c.reach && <span>{t.reach}: {c.reach}</span>}
-                    </div>
-                    <h3>
-                      <a
-                        class="item__link"
-                        href={c.href}
-                        {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
-                        {...(c.inSpanish ? { hreflang: 'es' } : {})}
-                      >
-                        {c.title}
-                        {c.external && <span aria-hidden="true"> ↗</span>}
-                      </a>
-                    </h3>
-                    {c.event && <p class="muted item__sub">{c.event}</p>}
-                    {c.extendedHref && (
-                      <a class="link item__ext" href={c.extendedHref} {...(c.inSpanish ? { hreflang: 'es' } : {})}>
-                        {t.extendedLink}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-          <p class="muted hub__empty" data-empty hidden>{t.empty}</p>
-        </div>
-      )
-    }
+    <CommunityFeed lang={lang} tab={tab} showAreas level={2} />
 
     <p class="muted hub__note">{t.csvNote}</p>
   </div>
@@ -223,40 +80,12 @@ const csvName = csvFileName[lang];
     text-transform: uppercase;
     color: var(--muted);
   }
-  .hub__stats {
-    display: grid;
-    gap: 12px;
-  }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .stat {
-    display: grid;
-    gap: 4px;
-    padding: 18px 20px;
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    background: var(--card);
-  }
-  .stat strong {
-    font: var(--display-weight) 38px/1 var(--display);
-    letter-spacing: var(--track);
-  }
-  .stat span {
-    font-size: 14px;
-    color: var(--muted);
-  }
   .hub__profiles {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px 20px;
-    margin-top: 20px;
+    margin-top: 6px;
   }
   .hub__profiles ul {
     display: flex;
@@ -267,157 +96,6 @@ const csvName = csvFileName[lang];
     list-style: none;
     font-size: 15px;
   }
-  .hub__bar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px 24px;
-    margin-top: 40px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
-  }
-  .tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .tabs a {
-    padding: 9px 16px;
-    border-radius: 999px;
-    color: var(--muted);
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .tabs a:hover {
-    color: var(--ink);
-    background: var(--surface);
-  }
-  .tabs a[aria-current='page'] {
-    color: #fff;
-    background: var(--accent-fill);
-  }
-  .areas {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-  }
-  /* Sin JS los botones no hacen nada: se ocultan. Con JS ya están en el HTML, así no hay salto de diseño al cargar. */
-  :global(html:not(.js)) .areas {
-    display: none;
-  }
-  .areas button {
-    padding: 6px 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--ink);
-    font-size: 14px;
-  }
-  .areas button[aria-pressed='true'] {
-    border-color: var(--accent-fill);
-    background: var(--accent-fill);
-    color: #fff;
-  }
-  .soon-list {
-    display: grid;
-    gap: 16px;
-    margin-top: 28px;
-  }
-  .timeline {
-    margin-top: 12px;
-  }
-  .month {
-    margin-top: 40px;
-  }
-  .month[hidden] {
-    display: none;
-  }
-  .month__title {
-    margin: 0;
-    padding-bottom: 6px;
-    font: 500 14px/1 var(--mono);
-    letter-spacing: 0.03em;
-    color: var(--muted);
-  }
-  .list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .item {
-    position: relative;
-    display: grid;
-    gap: 6px;
-    padding: 20px 0;
-    border-top: 1px solid var(--line);
-  }
-  .item[hidden] {
-    display: none;
-  }
-  .item__meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 12px;
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .chip {
-    padding: 2px 10px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: 12px;
-  }
-  .chip--type {
-    border-color: transparent;
-    background: var(--surface);
-    color: var(--ink);
-  }
-  .item h3 {
-    font-size: var(--t4);
-    line-height: 1.22;
-  }
-  .item__link {
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .item__link::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-  }
-  .item:hover .item__link,
-  .item__link:focus-visible {
-    color: var(--accent);
-  }
-  .item__sub {
-    font-size: 15px;
-  }
-  .item__ext {
-    position: relative;
-    z-index: 1;
-    justify-self: start;
-    font-size: 15px;
-  }
-  .hub__empty {
-    margin-top: 32px;
-  }
-  .talks-block {
-    margin-top: 40px;
-  }
-  .talks-block h2 {
-    margin-bottom: 20px;
-    font-size: var(--t3);
-  }
-  .talk-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 20px;
-  }
   .hub__note {
     margin-top: 48px;
     font-size: 14px;
@@ -426,33 +104,5 @@ const csvName = csvFileName[lang];
     .hub__head {
       margin-top: 32px;
     }
-    .hub__csv {
-      width: 100%;
-      justify-content: center;
-    }
   }
 </style>
-
-<script>
-  // Filtro por área sobre la lista actual. Sin JS la lista se ve completa y los botones no aparecen.
-  const box = document.querySelector<HTMLElement>('[data-areas]');
-  if (box) {
-    const buttons = Array.from(box.querySelectorAll<HTMLButtonElement>('button'));
-    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-area-item]'));
-    const months = Array.from(document.querySelectorAll<HTMLElement>('[data-month]'));
-    const empty = document.querySelector<HTMLElement>('[data-empty]');
-    const apply = (area: string) => {
-      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.area === area)));
-      items.forEach((i) => (i.hidden = Boolean(area) && i.dataset.areaItem !== area));
-      months.forEach((m) => (m.hidden = !m.querySelector('[data-area-item]:not([hidden])')));
-      if (empty) empty.hidden = months.some((m) => !m.hidden);
-      const url = new URL(location.href);
-      if (area) url.searchParams.set('area', area);
-      else url.searchParams.delete('area');
-      history.replaceState(null, '', url);
-    };
-    buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.area ?? '')));
-    const initial = new URL(location.href).searchParams.get('area') ?? '';
-    if (initial && buttons.some((b) => b.dataset.area === initial)) apply(initial);
-  }
-</script>

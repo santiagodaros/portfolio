@@ -1,0 +1,305 @@
+---
+// Tarjeta de la sección Comunidad. Una sola para charlas, artículos, posts, código y lo demás: portada (imagen si la
+// hay, tipográfica si no), tipo y área, título con link estirado, resumen y pie con fecha.
+import { communityText } from '../../i18n/community';
+import { areaLabels, areaShort } from '../../lib/areas';
+import type { FeedItem } from '../../lib/feed';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  item: FeedItem;
+  lang: Lang;
+  /** Tarjeta destacada (la próxima charla): ocupa dos columnas en pantallas anchas. */
+  feat?: boolean;
+  /** En la home, las que pasan el límite quedan ocultas hasta "Ver todo". */
+  late?: boolean;
+  /** Nivel del título: h3 bajo el h2 de la home, h2 bajo el h1 del hub. */
+  level?: 2 | 3;
+}
+const { item, lang, feat = false, late = false, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+const t = communityText[lang].hub;
+const area = item.area;
+
+// Texto grande de la portada tipográfica, según el tipo
+const big =
+  item.kind === 'post' || item.kind === 'community' || item.kind === 'newsletter'
+    ? area
+      ? areaLabels[lang][area]
+      : item.label
+    : item.kind === 'forum'
+      ? t.answers(item.count ?? 1)
+      : item.title.split(':')[0];
+---
+
+<article
+  class:list={['fc', `fc--${item.kind}`, { 'fc--feat': feat, 'fc--up': item.upcoming }]}
+  data-feed-item
+  data-tab={item.tab ?? ''}
+  data-area={area ?? ''}
+  data-late={late ? '' : undefined}
+>
+  <div class="fc__cover" aria-hidden="true">
+    {
+      item.image ? (
+        <img src={item.image.src} alt="" width={item.image.width} height={item.image.height} loading="lazy" decoding="async" />
+      ) : (
+        <div class="fc__art">
+          <span class="fc__kind">{item.label}</span>
+          {item.kind === 'repo' ? (
+            <span class="fc__code"><i>$</i> git clone {item.title.split(':')[0]}</span>
+          ) : (
+            <span class="fc__big">{big}</span>
+          )}
+        </div>
+      )
+    }
+  </div>
+  <div class="fc__body">
+    <div class="fc__meta">
+      {item.upcoming && <span class="status status--plan">{t.nextTalk}</span>}
+      <span class="chip chip--type">{item.label}</span>
+      {area && <span class="chip" title={areaLabels[lang][area]}>{areaShort[lang][area]}</span>}
+      {item.inSpanish && <span class="chip chip--lang">{t.inSpanish}</span>}
+    </div>
+    <Heading>
+      <a
+        class="fc__link"
+        href={item.href}
+        {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
+        {...(item.inSpanish ? { hreflang: 'es' } : {})}
+      >
+        {item.title}{item.external && <span aria-hidden="true"> ↗</span>}
+      </a>
+    </Heading>
+    {item.summary && <p class="fc__sum">{item.summary}</p>}
+    <div class="fc__foot">
+      <span class="fc__date">{item.dateLabel}</span>
+      {item.event && <span>{item.event}</span>}
+      {item.reach && <span>{t.reach}: {item.reach}</span>}
+      {item.count !== undefined && item.kind !== 'forum' && <span>{t.answers(item.count)}</span>}
+    </div>
+    {
+      (item.recording || item.extendedHref) && (
+        <div class="fc__links">
+          {item.recording && <a href={item.recording} target="_blank" rel="noopener">{t.watch}</a>}
+          {item.extendedHref && <a href={item.extendedHref} {...(item.inSpanish ? { hreflang: 'es' } : {})}>{t.extendedLink}</a>}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .fc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--card);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .fc:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+  .fc--up {
+    border-color: var(--accent);
+  }
+  .fc__cover {
+    display: block;
+    background: #0b0c0e;
+  }
+  .fc__cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .fc__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 20px 20px;
+  }
+  .fc__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 8px;
+  }
+  .chip {
+    padding: 2px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .chip--type {
+    border-color: transparent;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .fc h2,
+  .fc h3 {
+    margin: 0;
+    font-size: var(--t4);
+    line-height: 1.2;
+  }
+  .fc--feat h2,
+  .fc--feat h3 {
+    font-size: 26px;
+  }
+  .fc__link {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .fc__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .fc:hover .fc__link,
+  .fc__link:focus-visible {
+    color: var(--accent);
+  }
+  .fc:has(.fc__link:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  /* El anillo lo dibuja la tarjeta entera; el outline transparente queda para el modo de alto contraste */
+  .fc__link:focus-visible {
+    outline: 2px solid transparent;
+  }
+  .fc__sum {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .fc--feat .fc__sum {
+    -webkit-line-clamp: 4;
+  }
+  .fc__foot {
+    margin-top: auto;
+    display: grid;
+    gap: 2px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .fc__links {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .fc__links a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .fc__links a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Portada tipográfica: la misma proporción que las portadas de los artículos */
+  .fc__art {
+    aspect-ratio: 1600 / 560;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 14px 18px;
+    overflow: hidden;
+    background: var(--surface);
+    color: var(--ink);
+    border-left: 4px solid var(--accent-fill);
+  }
+  .fc__kind {
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .fc__big {
+    font: var(--display-weight) 26px/1.08 var(--display);
+    letter-spacing: var(--track);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .fc--repo .fc__art {
+    background: #0b0c0e;
+    color: #c9cdd4;
+    border-left-color: #8b93ff;
+  }
+  .fc__code {
+    font: 500 15px/1.3 var(--mono);
+    overflow-wrap: anywhere;
+  }
+  .fc__code i {
+    font-style: normal;
+    color: #8b93ff;
+  }
+  .fc--talk .fc__art {
+    background: var(--accent-fill);
+    color: #fff;
+    border-left-color: transparent;
+  }
+  .fc--article .fc__art {
+    background: var(--ink);
+    color: var(--bg);
+    border-left-color: var(--accent-fill);
+  }
+
+  @media (min-width: 700px) {
+    .fc--feat {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    /* La portada llena el alto de la tarjeta (sin franjas vacías arriba y abajo) */
+    .fc--feat .fc__cover {
+      flex: 0 0 52%;
+      display: flex;
+    }
+    .fc--feat .fc__cover img {
+      height: 100%;
+      object-fit: cover;
+    }
+    .fc--feat .fc__art {
+      flex: 1;
+      aspect-ratio: auto;
+      padding: 22px 26px;
+    }
+    .fc--feat .fc__big {
+      font-size: 40px;
+      -webkit-line-clamp: 3;
+    }
+    .fc--feat .fc__body {
+      padding: 26px 28px;
+      align-self: stretch;
+      justify-content: center;
+    }
+    .fc--feat .fc__foot {
+      margin-top: 6px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fc {
+      transition: none;
+    }
+    .fc:hover {
+      transform: none;
+    }
+  }
+</style>

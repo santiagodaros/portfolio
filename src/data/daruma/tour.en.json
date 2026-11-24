@@ -54,12 +54,12 @@
       "text": "Six Microsoft certifications, each one verifiable on Learn. SC-100 is in progress."
     },
     {
-      "sel": "#comunidad .post--feat",
+      "sel": "#comunidad .feed__grid",
       "title": "What Santiago writes",
       "text": "Real Azure cases: first a short version on LinkedIn and, when the topic calls for it, the extended one here."
     },
     {
-      "sel": "#comunidad .side",
+      "sel": "#comunidad .fc--talk",
       "title": "Talks",
       "text": "Webinars and talks with live demos. If you're organizing an event, the speaker kit has a bio, photos and topics.",
       "act": { "t": "Open speaker kit", "h": "speaker" }
@@ -78,7 +78,7 @@
   "mobile": [0, 2, 3, 6, 7, 9],
   "evento": [
     {
-      "sel": "#comunidad .side",
+      "sel": "#comunidad .fc--talk",
       "title": "Talks and speaker kit",
       "text": "Santiago gives talks on disaster recovery, governance and FinOps on Azure, almost always with a live demo. The speaker kit has a bio, photos and topics ready to copy.",
       "act": { "t": "Open speaker kit", "h": "speaker" }
@@ -93,20 +93,22 @@
       "act": { "t": "See the details", "h": "p-failover" }
     },
     {
-      "sel": "#comunidad .post--feat",
+      "sel": "#comunidad a[href$=\"/en/articulos/backup-is-not-continuity-the-rpo-rto-gap\"]",
+      "up": ".fc",
       "title": "DR · 2 of 3 · In writing",
       "text": "\"Backup is not continuity\": the difference between RPO and RTO, and why an untested plan is a hypothesis.",
       "act": { "t": "Read the article", "h": "art-rto" }
     },
     {
-      "sel": "#comunidad .side",
+      "sel": "#comunidad a[href$=\"/en/talks/dr-no-probado\"]",
+      "up": ".fc",
       "title": "DR · 3 of 3 · Live",
       "text": "The webinar \"DR that isn't tested isn't DR\", with a real end-to-end test."
     }
   ],
   "leer": [
     {
-      "sel": "#comunidad .post--feat",
+      "sel": "#comunidad .feed__grid",
       "title": "What Santiago writes",
       "text": "Real Azure cases. A short version comes out first on LinkedIn and, when the topic calls for it, the extended one here.",
       "act": { "t": "Read the featured one", "h": "art-rto" }

@@ -3,7 +3,7 @@
 import { RM, S, UI, bubble, close, dialogOpen, face, flash, hideBub } from './core';
 import { hold, release } from './physics';
 
-const SELECTOR = 'main .sol, main .feature, main .post, main .post--feat, main .talk, main .certs, main .hero__photo, main .facts > div, main.reader .prose > *';
+const SELECTOR = 'main .sol, main .feature, main .post, main .post--feat, main .talk, main .fc, main .certs, main .hero__photo, main .facts > div, main.reader .prose > *';
 
 export function chaos() {
   if (S.chaos) return;

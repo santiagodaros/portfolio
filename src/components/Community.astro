@@ -1,13 +1,9 @@
 ---
-// Sección "Comunidad" de la home: artículo destacado, próxima charla, contadores de los últimos 12 meses
-// y el link al hub /comunidad. Debajo, la guía gratuita de KQL.
-import TalkCard from './community/TalkCard.astro';
-import ArticuloProximo from './ArticuloProximo.astro';
-import { formatDate, getFeaturedArticle, getUpcomingArticles, articleHref, getReadingTime } from '../lib/blog';
-import { blogText } from '../i18n/blog';
-import { communityText, hubHref } from '../i18n/community';
-import { countLastYear, getContributions } from '../lib/contributions';
-import { getPastTalks, getUpcomingTalks } from '../lib/talks';
+// Sección "Comunidad" de la home: la misma lista visual que el hub /comunidad (pestañas con cantidad, tarjetas de
+// charlas, artículos, posts y código), resumida; las pestañas filtran en el lugar y "Ver todo" despliega.
+// Debajo, la guía gratuita de KQL.
+import CommunityFeed from './community/CommunityFeed.astro';
+import { communityText } from '../i18n/community';
 import { home } from '../i18n/home';
 import { kqlFileName } from '../data/kql';
 import { paths, type Lang } from '../i18n';
@@ -16,26 +12,9 @@ interface Props {
   lang?: Lang;
 }
 const { lang = 'es' } = Astro.props;
-const t = blogText[lang];
 const c = communityText[lang].home;
 const guide = home[lang].guide;
 const kqlFile = `/recursos/${kqlFileName[lang]}`;
-const featured = await getFeaturedArticle(lang);
-// Artículos programados: tarjeta "Próximamente" arriba de todo (solo en español)
-const soon = lang === 'es' ? await getUpcomingArticles() : [];
-// La próxima charla; si no hay ninguna confirmada, la última que di
-const [upcoming, past] = await Promise.all([getUpcomingTalks(lang), getPastTalks(lang)]);
-const talk = upcoming[0] ?? past[0];
-const talkTag = upcoming[0] ? c.nextTalk : c.lastTalk;
-const counters = countLastYear(await getContributions(lang));
-const stats = [
-  { n: counters.talks, label: communityText[lang].hub.counters.talks },
-  { n: counters.articles, label: communityText[lang].hub.counters.articles },
-  { n: counters.posts, label: communityText[lang].hub.counters.posts },
-  { n: counters.repos, label: communityText[lang].hub.counters.repos },
-];
-// Texto grande de la portada: el título hasta los dos puntos
-const coverTitle = featured?.data.title.split(':')[0];
 ---
 
 <section id="comunidad" class="section ground-surface">
@@ -47,44 +26,7 @@ const coverTitle = featured?.data.title.split(':')[0];
       </div>
       <p>{c.note}</p>
     </div>
-    {soon.length > 0 && <div class="soon-list" data-reveal>{soon.map((e) => <ArticuloProximo entry={e} />)}</div>}
-    <div class="comm">
-      {
-        featured && (
-          <a class="post--feat replica" data-reveal href={articleHref(featured)}>
-            <div
-              class:list={['post__cover', { 'post__cover--img': featured.data.cover }]}
-              style={featured.data.cover ? `--cover: url(${featured.data.cover})` : undefined}
-              aria-hidden="true"
-            >
-              {!featured.data.cover && <span class="big">{coverTitle}</span>}
-            </div>
-            <div class="post__body">
-              <div class="post__meta">
-                <span class="tag">{featured.data.category}</span>
-                <span>{formatDate(featured.data.date, lang)}</span>
-                <span>{t.featuredMeta(getReadingTime(featured.body))}</span>
-              </div>
-              <h3>{featured.data.title}</h3>
-              <p class="muted">{featured.data.description}</p>
-            </div>
-          </a>
-        )
-      }
-      <div class="side">
-        {talk && <TalkCard talk={talk} lang={lang} tag={talkTag} />}
-        <div class="side__stats" data-reveal>
-          <h3>{c.countersTitle}</h3>
-          <ul>
-            {stats.map((s) => <li><strong>{s.n}</strong><span>{s.label}</span></li>)}
-          </ul>
-        </div>
-        <div class="side__links" data-reveal>
-          <a class="link" href={hubHref(lang)}>{c.seeAll}</a>
-          <a class="link" href={hubHref(lang, 'articulos')}>{c.seeArticles}</a>
-        </div>
-      </div>
-    </div>
+    <CommunityFeed lang={lang} limit={9} />
     <div class="magnet replica" data-reveal>
       <div class="magnet__copy">
         <span class="eyebrow">{guide.eyebrow}</span>
@@ -104,132 +46,6 @@ const coverTitle = featured?.data.title.split(':')[0];
 </section>
 
 <style>
-  .soon-list {
-    display: grid;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .comm {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 24px;
-    align-items: start;
-  }
-  .post--feat {
-    grid-column: span 7;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    background: var(--card);
-    color: var(--ink);
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-  .post--feat:hover {
-    transform: translateY(-2px);
-    color: var(--ink);
-  }
-  .post__cover {
-    height: 250px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    border-radius: 24px 24px 0 0;
-    background: var(--ink);
-    color: var(--bg);
-  }
-  :global([data-theme='dark']) .post__cover:not(.post__cover--img) {
-    background: #000;
-  }
-  /* La imagen es panorámica (1600×560) y tiene contenido en los dos costados: la caja toma su
-     proporción para que nunca se recorte, sea cual sea el ancho de la tarjeta. */
-  .post__cover--img {
-    height: auto;
-    aspect-ratio: 1600 / 560;
-    padding: 0;
-    background-color: #0b0c0e;
-    background-image: var(--cover);
-    background-position: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-  .post__cover .big {
-    font: var(--display-weight) 40px/1 var(--display);
-    letter-spacing: var(--track);
-    color: #fff;
-  }
-  .post__body {
-    display: grid;
-    gap: 10px;
-    padding: 26px 28px;
-  }
-  .post__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .post__meta .tag {
-    color: var(--accent);
-  }
-  .side {
-    grid-column: 8 / span 5;
-    display: grid;
-    align-content: start;
-    gap: 20px;
-  }
-  .side__stats {
-    display: grid;
-    gap: 10px;
-  }
-  .side__stats h3 {
-    margin: 0;
-    font: 500 12px/1 var(--mono);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .side__stats ul {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .side__stats li {
-    display: grid;
-    gap: 2px;
-    padding: 14px 14px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--card);
-  }
-  .side__stats strong {
-    font: var(--display-weight) 28px/1 var(--display);
-    letter-spacing: var(--track);
-  }
-  .side__stats span {
-    font-size: 12px;
-    line-height: 1.25;
-    color: var(--muted);
-  }
-  .side__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 20px;
-  }
-  .post--feat h3 {
-    font-size: var(--t3);
-    line-height: 1.12;
-  }
-
   /* Guía gratuita (KQL) */
   .magnet {
     margin-top: 56px;
@@ -288,10 +104,6 @@ const coverTitle = featured?.data.title.split(':')[0];
   }
 
   @media (max-width: 1023px) {
-    .post--feat,
-    .side {
-      grid-column: 1 / -1;
-    }
     .magnet__copy,
     .magnet__file {
       grid-column: 1 / -1;
@@ -306,9 +118,6 @@ const coverTitle = featured?.data.title.split(':')[0];
   @media (max-width: 639px) {
     .magnet__file {
       display: none;
-    }
-    .side__stats ul {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>
