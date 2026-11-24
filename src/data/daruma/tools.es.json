@@ -1,0 +1,45 @@
+{
+  "cost": {
+    "intro": "Calculemos cuánto cuesta una caída. Son dos datos:",
+    "rev": "Ingresos que dependen del sistema, por hora (USD)",
+    "rto": "Tiempo de recuperación (RTO), en horas",
+    "btn": "Calcular",
+    "result": "Una caída de <b>{h} h</b> te costaría alrededor de <b>{c}</b> en ingresos, sin contar horas del equipo ni multas. Si probás el plan y bajás el RTO a la mitad, te ahorrás <b>{s}</b> por incidente.<span class=\"dm__src\">Estimación lineal. Fuente del enfoque: proyecto DR Live.</span>",
+    "readRto": "Leer sobre RTO",
+    "calcRpo": "Calcular mi RPO",
+    "mail": "Recibir casos por mail"
+  },
+  "rpo": {
+    "intro": "Tres preguntas para estimar tu RPO real:",
+    "q1": "¿Cada cuánto corre tu último backup o réplica válida?",
+    "q1o": [["24", "Una vez por día"], ["12", "Cada 12 horas"], ["4", "Cada 4 horas"], ["1", "Cada hora"], ["0.1", "Replicación continua"]],
+    "q2": "¿Cuándo restauraste por última vez para probar?",
+    "q2o": [["n", "Nunca"], ["v", "Hace más de 6 meses"], ["r", "En los últimos 6 meses"]],
+    "q3": "¿Verificás que los backups terminan bien?",
+    "q3o": [["s", "Sí, con alertas"], ["m", "A veces, a mano"], ["n", "No"]],
+    "btn": "Calcular",
+    "minutes": "minutos",
+    "upTo": "hasta {h} h",
+    "result": "Tu <b>RPO real</b> es de <b>{rp}</b>{why}. {rto}",
+    "why": ", porque si un backup falla sin que lo veas, perdés el del ciclo anterior también",
+    "rtoNone": "Tu <b>RTO</b> hoy es <b>desconocido</b>: sin una restauración de prueba, solo es una estimación.",
+    "rtoOld": "Tu <b>RTO</b> está desactualizado: el entorno cambió desde la última prueba.",
+    "rtoOk": "Tu <b>RTO</b> tiene una medición reciente. Bien.",
+    "source": "<span class=\"dm__src\">Fuente: artículo «{t}», {d}.</span>",
+    "readArticle": "Leer el artículo",
+    "calcCost": "Calcular el costo de una caída",
+    "mail": "Recibir casos por mail"
+  },
+  "kql": {
+    "intro": "La guía tiene 10 consultas de solo lectura. Escribí <b>/kql</b> y un tema (por ejemplo <b>/kql backups</b>) o elegí una:",
+    "guide": "Ver la guía",
+    "guideFull": "Ver la guía completa",
+    "notFound": "No encontré una consulta sobre \"{q}\".",
+    "source": "<span class=\"dm__src\">Fuente: guía «{t}».</span>",
+    "copy": "Copiar",
+    "copied": "Copiada",
+    "copyFail": "Seleccioná y copiá",
+    "other": "Otra consulta"
+  },
+  "money": "USD"
+}

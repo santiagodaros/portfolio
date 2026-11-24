@@ -1,0 +1,208 @@
+{
+  "chrome": {
+    "aria": "Daruma, guía del sitio",
+    "btn": "Daruma, la guía del sitio. Tocalo para abrir, arrastralo para empujarlo",
+    "sub": "Se cae siete veces, se levanta ocho.",
+    "close": "Cerrar",
+    "closeBubble": "Cerrar aviso",
+    "foot": "Sin IA: respondo con lo publicado acá.",
+    "how": "¿Cómo funciono?",
+    "mute": "Silenciar",
+    "unmute": "Activar comentarios",
+    "restart": "Empezar de nuevo",
+    "privacy": "Las preguntas se guardan de forma anónima para mejorar las respuestas.",
+    "ph": "Escribí tu pregunta…",
+    "askLabel": "Escribí tu pregunta",
+    "send": "Enviar",
+    "tourAria": "Recorrido guiado"
+  },
+  "modes": {
+    "builder": "Modo builder",
+    "guardia": "Modo guardia",
+    "speaker": "Modo speaker",
+    "lectura": "Modo lectura",
+    "none": "De guardia"
+  },
+  "hi": {
+    "night": "Es tarde. Yo también hago guardia.",
+    "morning": "Buen día.",
+    "afternoon": "Buenas.",
+    "evening": "Buenas noches."
+  },
+  "greet": "Si buscás algo, tocame.",
+  "muted": "Ok, me callo. Si me necesitás, tocame.",
+  "pushes": {
+    "1": "¡Epa! Siempre vuelvo.",
+    "3": "Podés seguir. Me levanto siempre.",
+    "7": "Siete caídas, ocho levantadas. Lo dice el refrán."
+  },
+  "wake": "¡Estoy! Era una ventana de mantenimiento.",
+  "selfTest": ["Mientras no mirás, corro una prueba de failover…", "✓ Prueba terminada. Todo en pie."],
+  "theme": { "dark": "Modo oscuro. Sigo de guardia.", "light": "Modo claro. Todo en orden." },
+  "back": "Volviste. Yo seguí de guardia.",
+  "status": {
+    "next": "Próxima charla:",
+    "tbd": "fecha a confirmar",
+    "last": "Lo último:"
+  },
+  "live": {
+    "days": "Próxima charla en {n} días: {t}.",
+    "tbd": "Próxima charla confirmada: «{t}», en {where}. Fecha a confirmar.",
+    "act": "Ver charlas"
+  },
+  "returning": {
+    "tag": "De nuevo por acá",
+    "one": "Desde tu última visita hay algo nuevo: <b>{t}</b> ({k}, {d}).",
+    "many": "Desde tu última visita hay {n} cosas nuevas. La más reciente: <b>{t}</b>.",
+    "act": "Ver"
+  },
+  "kinds": { "article": "artículo", "post": "post", "talk": "charla" },
+  "read": {
+    "ctxArticle": "¿Alguna duda sobre el artículo? Preguntame por un concepto.",
+    "ctxProject": "¿Querés saber qué tecnología usó o cuál fue su rol? Preguntame.",
+    "ask": "Preguntar",
+    "askArticle": "Contame qué duda tenés sobre el artículo.",
+    "askProject": "¿Qué querés saber de este proyecto?",
+    "resume": "La última vez llegaste al {p}%. ¿Seguís donde dejaste?",
+    "resumeAct": "Seguir leyendo",
+    "doneTag": "Terminaste",
+    "done": "¿Te quedó alguna duda? Preguntame por cualquier concepto del artículo.",
+    "next": " Después te recomiendo: <b>{t}</b>.",
+    "doneAsk": "Contame qué duda te quedó."
+  },
+  "home": {
+    "tour": "Mostrame el sitio",
+    "event": "Organizo un evento",
+    "profile": "Busco un perfil",
+    "dr": "Me interesa DR en Azure",
+    "read": "Solo quiero leer",
+    "tools": "Herramientas de DR",
+    "eyes": "¿Por qué tenés esos ojos?",
+    "fall": "Tirame abajo",
+    "menu": "Menú",
+    "intro": "Hola, soy Daruma. Te llevo a lo que buscás, respondo dudas sobre los proyectos y los artículos, y tengo un par de herramientas. ¿Qué te trae por acá?"
+  },
+  "r": {
+    "profile": "Cloud Engineer que construye producto sobre Azure: un portal en producción con 204 clientes, pruebas automáticas de DR y auditorías. ¿Qué te sirve más?",
+    "interviewMode": "Modo entrevista",
+    "cv": "Descargar CV",
+    "projects": "Ver proyectos",
+    "mail": "Armar un mail",
+    "eyes": "Mis ojos son el logo: el círculo es la nube y el cuadrado, el producto. Como todo Daruma, el cuadrado ya está pintado: es el objetivo. El círculo se va llenando con lo que Santiago comparte con la comunidad en 2027 (va {pct}%):",
+    "know": "Conocer a Daruma",
+    "talks": "Ver charlas",
+    "toolsIntro": "Herramientas rápidas de recuperación ante desastres y Azure:",
+    "toolCost": "Costo de una caída",
+    "toolRpo": "Mi RPO real",
+    "toolKql": "Consultas KQL",
+    "goalTalks": "Charlas",
+    "goalArticles": "Artículos extendidos",
+    "goalOf": "{a} de {b}",
+    "fallLog": [
+      "<span class=\"bad\">●</span> 00:00 caída detectada",
+      "&nbsp; 00:01 failover a la región secundaria",
+      "&nbsp; 00:02 identidad y datos en línea",
+      "<span class=\"ok\">✓</span> 00:03 de pie · RTO 3 s"
+    ],
+    "fallAfter": "Caídas: <b>{f}</b> · Levantadas: <b>{u}</b>. Así se ve un plan de recuperación probado. ¿Querés ver cómo se prueba uno de verdad?",
+    "fallSee": "Ver la prueba automatizada",
+    "fallAgain": "Otra vez"
+  },
+  "chat": {
+    "hello": "Hola. Preguntame por un proyecto, un concepto de Azure o cómo contactar a Santiago.",
+    "thanks": "De nada. Si te sirvió, el newsletter trae un caso real por mail.",
+    "subscribe": "Suscribirme",
+    "articleOf": "<b>{t}</b>. {lead}",
+    "readArticle": "Leer el artículo",
+    "inSection": "Lo desarrolla en la sección «{s}» del artículo.",
+    "howApplied": "Cómo lo aplicó: {t}",
+    "stackFor": "Para <b>{t}</b> usó {list}.",
+    "stackNone": "No tengo el stack publicado para {t}.",
+    "and": " y ",
+    "roleOf": "Su rol en <b>{t}</b>, en sus palabras: <q>{x}</q>",
+    "stackGeneral": "En general trabaja con Azure, Entra ID, Terraform, GitHub Actions, PowerShell, TypeScript, React y PostgreSQL. ¿Te interesa el de un proyecto en particular?",
+    "stackQ": "¿Qué tecnología usó en {t}?",
+    "miss": "No tengo una respuesta para eso. Puedo contarte sobre los proyectos, conceptos de recuperación ante desastres y Azure, los artículos o cómo contactar a Santiago.",
+    "missChips": ["¿Qué tecnología usó el portal?", "¿Qué es el RTO?"],
+    "writeHim": "Escribirle a Santiago",
+    "chipStack": "¿Qué tecnología usó?",
+    "chipProblem": "¿Qué problema resolvía?",
+    "chipChange": "¿Qué cambió?",
+    "chipRole": "¿Cuál fue su rol?",
+    "viewProject": "Ver el proyecto",
+    "suggest": {
+      "rto": ["¿Qué es el RPO?", "¿Diferencia entre RPO y RTO?", "¿Qué es un test failover?"],
+      "archivo": ["¿Qué es Archive?", "¿Qué es FinOps?"],
+      "project": ["¿Qué tecnología usó?", "¿Cuál fue su rol?", "¿Qué cambió?"],
+      "default": ["¿Qué tecnología usó el portal?", "¿Qué es el RTO?", "¿Qué certificaciones tiene?"]
+    },
+    "found": "Encontré esto sobre <b>{q}</b>:",
+    "kinds": {
+      "article": "Artículo",
+      "post": "Post en LinkedIn",
+      "talk": "Charla",
+      "kql": "Consulta KQL",
+      "project": "Proyecto",
+      "section": "Sección de «{t}»"
+    },
+    "fb": "¿Te sirvió?",
+    "fbYes": "Gracias.",
+    "fbNo": "Gracias, lo voy a mejorar.",
+    "fbAsk": "Preguntarle a Santiago",
+    "fbBlog": "Buscar en el blog",
+    "yes": "Sí",
+    "no": "No",
+    "cmds": "Comandos: <b>/entrevista</b>, <b>/costo</b>, <b>/rpo</b>, <b>/kql</b> y un tema, <b>/caos</b>, <b>/tour</b>.",
+    "help": "Puedo responder sobre los proyectos, conceptos de DR y Azure, los artículos y el perfil de Santiago. Y tengo comandos: <b>/entrevista</b>, <b>/costo</b>, <b>/rpo</b>, <b>/kql</b>, <b>/caos</b>, <b>/tour</b>.",
+    "helpTools": "Herramientas de DR",
+    "helpHow": "Cómo funciono",
+    "langNote": ""
+  },
+  "sug": {
+    "projTech": "¿Qué tecnología usó en {t}?",
+    "projProblem": "¿Qué problema resolvía {t}?",
+    "projRole": "¿Cuál fue su rol en {t}?",
+    "what": "¿Qué es {x}?",
+    "diff": "¿Diferencia entre RPO y RTO?",
+    "extra": [
+      ["¿Qué certificaciones tiene?", "perfil"],
+      ["¿Dónde trabaja?", "perfil"],
+      ["¿Escribiste algo sobre Entra?", "búsqueda"],
+      ["¿Escribiste algo sobre FinOps?", "búsqueda"],
+      ["/entrevista", "comando"],
+      ["/costo", "comando"],
+      ["/rpo", "comando"],
+      ["/kql backups", "comando"],
+      ["/tour", "comando"],
+      ["Quiero suscribirme", "newsletter"],
+      ["Armá un mail para un evento", "contacto"]
+    ],
+    "kinds": { "proyecto": "proyecto", "concepto": "concepto", "perfil": "perfil", "búsqueda": "búsqueda", "comando": "comando", "newsletter": "newsletter", "contacto": "contacto" }
+  },
+  "sub": {
+    "lead": "Te mando cada caso nuevo por mail, con la consulta o el script que lo resolvió.",
+    "ph": "Tu email de trabajo",
+    "label": "Tu email",
+    "btn": "Suscribirme",
+    "ok": "Listo. Te llega un mail para confirmar (revisá spam por las dudas). Mientras, lo más leído:",
+    "invalid": "Ese email no parece válido. Revisalo e intentá de nuevo.",
+    "error": "No pude suscribirte ahora. Probá más tarde o desde la sección del newsletter.",
+    "disabled": "La suscripción no está disponible en este momento.",
+    "mostRead": "Backup no es continuidad",
+    "guide": "Guía KQL"
+  },
+  "contact": {
+    "ready": "Te dejé el mail armado; completá lo que está entre corchetes.",
+    "open": "Abrir el mail",
+    "linkedin": "Mejor por LinkedIn"
+  },
+  "chaos": {
+    "tag": "Incidente simulado",
+    "start": "● 00:00 caída general detectada",
+    "up": "✓ 00:0{k} grupo {k} en línea",
+    "done": "<b>De pie en 4 s.</b> Así se ve una recuperación ensayada.",
+    "act": "Ver la prueba real"
+  },
+  "fact": { "tag": "Dato" },
+  "errors": { "data": "No pude cargar mis datos. Recargá la página e intentá de nuevo." }
+}

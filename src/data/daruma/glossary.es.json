@@ -1,0 +1,110 @@
+{
+  "entries": [
+    {
+      "k": ["diferencia entre rpo y rto", "rpo y rto", "rpo vs rto", "rto y rpo"],
+      "a": "El <b>RPO</b> mide cuánto dato podés perder; el <b>RTO</b>, cuánto tiempo podés estar sin operar. Uno mira hacia atrás (el último punto de recuperación válido) y el otro hacia adelante (cuánto tardás en volver).",
+      "art": "art-rto"
+    },
+    {
+      "k": ["rpo", "recovery point"],
+      "a": "<b>RPO</b> (Recovery Point Objective): cuánto dato podés permitirte perder, medido en tiempo. Si el último punto de recuperación válido es de hace 4 horas, tu RPO real es de 4 horas, diga lo que diga el plan.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["rto", "recovery time"],
+      "a": "<b>RTO</b> (Recovery Time Objective): cuánto tiempo puede estar caído un servicio hasta volver a operar. El que importa es el que medís cuando probás, no el que figura en la política.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["test failover", "prueba de failover", "failover de prueba"],
+      "a": "Un <b>test failover</b> levanta las réplicas en una red aislada para probar el plan sin tocar producción ni cortar la replicación. Es lo que Santiago automatizó.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["failover"],
+      "a": "<b>Failover</b>: pasar la operación del sitio o la región primaria a la secundaria cuando la primaria falla. En Site Recovery se hace con un plan de recuperación, por grupos y en el orden que definas.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["site recovery", "asr"],
+      "a": "<b>Azure Site Recovery</b> replica servidores (de Azure, VMware, Hyper-V o físicos) hacia otra región o hacia Azure y orquesta su recuperación con planes por grupos.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["backup no es continuidad", "backup y continuidad", "backup vs dr", "backup y dr", "continuidad"],
+      "a": "Un <b>backup</b> es una copia; la <b>continuidad</b> es poder volver a operar en el tiempo que el negocio tolera. Un backup que termina en verde no garantiza ese tiempo.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["alta disponibilidad", "high availability", "99,99", "9999"],
+      "a": "La <b>alta disponibilidad</b> evita la caída dentro de una región (zonas, balanceo, redundancia). La <b>recuperación ante desastres</b> te levanta cuando se pierde la región o el entorno completo. Se complementan, no se reemplazan."
+    },
+    {
+      "k": ["kql", "kusto"],
+      "a": "<b>KQL</b> (Kusto Query Language) es el lenguaje para consultar Log Analytics y Resource Graph. Santiago publicó las 10 consultas que corre en cada auditoría.",
+      "href": "guia-kql",
+      "ht": "Ver la guía KQL"
+    },
+    {
+      "k": ["resource graph"],
+      "a": "<b>Azure Resource Graph</b> permite consultar con KQL el inventario de recursos de todas las suscripciones a la vez, en solo lectura.",
+      "href": "guia-kql",
+      "ht": "Ver la guía KQL"
+    },
+    {
+      "k": ["lighthouse"],
+      "a": "<b>Azure Lighthouse</b> da acceso delegado a los entornos de varios clientes desde el tenant del proveedor, sin crear cuentas en cada uno.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["epac", "enterprise policy"],
+      "a": "<b>EPAC</b> (Enterprise Policy as Code) es un framework para gestionar Azure Policy desde un repositorio, con planes revisables y despliegue por CI/CD.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["azure policy", "policy"],
+      "a": "<b>Azure Policy</b> define reglas sobre los recursos (qué se permite, qué se audita, qué se corrige) y las evalúa de forma continua.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["pim", "privileged identity"],
+      "a": "<b>PIM</b> (Privileged Identity Management) otorga roles privilegiados solo cuando hacen falta y por tiempo limitado, con aprobación y registro.",
+      "proj": "p-auditoria"
+    },
+    {
+      "k": ["conditional access", "acceso condicional"],
+      "a": "El <b>acceso condicional</b> decide si una sesión entra, con qué requisitos (MFA, dispositivo, ubicación, riesgo) o si se bloquea.",
+      "proj": "p-auditoria"
+    },
+    {
+      "k": ["finops"],
+      "a": "<b>FinOps</b> es la práctica de gestionar el costo de la nube como una responsabilidad compartida entre ingeniería, finanzas y negocio.",
+      "proj": "p-backups"
+    },
+    {
+      "k": ["archive", "ciclo de vida", "lifecycle", "almacenamiento"],
+      "a": "<b>Archive</b> es el nivel más barato de Blob Storage, para datos que casi no se leen. Recuperarlos tarda horas y tiene costo, por eso conviene definir bien la política de ciclo de vida.",
+      "art": "art-archivo"
+    },
+    {
+      "k": ["mcp", "model context protocol"],
+      "a": "<b>MCP</b> (Model Context Protocol) es un estándar para conectar agentes de IA con herramientas y datos externos.",
+      "proj": "p-aienv"
+    },
+    {
+      "k": ["csp", "cloud solution provider"],
+      "a": "<b>CSP</b> (Cloud Solution Provider) es el programa con el que un partner revende y administra licencias y servicios de Microsoft para sus clientes.",
+      "proj": "p-portal"
+    }
+  ],
+  "articles": {
+    "art-rto": {
+      "t": "Backup no es continuidad",
+      "k": ["articulo de rpo", "articulo de rto", "backup no es continuidad", "plan de recuperacion que nunca", "articulo de dr"]
+    },
+    "art-archivo": {
+      "t": "Almacenamiento inteligente",
+      "k": ["almacenamiento inteligente", "articulo de almacenamiento", "articulo de archive"]
+    }
+  }
+}

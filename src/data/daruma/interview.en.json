@@ -1,0 +1,29 @@
+{
+  "intro": "<b>Interview mode.</b> Pick a question and I'll answer with Santiago's words.",
+  "says": "<b>Santiago:</b> <q>{a}</q>",
+  "draft": "Draft: this answer will be replaced by Santiago's own words.",
+  "cv": "Download CV",
+  "mail": "Draft an email",
+  "items": [
+    {
+      "q": "Why Azure?",
+      "a": "Because it's where the corporate clients I work with are, and because it brings identity, infrastructure and Microsoft 365 together on a single plane. That lets me solve problems end to end, not piece by piece."
+    },
+    {
+      "q": "What was your biggest technical challenge?",
+      "a": "Automating the disaster recovery test. It went from about two hours of manual work to 45 minutes, with controls to avoid touching production and a report as evidence. The hard part wasn't the script: it was defining the recovery order and getting the team to trust the result."
+    },
+    {
+      "q": "How do you work with AI?",
+      "a": "I use it to go faster, not to decide. I work with Claude Code, my own skills and MCP integrations, and every change goes through my review. I built ai-env, an open source harness where control is separated from execution."
+    },
+    {
+      "q": "How do you explain technical matters to the business?",
+      "a": "I translate risk into cost and into a decision. Instead of talking about RPO and RTO, I show how much each minute of downtime costs and what needs to be approved to reduce it."
+    },
+    {
+      "q": "Where do you want to go?",
+      "a": "From cloud to product: building tools on top of the cloud that a team uses every day, and taking ownership end to end, from the problem to operations."
+    }
+  ]
+}

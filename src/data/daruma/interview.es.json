@@ -1,0 +1,29 @@
+{
+  "intro": "<b>Modo entrevista.</b> Elegí una pregunta y te respondo con las palabras de Santiago.",
+  "says": "<b>Santiago:</b> <q>{a}</q>",
+  "draft": "Borrador: Santiago lo va a reemplazar con sus palabras.",
+  "cv": "Descargar CV",
+  "mail": "Armar un mail",
+  "items": [
+    {
+      "q": "¿Por qué Azure?",
+      "a": "Porque es donde están los clientes corporativos con los que trabajo, y porque une identidad, infraestructura y Microsoft 365 en un mismo plano. Eso me deja resolver problemas de punta a punta, no por partes."
+    },
+    {
+      "q": "¿Cuál fue tu mayor desafío técnico?",
+      "a": "Automatizar la prueba de recuperación ante desastres. Pasó de unas dos horas de trabajo manual a 45 minutos, con controles para no tocar producción y un reporte como evidencia. Lo difícil no fue el script: fue definir el orden de recuperación y que el equipo confiara en el resultado."
+    },
+    {
+      "q": "¿Cómo trabajás con IA?",
+      "a": "La uso para ir más rápido, no para decidir. Trabajo con Claude Code, skills propias e integraciones MCP, y cada cambio pasa por mi revisión. Armé ai-env, un arnés open source donde el control está separado de la ejecución."
+    },
+    {
+      "q": "¿Cómo explicás lo técnico a negocio?",
+      "a": "Traduzco el riesgo a costo y a decisión. En vez de hablar de RPO y RTO, muestro cuánto cuesta cada minuto de caída y qué hay que aprobar para achicarlo."
+    },
+    {
+      "q": "¿Hacia dónde querés ir?",
+      "a": "De cloud al producto: construir herramientas sobre la nube que un equipo use todos los días, y hacerme cargo de punta a punta, desde el problema hasta la operación."
+    }
+  ]
+}

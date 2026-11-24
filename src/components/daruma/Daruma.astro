@@ -1,0 +1,965 @@
+---
+// Daruma: la guía del sitio. Sin IA y sin costo: todo corre en el navegador con lo que está publicado.
+// Este componente trae el markup (accesible aunque el JS tarde), los estilos y el cargador.
+// La lógica (daruma.ts) se baja recién cuando el navegador está ocioso, así que no afecta el LCP.
+// Especificación: DARUMA.md. Los textos salen de src/data/daruma/*.json.
+import DarumaFigure from './DarumaFigure.astro';
+import { darumaPath } from './paths';
+import uiEs from '../../data/daruma/ui.es.json';
+import uiEn from '../../data/daruma/ui.en.json';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const c = (lang === 'en' ? uiEn : uiEs).chrome;
+const modes = (lang === 'en' ? uiEn : uiEs).modes;
+const formId = import.meta.env.PUBLIC_KIT_FORM_ID;
+const endpoint = formId ? `https://app.kit.com/forms/${formId}/subscriptions` : '';
+---
+
+<svg class="dm-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="dmGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4451ff"></stop>
+      <stop offset="1" stop-color="#1a24c9"></stop>
+    </linearGradient>
+    <radialGradient id="dmShine" cx=".3" cy=".22" r=".5">
+      <stop offset="0" stop-color="#fff" stop-opacity=".35"></stop>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div class="dm" id="dm" data-mode="builder" data-kit={endpoint} data-how={darumaPath(lang)} hidden>
+  <div class="dm__bubble" id="dmBubble" role="status" aria-live="polite"></div>
+  <div class="dm__panel" id="dmPanel" role="dialog" aria-label={c.aria}>
+    <div class="dm__head">
+      <div class="dm__av"><DarumaFigure /></div>
+      <div>
+        <b>Daruma</b><small>{c.sub}</small>
+        <div class="dm__mode" id="dmMode"><i></i><span>{modes.builder}</span></div>
+      </div>
+      <button class="dm__close" id="dmClose" type="button" aria-label={c.close}>×</button>
+    </div>
+    <div class="dm__status" id="dmStatus"></div>
+    <div class="dm__body" id="dmBody" role="log" aria-live="polite"></div>
+    <form class="dm__ask" id="dmAsk" autocomplete="off">
+      <input type="text" maxlength="160" placeholder={c.ph} aria-label={c.askLabel} />
+      <button type="submit" aria-label={c.send}>↑</button>
+      <div class="dm__sug" id="dmSug" role="listbox"></div>
+    </form>
+    <div class="dm__privacy">{c.privacy}</div>
+    <div class="dm__foot">
+      <span>{c.foot}</span>
+      <a href={darumaPath(lang)} id="dmHow">{c.how}</a>
+      <button id="dmMute" type="button">{c.mute}</button>
+      <button id="dmRestart" type="button">{c.restart}</button>
+    </div>
+  </div>
+  <span class="dm__ring"></span>
+  <button class="dm__btn" id="dmBtn" type="button" aria-label={c.btn} aria-expanded="false">
+    <DarumaFigure />
+  </button>
+  <span class="dm__z" aria-hidden="true">z</span>
+  <span class="dm__shadow" id="dmShadow"></span>
+</div>
+
+<div class="dm-spot" id="dmSpot" aria-hidden="true"></div>
+<div class="dm-tour" id="dmTour" role="dialog" aria-label={c.tourAria}></div>
+
+<style is:global>
+  .dm-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* ── Daruma ── */
+  .dm {
+    position: fixed;
+    right: calc(26px + var(--dm-x, 0px));
+    bottom: 18px;
+    z-index: 900;
+    width: 74px;
+    font-family: inherit;
+    transition: right 0.25s;
+  }
+  .dm[hidden] {
+    display: none;
+  }
+  .dm__shadow {
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 54px;
+    height: 9px;
+    margin-left: -27px;
+    border-radius: 50%;
+    background: rgb(10 14 60 / 0.22);
+    filter: blur(3px);
+    transition: transform 0.2s;
+    pointer-events: none;
+  }
+  .dm__btn {
+    position: relative;
+    display: block;
+    width: 74px;
+    height: 84px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: grab;
+    transform-origin: 50% 96%;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .dm__btn:active {
+    cursor: grabbing;
+  }
+  .dm__btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: 40%;
+  }
+  .dm__btn svg {
+    display: block;
+    overflow: visible;
+    filter: drop-shadow(0 6px 10px rgb(31 45 230 / 0.3));
+  }
+  .dm-eyes {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.09s;
+  }
+  .dm.blink .dm-eyes {
+    transform: scaleY(0.08);
+  }
+  .dm-closed {
+    opacity: 0;
+  }
+  .dm.sleep .dm-eyes {
+    opacity: 0;
+  }
+  .dm.sleep .dm-closed {
+    opacity: 1;
+  }
+  .dm-brows {
+    transition: transform 0.25s;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .dm.surprised .dm-brows {
+    transform: translateY(-3px);
+  }
+  .dm-beat {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+  }
+  .dm.beat .dm-beat {
+    animation: dmBeat 1.1s ease-out;
+  }
+  @keyframes dmBeat {
+    0% {
+      stroke-dashoffset: 60;
+    }
+    55% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: -60;
+    }
+  }
+  .dm__z {
+    position: absolute;
+    right: -4px;
+    top: -6px;
+    font: 600 13px/1 var(--mono);
+    color: var(--accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .dm.sleep .dm__z {
+    animation: dmZ 2.4s ease-in-out infinite;
+  }
+  @keyframes dmZ {
+    0% {
+      opacity: 0;
+      transform: translate(0, 6px);
+    }
+    30% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(10px, -16px);
+    }
+  }
+  .dm__ring {
+    position: absolute;
+    inset: 6px 4px 2px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .dm.ping .dm__ring {
+    animation: dmPing 1.2s ease-out;
+  }
+  @keyframes dmPing {
+    0% {
+      opacity: 0.6;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.45);
+    }
+  }
+  .dm.enter .dm__btn {
+    animation: dmEnter 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  }
+  @keyframes dmEnter {
+    0% {
+      transform: translateY(120px) scale(0.6);
+    }
+    100% {
+      transform: none;
+    }
+  }
+
+  /* ── Avisos ── */
+  .dm__bubble {
+    position: absolute;
+    right: 84px;
+    bottom: 34px;
+    width: max-content;
+    max-width: 240px;
+    padding: 10px 30px 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 14px 14px 4px 14px;
+    background: var(--card);
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.4;
+    box-shadow: 0 10px 28px rgb(0 0 0 / 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px) scale(0.97);
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    transition:
+      opacity 0.22s,
+      transform 0.22s,
+      visibility 0s 0.22s;
+  }
+  .dm__bubble.on {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .dm__bubble .act {
+    display: inline-block;
+    margin-top: 7px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .dm__x {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .dm__tag {
+    display: block;
+    margin-bottom: 6px;
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── Panel ── */
+  .dm__panel {
+    position: absolute;
+    right: 0;
+    bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    width: min(340px, calc(100vw - 32px));
+    max-height: calc(100dvh - 116px);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.98);
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    transition:
+      opacity 0.22s,
+      transform 0.22s,
+      visibility 0s 0.22s;
+  }
+  .dm__panel.on {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .dm__head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .dm__av {
+    flex: none;
+    width: 34px;
+    height: 38px;
+  }
+  .dm__head b {
+    display: block;
+    font-size: 14px;
+  }
+  .dm__head small {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dm__close {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-left: auto;
+    border: 0;
+    border-radius: 50%;
+    background: var(--tonal);
+    color: var(--ink);
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .dm__mode {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+    font: 500 11px/1 var(--mono);
+    color: var(--muted);
+  }
+  .dm__mode i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #14915f;
+  }
+  .dm__status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dm__status:empty {
+    display: none;
+  }
+  .dm__status b {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .dm__body {
+    flex: 1 1 auto;
+    min-height: 120px;
+    max-height: 420px;
+    padding: 14px 16px 6px;
+    overflow: auto;
+  }
+  .dm__head,
+  .dm__status,
+  .dm__ask,
+  .dm__privacy,
+  .dm__foot {
+    flex: none;
+  }
+  .dm__msg {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 4px 14px 14px 14px;
+    background: var(--tonal);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .dm__msg.me {
+    margin-left: 40px;
+    border-radius: 14px 4px 14px 14px;
+    background: var(--accent-fill);
+    color: #fff;
+  }
+  .dm__msg q {
+    quotes: '«' '»';
+    font-style: normal;
+  }
+  .dm__src {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dm__draft {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    color: #b26b00;
+  }
+  :root[data-theme='dark'] .dm__draft {
+    color: #e0a24a;
+  }
+  .dm__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 2px 0 12px;
+  }
+  .dm__chip {
+    padding: 7px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  .dm__chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .dm__chip.go {
+    border-color: var(--accent-fill);
+    background: var(--accent-fill);
+    color: #fff;
+  }
+  .dm__chip.go:hover {
+    border-color: var(--accent-fill-hover);
+    background: var(--accent-fill-hover);
+    color: #fff;
+  }
+  .dm__log {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #0b0c0e;
+    color: #cfd3da;
+    font: 12px/1.7 var(--mono);
+  }
+  .dm__log .ok {
+    color: #6fd3a5;
+  }
+  .dm__log .bad {
+    color: #ff8a8a;
+  }
+  .dm__code {
+    position: relative;
+    max-height: 220px;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    overflow: auto;
+    border-radius: 10px;
+    background: #0b0c0e;
+    color: #cfd3da;
+    font: 12px/1.55 var(--mono);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .dm__copy {
+    position: sticky;
+    top: 0;
+    float: right;
+    padding: 3px 7px;
+    border: 0;
+    border-radius: 6px;
+    background: #1f2de6;
+    color: #fff;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .dm__form {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--tonal);
+    font-size: 13px;
+  }
+  .dm__form label {
+    display: grid;
+    gap: 4px;
+  }
+  .dm__form input,
+  .dm__form select {
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+  }
+  .dm__bar {
+    height: 6px;
+    margin: 6px 0 2px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--line);
+  }
+  .dm__bar i {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+  }
+  .dm__goal-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  .dm__results {
+    display: grid;
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+  .dm__results a {
+    display: block;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  .dm__results a:hover {
+    border-color: var(--accent);
+  }
+  .dm__results small {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .dm__sub {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 10px;
+  }
+  .dm__sub input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+  }
+  .dm__fb {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin: -4px 0 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dm__fb button {
+    padding: 2px 9px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .dm__fb button:hover {
+    border-color: var(--accent);
+  }
+  .dm__fb.done button {
+    display: none;
+  }
+  .dm__typing {
+    display: inline-flex;
+    gap: 4px;
+    padding: 12px 14px;
+  }
+  .dm__typing i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    animation: dmDot 1s infinite;
+  }
+  .dm__typing i:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .dm__typing i:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  @keyframes dmDot {
+    0%,
+    60%,
+    100% {
+      opacity: 0.3;
+      transform: none;
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+
+  /* ── Campo de texto y sugerencias ── */
+  .dm__ask {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--line);
+  }
+  .dm__ask input {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    outline: none;
+    background: var(--tonal);
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+  }
+  .dm__ask input:focus {
+    border-color: var(--accent);
+  }
+  .dm__ask > button {
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--accent-fill);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .dm__sug {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 100%;
+    display: none;
+    margin-bottom: 6px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    box-shadow: 0 10px 28px rgb(0 0 0 / 0.12);
+  }
+  .dm__sug.on {
+    display: block;
+  }
+  .dm__sug button {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13.5px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .dm__sug button:hover,
+  .dm__sug button.sel {
+    background: var(--tonal);
+  }
+  .dm__sug small {
+    margin-left: 6px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .dm__privacy {
+    padding: 0 16px 8px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .dm__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    padding: 10px 16px 14px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .dm__foot span {
+    flex: 1 0 100%;
+  }
+  .dm__foot a,
+  .dm__foot button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* ── Recorrido ── */
+  .dm-spot {
+    position: fixed;
+    z-index: 880;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 16px;
+    box-shadow:
+      0 0 0 9999px rgb(6 8 28 / 0.52),
+      0 0 0 2px var(--accent),
+      0 0 0 8px rgb(31 45 230 / 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      top 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      left 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.3s;
+  }
+  .dm-spot.on {
+    opacity: 1;
+  }
+  .dm-tour {
+    position: fixed;
+    right: 24px;
+    bottom: 118px;
+    z-index: 905;
+    width: min(360px, calc(100vw - 28px));
+    padding: 16px 18px 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.28);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition:
+      opacity 0.25s,
+      transform 0.25s,
+      visibility 0s 0.25s;
+  }
+  .dm-tour.on {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .dm-tour::after {
+    content: '';
+    position: absolute;
+    right: 42px;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+    transform: rotate(45deg);
+  }
+  .dm-tour__k {
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .dm-tour h4 {
+    margin: 8px 0 6px;
+    font-size: 16.5px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .dm-tour p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .dm-tour__bar {
+    height: 3px;
+    margin: 14px 0 12px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--tonal);
+  }
+  .dm-tour__bar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.35s;
+  }
+  .dm-tour__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .dm-tour__nav .lnk {
+    margin-right: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 12.5px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .dm-tour__act {
+    margin-top: 10px;
+  }
+
+  /* ── Celular ── */
+  .dm.m {
+    right: calc(12px + var(--dm-x, 0px));
+    bottom: 12px;
+    width: 58px;
+  }
+  .dm.m .dm__btn {
+    width: 58px;
+    height: 66px;
+  }
+  .dm.m .dm__shadow {
+    width: 42px;
+    margin-left: -21px;
+  }
+  .dm.m .dm__bubble {
+    position: fixed;
+    left: 12px;
+    right: 80px;
+    bottom: 18px;
+    width: auto;
+    max-width: none;
+    padding: 9px 28px 9px 11px;
+    font-size: 13px;
+  }
+  .dm.m .dm__panel {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: 84px;
+    width: auto;
+    border-radius: 18px;
+  }
+  .dm.m .dm__panel {
+    max-height: calc(100dvh - 96px);
+  }
+  .dm.m .dm__body {
+    max-height: none;
+  }
+  .dm.m .dm__status {
+    display: none;
+  }
+  .dm-tour.m {
+    left: 8px;
+    right: 8px;
+    bottom: 84px;
+    width: auto;
+  }
+  .dm-tour.m.sheet {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 24px;
+    border-radius: 20px 20px 0 0;
+  }
+  .dm-tour.m.sheet::after {
+    display: none;
+  }
+
+  /* ── Caos ── */
+  .chaos-fall {
+    transition:
+      transform 0.7s cubic-bezier(0.5, 0, 0.9, 0.4),
+      opacity 0.7s;
+    will-change: transform;
+  }
+  .chaos-up {
+    transition:
+      transform 0.8s cubic-bezier(0.2, 1.3, 0.4, 1),
+      opacity 0.5s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dm-spot {
+      transition: opacity 0.2s;
+    }
+    .dm.enter .dm__btn,
+    .dm.beat .dm-beat,
+    .dm.sleep .dm__z,
+    .dm.ping .dm__ring {
+      animation: none;
+    }
+    .dm,
+    .dm__bubble,
+    .dm__panel,
+    .dm-tour {
+      transition-duration: 0.01s;
+    }
+  }
+</style>
+
+<script>
+  // Se carga recién cuando el navegador está ocioso: no compite con el contenido del sitio.
+  const boot = () => import('./daruma');
+  if ('requestIdleCallback' in window) requestIdleCallback(boot, { timeout: 2500 });
+  else setTimeout(boot, 1200);
+</script>

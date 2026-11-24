@@ -1,0 +1,67 @@
+{
+  "title": "Daruma, the site guide · Santiago Da Ros",
+  "description": "Daruma is this site's guide: it shows what Santiago has done, answers questions about projects and articles, and shares technical facts. No artificial intelligence.",
+  "back": "← Back to home",
+  "crumb": "/daruma",
+  "tag": "Daruma",
+  "meta": "The site guide",
+  "h1": "Falls down seven times, gets up eight.",
+  "lead": "Daruma is this site's guide. It shows you what I've done, answers questions about the projects and the articles, and shares technical facts when you stop to read. No artificial intelligence.",
+  "why": {
+    "h": "Why a Daruma",
+    "p": "The Daruma is a traditional Japanese doll with a weighted base: you push it and it stands back up. It's the idea behind everything I do in disaster recovery: it isn't about never falling, it's about how long it takes you to get back up. And its eyes are my logo: the circle is the cloud and the square is the product."
+  },
+  "eyes": {
+    "h": "The two eyes",
+    "p": "A Daruma is bought with blank eyes. You paint one when you set a goal and the other when you reach it. The square is already painted. The circle fills in with what I share with the community in 2027.",
+    "goal": "{year} goal · {pct}% of the circle painted",
+    "talks": "Talks",
+    "articles": "Long-form articles",
+    "of": "{a} of {b}"
+  },
+  "how": {
+    "h": "How it works without AI",
+    "items": [
+      ["It reads the site.", "Answers about projects come from the same cards and detail pages you see on the site. If a project changes, the answer changes."],
+      ["It detects topic and question.", "It recognizes what you're talking about (a project, a concept, my profile) and what you want to know (technology, problem, result, role), even if you misspell."],
+      ["It has its own glossary", "of disaster recovery and Azure, with the section of the article where I develop each term."],
+      ["When it doesn't know, it says so.", "It doesn't make things up. The questions it can't answer tell me what to write next."]
+    ]
+  },
+  "modes": {
+    "h": "Its modes",
+    "p": "It changes depending on where you are, because my work changes too.",
+    "items": [
+      ["builder", "Builder", "On projects"],
+      ["guardia", "On call", "At night and in DR"],
+      ["speaker", "Speaker", "On talks"],
+      ["lectura", "Reading", "On the blog"]
+    ]
+  },
+  "cmds": {
+    "h": "What you can ask it",
+    "items": [
+      ["Free questions", "\"What technology did the portal use?\", \"what is RTO?\", \"and his role?\""],
+      ["/interview", "The typical interview questions, answered by me."],
+      ["/cost", "Calculates what an outage costs you from your revenue per hour and your RTO."],
+      ["/rpo", "Three questions to estimate your real RPO."],
+      ["/kql backups", "Gives you the query from the guide, ready to copy."],
+      ["/chaos", "Knocks the page down and brings it back up. Chaos engineering, portfolio edition."],
+      ["?", "From anywhere on the site, starts the guided tour."]
+    ]
+  },
+  "brand": {
+    "h": "Where else it appears",
+    "sticker": ["Stickers", "To hand out at talks."],
+    "slide": ["Slides", "In the template of every talk."],
+    "slideText": "A DR that isn't tested<br>isn't a DR",
+    "mail": ["Newsletter", "Signs every edition."],
+    "mailTitle": "A real Azure case",
+    "mailText": "The query that found 40 orphaned disks…"
+  },
+  "oss": {
+    "h": "Open source",
+    "p": "Daruma's engine (guide, tour, questions without AI) will be published as an open source project so any static site can have its own guide.",
+    "soon": "Coming soon on GitHub."
+  }
+}

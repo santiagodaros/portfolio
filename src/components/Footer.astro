@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { contact, homePath, paths, useUi, type Lang } from '../i18n';
+import { darumaPath } from './daruma/paths';
 import { communityPaths, hubHref } from '../i18n/community';
 import { getProfiles } from '../data/profiles';
 
@@ -63,6 +64,7 @@ const rss = lang === 'es' ? '/rss.xml' : '/en/rss.xml';
           <li><a href={p.now}>{f.now}</a></li>
           <li><a href={p.status}>{f.status}</a></li>
           <li><a href={p.speaker}>{f.speaker}</a></li>
+          <li><a href={darumaPath(lang)}>Daruma</a></li>
         </ul>
       </div>
       <div>

@@ -1,0 +1,120 @@
+{
+  "ui": {
+    "step": "Step {i} of {n}",
+    "one": "Taking you there",
+    "next": "Next",
+    "prev": "Previous",
+    "finish": "Finish",
+    "ok": "Done",
+    "close": "Close",
+    "exit": "Exit the tour",
+    "early": "We can pick it back up whenever you like. I'm down here.",
+    "done": "Done. If you're looking for something specific, tap me.",
+    "resume": "Shall we continue?"
+  },
+  "welcome": {
+    "title": "I'm Daruma, this site's guide.",
+    "text": "In a minute I can show you what Santiago does, or take you straight to what you're looking for.",
+    "no": "Not now",
+    "find": "I'm looking for something specific",
+    "tour": "Show me the site",
+    "dismissed": "Sure. If you need me, I'm down here. You can also press ? for the tour."
+  },
+  "full": [
+    {
+      "sel": ".hero__copy",
+      "title": "Who Santiago is",
+      "text": "Santiago is a Cloud Engineer at Readymind. Santiago designs, builds and operates tools on Azure: from infrastructure to product."
+    },
+    {
+      "sel": ".facts",
+      "title": "The year in three numbers",
+      "text": "A portal in production with 204 clients, 5 internal tools in a year and 6 Microsoft certifications."
+    },
+    {
+      "sel": "[data-project-open=\"p-portal\"]",
+      "title": "The main project",
+      "text": "A portal that connects Partner Center with the account managers' work, read-only. Each card opens with the problem, the idea and Santiago's role.",
+      "act": { "t": "Open the details", "h": "p-portal" }
+    },
+    {
+      "sel": "a[href=\"#p-failover\"]",
+      "up": "article,.sol",
+      "title": "Santiago's specialty: disaster recovery",
+      "text": "Santiago automated the recovery test: from 2 hours to 45 minutes, without touching production and with evidence for audits."
+    },
+    {
+      "sel": "#experiencias",
+      "title": "Beyond the day-to-day",
+      "text": "Santiago's first hackathon: Belo Business, built as a team in one day and presented live to the jury."
+    },
+    {
+      "sel": ".certs",
+      "title": "Certifications",
+      "text": "Six Microsoft certifications, each one verifiable on Learn. SC-100 is in progress."
+    },
+    {
+      "sel": "#comunidad .post--feat",
+      "title": "What Santiago writes",
+      "text": "Real Azure cases: first a short version on LinkedIn and, when the topic calls for it, the extended one here."
+    },
+    {
+      "sel": "#comunidad .side",
+      "title": "Talks",
+      "text": "Webinars and talks with live demos. If you're organizing an event, the speaker kit has a bio, photos and topics.",
+      "act": { "t": "Open speaker kit", "h": "speaker" }
+    },
+    {
+      "sel": "#newsletter",
+      "title": "So you don't miss the next one",
+      "text": "A real Azure case by email, with the query or script that solved it. Free."
+    },
+    {
+      "sel": "#contacto",
+      "title": "That's all",
+      "text": "If you'd like to talk about cloud, product or a talk, write to Santiago. And if you're looking for something afterwards, tap me: I'm still down here."
+    }
+  ],
+  "mobile": [0, 2, 3, 6, 7, 9],
+  "evento": [
+    {
+      "sel": "#comunidad .side",
+      "title": "Talks and speaker kit",
+      "text": "Santiago gives talks on disaster recovery, governance and FinOps on Azure, almost always with a live demo. The speaker kit has a bio, photos and topics ready to copy.",
+      "act": { "t": "Open speaker kit", "h": "speaker" }
+    }
+  ],
+  "dr": [
+    {
+      "sel": "a[href=\"#p-failover\"]",
+      "up": "article,.sol",
+      "title": "DR · 1 of 3 · In practice",
+      "text": "Santiago automated the recovery test: from 2 hours to 45 minutes, with controls so production is never touched.",
+      "act": { "t": "See the details", "h": "p-failover" }
+    },
+    {
+      "sel": "#comunidad .post--feat",
+      "title": "DR · 2 of 3 · In writing",
+      "text": "\"Backup is not continuity\": the difference between RPO and RTO, and why an untested plan is a hypothesis.",
+      "act": { "t": "Read the article", "h": "art-rto" }
+    },
+    {
+      "sel": "#comunidad .side",
+      "title": "DR · 3 of 3 · Live",
+      "text": "The webinar \"DR that isn't tested isn't DR\", with a real end-to-end test."
+    }
+  ],
+  "leer": [
+    {
+      "sel": "#comunidad .post--feat",
+      "title": "What Santiago writes",
+      "text": "Real Azure cases. A short version comes out first on LinkedIn and, when the topic calls for it, the extended one here.",
+      "act": { "t": "Read the featured one", "h": "art-rto" }
+    },
+    {
+      "sel": "#newsletter",
+      "title": "So you don't miss the next one",
+      "text": "A real Azure case by email, with the query or script that solved it."
+    }
+  ]
+}

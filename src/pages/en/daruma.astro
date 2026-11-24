@@ -1,0 +1,9 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import DarumaPage from '@/components/daruma/DarumaPage.astro';
+import page from '@/data/daruma/page.en.json';
+---
+
+<Layout title={page.title} description={page.description} lang="en" alternates={{ es: '/daruma', en: '/en/daruma' }}>
+  <DarumaPage lang="en" />
+</Layout>

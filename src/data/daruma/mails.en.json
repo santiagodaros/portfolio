@@ -1,0 +1,14 @@
+{
+  "evento": {
+    "s": "Talk for [event name]",
+    "b": "Hello Santiago,\n\nI'm organizing [event] on [date], [online/in person]. We're interested in a talk about [topic].\n\nAudience: [profile and size]\nDuration: [minutes]\n\nThank you."
+  },
+  "recruiter": {
+    "s": "Opportunity: [position] at [company]",
+    "b": "Hello Santiago,\n\nI saw your portfolio and would like to talk about a [position] role at [company].\n\nWork mode: [remote/hybrid]\n\nDo you have 20 minutes this week?"
+  },
+  "tecnica": {
+    "s": "Question about [topic]",
+    "b": "Hello Santiago,\n\nI read [article or project] and have a question about [topic]:\n\n"
+  }
+}

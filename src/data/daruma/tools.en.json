@@ -1,0 +1,45 @@
+{
+  "cost": {
+    "intro": "Let's calculate what an outage costs. Two inputs:",
+    "rev": "Revenue that depends on the system, per hour (USD)",
+    "rto": "Recovery time (RTO), in hours",
+    "btn": "Calculate",
+    "result": "A <b>{h} h</b> outage would cost you about <b>{c}</b> in revenue, not counting team hours or penalties. If you test the plan and cut the RTO in half, you save <b>{s}</b> per incident.<span class=\"dm__src\">Linear estimate. Source of the approach: DR Live project.</span>",
+    "readRto": "Read about RTO",
+    "calcRpo": "Calculate my RPO",
+    "mail": "Get cases by email"
+  },
+  "rpo": {
+    "intro": "Three questions to estimate your real RPO:",
+    "q1": "How often does your latest valid backup or replica run?",
+    "q1o": [["24", "Once a day"], ["12", "Every 12 hours"], ["4", "Every 4 hours"], ["1", "Every hour"], ["0.1", "Continuous replication"]],
+    "q2": "When did you last restore to test?",
+    "q2o": [["n", "Never"], ["v", "More than 6 months ago"], ["r", "In the last 6 months"]],
+    "q3": "Do you verify that backups complete successfully?",
+    "q3o": [["s", "Yes, with alerts"], ["m", "Sometimes, manually"], ["n", "No"]],
+    "btn": "Calculate",
+    "minutes": "a few minutes",
+    "upTo": "up to {h} h",
+    "result": "Your <b>real RPO</b> is <b>{rp}</b>{why}. {rto}",
+    "why": ", because if a backup fails without you noticing, you lose the previous cycle's backup too",
+    "rtoNone": "Your <b>RTO</b> today is <b>unknown</b>: without a test restore, it is only an estimate.",
+    "rtoOld": "Your <b>RTO</b> is out of date: the environment has changed since the last test.",
+    "rtoOk": "Your <b>RTO</b> has a recent measurement. Good.",
+    "source": "<span class=\"dm__src\">Source: article «{t}», {d}.</span>",
+    "readArticle": "Read the article",
+    "calcCost": "Calculate the cost of an outage",
+    "mail": "Get cases by email"
+  },
+  "kql": {
+    "intro": "The guide has 10 read-only queries. Type <b>/kql</b> and a topic (for example <b>/kql backups</b>) or pick one:",
+    "guide": "See the guide",
+    "guideFull": "See the full guide",
+    "notFound": "I didn't find a query about \"{q}\".",
+    "source": "<span class=\"dm__src\">Source: guide «{t}».</span>",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFail": "Select and copy",
+    "other": "Another query"
+  },
+  "money": "USD"
+}

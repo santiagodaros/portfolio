@@ -1,0 +1,110 @@
+{
+  "entries": [
+    {
+      "k": ["difference between rpo and rto", "rpo and rto", "rpo vs rto", "rto and rpo", "rto vs rpo", "rpo versus rto"],
+      "a": "<b>RPO</b> measures how much data you can lose; <b>RTO</b>, how long you can go without operating. One looks backward (the last valid recovery point) and the other forward (how long it takes you to get back).",
+      "art": "art-rto"
+    },
+    {
+      "k": ["rpo", "recovery point"],
+      "a": "<b>RPO</b> (Recovery Point Objective): how much data you can afford to lose, measured in time. If the last valid recovery point is 4 hours old, your real RPO is 4 hours, whatever the plan says.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["rto", "recovery time"],
+      "a": "<b>RTO</b> (Recovery Time Objective): how long a service can be down before it is operating again. The one that matters is the one you measure when you test, not the one written in the policy.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["test failover", "failover test", "failover drill"],
+      "a": "A <b>test failover</b> brings up the replicas in an isolated network to test the plan without touching production or interrupting replication. It's what Santiago automated.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["failover"],
+      "a": "<b>Failover</b>: moving operations from the primary site or region to the secondary one when the primary fails. In Site Recovery it's done with a recovery plan, by groups and in the order you define.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["site recovery", "asr", "azure site recovery"],
+      "a": "<b>Azure Site Recovery</b> replicates servers (Azure, VMware, Hyper-V or physical) to another region or to Azure and orchestrates their recovery with plans organized by groups.",
+      "proj": "p-failover"
+    },
+    {
+      "k": ["continuity", "backup is not continuity", "backup and continuity", "backup vs dr", "backup and dr", "business continuity"],
+      "a": "A <b>backup</b> is a copy; <b>continuity</b> is being able to operate again within the time the business tolerates. A backup that finishes green doesn't guarantee that time.",
+      "art": "art-rto"
+    },
+    {
+      "k": ["high availability", "highly available", "99 99", "9999"],
+      "a": "<b>High availability</b> prevents the outage within a region (zones, load balancing, redundancy). <b>Disaster recovery</b> brings you back up when the region or the whole environment is lost. They complement each other; they don't replace each other."
+    },
+    {
+      "k": ["kql", "kusto"],
+      "a": "<b>KQL</b> (Kusto Query Language) is the language for querying Log Analytics and Resource Graph. Santiago published the 10 queries used in every audit.",
+      "href": "guia-kql",
+      "ht": "See the KQL guide"
+    },
+    {
+      "k": ["resource graph", "azure resource graph"],
+      "a": "<b>Azure Resource Graph</b> lets you query, with KQL, the resource inventory of all subscriptions at once, read-only.",
+      "href": "guia-kql",
+      "ht": "See the KQL guide"
+    },
+    {
+      "k": ["lighthouse"],
+      "a": "<b>Azure Lighthouse</b> provides delegated access to the environments of several clients from the provider's tenant, without creating accounts in each one.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["epac", "enterprise policy"],
+      "a": "<b>EPAC</b> (Enterprise Policy as Code) is a framework for managing Azure Policy from a repository, with reviewable plans and CI/CD deployment.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["azure policy", "policy", "policies"],
+      "a": "<b>Azure Policy</b> defines rules on resources (what is allowed, what is audited, what is remediated) and evaluates them continuously.",
+      "proj": "p-gobernanza"
+    },
+    {
+      "k": ["pim", "privileged identity"],
+      "a": "<b>PIM</b> (Privileged Identity Management) grants privileged roles only when needed and for a limited time, with approval and logging.",
+      "proj": "p-auditoria"
+    },
+    {
+      "k": ["conditional access"],
+      "a": "<b>Conditional Access</b> decides whether a session gets in, with what requirements (MFA, device, location, risk), or whether it is blocked.",
+      "proj": "p-auditoria"
+    },
+    {
+      "k": ["finops", "cloud financial management"],
+      "a": "<b>FinOps</b> is the practice of managing cloud cost as a shared responsibility among engineering, finance and the business.",
+      "proj": "p-backups"
+    },
+    {
+      "k": ["archive", "lifecycle", "life cycle", "storage", "blob storage"],
+      "a": "<b>Archive</b> is the cheapest Blob Storage tier, for data that is almost never read. Retrieving it takes hours and has a cost, so it pays to define the lifecycle policy carefully.",
+      "art": "art-archivo"
+    },
+    {
+      "k": ["mcp", "model context protocol"],
+      "a": "<b>MCP</b> (Model Context Protocol) is a standard for connecting AI agents with external tools and data.",
+      "proj": "p-aienv"
+    },
+    {
+      "k": ["csp", "cloud solution provider"],
+      "a": "<b>CSP</b> (Cloud Solution Provider) is the program through which a partner resells and manages Microsoft licenses and services for its clients.",
+      "proj": "p-portal"
+    }
+  ],
+  "articles": {
+    "art-rto": {
+      "t": "Backup is not continuity",
+      "k": ["rpo article", "rto article", "article about rpo", "article about rto", "article on rpo", "article on rto", "backup is not continuity", "recovery plan that never", "recovery plan that was never", "dr article", "article about dr", "article on dr"]
+    },
+    "art-archivo": {
+      "t": "Smart storage: cutting costs by archiving old data",
+      "k": ["smart storage", "storage article", "article about storage", "article on storage", "archive article", "article about archive", "article on archive"]
+    }
+  }
+}

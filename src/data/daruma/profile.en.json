@@ -1,0 +1,166 @@
+{
+  "projAlias": {
+    "p-portal": ["portal", "csp", "partner center", "license", "licence", "account managers", "account manager", "operations portal", "csp operations portal", "csp portal"],
+    "p-failover": ["failover", "recovery test", "automated recovery test", "automated test", "test failover", "automated recovery", "recovery testing", "dr test", "dr testing"],
+    "p-auditoria": ["audit", "azure audit", "m365 audit", "assessment", "survey", "controls", "m365", "microsoft 365", "azure and m365"],
+    "p-gobernanza": ["governance", "governance as code", "policy as code", "as code", "epac", "multi-tenant", "multitenant", "multi tenant", "azure governance"],
+    "p-drlive": ["dr live", "drlive", "live dr", "real time", "real-time", "cost per minute", "per minute"],
+    "p-backups": ["backups by tier", "backup by tier", "backups by criticality", "backup tiers", "backups project", "backup project", "tier", "criticality", "levels"],
+    "p-aienv": ["ai-env", "aienv", "ai env", "harness", "ai harness", "agent harness"]
+  },
+  "attr": {
+    "stack": ["technology", "technologies", "stack", "tools", "tooling", "language", "languages", "framework", "frameworks", "built with", "made with", "built in", "written in", "used", "uses", "using", "it use", "santiago use"],
+    "problema": ["problem", "why", "what for", "pain", "the need", "reason", "purpose", "motivation", "what was it for"],
+    "idea": ["idea", "how does", "how does it work", "how it works", "solution", "approach", "how is it solved"],
+    "resultado": ["result", "outcome", "change", "impact", "metric", "saving", "saved", "improve", "how much time", "how much did it save", "benefit"],
+    "rol": ["role", "contribution", "contributed", "responsible", "responsibility", "participat", "involved", "who built", "who made", "who developed", "who did", "santiago do", "santiago s part"]
+  },
+  "intents": {
+    "hello": "^(hello|hi|hey|hiya|howdy|good morning|good afternoon|good evening)\\b",
+    "thanks": "^(thanks|thank you|thx|great|perfect|awesome|cool|nice|ok|okay)\\b(?!.*\\b(what|how|why|who|where|when|which|can|could|do|does|did|is|are)\\b)",
+    "conceptual": "\\b(what is|what are|what s|what does .+ (mean|stand for)|what do .+ (mean|stand for)|means|meaning|difference|differences|explain|definition|define)\\b",
+    "interview": "\\b(interview\\w*|recruiter\\w*)\\b",
+    "kql": "\\bkql\\b|\\bquer(y|ies)\\b",
+    "kqlNot": "\\bwhat (is|s|are)\\b",
+    "kqlStrip": ".*\\b(kql|query|queries)\\b( for| about| on| of| to find| to list| to show| to check| that finds)?( the| a| an| all| my)?",
+    "cost": "(how much (does |would |will |do )?(an |a |the |my )?(outage|downtime|failure|incident)|(outage|downtime|incident) cost|cost of (an |a |the )?(outage|downtime|incident)|\\bcalculat\\w*\\b(?!.*\\brpo\\b))",
+    "rpo": "(real rpo|my rpo|our rpo|calculat\\w* (my |the |our )?(real )?rpo|rpo calculator|estimate (my |the |our )?(real )?rpo)",
+    "chaos": "\\bchaos\\b|\\bknock (me|you|it) (down|over)\\b",
+    "help": "\\b(commands|help|what can you do|what do you know|what can i ask|what do you do)\\b",
+    "mail": "\\b(mail|mails|email|emails|e-mail)\\b",
+    "mailVerb": "\\b(write|draft|compose|prepare|send|create|make|set up)",
+    "mailEvent": "\\b(event|events|talk|talks|speaking|speaker|webinar|conference|meetup)\\b",
+    "mailTech": "\\b(question|questions|inquiry|enquiry|technical)\\b",
+    "subscribe": "\\b(subscri\\w*|newsletter|(get|receive|send me) (the )?cases|notify me|keep me (posted|updated)|tell me when)\\b",
+    "search": "\\b(wrote|write|written|published|publish|posted|covered|anything|something|articles?|posts?|content|talked|spoke|spoken)\\b (about|on|regarding|covering|around|concerning) (.+)",
+    "stop": " the a an and or of in on at to for with about any anything something do does did have has had you your are is was were be been am i we they it its this that these those what which where how who whom why when can could would should will there here me my mine us our write wrote written writing publish published posted post posts article articles content talk talked spoke spoken santiago daruma want know tell show please some more other also just like get got ",
+    "cmd": {
+      "kql": "kql",
+      "cost": "cost costo caida",
+      "rpo": "rpo",
+      "chaos": "chaos caos",
+      "interview": "interview entrevista",
+      "tour": "tour recorrido"
+    }
+  },
+  "kqlSyn": {
+    "backup": "backup",
+    "backups": "backup",
+    "orphaned": "orphaned",
+    "orphans": "orphaned",
+    "orphan": "orphaned",
+    "disks": "orphaned",
+    "disk": "orphaned",
+    "nics": "orphaned",
+    "nsg": "nsg",
+    "rdp": "rdp",
+    "ssh": "ssh",
+    "ports": "internet",
+    "open": "internet",
+    "internet": "internet",
+    "storage": "storage",
+    "tls": "tls",
+    "sql": "sql",
+    "tags": "tag",
+    "tag": "tag",
+    "owner": "owner tag",
+    "cost": "cost",
+    "costs": "cost",
+    "advisor": "advisor",
+    "recommendations": "advisor",
+    "secure": "secure",
+    "defender": "defender",
+    "score": "secure score",
+    "region": "region",
+    "regions": "region",
+    "vms": "vms",
+    "power": "power"
+  },
+  "entries": [
+    {
+      "s": 1,
+      "k": ["certification", "certifications", "certified", "certificate", "certs", "az-", "sc-"],
+      "a": "Santiago holds six Microsoft certifications: AZ-305 (Solutions Architect Expert), AZ-400 (DevOps Engineer Expert), AZ-700, SC-300, AZ-104 and AZ-800/801. SC-100 is in progress. Each one can be verified on Microsoft Learn.",
+      "c": [{ "t": "See certifications", "href": "stack", "go": 1 }]
+    },
+    {
+      "k": ["where does santiago work", "who does santiago work for", "work at", "works at", "work for", "works for", "working at", "working for", "currently work", "employer", "company", "readymind", "current position", "job title", "experience"],
+      "a": "Santiago has been a Cloud Engineer at Readymind, a Microsoft partner, since October 2025; before that, Santiago went through the same company's Cloud training program. The work covers corporate accounts from several countries, internal tools and technical pre-sales.",
+      "c": [{ "t": "See background", "href": "sobre-mi", "go": 1 }, { "t": "Download CV", "href": "cv", "dl": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["study", "studies", "studied", "studying", "education", "university", "college", "degree", "uade", "uba"],
+      "a": "In 2027, Santiago starts the Bachelor's degree in Information Technology Management at UADE. Before that, Santiago studied Computer Science at UBA."
+    },
+    {
+      "k": ["where does santiago live", "where do you live", "where is santiago", "location", "located", "country", "city", "based in", "argentina", "buenos aires", "remote"],
+      "a": "Santiago is based in Buenos Aires, Argentina."
+    },
+    {
+      "s": 1,
+      "k": ["contact", "reach", "email", "mail", "e-mail", "get in touch", "write to", "message", "linkedin", "talk to", "speak to", "speak with"],
+      "a": "The most direct way is by email or LinkedIn.",
+      "c": [{ "t": "Write to Santiago", "href": "contacto", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["cv", "curriculum", "resume", "vitae"],
+      "a": "Here is the CV, in Spanish and English.",
+      "c": [{ "t": "Download CV", "href": "cv", "dl": 1, "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["talk", "talks", "webinar", "webinars", "speaker", "speaking", "event", "events", "conference", "session", "presentation"],
+      "a": "Santiago gave the webinar <b>\"DR that isn't tested isn't DR\"</b> and the talk <b>\"SRE in Microsoft Fabric\"</b> at Fabric Day, with Microsoft Speakers Hub en Español. For events, the speaker kit has a bio, photos and topics.",
+      "c": [{ "t": "Speaker kit", "href": "speaker", "go": 1 }, { "t": "See talks", "href": "charlas" }]
+    },
+    {
+      "s": 1,
+      "k": ["newsletter", "subscri", "updates", "mailing list"],
+      "a": "A real Azure case by email, with the query or script that solved it. It's free and you can unsubscribe with one click.",
+      "c": [{ "t": "Subscribe", "href": "newsletter", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["english", "spanish", "bilingual", "spoken languages", "what languages", "speak english", "speak spanish"],
+      "a": "The talks are in Spanish; in English, to be arranged. The site and the CV are available in both languages."
+    },
+    {
+      "s": 1,
+      "k": ["hackathon", "hackaton", "belo", "buildathon", "agentic banking", "usdt"],
+      "a": "In October 2026, Santiago took part in Belo's Agentic Banking Buildathon with Belo Business. Santiago's part: the idea of keeping the spending funds invested in USDT until maturity, and the rules engine; Santiago also presented the live demo.",
+      "c": [{ "t": "See the experience", "href": "experiencias", "go": 1 }]
+    },
+    {
+      "k": ["blog", "article", "articles", "writes", "publishes", "posts"],
+      "a": "Santiago publishes every week on LinkedIn and, when the topic calls for it, an extended version on the blog. The featured one is \"Backup is not continuity\".",
+      "c": [{ "t": "See the blog", "href": "blog", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["rate", "rates", "price", "prices", "pricing", "fee", "fees", "salary", "charge", "budget", "quote", "compensation"],
+      "a": "Rates are not published on the site. If you have a proposal, write with the context and you'll get a reply.",
+      "c": [{ "t": "Write to Santiago", "href": "contacto", "go": 1 }]
+    },
+    {
+      "k": ["looking for work", "looking for a job", "open to work", "available", "hire", "hiring", "opportunity", "opportunities", "proposal", "freelance", "consulting", "consultancy", "job"],
+      "a": "For proposals or inquiries, the best thing is to write directly and explain the context.",
+      "c": [{ "t": "Write to Santiago", "href": "contacto", "go": 1 }]
+    },
+    {
+      "k": ["who are you", "what are you", "are you an ai", "are you ai", "are you a bot", "are you a robot", "is this ai", "is this an ai", "chatgpt", "artificial intelligence", "daruma"],
+      "a": "I'm Daruma, the site guide. I don't use AI: I answer with what's published here. If I don't know something, I'll say so."
+    },
+    {
+      "k": ["who is santiago", "who s santiago", "about santiago", "who is behind this site"],
+      "a": "Santiago Da Ros is a Cloud Engineer at Readymind, in Buenos Aires. Santiago designs, builds and operates tools on Azure, and specializes in disaster recovery, governance and identity.",
+      "c": [{ "t": "Show me the site", "act": "tour" }, { "t": "Download CV", "href": "cv", "dl": 1 }]
+    },
+    {
+      "k": ["projects", "what has santiago built", "what did santiago build", "what has santiago done", "what did santiago do", "what did santiago make", "portfolio"],
+      "a": "Seven projects: the CSP operations portal, the automated recovery test, the Azure and M365 audit, governance as code, DR Live, backups by criticality tier and ai-env, which is open source.",
+      "c": [{ "t": "See projects", "href": "proyectos", "go": 1 }]
+    }
+  ]
+}
