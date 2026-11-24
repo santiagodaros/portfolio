@@ -2,6 +2,8 @@
 // Hub /comunidad (EN /en/community): todo lo que comparto, con contadores de los últimos 12 meses,
 // pestañas con URL propia, filtro por área y descarga del CSV.
 import TalkCard from './TalkCard.astro';
+import ArticuloProximo from '../ArticuloProximo.astro';
+import { getUpcomingArticles } from '../../lib/blog';
 import { communityText, communityPaths, hubHref } from '../../i18n/community';
 import {
   csvFileName,
@@ -39,6 +41,9 @@ const areasPresent = AREAS.filter((a) => visible.some((c) => c.area === a));
 const months = new Map<string, typeof visible>();
 for (const c of visible) months.set(monthKey(c), [...(months.get(monthKey(c)) ?? []), c]);
 const timeline = [...months.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+
+// Artículos programados: tarjeta "Próximamente" arriba de todo, en "Todo" y en "Artículos" (solo en español)
+const soon = lang === 'es' && (!tab || tab === 'articulos') ? await getUpcomingArticles() : [];
 
 const [upcoming, past] = tab === 'charlas' ? await Promise.all([getUpcomingTalks(lang), getPastTalks(lang)]) : [[], []];
 
@@ -120,6 +125,8 @@ const csvName = csvFileName[lang];
         </div>
       )
     }
+
+    {soon.length > 0 && <div class="soon-list">{soon.map((e) => <ArticuloProximo entry={e} />)}</div>}
 
     {
       tab === 'charlas' ? (
@@ -314,6 +321,11 @@ const csvName = csvFileName[lang];
     border-color: var(--accent-fill);
     background: var(--accent-fill);
     color: #fff;
+  }
+  .soon-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
   }
   .timeline {
     margin-top: 12px;

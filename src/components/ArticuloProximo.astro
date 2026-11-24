@@ -1,0 +1,253 @@
+---
+// Tarjeta "Próximamente" de un artículo programado (`publishAt` en el futuro). Sin link: la página todavía no
+// existe. Cuenta regresiva en vivo hasta la hora de salida y, cuando el deploy programado termina, se vuelve link.
+// Solo en español (el artículo no tiene versión en inglés).
+import type { CollectionEntry } from 'astro:content';
+import { articleHref } from '../lib/blog';
+import { upcomingArticleText as t } from '../i18n/blog';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+}
+const { entry } = Astro.props;
+const publishAt = entry.data.publishAt!;
+const TZ = 'America/Argentina/Buenos_Aires';
+
+// La fecha sale de `publishAt`, en hora de Argentina, no escrita a mano
+const parts = (opts: Intl.DateTimeFormatOptions) =>
+  Object.fromEntries(
+    new Intl.DateTimeFormat('es-AR', { timeZone: TZ, hourCycle: 'h23', ...opts })
+      .formatToParts(publishAt)
+      .map((p) => [p.type, p.value])
+  );
+const short = parts({ weekday: 'long', day: 'numeric', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+const long = parts({ weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+const whenShort = `${short.weekday} ${short.day}/${short.month} ${t.at} ${short.hour}:${short.minute} ${t.timezone}`;
+const whenLong = `${long.weekday} ${long.day} de ${long.month} ${t.at} ${long.hour}:${long.minute}`;
+const href = `${articleHref(entry)}/`;
+---
+
+<article
+  class="soon soon--wait"
+  data-soon
+  data-publish-at={publishAt.toISOString()}
+  data-href={href}
+  data-remaining={t.remaining}
+  data-publishing={t.publishing}
+  data-live={t.live}
+  data-read={t.read}
+  data-new={t.new}
+  data-sr-live={`${entry.data.title}. ${t.live}.`}
+  aria-disabled="true"
+>
+  {
+    entry.data.cover && (
+      <img class="soon__cover" src={entry.data.cover} alt="" width="1600" height="560" loading="lazy" decoding="async" />
+    )
+  }
+  <div class="soon__body">
+    <span class="soon__sr" data-soon-sr>{t.sr(entry.data.title, whenLong)}</span>
+    <div aria-hidden="true" class="soon__text">
+      <span class="soon__tag" data-soon-tag>{t.tag}</span>
+      <h3 data-soon-title>{entry.data.title}</h3>
+      <p class="soon__desc">{entry.data.description}</p>
+      <p class="soon__when">{t.releases(whenShort)}</p>
+      <p class="soon__count" data-soon-count></p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .soon {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: var(--card);
+    color: var(--muted);
+    overflow: hidden;
+    cursor: default;
+  }
+  .soon__cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1600 / 560;
+    filter: grayscale(1);
+    opacity: 0.55;
+  }
+  .soon__body {
+    display: grid;
+    align-content: center;
+    padding: 24px 26px 26px;
+  }
+  .soon__text {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+  }
+  .soon__tag {
+    display: inline-flex;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font: 500 12px/1.4 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .soon h3 {
+    margin: 0;
+    font: var(--display-weight) 24px/1.2 var(--display);
+    letter-spacing: var(--track);
+    color: var(--muted);
+  }
+  .soon__desc,
+  .soon__when,
+  .soon__count {
+    margin: 0;
+  }
+  .soon__desc {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .soon__when {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .soon__count {
+    min-height: 1.4em;
+    font: 500 14px/1.4 var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Texto solo para lectores de pantalla */
+  .soon__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  @media (min-width: 900px) {
+    .soon {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      align-items: center;
+    }
+    .soon__body {
+      padding: 28px 32px;
+    }
+  }
+
+  /* Ya salió: se vuelve un link normal */
+  .soon:not(.soon--wait) {
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .soon:not(.soon--wait) .soon__cover {
+    filter: none;
+    opacity: 1;
+  }
+  .soon:not(.soon--wait) h3 {
+    color: var(--ink);
+  }
+  .soon:not(.soon--wait) .soon__tag {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .soon:not(.soon--wait):hover h3 {
+    color: var(--accent);
+  }
+  .soon :global(.soon__link) {
+    color: inherit;
+    text-decoration: none;
+  }
+  .soon :global(.soon__link)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  :global(.soon:has(.soon__link:focus-visible)) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .soon:not(.soon--wait) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Cuenta regresiva sin dependencias. Con prefers-reduced-motion se actualiza cada minuto y sin segundos.
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  document.querySelectorAll<HTMLElement>('[data-soon]').forEach((card) => {
+    const at = new Date(card.dataset.publishAt ?? '').getTime();
+    const out = card.querySelector<HTMLElement>('[data-soon-count]');
+    if (!out || Number.isNaN(at)) return;
+    let timer = 0;
+    let poll = 0;
+
+    const text = (ms: number) => {
+      const s = Math.max(0, Math.floor(ms / 1000));
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const days = d > 0 ? `${d} d ` : '';
+      const secs = reduced ? '' : ` ${pad(s % 60)} s`;
+      return `${card.dataset.remaining} ${days}${pad(h)} h ${pad(m)} min${secs}`;
+    };
+
+    // Cuando la página ya existe, la tarjeta pasa a ser un link
+    const goLive = () => {
+      clearInterval(timer);
+      clearInterval(poll);
+      card.classList.remove('soon--wait');
+      card.removeAttribute('aria-disabled');
+      const title = card.querySelector<HTMLElement>('[data-soon-title]');
+      if (title) {
+        const a = document.createElement('a');
+        a.className = 'soon__link';
+        a.href = card.dataset.href ?? '#';
+        a.textContent = title.textContent;
+        title.replaceChildren(a);
+      }
+      out.textContent = card.dataset.read ?? '';
+      const tag = card.querySelector<HTMLElement>('[data-soon-tag]');
+      if (tag) tag.textContent = card.dataset.new ?? '';
+      card.querySelector<HTMLElement>('.soon__when')?.remove();
+      const sr = card.querySelector<HTMLElement>('[data-soon-sr]');
+      if (sr) sr.textContent = card.dataset.srLive ?? '';
+      card.querySelector<HTMLElement>('.soon__text')?.removeAttribute('aria-hidden');
+    };
+
+    const check = async () => {
+      try {
+        const r = await fetch(card.dataset.href ?? '', { method: 'HEAD', cache: 'no-store' });
+        if (r.status === 200) goLive();
+      } catch {
+        /* sin red: se reintenta en 30 s */
+      }
+    };
+
+    const tick = () => {
+      const left = at - Date.now();
+      if (left > 0) {
+        out.textContent = text(left);
+        return;
+      }
+      // Llegó la hora: el sitio se está reconstruyendo
+      clearInterval(timer);
+      out.textContent = card.dataset.publishing ?? '';
+      void check();
+      poll = window.setInterval(check, 30000);
+    };
+    tick();
+    if (at - Date.now() > 0) timer = window.setInterval(tick, reduced ? 60000 : 1000);
+  });
+</script>

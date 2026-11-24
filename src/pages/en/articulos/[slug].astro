@@ -1,12 +1,12 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import ArticlePage from '@/components/blog/ArticlePage.astro';
-import { getSeriesInfo, getTranslation } from '@/lib/blog';
+import { getPublishedArticles, getSeriesInfo, getTranslation } from '@/lib/blog';
 import { articleJsonLd, personJsonLd } from '@/lib/seo';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog', (e) => e.data.lang === 'en' && !e.data.draft);
+  const entries = await getPublishedArticles('en');
   return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 

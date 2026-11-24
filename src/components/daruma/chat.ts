@@ -33,6 +33,14 @@ export function ready(): Promise<void> {
   readyP ||= (async () => {
     const [idx, g, p] = await Promise.all([loadIdx(), dataFor('glossary'), dataFor('profile')]);
     G = g;
+    // Un artículo programado (publishAt) no está en el índice hasta que sale: el glosario no lo nombra ni lo enlaza antes
+    const published = new Set(idx.articles.map((a) => a.id));
+    G.entries.forEach((e: Json) => {
+      if (e.art && !published.has(e.art)) delete e.art;
+    });
+    Object.keys(G.articles).forEach((aid) => {
+      if (!published.has(aid)) delete G.articles[aid];
+    });
     P = p;
     KB = Object.fromEntries(idx.projects.map((x) => [x.id, x]));
     buildSearch();

@@ -1,0 +1,199 @@
+---
+title: "Estás pagando backups de producción para servidores de prueba"
+description: "Cómo clasificar tus VMs en niveles de criticidad para que cada una tenga la protección que necesita: el método de dos auditorías de Azure Backup, las decisiones de diseño y cuatro consultas de solo lectura para revisar tu propio entorno."
+date: 2026-11-25
+tags: ["azure-backup", "finops", "resiliencia", "resource-graph"]
+category: "Resiliencia"
+area: "dr"
+series: "governance-en-la-trinchera"
+lang: "es"
+draft: false
+publishAt: 2026-11-25T12:00:00-03:00   # sale a esta hora; antes se muestra como "Próximamente"
+featured: false
+cover: "/img/backups-por-nivel-de-criticidad.webp"
+coverAlt: "Ilustración: una fila de servidores iguales con la misma política de backup que se reordena en tres niveles de criticidad, T1, T2 y T3."
+translationKey: "backups-por-nivel"
+references:
+  - title: "Get improved backup and restore performance with the Azure Backup Instant Restore capability"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-instant-restore-capability"
+  - title: "Back up an Azure VM by using the Enhanced policy"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-azure-vms-enhanced-policy"
+  - title: "Query your backups using Azure Resource Graph (ARG)"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/query-backups-using-azure-resource-graph"
+  - title: "Immutable vault for Azure Backup"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-azure-immutable-vault-concept"
+---
+
+Este mes audité Azure Backup en dos empresas. Una tenía unas 70 VMs protegidas en 6 vaults; la otra, varias suscripciones. Las dos tenían el mismo problema, y no era técnico: todos los servidores valían lo mismo para la política de backup.
+
+Un servidor de pruebas y la base de datos que factura tenían los mismos días de snapshots, la misma retención y la misma ventana. El resultado es doble. Pagás de más por lo que no importa y, casi siempre, protegés de menos lo que sí.
+
+<figure>
+  <video src="/video/backups-por-nivel.mp4" poster="/video/backups-por-nivel.jpg" controls muted playsinline preload="metadata" width="1080" height="1350" class="article-video"></video>
+  <figcaption>El caso en un minuto, con Daruma.</figcaption>
+</figure>
+
+<PullQuote>
+  Una política de backup que no distingue criticidad no es una política: es un default que nadie revisó.
+</PullQuote>
+
+## Qué encontré
+
+En la primera empresa, sobre unas 70 VMs:
+
+- **Snapshots sobredimensionados.** Casi la mitad de las VMs guardaba entre 7 y 14 días de snapshots de restauración instantánea. Una de esas políticas cubría por igual desarrollo, QA y producción, incluido un entorno de QA de casi 10 TB.
+- **Respaldos huérfanos.** 5 VMs que ya no existían seguían protegidas. Una no tenía un backup nuevo desde hacía más de un año, pero seguía guardando (y cobrando) sus puntos.
+- **Cobertura incompleta.** El firewall perimetral y otros servidores encendidos no tenían backup. Y las bases SQL se respaldaban solo como VM: ante una corrupción, la restauración volvía al último backup diario, con hasta 24 horas de datos perdidos.
+- **Sin retención de largo plazo.** Casi todas las VMs guardaban solo 30 puntos diarios. Ningún punto semanal, mensual ni anual.
+- **Gobernanza.** 17 políticas sin uso, nombres por defecto, etiquetas de ambiente que contradecían el uso real y ningún vault con inmutabilidad.
+
+Ninguno de estos hallazgos es raro. Son lo que pasa cuando el backup se configura una vez, al principio, y después se le van sumando VMs a la política que ya existía.
+
+## Por qué los snapshots cuestan más de lo que parece
+
+La restauración instantánea guarda snapshots junto a los discos para que restaurar un error reciente tarde minutos y no horas. Es muy útil, pero esos snapshots se cobran aparte del vault. <sup><a href="#ref-1">[1]</a></sup>
+
+Cuánto cuestan depende del tipo de política:
+
+- **Standard:** los snapshots son incrementales. Se pagan los cambios de cada día por la cantidad de días que los guardás.
+- **Enhanced:** el primer snapshot es una copia completa del disco y los siguientes son incrementales. Por eso el mismo número de días cuesta más. <sup><a href="#ref-1">[1]</a></sup>
+
+En la práctica, el caso más común es "alguien borró algo ayer". Para eso alcanzan uno o dos días de snapshots. Los puntos más viejos siguen existiendo en el vault: la restauración tarda más, pero está.
+
+## El diseño: tres niveles, sin migrar nada
+
+La decisión más importante fue **no mover ninguna VM de vault**. Reasignar una VM a otra política del mismo vault conserva sus puntos de recuperación. Moverla de vault obliga a protegerla de nuevo y a pagar doble mientras dura la retención vieja.
+
+Así que cada nivel es una política con el mismo nombre en cada vault que lo necesita. Los niveles se definen cruzando la etiqueta de ambiente, la etiqueta de prioridad, el rol de la VM y la convención de nombres:
+
+| Nivel | Qué entra | Snapshots | Diaria | Semanal | Mensual |
+| --- | --- | --- | --- | --- | --- |
+| T1 · Datos | Bases de datos, ERP productivo, acceso privilegiado | 2 días | 30 días | 12 semanas | 12 meses |
+| T1 · Identidad | Controladores de dominio, Entra Connect, DNS | 2 días | 30 días | 8 semanas | — |
+| T1 · Red | Firewalls y appliances de red | 2 días | 14 días | 4 semanas | 3 meses |
+| T2 | Producción estándar | 2 días | 14 días | 4 semanas | 3 meses |
+| T3 | Desarrollo, QA, sandbox y pruebas | 1 día | 7 días | 2 semanas | — |
+
+Además, las bases T1 suman una política de SQL con full semanal, diferencial diario y log cada 15 minutos. Eso es lo que baja la pérdida posible de 24 horas a minutos.
+
+Las ventanas se escalonan por nivel (T1 primero, T3 último) para que los backups pesados no compitan entre sí.
+
+## Dos restricciones que condicionan el diseño
+
+Antes de reasignar, ojo con estas dos:
+
+1. **Enhanced no vuelve a Standard.** Una VM protegida con política Enhanced no puede pasar a una Standard. <sup><a href="#ref-2">[2]</a></sup> Si hay VMs de QA que ya están en Enhanced (por ejemplo, las Trusted Launch), su nivel T3 tiene que ser una política Enhanced con 1 día de snapshots.
+2. **Los controladores de dominio tienen fecha de vencimiento.** Restaurar un DC desde un backup más viejo que el tombstone lifetime de Active Directory no está soportado. Retener puntos de DC por años no te da nada; por eso T1 · Identidad no tiene mensual.
+
+Y una regla de operación: **reducir una retención no tiene vuelta atrás.** Los puntos que quedan afuera se borran en la siguiente limpieza. Por eso los cambios se aplican por oleadas, empezando por los entornos no productivos.
+
+## El giro: el ahorro paga lo que faltaba
+
+Ajustar los snapshots y limpiar los huérfanos ahorra, en ese caso, unos USD 400 por mes. Pero el plan completo termina costando más que antes, porque suma lo que no existía:
+
+- retención de largo plazo,
+- backup de SQL con log cada 15 minutos,
+- e inmutabilidad en los vaults, para que nadie con credenciales comprometidas pueda borrar ni acortar retenciones. <sup><a href="#ref-4">[4]</a></sup>
+
+Esa es la conversación que vale la pena tener con el negocio. Un rediseño de backup no siempre baja la factura. Lo que hace es que cada dólar proteja algo que importa: se deja de pagar por los 14 días de snapshots de un servidor de pruebas, y con ese dinero se cubren las bases de datos y el firewall.
+
+## Cómo revisar tu propio entorno
+
+Estas cuatro consultas corren en Azure Resource Graph Explorer, son de solo lectura y cubren todas las suscripciones a las que tengas acceso. <sup><a href="#ref-3">[3]</a></sup>
+
+**1. Qué política protege a cada VM y cuántos días de snapshots guarda**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+| where properties.backupManagementType == "AzureIaasVM"
+| extend vmId = tolower(tostring(properties.sourceResourceId)),
+         policyId = tolower(tostring(properties.policyId)),
+         estado = tostring(properties.protectionState)
+| join kind=leftouter (
+    recoveryservicesresources
+    | where type == "microsoft.recoveryservices/vaults/backuppolicies"
+    | extend policyId = tolower(id),
+             snapshotDias = toint(properties.instantRpRetentionRangeInDays),
+             tipo = iff(tostring(properties.policyType) == "V2", "Enhanced", "Standard")
+    | project policyId, politica = name, tipo, snapshotDias
+) on policyId
+| project vm = tostring(split(vmId, "/")[8]), vault = tostring(split(id, "/")[8]),
+          politica, tipo, snapshotDias, estado
+| order by snapshotDias desc
+```
+
+Si arriba de todo aparecen servidores de prueba con 7 días o más, ya encontraste el primer ahorro.
+
+**2. Políticas sin uso y cuántas VMs tiene cada una**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backuppolicies"
+| where properties.backupManagementType == "AzureIaasVM"
+| project vault = tostring(split(id, "/")[8]), politica = name,
+          vms = toint(properties.protectedItemsCount),
+          snapshotDias = toint(properties.instantRpRetentionRangeInDays)
+| order by vms asc
+```
+
+Las que tienen 0 VMs se pueden dar de baja. Las que tienen muchas VMs de ambientes distintos son las candidatas a dividirse en niveles.
+
+**3. VMs sin backup**
+
+```kusto
+resources
+| where type == "microsoft.compute/virtualmachines"
+| extend vmId = tolower(id),
+         estado = tostring(properties.extended.instanceView.powerState.code),
+         ambiente = tostring(tags["Ambiente"])
+| join kind=leftouter (
+    recoveryservicesresources
+    | where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+    | where properties.backupManagementType == "AzureIaasVM"
+    | project vmId = tolower(tostring(properties.sourceResourceId)), protegida = true
+) on vmId
+| where isnull(protegida)
+| project vm = name, resourceGroup, location, estado, ambiente
+| order by estado asc
+```
+
+Cambiá `Ambiente` por el nombre de tu etiqueta. Mirá primero las que están encendidas: ahí suelen aparecer firewalls y appliances que nadie pensó como "servidores".
+
+**4. Respaldos huérfanos: VMs que ya no existen pero siguen protegidas**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+| where properties.backupManagementType == "AzureIaasVM"
+| extend vmId = tolower(tostring(properties.sourceResourceId))
+| join kind=leftouter (
+    resources
+    | where type == "microsoft.compute/virtualmachines"
+    | project vmId = tolower(id), existe = true
+) on vmId
+| where isnull(existe)
+| project vm = tostring(split(vmId, "/")[8]), vault = tostring(split(id, "/")[8]),
+          estado = tostring(properties.protectionState),
+          ultimoBackup = todatetime(properties.lastBackupTime)
+```
+
+Ojo: si la VM vive en una suscripción que no ves, también aparece acá. Confirmá antes de detener la protección y borrar los datos, porque ese paso tampoco tiene vuelta atrás.
+
+## Checklist para tu equipo
+
+- [ ] Corré las cuatro consultas y exportá los resultados a CSV.
+- [ ] Marcá en el inventario el nivel de cada VM: T1, T2 o T3.
+- [ ] Corregí las etiquetas de ambiente que contradicen el uso real.
+- [ ] Definí las políticas por nivel en cada vault, sin mover VMs de vault.
+- [ ] Reasigná por oleadas, empezando por los entornos no productivos.
+- [ ] Detené la protección de los huérfanos, después de confirmarlos.
+- [ ] Sumá lo que falte: backup de SQL con log, retención larga e inmutabilidad.
+
+## La decisión
+
+No arranques preguntando "¿cuánto puedo ahorrar en backup?". Arrancá preguntando "¿qué servidores no me puedo permitir perder?". La respuesta a esa pregunta define los niveles, y los niveles definen el costo. Casi siempre el ahorro aparece solo, y alcanza para pagar la protección que te faltaba.
