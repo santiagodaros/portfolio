@@ -72,6 +72,8 @@ async function boot() {
     seq = (seq + e.key.toLowerCase()).slice(-5);
     if (seq.endsWith('caos') || seq === 'chaos') void import('./chaos').then((m) => m.chaos());
   });
+  // El botón "Simular una caída" de la home pide el mismo incidente narrado (Pulse.astro no conoce a Daruma, solo este gancho)
+  (window as unknown as { darumaChaos?: (h: import('./chaos').Hooks) => Promise<boolean> }).darumaChaos = (h) => import('./chaos').then((m) => m.chaos(h));
 
   /* primera visita: bienvenida (si llegó por un link directo, espera a que vuelva a la home) */
   if (isHome && firstVisit() && !new URLSearchParams(location.search).has('daruma')) {

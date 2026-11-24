@@ -10,8 +10,13 @@ const SELECTOR = 'main .sol, main .feature, main .post, main .post--feat, main .
 const GAP_DOWN = 2800;
 const GAP_UP = 1800;
 
-export function chaos() {
-  if (S.chaos) return;
+export type Stage = 'start' | 'failover' | 'done';
+/** `stage` avisa en qué momento está (la barra de incidente de la home lo usa para seguir a Daruma); `ms` en `failover` es lo que falta para terminar. */
+export type Hooks = { stage?: (s: Stage, ms?: number) => void };
+
+/** Devuelve false si ya hay un incidente en curso. */
+export function chaos(h: Hooks = {}): boolean {
+  if (S.chaos) return false;
   S.chaos = true;
   close();
   hideBub();
@@ -33,6 +38,7 @@ export function chaos() {
   });
   if (!RM) hold(-84);
 
+  h.stage?.('start');
   const groups = [0, 1, 2].map((k) => els.filter((_, i) => i % 3 === k));
   const timers: number[] = [];
   const at = (ms: number, fn: () => void) => void timers.push(window.setTimeout(fn, ms));
@@ -52,6 +58,7 @@ export function chaos() {
     over = true;
     timers.forEach(clearTimeout);
     removeEventListener('keydown', onKey);
+    h.stage?.('done');
     groups.forEach(raise);
     release(-5);
     face('big', 2000);
@@ -67,13 +74,20 @@ export function chaos() {
   addEventListener('keydown', onKey);
 
   // Primero todo caído y Daruma explicando qué pasa; después cada grupo vuelve con su comentario.
-  c.steps.forEach((s, i) => at(i * GAP_DOWN, () => say(s, i === 0)));
   const upAt = c.steps.length * GAP_DOWN;
+  const total = upAt + c.up.length * GAP_UP + 600;
+  c.steps.forEach((s, i) =>
+    at(i * GAP_DOWN, () => {
+      if (i === c.steps.length - 1) h.stage?.('failover', total - i * GAP_DOWN);
+      say(s, i === 0);
+    })
+  );
   c.up.forEach((s, k) =>
     at(upAt + k * GAP_UP, () => {
       raise(groups[k] || []);
       say(s);
     })
   );
-  at(upAt + c.up.length * GAP_UP + 600, finish);
+  at(total, finish);
+  return true;
 }

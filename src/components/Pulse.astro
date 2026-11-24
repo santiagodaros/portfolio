@@ -157,8 +157,8 @@ const t = home[lang].pulse;
     const setInert = (on: boolean) =>
       document.querySelectorAll<HTMLElement>('main, footer.closing').forEach((el) => (el.inert = on));
 
-    btn.addEventListener('click', () => {
-      if (busy) return;
+    // Arma el estado de caída y devuelve los dos momentos que lo cambian: el failover (con la barra de avance) y la recuperación.
+    function begin() {
       busy = true;
       btn.disabled = true;
       const t0 = performance.now();
@@ -181,32 +181,69 @@ const t = home[lang].pulse;
       say(sim.detecting, en ? 't+0.0 s' : 't+0,0 s');
       txt.textContent = sim.noHeartbeat;
 
-      setTimeout(() => {
-        const n = document.querySelectorAll('main > section').length;
-        say(sim.failing.replace('{n}', String(n)), sim.failingMeta);
-        requestAnimationFrame(() => {
-          bar.style.transition = 'width 1s linear';
+      return {
+        failing(ms: number) {
+          const n = document.querySelectorAll('main > section').length;
+          say(sim.failing.replace('{n}', String(n)), sim.failingMeta);
+          requestAnimationFrame(() => {
+            bar.style.transition = `width ${ms}ms linear`;
+            bar.style.width = '100%';
+          });
+        },
+        recovered() {
+          let rto = ((performance.now() - t0) / 1000).toFixed(1);
+          if (!en) rto = rto.replace('.', ',');
+          bar.style.transition = 'width 0.3s linear';
           bar.style.width = '100%';
+          root.classList.remove('is-down');
+          root.classList.add('is-recovering');
+          setInert(false);
+          say(sim.recovered, sim.rto.replace('{rto}', rto), true);
+          txt.textContent = sim.secondary;
+
+          setTimeout(() => {
+            inc.hidden = true;
+            root.classList.remove('is-recovering');
+            txt.textContent = normal;
+            busy = false;
+            btn.disabled = false;
+          }, 4200);
+        },
+      };
+    }
+
+    // Versión corta (1,8 s): sin Daruma, o cuando es el panel de Daruma el que la dispara y narra por su cuenta.
+    function quick() {
+      if (busy) return;
+      const s = begin();
+      setTimeout(() => s.failing(1000), 700);
+      setTimeout(() => s.recovered(), 1800);
+    }
+    pulse.addEventListener('pulse:quick', quick);
+
+    // Con Daruma cargado, el botón corre el incidente narrado y la barra lo acompaña; el RTO es el tiempo real que tardó.
+    btn.addEventListener('click', () => {
+      if (busy) return;
+      const daruma = (window as unknown as { darumaChaos?: (h: unknown) => Promise<boolean> }).darumaChaos;
+      if (!daruma) return quick();
+      busy = true;
+      let s: ReturnType<typeof begin> | undefined;
+      daruma({
+        stage: (st: string, ms?: number) => {
+          if (st === 'start') s = begin();
+          else if (st === 'failover') s?.failing(ms ?? 1000);
+          else if (st === 'done') s?.recovered();
+        },
+      })
+        .then((started) => {
+          if (!started) busy = false;
+        })
+        .catch(() => {
+          if (!s) {
+            busy = false;
+            quick();
+          }
         });
-      }, 700);
-
-      setTimeout(() => {
-        let rto = ((performance.now() - t0) / 1000).toFixed(1);
-        if (!en) rto = rto.replace('.', ',');
-        root.classList.remove('is-down');
-        root.classList.add('is-recovering');
-        setInert(false);
-        say(sim.recovered, sim.rto.replace('{rto}', rto), true);
-        txt.textContent = sim.secondary;
-
-        setTimeout(() => {
-          inc.hidden = true;
-          root.classList.remove('is-recovering');
-          txt.textContent = normal;
-          busy = false;
-          btn.disabled = false;
-        }, 4200);
-      }, 1800);
     });
   }
 </script>
