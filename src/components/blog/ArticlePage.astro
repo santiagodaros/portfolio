@@ -19,7 +19,7 @@ const minutes = getReadingTime(entry.body);
 const next = await getNextArticle(entry);
 ---
 
-<main class="reader">
+<main id="main" tabindex="-1" class="reader">
   <div class="reader__progress" aria-hidden="true"><i></i></div>
   <header class="reader__top">
     <div class="reader__wrap reader__topbar">

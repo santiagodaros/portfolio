@@ -41,6 +41,7 @@ export const contact = {
 const ui = {
   es: {
     homeAria: 'Santiago Da Ros, inicio',
+    skip: 'Saltar al contenido',
     mainNavAria: 'Principal',
     menuAria: 'Menú',
     menuOpen: 'Abrir el menú',
@@ -83,6 +84,7 @@ const ui = {
   },
   en: {
     homeAria: 'Santiago Da Ros, home',
+    skip: 'Skip to content',
     mainNavAria: 'Main',
     menuAria: 'Menu',
     menuOpen: 'Open menu',
