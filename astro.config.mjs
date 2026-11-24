@@ -26,6 +26,19 @@ const translated = [
   ['/articulos/backup-no-es-continuidad-rpo-rto/', '/en/articulos/backup-is-not-continuity-the-rpo-rto-gap/'],
 ];
 
+// Las casillas de las checklists (- [ ] item) salen sin etiqueta: se les pone el texto del ítem como aria-label.
+function rehypeTaskLabels() {
+  const text = (n) => (n.type === 'text' ? n.value : (n.children ?? []).map(text).join(''));
+  const walk = (n) => {
+    if (n.type === 'element' && n.tagName === 'li' && n.properties?.className?.includes('task-list-item')) {
+      const input = n.children.find((c) => c.type === 'element' && c.tagName === 'input');
+      if (input) input.properties.ariaLabel = n.children.filter((c) => c !== input).map(text).join('').trim();
+    }
+    n.children?.forEach(walk);
+  };
+  return (tree) => walk(tree);
+}
+
 export default defineConfig({
   site: process.env.SITE_URL ?? 'https://portfolio-santiagodaros.vercel.app',
   // El índice del blog ahora es la pestaña Artículos del hub de comunidad. En Vercel manda el 301 de vercel.json.
@@ -34,7 +47,7 @@ export default defineConfig({
     '/en/articulos': '/en/community/articles/',
   },
   integrations: [
-    mdx(),
+    mdx({ rehypePlugins: [rehypeTaskLabels] }),
     sitemap({
       // Las páginas de gracias del newsletter son noindex
       filter: (page) => !/\/(gracias|en\/thanks)\/?$/.test(page),
