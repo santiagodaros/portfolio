@@ -87,7 +87,7 @@ const slides = talk.slides;
         <p>{talk.abstract}</p>
       </>
     ) : (
-      talk.status === 'upcoming' && <p class="muted">{t.pendingAbstract}</p>
+      talk.status === 'upcoming' && <p class="muted pending">{t.pendingAbstract}</p>
     )
   }
 
@@ -154,6 +154,9 @@ const slides = talk.slides;
   h2 {
     margin: 44px 0 12px;
     font-size: var(--t3);
+  }
+  .pending {
+    margin-top: 32px;
   }
   .facts {
     display: grid;
@@ -224,7 +227,8 @@ const slides = talk.slides;
     display: grid;
     gap: 8px;
     margin: 0;
-    padding-left: 18px;
+    padding-left: 22px;
+    list-style: disc;
   }
   @media (max-width: 639px) {
     .facts > div {

@@ -60,17 +60,21 @@ const editUrl = `https://github.com/santiagodaros/portfolio/edit/main/src/conten
       series && (
         <aside class="series" aria-label={t.series}>
           <b>{t.series}: {series.name}</b>
-          <ol>
-            {series.parts.map((a, i) => (
-              <li>
-                {a.slug === entry.slug ? (
-                  <span aria-current="page">{t.seriesPart(i + 1)} · {a.data.title}</span>
-                ) : (
-                  <a href={articleHref(a)}>{t.seriesPart(i + 1)} · {a.data.title}</a>
-                )}
-              </li>
-            ))}
-          </ol>
+          {series.parts.length > 1 ? (
+            <ol>
+              {series.parts.map((a, i) => (
+                <li>
+                  {a.slug === entry.slug ? (
+                    <span aria-current="page">{t.seriesPart(i + 1)} · {a.data.title}</span>
+                  ) : (
+                    <a href={articleHref(a)}>{t.seriesPart(i + 1)} · {a.data.title}</a>
+                  )}
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <span>{t.seriesPart(1)}</span>
+          )}
         </aside>
       )
     }
