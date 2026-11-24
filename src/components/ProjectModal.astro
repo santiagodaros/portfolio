@@ -1,6 +1,7 @@
 ---
 // Modal de un proyecto: <dialog> nativo (foco atrapado, Esc, ::backdrop).
 // Se abre con #p-<id>. Sin JS, el enlace #p-<id> lo muestra igual con :target.
+import ProjectMini from './ProjectMini.astro';
 import { projectHash, type Project } from '../lib/projects';
 
 interface Props {
@@ -21,15 +22,19 @@ const id = projectHash(p.id);
     </header>
     <h2 id={`${id}-t`}>{p.title}</h2>
     <p class="pm__lead">{p.lead}</p>
-    <div class="pm__kpis">
-      {
-        p.kpis.map((k) => (
-          <div>
-            <strong>{k.value}</strong>
-            <span>{k.label}</span>
-          </div>
-        ))
-      }
+    <div class="pm__side">
+      <div class="pm__kpis">
+        {
+          p.kpis.map((k) => (
+            <div>
+              <strong>{k.value}</strong>
+              <span>{k.label}</span>
+            </div>
+          ))
+        }
+      </div>
+      {p.mini && <ProjectMini mini={p.mini} />}
+      <div class="tags pm__stack">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
     </div>
     <div class="pm__body">
       <div><h3>{labels.problem}</h3><p>{p.problem}</p></div>
@@ -94,6 +99,8 @@ const id = projectHash(p.id);
       'lead kpis'
       'body body'
       'tags foot';
+    /* La columna derecha (KPIs, ilustración, tecnologías) es más alta que el título: el resumen se queda arriba */
+    grid-template-rows: auto auto 1fr auto auto;
     column-gap: 36px;
     align-items: start;
     max-height: calc(100vh - 40px);
@@ -138,14 +145,22 @@ const id = projectHash(p.id);
   }
   .pm__lead {
     grid-area: lead;
+    align-self: start;
     margin-top: 8px;
     font-size: 16px;
     line-height: 1.5;
     color: var(--muted);
   }
-  .pm__kpis {
+  .pm__side {
     grid-area: kpis;
     align-self: center;
+    display: grid;
+    gap: 14px;
+  }
+  .pm__stack {
+    gap: 4px 12px;
+  }
+  .pm__kpis {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
@@ -211,8 +226,9 @@ const id = projectHash(p.id);
     .pm {
       grid-template-columns: 1fr;
       grid-template-areas: 'top' 'title' 'lead' 'kpis' 'body' 'tags' 'foot';
+      grid-template-rows: none;
     }
-    .pm__kpis {
+    .pm__side {
       margin-top: 16px;
     }
     .pm__body {

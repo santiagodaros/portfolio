@@ -16,7 +16,6 @@ const featured = projects.find((p) => p.featured);
 const rest = projects.filter((p) => !p.featured);
 const labels = { close: t.close, ...t.sections };
 const closeHref = `${homePath(lang)}#proyectos`;
-let lgCount = 0;
 ---
 
 <section id="proyectos" class="section">
@@ -61,7 +60,7 @@ let lgCount = 0;
     }
 
     <div class="solutions">
-      {rest.map((p) => <ProjectCard project={p} lgIndex={p.size === 'lg' ? lgCount++ : 0} more={t.more} />)}
+      {rest.map((p) => <ProjectCard project={p} more={t.more} />)}
     </div>
   </div>
 
@@ -72,11 +71,11 @@ let lgCount = 0;
   .feature {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 24px;
-    padding: 40px;
+    gap: 48px;
+    padding: 48px;
     overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: 24px;
+    border-radius: 28px;
     background: var(--card);
     cursor: pointer;
   }
@@ -84,7 +83,7 @@ let lgCount = 0;
     grid-column: span 4;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
   .feature__top {
     display: flex;
@@ -103,6 +102,7 @@ let lgCount = 0;
   }
   .feature__copy p {
     color: var(--muted);
+    line-height: 1.6;
   }
   .btn-more {
     align-self: flex-start;
@@ -113,7 +113,7 @@ let lgCount = 0;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-top: auto;
-    padding-top: 20px;
+    padding-top: 24px;
     border-top: 1px solid var(--line);
   }
   .kpis strong {
@@ -137,9 +137,9 @@ let lgCount = 0;
   }
   .solutions {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 32px;
   }
 
   @media (max-width: 1023px) {
@@ -147,11 +147,25 @@ let lgCount = 0;
        desbordan la tarjeta cuando el contenido es más angosto (celulares de 320 px). */
     .feature {
       grid-template-columns: 1fr;
-      padding: 24px;
+      padding: 32px;
+      gap: 32px;
+    }
+    .solutions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
     }
     .feature__copy,
     .feature__ui {
       grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 639px) {
+    .feature {
+      padding: 24px;
+    }
+    .solutions {
+      grid-template-columns: 1fr;
     }
   }
 </style>

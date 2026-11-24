@@ -1,34 +1,23 @@
 ---
 // Tarjeta del mosaico de proyectos. Abre el modal del proyecto (#p-<id>).
-import ProjectMini from './ProjectMini.astro';
+// Es simple a propósito: estado, título, resumen y una métrica. La ilustración, las tecnologías y el resto
+// del detalle están en el modal, así la grilla respira.
 import { projectHash, type Project } from '../lib/projects';
 
 interface Props {
   project: Project;
-  /** Para las tarjetas lg: 0 ocupa 7/12 y 1 ocupa 5/12. */
-  lgIndex?: number;
   more: string;
 }
-const { project: p, lgIndex = 0, more } = Astro.props;
+const { project: p, more } = Astro.props;
 ---
 
-<a
-  class:list={[
-    'sol replica',
-    `sol--${p.size}`,
-    { 'sol--a': p.size === 'lg' && lgIndex === 0, 'sol--b': p.size === 'lg' && lgIndex === 1 },
-  ]}
-  href={`#${projectHash(p.id)}`}
-  data-reveal
->
+<a class="sol replica" href={`#${projectHash(p.id)}`} data-reveal>
   <div class="sol__top">
     <span class="sol__kind">{p.kind}</span>
     <span class:list={['status', { 'status--plan': p.statusTone === 'plan' }]}>{p.status}</span>
   </div>
   <h3>{p.title}</h3>
-  {p.mini && <ProjectMini mini={p.mini} />}
   <p>{p.summary}</p>
-  <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
   {
     p.metric && (
       <div class="sol__metric">
@@ -42,13 +31,13 @@ const { project: p, lgIndex = 0, more } = Astro.props;
 
 <style>
   .sol {
-    grid-column: span 4;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 24px;
+    gap: 18px;
+    min-height: 340px;
+    padding: 32px;
     border: 1px solid var(--line);
-    border-radius: 20px;
+    border-radius: 24px;
     background: var(--card);
     color: var(--ink);
     text-decoration: none;
@@ -61,16 +50,11 @@ const { project: p, lgIndex = 0, more } = Astro.props;
     box-shadow: 0 24px 48px -32px rgb(0 0 0 / 0.45);
     color: var(--ink);
   }
-  .sol--a {
-    grid-column: span 7;
-  }
-  .sol--b {
-    grid-column: span 5;
-  }
   .sol__top {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    gap: 4px 12px;
     min-height: 24px;
   }
   .sol__kind {
@@ -78,39 +62,35 @@ const { project: p, lgIndex = 0, more } = Astro.props;
     font-size: 13px;
     color: var(--muted);
   }
-  .sol h3 {
-    font-size: var(--t4);
-    line-height: 1.15;
+  .sol :global(.status) {
+    white-space: nowrap;
   }
-  .sol--lg h3 {
-    font-size: var(--t3);
+  .sol h3 {
+    font-size: 26px;
+    line-height: 1.12;
   }
   .sol p {
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 1.6;
     color: var(--muted);
   }
   .sol__metric {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+    display: grid;
+    gap: 4px;
     margin-top: auto;
-    padding-top: 14px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
   }
   .sol__metric strong {
-    font: var(--display-weight) 26px/1 var(--display);
+    font: var(--display-weight) 28px/1.05 var(--display);
     letter-spacing: var(--track);
-  }
-  .sol--lg .sol__metric strong {
-    font-size: 34px;
   }
   .sol__metric span {
     font-size: 13px;
     color: var(--muted);
   }
   .sol__more {
-    margin-top: 4px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--accent);
   }
@@ -119,78 +99,21 @@ const { project: p, lgIndex = 0, more } = Astro.props;
     text-underline-offset: 3px;
   }
 
-  /* Tarjeta ancha (proyecto propio): ilustración al centro, métrica a la derecha */
-  .sol--wide {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
-    grid-template-areas:
-      'top mini metric'
-      'h mini metric'
-      'p mini tags';
-    column-gap: 28px;
-    row-gap: 10px;
-    align-items: start;
-  }
-  .sol--wide .sol__top {
-    grid-area: top;
-  }
-  .sol--wide h3 {
-    grid-area: h;
-  }
-  .sol--wide p {
-    grid-area: p;
-  }
-  .sol--wide :global(.mini) {
-    grid-area: mini;
-    height: 132px;
-  }
-  .sol--wide .tags {
-    grid-area: tags;
-    align-self: end;
-  }
-  .sol--wide .sol__metric {
-    grid-area: metric;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  @media (max-width: 1023px) {
-    .sol,
-    .sol--a,
-    .sol--b {
-      grid-column: span 6;
-    }
-    .sol--wide {
-      grid-column: 1 / -1;
-      grid-template-columns: 1fr;
-      grid-template-areas: 'top' 'h' 'p' 'mini' 'metric' 'tags';
-    }
-    .sol--wide .sol__metric {
-      flex-direction: row;
-      align-items: baseline;
-      gap: 8px;
-    }
-  }
   @media (max-width: 639px) {
-    .sol,
-    .sol--a,
-    .sol--b {
-      grid-column: 1 / -1;
+    .sol {
+      min-height: 0;
+      padding: 24px;
     }
-    .sol--lg :global(.mini) {
-      height: 160px;
-    }
-    .sol__metric {
-      flex-wrap: wrap;
-    }
-    .sol__metric strong,
-    .sol--lg .sol__metric strong {
+    .sol h3 {
       font-size: 24px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sol {
+      transition: none;
+    }
+    .sol:hover {
+      transform: none;
     }
   }
 </style>
