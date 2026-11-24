@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { contact, homePath, paths, useUi, type Lang } from '../i18n';
+import { hubHref } from '../i18n/community';
 
 interface Props {
   lang?: Lang;
@@ -42,10 +43,11 @@ const year = new Date().getFullYear();
       <div>
         <h3>{f.groups.content}</h3>
         <ul>
-          <li><a href={p.blog}>{t.nav.blog}</a></li>
+          <li><a href={hubHref(lang)}>{t.nav.community}</a></li>
+          <li><a href={hubHref(lang, 'articulos')}>{t.nav.blog}</a></li>
+          <li><a href={hubHref(lang, 'charlas')}>{t.nav.talks}</a></li>
           <li><a href={p.kql}>{f.kql}</a></li>
           <li><a href={`${home}#newsletter`}>{t.nav.newsletter}</a></li>
-          <li><a href={`${home}#charlas`}>{t.nav.talks}</a></li>
         </ul>
       </div>
       <div>

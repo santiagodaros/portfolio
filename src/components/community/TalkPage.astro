@@ -1,0 +1,235 @@
+---
+// Página de una charla o webinar: abstract, evento, fecha, grabación, slides, repo de la demo y artículos relacionados.
+import { getCollection } from 'astro:content';
+import ReaderPage from '../ReaderPage.astro';
+import { communityText, hubHref } from '../../i18n/community';
+import { talkDateLabel, type TalkData } from '../../lib/talks';
+import { getProjects, projectHash } from '../../lib/projects';
+import { areaLabels } from '../../lib/areas';
+import { articleHref, getPublishedArticles } from '../../lib/blog';
+import { homePath, type Lang } from '../../i18n';
+
+interface Props {
+  talk: TalkData;
+  lang: Lang;
+}
+const { talk, lang } = Astro.props;
+const t = communityText[lang].talk;
+
+const tag = talk.status === 'upcoming' ? t.upcomingTag : talk.format === 'webinar' ? t.webinarTag : t.pastTag;
+const when = talkDateLabel(talk, lang);
+
+// Artículos relacionados: slugs en español; en inglés se usa la traducción si existe
+const [esArticles, langArticles] = await Promise.all([getPublishedArticles('es'), getPublishedArticles(lang)]);
+const related = talk.related.flatMap((slug) => {
+  const es = esArticles.find((a) => a.slug === slug);
+  if (!es) return [];
+  const own = lang === 'es' ? es : langArticles.find((a) => es.data.translationKey && a.data.translationKey === es.data.translationKey);
+  const a = own ?? es;
+  return [{ title: a.data.title, href: articleHref(a), inSpanish: a.data.lang !== lang }];
+});
+
+const project = talk.project ? (await getProjects(lang)).find((p) => p.id === talk.project) : undefined;
+const slides = talk.slides;
+---
+
+<ReaderPage backHref={hubHref(lang, 'charlas')} backLabel={t.back} crumb={tag}>
+  <div class="reader__meta">
+    <span class:list={['tag', { 'tag--up': talk.status === 'upcoming' }]}>{tag}</span>
+    <span>{when}</span>
+  </div>
+  <h1>{talk.title}</h1>
+  <p class="reader__lead">{talk.summary}</p>
+
+  <dl class="facts">
+    {
+      talk.event && (
+        <div>
+          <dt>{t.event}</dt>
+          <dd>{talk.eventUrl ? <a href={talk.eventUrl} target="_blank" rel="noopener">{talk.event}</a> : talk.event}</dd>
+        </div>
+      )
+    }
+    <div>
+      <dt>{t.date}</dt>
+      <dd>{when}</dd>
+    </div>
+    <div>
+      <dt>{t.format}</dt>
+      <dd>{t.formats[talk.format]}</dd>
+    </div>
+    <div>
+      <dt>{t.language}</dt>
+      <dd>{t.languages[talk.talkLanguage]}</dd>
+    </div>
+    {
+      talk.community && (
+        <div>
+          <dt>{t.community}</dt>
+          <dd><a href={talk.community.url} target="_blank" rel="noopener">{talk.community.label}</a></dd>
+        </div>
+      )
+    }
+    {
+      talk.area && (
+        <div>
+          <dt>{lang === 'es' ? 'Área' : 'Area'}</dt>
+          <dd>{areaLabels[lang][talk.area]}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  {
+    talk.abstract ? (
+      <>
+        <h2>{t.abstract}</h2>
+        <p>{talk.abstract}</p>
+      </>
+    ) : (
+      talk.status === 'upcoming' && <p class="muted">{t.pendingAbstract}</p>
+    )
+  }
+
+  {
+    talk.recording && (
+      <>
+        <h2>{t.recording}</h2>
+        <a class="rec" href={talk.recording} target="_blank" rel="noopener">
+          {talk.image && <img src={`/img/${talk.image}.webp`} alt="" width="1280" height="720" loading="lazy" />}
+          <span class="rec__play" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M7 5.5v9l7.5-4.5z" /></svg>
+          </span>
+          <span class="rec__label">{t.watch}</span>
+        </a>
+      </>
+    )
+  }
+
+  {
+    slides && (
+      <>
+        <h2>{t.slides}</h2>
+        <p><a class="link" href={slides} {...(slides.startsWith('http') ? { target: '_blank', rel: 'noopener' } : { download: true })}>{t.slidesLink}</a></p>
+      </>
+    )
+  }
+
+  {
+    talk.demoRepo && (
+      <>
+        <h2>{t.demo}</h2>
+        <p><a class="link" href={talk.demoRepo} target="_blank" rel="noopener">{t.demoLink}</a></p>
+      </>
+    )
+  }
+
+  {
+    project && (
+      <>
+        <h2>{t.project}</h2>
+        <p>
+          <a class="link" href={`${homePath(lang)}#${projectHash(project.id)}`}>{project.title} — {t.projectLink}</a>
+        </p>
+      </>
+    )
+  }
+
+  {
+    related.length > 0 && (
+      <>
+        <h2>{t.related}</h2>
+        <ul class="rel">
+          {related.map((r) => <li><a class="link" href={r.href} {...(r.inSpanish ? { hreflang: 'es' } : {})}>{r.title}</a></li>)}
+        </ul>
+      </>
+    )
+  }
+</ReaderPage>
+
+<style>
+  h1 {
+    margin-top: 40px;
+  }
+  h2 {
+    margin: 44px 0 12px;
+    font-size: var(--t3);
+  }
+  .facts {
+    display: grid;
+    gap: 0;
+    margin: 32px 0 0;
+    border-top: 1px solid var(--line);
+  }
+  .facts > div {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts dt {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .facts dd {
+    margin: 0;
+  }
+  .facts dd a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .rec {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--surface);
+    text-decoration: none;
+  }
+  .rec img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .rec__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--accent-fill);
+  }
+  .rec__play svg {
+    width: 26px;
+    height: 26px;
+    fill: #fff;
+  }
+  .rec__label {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgb(11 12 14 / 0.78);
+    color: #fff;
+    font-size: 14px;
+  }
+  .rel {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 18px;
+  }
+  @media (max-width: 639px) {
+    .facts > div {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

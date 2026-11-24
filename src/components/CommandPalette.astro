@@ -6,6 +6,7 @@ import { articleHref, getPublishedArticles } from '../lib/blog';
 import { kqlFileName } from '../data/kql';
 import { paletteText } from '../i18n/palette';
 import { homePath, otherLang, paths, type Lang } from '../i18n';
+import { hubHref } from '../i18n/community';
 
 interface Props {
   lang?: Lang;
@@ -33,8 +34,7 @@ const items: Item[] = [
   { g: g.sections, i: '01', t: t.sections.projects, h: `${home}#proyectos` },
   { g: g.sections, i: '03', t: t.sections.experience, h: `${home}#experiencias` },
   { g: g.sections, i: '04', t: t.sections.stack, h: `${home}#stack` },
-  { g: g.sections, i: '05', t: t.sections.blog, h: `${home}#blog` },
-  { g: g.sections, i: '06', t: t.sections.talks, h: `${home}#charlas` },
+  { g: g.sections, i: '05', t: t.sections.community, h: hubHref(lang) },
   { g: g.sections, i: '07', t: t.sections.about, h: `${home}#sobre-mi` },
   ...projects.map((x) => ({ g: g.projects, i: x.id.charAt(0).toUpperCase() + x.id.charAt(1), t: x.title, h: `${home}#${projectHash(x.id)}` })),
   ...[...own, ...spanishOnly].map((a) => ({
@@ -43,7 +43,8 @@ const items: Item[] = [
     t: a.data.title,
     h: articleHref(a),
   })),
-  { g: g.articles, i: 'Bl', t: t.allPosts, h: p.blog },
+  { g: g.articles, i: 'Bl', t: t.allPosts, h: hubHref(lang, 'articulos') },
+  { g: g.articles, i: 'Ch', t: t.talks, h: hubHref(lang, 'charlas') },
   { g: g.articles, i: 'Kq', t: t.guide, h: p.kql },
   { g: g.pages, i: '/n', t: t.now, h: p.now },
   { g: g.pages, i: '●', t: t.status, h: p.status },

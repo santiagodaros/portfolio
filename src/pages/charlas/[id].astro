@@ -1,0 +1,47 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import TalkPage from '@/components/community/TalkPage.astro';
+import { getTalk, getTalkIds, hasExactDate, talkHref } from '@/lib/talks';
+
+export async function getStaticPaths() {
+  const ids = await getTalkIds();
+  const entries = await Promise.all(ids.map(async (id) => [id, await getTalk(id, 'es')] as const));
+  return entries.flatMap(([id, talk]) => (talk ? [{ params: { id }, props: { talk } }] : []));
+}
+
+const { talk } = Astro.props;
+const lang = 'es' as const;
+const url = new URL(talkHref(talk.id, lang) + '/', Astro.site).toString();
+
+// schema.org/Event: solo con el día exacto (sin fecha confirmada no se publica)
+const event = hasExactDate(talk)
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: talk.title,
+      description: talk.abstract ?? talk.summary,
+      startDate: talk.date.toISOString().slice(0, 10),
+      eventStatus: 'https://schema.org/EventScheduled',
+      inLanguage: talk.talkLanguage,
+      url,
+      performer: { '@type': 'Person', name: 'Santiago Da Ros' },
+      organizer: talk.community ? { '@type': 'Organization', name: talk.community.label, url: talk.community.url } : undefined,
+      ...(talk.format === 'webinar'
+        ? {
+            eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+            location: { '@type': 'VirtualLocation', url: talk.recording ?? url },
+          }
+        : {}),
+    }
+  : undefined;
+---
+
+<Layout
+  title={`${talk.title} — Santiago Da Ros`}
+  description={talk.abstract ?? talk.summary}
+  lang={lang}
+  alternates={{ es: talkHref(talk.id, 'es') + '/', en: talkHref(talk.id, 'en') + '/' }}
+>
+  {event && <script type="application/ld+json" set:html={JSON.stringify(event)} />}
+  <TalkPage talk={talk} lang={lang} />
+</Layout>

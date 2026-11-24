@@ -1,0 +1,123 @@
+---
+// Tarjeta de charla o webinar. La usan el hub /comunidad (pestaña Charlas) y la home.
+// Lleva a la página de la charla; la grabación es un link aparte.
+import { communityText } from '../../i18n/community';
+import { talkHref, type TalkData } from '../../lib/talks';
+import type { Lang } from '../../i18n';
+
+interface Props {
+  talk: TalkData;
+  lang: Lang;
+  /** Etiqueta sobre el título, p. ej. "Próxima charla". */
+  tag?: string;
+}
+const { talk, lang, tag } = Astro.props;
+const t = communityText[lang].hub;
+const href = talkHref(talk.id, lang);
+const spanishTalk = talk.talkLanguage === 'es' && lang === 'en';
+---
+
+<article class:list={['talk', { 'talk--up': talk.status === 'upcoming' }]} data-reveal>
+  {
+    talk.image && (
+      <a class="talk__visual" href={href} tabindex="-1" aria-hidden="true">
+        <img src={`/img/${talk.image}.webp`} alt="" width="1280" height="720" loading="lazy" />
+      </a>
+    )
+  }
+  <div class="talk__body">
+    {tag && <span class="status status--plan talk__tag">{tag}</span>}
+    <h3><a class="talk__title" href={href}>{talk.title}</a></h3>
+    <p class="talk__sum">{talk.summary}</p>
+    <p class="talk__meta">
+      {talk.meta}
+      {spanishTalk && <span> · {t.inSpanish}</span>}
+    </p>
+    {talk.tags.length > 0 && <div class="tags">{talk.tags.map((x) => <span class="tag">{x}</span>)}</div>}
+    <div class="talk__links">
+      <a class="talk__link" href={href}>{t.details}</a>
+      {
+        talk.recording && (
+          <a class="talk__link talk__link--alt" href={talk.recording} target="_blank" rel="noopener">
+            {t.watch}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .talk {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--card);
+    overflow: hidden;
+  }
+  .talk__visual {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: var(--surface);
+  }
+  .talk__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .talk--up .talk__body {
+    border-top: 4px solid var(--accent-fill);
+  }
+  .talk__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 22px;
+  }
+  .talk__tag {
+    align-self: flex-start;
+  }
+  .talk h3 {
+    font-size: var(--t4);
+    line-height: 1.18;
+  }
+  .talk__title {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .talk__title:hover {
+    color: var(--accent);
+  }
+  .talk__sum {
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .talk__meta {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .talk__links {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+  .talk__link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .talk__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .talk__link--alt {
+    color: var(--muted);
+  }
+</style>

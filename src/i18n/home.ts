@@ -18,8 +18,6 @@ const es = {
       { value: '6', label: 'certificaciones de Microsoft' },
     ],
     photoAlt: 'Santiago Da Ros presentando con un micrófono',
-    captionStatus: 'Próxima charla',
-    caption: 'La punta del iceberg · Microsoft Speakers Hub en Español · fecha a confirmar',
   },
   pulse: {
     label: 'Región primaria · latido normal',
@@ -42,36 +40,6 @@ const es = {
     more: 'Ver el proyecto →',
     close: 'Cerrar',
     sections: { problem: 'El problema', idea: 'La idea', change: 'Qué cambió', role: 'Mi rol' },
-  },
-  talks: {
-    eyebrow: 'Charlas y sesiones',
-    title: 'Webinars, charlas y demos en vivo',
-    note: 'Casi siempre con una demo en vivo.',
-    items: [
-      {
-        image: 'talk-dr',
-        url: 'https://www.youtube.com/watch?v=YytZS8YZHMY',
-        title: 'El DR que no se prueba no es un DR',
-        text: 'Webinar sobre recuperación ante desastres en Azure, con una prueba real de punta a punta.',
-        meta: '12 de noviembre de 2026 · webinar con demo en vivo',
-        community: null,
-        tags: ['Site Recovery', 'DR Live'],
-        link: 'Ver en YouTube ↗',
-        aria: 'Ver en YouTube: El DR que no se prueba no es un DR',
-      },
-      {
-        image: 'talk-fabric',
-        url: 'https://www.youtube.com/watch?v=L-HVPeHXO9o',
-        title: 'SRE en Microsoft Fabric: confiabilidad y escala',
-        text: 'Charla en Fabric Day, con la comunidad Microsoft Speakers Hub en Español.',
-        // TODO(fecha): falta el mes de Fabric Day (lo pasa Santiago). No inventar: hoy solo se sabe el año.
-        meta: '2026 · comunidad de habla hispana',
-        community: { label: 'Microsoft Speakers Hub en Español', url: 'https://community.fabric.microsoft.com/t5/Microsoft-Speakers-Hub-en/gh-p/MicrosoftSpeakersHubenEspaol' },
-        tags: ['Microsoft Fabric'],
-        link: 'Ver en YouTube ↗',
-        aria: 'Ver en YouTube: SRE en Microsoft Fabric: confiabilidad y escala',
-      },
-    ],
   },
   guide: {
     eyebrow: 'Guía gratuita',
@@ -224,8 +192,6 @@ const en: typeof es = {
       { value: '6', label: 'Microsoft certifications' },
     ],
     photoAlt: 'Santiago Da Ros presenting with a microphone',
-    captionStatus: 'Next talk',
-    caption: 'The tip of the iceberg (in Spanish) · Microsoft Speakers Hub en Español · date to be confirmed',
   },
   pulse: {
     label: 'Primary region · healthy heartbeat',
@@ -247,36 +213,6 @@ const en: typeof es = {
     more: 'See the project →',
     close: 'Close',
     sections: { problem: 'The problem', idea: 'The idea', change: 'What changed', role: 'My role' },
-  },
-  talks: {
-    eyebrow: 'Talks and sessions',
-    title: 'Webinars, talks and live demos',
-    note: 'Almost always with a live demo.',
-    items: [
-      {
-        image: 'talk-dr',
-        url: 'https://www.youtube.com/watch?v=YytZS8YZHMY',
-        title: "DR that isn't tested isn't DR (in Spanish)",
-        text: 'Webinar on disaster recovery on Azure, with an end-to-end real test.',
-        meta: 'November 12, 2026 · webinar with a live demo',
-        community: null,
-        tags: ['Site Recovery', 'DR Live'],
-        link: 'Watch on YouTube ↗',
-        aria: "Watch on YouTube: DR that isn't tested isn't DR (in Spanish)",
-      },
-      {
-        image: 'talk-fabric',
-        url: 'https://www.youtube.com/watch?v=L-HVPeHXO9o',
-        title: 'SRE in Microsoft Fabric: reliability and scale (in Spanish)',
-        text: 'Talk at Fabric Day, with the Microsoft Speakers Hub en Español community.',
-        // TODO(date): the month of Fabric Day is still missing (Santiago will provide it). Do not invent it.
-        meta: '2026 · Spanish-speaking community',
-        community: { label: 'Microsoft Speakers Hub en Español', url: 'https://community.fabric.microsoft.com/t5/Microsoft-Speakers-Hub-en/gh-p/MicrosoftSpeakersHubenEspaol' },
-        tags: ['Microsoft Fabric'],
-        link: 'Watch on YouTube ↗',
-        aria: 'Watch on YouTube: SRE in Microsoft Fabric: reliability and scale (in Spanish)',
-      },
-    ],
   },
   guide: {
     eyebrow: 'Free guide',

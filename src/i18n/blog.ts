@@ -24,7 +24,7 @@ const es = {
   extendedLink: 'Versión extendida →',
   featuredMeta: (min: number) => `Versión extendida · ${min} min`,
   article: {
-    back: '← Volver al blog',
+    back: '← Volver a los artículos',
     readTime: (min: number) => `${min} min de lectura`,
     updated: 'actualizado',
     authorName: 'Santiago Da Ros',
@@ -66,7 +66,7 @@ const en: typeof es = {
   extendedLink: 'Extended version →',
   featuredMeta: (min: number) => `Extended version · ${min} min`,
   article: {
-    back: '← Back to the blog',
+    back: '← Back to the articles',
     // mío
     readTime: (min: number) => `${min} min read`,
     updated: 'updated',

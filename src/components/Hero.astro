@@ -1,5 +1,7 @@
 ---
 import { home } from '../i18n/home';
+import { communityText } from '../i18n/community';
+import { getUpcomingTalks, talkDateLabel } from '../lib/talks';
 import { paths, type Lang } from '../i18n';
 
 interface Props {
@@ -7,6 +9,15 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const t = home[lang].hero;
+// Pie de la foto: la próxima charla (sale de la colección talks; sin próxima, no hay pie)
+const next = (await getUpcomingTalks(lang))[0];
+let caption = '';
+if (next) {
+  const when = talkDateLabel(next, lang);
+  // Sin fecha, la nota ("Fecha a confirmar") va en minúscula dentro de la frase
+  const whenText = next.date ? when : when.charAt(0).toLowerCase() + when.slice(1);
+  caption = [next.title.split(':')[0], next.event, whenText].filter(Boolean).join(' · ');
+}
 ---
 
 <section class="hero">
@@ -37,7 +48,7 @@ const t = home[lang].hero;
       <div class="photo">
         <img src="/img/hero.webp" alt={t.photoAlt} width="1000" height="1250" fetchpriority="high" />
       </div>
-      <p class="photo__cap"><span class="status">{t.captionStatus}</span> {t.caption}</p>
+      {next && <p class="photo__cap"><span class="status">{communityText[lang].home.nextTalk}</span> {caption}</p>}
     </div>
   </div>
 </section>
