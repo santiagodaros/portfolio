@@ -60,6 +60,10 @@ const { flow } = Astro.props;
     font: 500 12px/1 var(--mono);
     color: var(--muted);
   }
+  .flow__col--in .flow__label {
+    /* La columna no tiene hueco con el teléfono: sin esto la etiqueta lo toca a ~1080 px */
+    padding-right: 16px;
+  }
   .flow__col--out .flow__label {
     padding-left: 28px;
   }

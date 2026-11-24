@@ -39,7 +39,7 @@ const coverTitle = featured?.data.title.split(':')[0];
               style={featured.data.cover ? `--cover: url(${featured.data.cover})` : undefined}
               aria-hidden="true"
             >
-              <span class="big">{coverTitle}</span>
+              {!featured.data.cover && <span class="big">{coverTitle}</span>}
             </div>
             <div class="post__body">
               <div class="post__meta">
@@ -129,13 +129,16 @@ const coverTitle = featured?.data.title.split(':')[0];
   :global([data-theme='dark']) .post__cover:not(.post__cover--img) {
     background: #000;
   }
+  /* La imagen es panorámica (1600×560) y tiene contenido en los dos costados: la caja toma su
+     proporción para que nunca se recorte, sea cual sea el ancho de la tarjeta. */
   .post__cover--img {
-    height: 300px;
-    justify-content: flex-end;
+    height: auto;
+    aspect-ratio: 1600 / 560;
+    padding: 0;
     background-color: #0b0c0e;
     background-image: var(--cover);
-    background-position: center top;
-    background-size: cover;
+    background-position: center;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
   }
   .post__cover .big {
@@ -259,6 +262,7 @@ const coverTitle = featured?.data.title.split(':')[0];
       grid-column: 1 / -1;
     }
     .magnet {
+      grid-template-columns: 1fr;
       padding: 24px;
     }
   }
