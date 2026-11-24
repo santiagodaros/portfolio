@@ -13,7 +13,7 @@ const es = {
     items: [
       { title: 'Estudiando', text: 'SC-100, Cybersecurity Architect, para rendirla antes de fin de año. Después, IA y datos en Azure.' },
       { title: 'Construyendo', text: 'Este sitio y su blog, y dashboards de monitoreo con alertas por mail.' },
-      { title: 'Preparando', text: 'Una nueva sesión para Microsoft Speakers Hub en Español y el próximo webinar con demo en vivo.' },
+      { key: 'preparing', title: 'Preparando', text: '{talk} y el próximo webinar con demo en vivo.' },
       { title: 'Aprendiendo', text: 'Inglés, para trabajar y dar charlas en inglés, y producto: cómo decidir qué construir y qué no.' },
       { title: 'Empezando', text: 'La Licenciatura en Gestión de Tecnología de la Información en la UADE, en marzo de 2027.' },
     ],
@@ -25,20 +25,16 @@ const es = {
     title: 'Estado de Santiago Da Ros',
     banner: 'Todos los sistemas principales operativos',
     rows: [
-      { name: 'Azure e identidad', state: 'Operativo', tone: 'ok', note: '6 certificaciones activas' },
-      { name: 'Producto', state: 'Operativo', tone: 'ok', note: '5 herramientas en uso' },
-      { name: 'Blog', state: 'Operativo', tone: 'ok', note: 'Un artículo por semana' },
-      { name: 'Charlas', state: 'Operativo', tone: 'ok', note: 'Próxima sesión en 2027' },
-      { name: 'SC-100', state: 'Mantenimiento programado', tone: 'maint', note: 'Examen antes de fin de año' },
+      { key: 'azure', name: 'Azure e identidad', state: 'Operativo', tone: 'ok', note: '{certs} certificaciones activas' },
+      { key: 'product', name: 'Producto', state: 'Operativo', tone: 'ok', note: '5 herramientas en uso' },
+      { key: 'blog', name: 'Blog', state: 'Operativo', tone: 'ok', note: 'Un post por semana en LinkedIn' },
+      { key: 'community', name: 'Comunidad', state: 'Operativo', tone: 'ok', note: '{contributions} contribuciones públicas en los últimos 12 meses' },
+      { key: 'talks', name: 'Charlas', state: 'Operativo', tone: 'ok', note: '{talk}' },
+      { key: 'sc100', name: 'SC-100', state: 'Mantenimiento programado', tone: 'maint', note: 'Examen antes de fin de año' },
     ],
     resolved: {
       title: 'Incidentes resueltos',
       items: [
-        {
-          time: 'Octubre 2026',
-          title: 'Primer hackatón, con un día de plazo',
-          text: 'Causa: no había producto. Solución: Belo Business, construida en equipo sobre la API de Belo y presentada en vivo. Yo propuse el rendimiento en USDT hasta el vencimiento y armé el motor de reglas.',
-        },
         {
           time: '2026',
           title: 'Licencias pagas sin asignar en toda la cartera',
@@ -68,12 +64,14 @@ const es = {
     meta: 'Para organizadores de eventos y comunidades',
     title: 'Santiago Da Ros como speaker',
     lead: 'Todo lo que necesitás para presentarme en tu evento: bio, fotos, temas y formatos. Charlas en español; en inglés, a coordinar.',
+    availability: 'Disponible para eventos 2027',
+    sessionize: 'Mi perfil en Sessionize →',
     shortBioTitle: 'Bio corta',
     shortBio:
-      'Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región.',
+      'Santiago Da Ros es Cloud Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región.',
     longBioTitle: 'Bio larga',
     longBio:
-      'Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región. Trabaja en identidad, gobernanza, FinOps y recuperación ante desastres, y diseñó una prueba automatizada de recuperación ante desastres que hoy usa su equipo. Tiene seis certificaciones de Microsoft, entre ellas AZ-305 y AZ-400, y habló en Fabric Day con la comunidad Microsoft Speakers Hub en Español. Sus charlas muestran el trabajo funcionando, con demos en vivo.',
+      'Santiago Da Ros es Cloud Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región. Trabaja en identidad, gobernanza, FinOps y recuperación ante desastres, y diseñó una prueba automatizada de recuperación ante desastres que hoy usa su equipo. Tiene {certs} certificaciones de Microsoft, entre ellas AZ-305 y AZ-400, y habló en Fabric Day con la comunidad Microsoft Speakers Hub en Español. Sus charlas muestran el trabajo funcionando, con demos en vivo.',
     copyBio: 'Copiar bio',
     copied: 'Copiado',
     copyFail: 'Seleccioná y copiá',
@@ -109,6 +107,36 @@ const es = {
       'Taller práctico de 90 minutos con laboratorio en Azure.',
       'Panel o entrevista sobre carrera cloud y producto.',
     ],
+    requirementsTitle: 'Requerimientos técnicos',
+    requirements: [
+      'Conexión HDMI o USB-C para mi notebook.',
+      'Internet estable, para la demo en vivo.',
+      '45 minutos de charla más preguntas (Q&A).',
+    ],
+    pastTitle: 'Charlas anteriores',
+    pastWatch: 'Ver grabación ↗',
+    abstractsEn: {
+      title: 'Abstracts en inglés',
+      intro: 'Un abstract por tema, para eventos y comunidades en inglés.',
+      items: [
+        {
+          title: 'Disaster recovery with a real test',
+          text: 'How do you validate a disaster recovery plan without fear? This session walks through a real test with Azure Site Recovery, automation and audit-ready evidence, and closes with a live demo of an outage and its recovery.',
+        },
+        {
+          title: 'Azure governance as code',
+          text: 'A walkthrough of governing several Azure tenants from a single repository, with no secrets stored in it, using Azure Policy, EPAC, Lighthouse and GitHub Actions.',
+        },
+        {
+          title: 'FinOps with KQL: the savings nobody claims',
+          text: 'Azure Resource Graph queries that surface hidden spend, and how to turn them into a report that someone actually reads.',
+        },
+        {
+          title: 'AI in cloud operations, with human review',
+          text: "How agents, skills and MCP integrations fit into an infrastructure team's daily work, with a person reviewing every change.",
+        },
+      ],
+    } as { title: string; intro: string; items: { title: string; text: string }[] } | null,
     contactTitle: 'Contacto',
     email: 'Escribirme por email',
   },
@@ -125,7 +153,7 @@ const en: typeof es = {
     items: [
       { title: 'Studying', text: 'SC-100, Cybersecurity Architect, to take it before the end of the year. Then AI and data on Azure.' },
       { title: 'Building', text: 'This site and its blog, and monitoring dashboards with email alerts.' },
-      { title: 'Preparing', text: 'A new session for Microsoft Speakers Hub en Español and the next webinar with a live demo.' },
+      { key: 'preparing', title: 'Preparing', text: '{talk} and the next webinar with a live demo.' },
       { title: 'Learning', text: 'English, to work and give talks in English, and product: how to decide what to build and what not to.' },
       { title: 'Starting', text: "The B.Sc. in IT Management at UADE, in March 2027." },
     ],
@@ -137,20 +165,16 @@ const en: typeof es = {
     title: 'Santiago Da Ros status',
     banner: 'All major systems operational',
     rows: [
-      { name: 'Azure and identity', state: 'Operational', tone: 'ok', note: '6 active certifications' },
-      { name: 'Product', state: 'Operational', tone: 'ok', note: '5 tools in use' },
-      { name: 'Blog', state: 'Operational', tone: 'ok', note: 'One article a week' },
-      { name: 'Talks', state: 'Operational', tone: 'ok', note: 'Next session in 2027' },
-      { name: 'SC-100', state: 'Scheduled maintenance', tone: 'maint', note: 'Exam before the end of the year' },
+      { key: 'azure', name: 'Azure and identity', state: 'Operational', tone: 'ok', note: '{certs} active certifications' },
+      { key: 'product', name: 'Product', state: 'Operational', tone: 'ok', note: '5 tools in use' },
+      { key: 'blog', name: 'Blog', state: 'Operational', tone: 'ok', note: 'A LinkedIn post every week' },
+      { key: 'community', name: 'Community', state: 'Operational', tone: 'ok', note: '{contributions} public contributions in the last 12 months' },
+      { key: 'talks', name: 'Talks', state: 'Operational', tone: 'ok', note: '{talk}' },
+      { key: 'sc100', name: 'SC-100', state: 'Scheduled maintenance', tone: 'maint', note: 'Exam before the end of the year' },
     ],
     resolved: {
       title: 'Resolved incidents',
       items: [
-        {
-          time: 'October 2026',
-          title: 'First hackathon, with one day to deliver',
-          text: "Cause: there was no product. Fix: Belo Business, built as a team on Belo's API and presented live. I proposed the USDT yield until the due date and built the rules engine.",
-        },
         {
           time: '2026',
           title: 'Paid licenses left unassigned across the whole portfolio',
@@ -180,12 +204,14 @@ const en: typeof es = {
     meta: 'For event and community organizers',
     title: 'Santiago Da Ros as a speaker',
     lead: 'Everything you need to introduce me at your event: bio, photos, topics and formats. Talks in Spanish; in English, to be arranged.',
+    availability: 'Available for events in 2027',
+    sessionize: 'My Sessionize profile →',
     shortBioTitle: 'Short bio',
     shortBio:
-      'Santiago Da Ros is a Cloud & Product Engineer at a Microsoft partner consultancy in Buenos Aires. They build internal products and automations on Azure for enterprise clients across Latin America, and write every week for IT leaders in the region.',
+      'Santiago Da Ros is a Cloud Engineer at a Microsoft partner consultancy in Buenos Aires. He builds internal products and automations on Azure for enterprise clients across Latin America, and writes every week for IT leaders in the region.',
     longBioTitle: 'Long bio',
     longBio:
-      'Santiago Da Ros is a Cloud & Product Engineer at a Microsoft partner consultancy in Buenos Aires. They build internal products and automations on Azure for enterprise clients across Latin America, and write every week for IT leaders in the region. They work on identity, governance, FinOps and disaster recovery, and designed an automated disaster recovery test that their team uses today. They hold six Microsoft certifications, including AZ-305 and AZ-400, and spoke at Fabric Day with the Microsoft Speakers Hub en Español community. Their talks show the work running, with live demos.',
+      'Santiago Da Ros is a Cloud Engineer at a Microsoft partner consultancy in Buenos Aires. He builds internal products and automations on Azure for enterprise clients across Latin America, and writes every week for IT leaders in the region. He works on identity, governance, FinOps and disaster recovery, and designed an automated disaster recovery test that his team uses today. He holds {certs} Microsoft certifications, including AZ-305 and AZ-400, and spoke at Fabric Day with the Microsoft Speakers Hub en Español community. His talks show the work running, with live demos.',
     copyBio: 'Copy bio',
     copied: 'Copied',
     copyFail: 'Select and copy',
@@ -221,6 +247,16 @@ const en: typeof es = {
       'A 90-minute hands-on workshop with an Azure lab.',
       'A panel or interview about cloud and product careers.',
     ],
+    requirementsTitle: 'Technical requirements',
+    requirements: [
+      'An HDMI or USB-C connection for my laptop.',
+      'Stable internet, for the live demo.',
+      '45 minutes for the talk plus Q&A.',
+    ],
+    pastTitle: 'Past talks',
+    pastWatch: 'Watch the recording ↗',
+    // En inglés los temas ya están en inglés: no hace falta la sección de abstracts
+    abstractsEn: null,
     contactTitle: 'Contact',
     email: 'Email me',
   },

@@ -2,6 +2,9 @@
 import ReaderPage from './ReaderPage.astro';
 import { pagesText } from '../i18n/pages';
 import { homePath, type Lang } from '../i18n';
+import { certs } from '../i18n/home';
+import { countLastYear, getContributions } from '../lib/contributions';
+import { getNextTalkPhrases } from '../lib/talks';
 
 interface Props {
   lang?: Lang;
@@ -10,6 +13,15 @@ const { lang = 'es' } = Astro.props;
 const t = pagesText[lang];
 const s = t.status;
 const groups = [s.resolved, s.planned];
+// Las notas de estas filas salen de los datos: certificaciones, próxima charla y contribuciones
+const nextTalk = await getNextTalkPhrases(lang);
+const total = countLastYear(await getContributions(lang)).total;
+const noTalk = lang === 'es' ? 'Sin charlas confirmadas por ahora' : 'No confirmed talks for now';
+const fill = (note: string) =>
+  note
+    .replace('{certs}', String(certs.length))
+    .replace('{talk}', nextTalk?.status ?? noTalk)
+    .replace('{contributions}', String(total));
 ---
 
 <ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={s.crumb}>
@@ -27,7 +39,7 @@ const groups = [s.resolved, s.planned];
             <b>{r.name}</b>
             <span class:list={['st', `st--${r.tone}`]}>{r.state}</span>
           </div>
-          <span class="muted up__note">{r.note}</span>
+          <span class="muted up__note">{fill(r.note)}</span>
         </div>
       ))
     }

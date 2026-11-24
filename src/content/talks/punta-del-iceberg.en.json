@@ -1,0 +1,19 @@
+{
+  "id": "punta-del-iceberg",
+  "status": "upcoming",
+  "format": "talk",
+  "datePrecision": "day",
+  "talkLanguage": "es",
+  "event": "Microsoft Speakers Hub en Español",
+  "community": {
+    "label": "Microsoft Speakers Hub en Español",
+    "url": "https://community.fabric.microsoft.com/t5/Microsoft-Speakers-Hub-en/gh-p/MicrosoftSpeakersHubenEspaol"
+  },
+  "tags": [],
+  "lang": "en",
+  "title": "The tip of the iceberg: implementing is the easy part, sustaining it is what's hard",
+  "summary": "Next talk, at Microsoft Speakers Hub en Español.",
+  "dateNote": "Date to be confirmed",
+  "meta": "Date to be confirmed",
+  "todo": "Missing: the date and the abstract of the talk."
+}

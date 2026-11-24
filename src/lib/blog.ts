@@ -30,7 +30,7 @@ export function articleHref(entry: BlogEntry): string {
 }
 
 export type IndexItem = {
-  kind: 'article' | 'extended' | 'post';
+  kind: 'article' | 'post';
   title: string;
   summary: string;
   date: Date;
@@ -40,11 +40,14 @@ export type IndexItem = {
   /** El título está en español aunque el sitio esté en inglés. */
   inSpanish: boolean;
   minutes?: number;
+  /** Solo en posts de LinkedIn: la versión extendida en el sitio (link secundario). */
+  extended?: { href: string };
 };
 
 /**
  * Entradas del índice del blog: artículos del sitio + posts de LinkedIn.
- * - Un post con `articleSlug` es la versión corta de un artículo: el índice lleva al artículo.
+ * - El artículo y su post de LinkedIn son dos entradas, cada una con su fecha. El post con `articleSlug`
+ *   suma un link secundario a la versión extendida.
  * - En inglés también se listan los artículos que solo existen en español (sin traducción).
  * - Los artículos van primero (más nuevos arriba) y después todo lo demás por fecha.
  */
@@ -59,17 +62,8 @@ export async function getBlogIndex(lang: 'es' | 'en'): Promise<IndexItem[]> {
       ? es.filter((a) => !own.some((o) => o.data.translationKey && o.data.translationKey === a.data.translationKey))
       : [];
   const articles = [...own, ...spanishOnly];
-  const extendedSlugs = new Set(posts.map((p) => p.data.articleSlug).filter(Boolean) as string[]);
-
-  // Slug en español del artículo (o de su original, si es una traducción)
-  const spanishSlug = (a: BlogEntry) =>
-    a.data.lang === 'es'
-      ? a.slug
-      : (es.find((e) => a.data.translationKey && e.data.translationKey === a.data.translationKey)?.slug ?? a.slug);
 
   const articleItems: IndexItem[] = articles
-    // el artículo que ya tiene su versión corta se lista por el post, como "Versión extendida"
-    .filter((a) => !extendedSlugs.has(spanishSlug(a)))
     .map((a) => ({
       kind: 'article',
       title: a.data.title,
@@ -84,25 +78,22 @@ export async function getBlogIndex(lang: 'es' | 'en'): Promise<IndexItem[]> {
 
   const postItems: IndexItem[] = await Promise.all(
     posts.map(async (p) => {
-      let href = p.data.url;
-      let kind: IndexItem['kind'] = 'post';
+      let extended: IndexItem['extended'];
       if (p.data.articleSlug) {
         const spanish = es.find((e) => e.slug === p.data.articleSlug);
         const target = (lang === 'en' && spanish ? await getTranslation(spanish) : undefined) ?? spanish;
-        if (target) {
-          href = articleHref(target);
-          kind = 'extended';
-        }
+        if (target) extended = { href: articleHref(target) };
       }
       return {
-        kind,
+        kind: 'post' as const,
         title: p.data.title,
         summary: p.data.summary,
         date: p.data.date,
         tag: p.data.tag,
-        href,
-        external: kind === 'post',
+        href: p.data.url,
+        external: true,
         inSpanish: lang === 'en',
+        extended,
       };
     })
   );
@@ -119,11 +110,29 @@ export async function getNextArticle(entry: BlogEntry): Promise<BlogEntry | unde
   return articles[(i + 1) % articles.length];
 }
 
-// Reading time is estimated from the raw MDX source (entry.body): close
-// enough for a listing/header, doesn't need the fully rendered word count.
+// El tiempo de lectura se estima sobre la fuente MDX (entry.body): se sacan imports, etiquetas JSX/HTML,
+// URLs de los links y símbolos de markdown, y se redondea hacia arriba (nunca promete menos de lo que lleva).
 export function getReadingTime(body: string): number {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  const text = body
+    .replace(/^(import|export) .*$/gm, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\(https?:\/\/[^)]+\)/g, ' ')
+    .replace(/[#>*`|_~-]+/g, ' ');
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+}
+
+export type SeriesInfo = { name: string; description: string; parts: BlogEntry[] };
+
+/** La serie de un artículo (colección series) y sus artículos publicados, del primero al último. */
+export async function getSeriesInfo(entry: BlogEntry): Promise<SeriesInfo | undefined> {
+  if (!entry.data.series) return undefined;
+  const series = (await getCollection('series')).find((s) => s.id === entry.data.series);
+  if (!series) return undefined;
+  const parts = (await getPublishedArticles(entry.data.lang))
+    .filter((a) => a.data.series === entry.data.series)
+    .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+  return { name: series.data.name, description: series.data.description, parts };
 }
 
 export function formatDate(date: Date, lang: 'es' | 'en'): string {

@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import CommunityPage from '@/components/community/CommunityPage.astro';
+import { communityText, hubHref } from '@/i18n/community';
+const t = communityText['en'].hub;
+---
+
+<Layout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  lang="en"
+  alternates={{ es: hubHref('es'), en: hubHref('en') }}
+>
+  <CommunityPage lang="en" />
+</Layout>

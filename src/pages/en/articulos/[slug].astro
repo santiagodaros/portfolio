@@ -2,7 +2,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import ArticlePage from '@/components/blog/ArticlePage.astro';
-import { getTranslation } from '@/lib/blog';
+import { getSeriesInfo, getTranslation } from '@/lib/blog';
+import { articleJsonLd, personJsonLd } from '@/lib/seo';
 
 export async function getStaticPaths() {
   const entries = await getCollection('blog', (e) => e.data.lang === 'en' && !e.data.draft);
@@ -19,22 +20,9 @@ const canonicalUrl = new URL(`/en/articulos/${entry.slug}/`, Astro.site).toStrin
 const alternates: Partial<Record<'es' | 'en', string>> = { en: `/en/articulos/${entry.slug}/` };
 if (translation) alternates.es = `/articulos/${translation.slug}/`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: entry.data.title,
-  description: entry.data.description,
-  datePublished: entry.data.date.toISOString(),
-  dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
-  inLanguage: entry.data.lang,
-  mainEntityOfPage: entry.data.canonical ?? canonicalUrl,
-  image: new URL(`/og/${entry.slug}.png`, Astro.site).toString(),
-  author: {
-    '@type': 'Person',
-    name: 'Santiago Lucas Da Ros',
-    url: 'https://www.linkedin.com/in/santiagodaros',
-  },
-};
+const series = await getSeriesInfo(entry);
+const jsonLd = articleJsonLd(entry, canonicalUrl, Astro.site!, series);
+const person = { '@context': 'https://schema.org', ...personJsonLd(entry.data.lang, Astro.site!) };
 ---
 
 <Layout
@@ -49,5 +37,6 @@ const jsonLd = {
   alternates={alternates}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(person)} />
   <ArticlePage entry={entry} />
 </Layout>

@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import CommunityPage from '@/components/community/CommunityPage.astro';
+import { communityText, hubHref, tabSlugs } from '@/i18n/community';
+import { getAvailableTabs, type TabId } from '@/lib/contributions';
+
+export async function getStaticPaths() {
+  const tabs = await getAvailableTabs();
+  return tabs.map((tab) => ({ params: { tab: tabSlugs['es'][tab] }, props: { tab } }));
+}
+
+interface Props {
+  tab: TabId;
+}
+const { tab } = Astro.props;
+const meta = communityText['es'].hub.tabMeta[tab];
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description}
+  lang="es"
+  alternates={{ es: hubHref('es', tab), en: hubHref('en', tab) }}
+>
+  <CommunityPage lang="es" {tab} />
+</Layout>

@@ -2,7 +2,34 @@
   "headers": [
     {
       "source": "/recursos/:file.kql",
-      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/articulos",
+      "destination": "/comunidad/articulos/",
+      "permanent": true
+    },
+    {
+      "source": "/articulos/",
+      "destination": "/comunidad/articulos/",
+      "permanent": true
+    },
+    {
+      "source": "/en/articulos",
+      "destination": "/en/community/articles/",
+      "permanent": true
+    },
+    {
+      "source": "/en/articulos/",
+      "destination": "/en/community/articles/",
+      "permanent": true
     }
   ]
 }

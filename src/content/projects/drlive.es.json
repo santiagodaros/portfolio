@@ -25,8 +25,8 @@
       "label": "durante el webinar"
     },
     {
-      "value": "15–20",
-      "label": "asistentes"
+      "value": "12 nov 2026",
+      "label": "fecha del webinar"
     }
   ],
   "problem": "Hablar de RTO y RPO frente a la dirección suele quedar en abstracto. Es difícil dimensionar qué significa una hora de caída si nunca la viste.",
