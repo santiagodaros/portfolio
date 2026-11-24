@@ -9,7 +9,7 @@ interface Props {
 const { backHref, backLabel, crumb } = Astro.props;
 ---
 
-<main class="reader">
+<main id="main" tabindex="-1" class="reader">
   <header class="reader__top">
     <div class="reader__wrap reader__topbar">
       <a class="link" href={backHref}>{backLabel}</a>

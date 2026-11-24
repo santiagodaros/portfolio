@@ -8,7 +8,7 @@ import Sprite from '../components/Sprite.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CommandPalette from '../components/CommandPalette.astro';
-import { otherLang, type Lang } from '../i18n';
+import { otherLang, useUi, type Lang } from '../i18n';
 
 interface Props {
   title?: string;
@@ -127,6 +127,7 @@ const alternateHref = alternates?.[otherLang(lang)];
     <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
   </head>
   <body>
+    <a class="skip" href="#main">{useUi(lang).skip}</a>
     <Sprite />
     <Nav lang={lang} alternateHref={alternateHref} search />
     <slot />
