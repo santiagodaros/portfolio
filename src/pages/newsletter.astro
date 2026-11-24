@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import NewsletterPage from '@/components/community/NewsletterPage.astro';
+import { communityText, communityPaths } from '@/i18n/community';
+const t = communityText['es'].newsletterPage;
+---
+
+<Layout
+  title={t.metaTitle}
+  description={t.metaDescription}
+  lang="es"
+  alternates={{ es: communityPaths.es.newsletter + '/', en: communityPaths.en.newsletter + '/' }}
+>
+  <NewsletterPage lang="es" />
+</Layout>

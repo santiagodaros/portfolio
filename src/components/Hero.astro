@@ -1,5 +1,5 @@
 ---
-import { home } from '../i18n/home';
+import { certs, home } from '../i18n/home';
 import { communityText } from '../i18n/community';
 import { getUpcomingTalks, talkDateLabel } from '../lib/talks';
 import { paths, type Lang } from '../i18n';
@@ -37,7 +37,7 @@ if (next) {
         {
           t.facts.map((f) => (
             <div>
-              <strong>{f.value}</strong>
+              <strong>{f.id === 'certs' ? String(certs.length) : f.value}</strong>
               <span>{f.label}</span>
             </div>
           ))

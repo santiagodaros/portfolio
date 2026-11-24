@@ -3,6 +3,14 @@
 
 @import './reset.css';
 
+/* Fuente de reserva con el ancho de Geist (~3,5 % más ancha que Arial): mientras Geist carga, el texto
+   ocupa lo mismo y no cambia de líneas al cambiar la fuente (evita saltos de diseño). */
+@font-face {
+  font-family: 'Geist Fallback';
+  src: local('Arial'), local('Helvetica'), local('Liberation Sans');
+  size-adjust: 103.5%;
+}
+
 /* ── Tokens: claro (por defecto) ── */
 :root {
   --bg: #eef0f3;
@@ -22,8 +30,8 @@
   --ok-bg: #e3f4ec;
   --ok: #0d6b45;
 
-  --display: 'Geist Variable', 'Geist', system-ui, sans-serif;
-  --text: 'Geist Variable', 'Geist', system-ui, sans-serif;
+  --display: 'Geist Variable', 'Geist', 'Geist Fallback', system-ui, sans-serif;
+  --text: 'Geist Variable', 'Geist', 'Geist Fallback', system-ui, sans-serif;
   --mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
   --display-weight: 500;
   --track: -0.045em;

@@ -1,7 +1,8 @@
 ---
 import Logo from './Logo.astro';
 import { contact, homePath, paths, useUi, type Lang } from '../i18n';
-import { hubHref } from '../i18n/community';
+import { communityPaths, hubHref } from '../i18n/community';
+import { getProfiles } from '../data/profiles';
 
 interface Props {
   lang?: Lang;
@@ -12,6 +13,9 @@ const f = t.footer;
 const home = homePath(lang);
 const p = paths[lang];
 const year = new Date().getFullYear();
+// Perfiles públicos: solo los que ya tienen URL (src/data/profiles.ts)
+const profileLinks = getProfiles(['linkedin', 'github', 'youtube', 'learn', 'sessionize', 'qa']);
+const rss = lang === 'es' ? '/rss.xml' : '/en/rss.xml';
 ---
 
 <footer class="closing" id="contacto">
@@ -47,7 +51,8 @@ const year = new Date().getFullYear();
           <li><a href={hubHref(lang, 'articulos')}>{t.nav.blog}</a></li>
           <li><a href={hubHref(lang, 'charlas')}>{t.nav.talks}</a></li>
           <li><a href={p.kql}>{f.kql}</a></li>
-          <li><a href={`${home}#newsletter`}>{t.nav.newsletter}</a></li>
+          <li><a href={communityPaths[lang].newsletter}>{t.nav.newsletter}</a></li>
+          <li><a href={rss}>RSS</a></li>
         </ul>
       </div>
       <div>
@@ -64,8 +69,7 @@ const year = new Date().getFullYear();
         <h3>{f.groups.contact}</h3>
         <ul>
           <li><a data-link="email" href="#contacto">{f.email}</a></li>
-          <li><a href={contact.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href={contact.github} target="_blank" rel="noopener">GitHub</a></li>
+          {profileLinks.map((p) => <li><a href={p.url} target="_blank" rel="noopener">{p.label}</a></li>)}
         </ul>
       </div>
     </div>

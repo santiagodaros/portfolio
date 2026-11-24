@@ -59,3 +59,21 @@ export function talkDateLabel(t: TalkData, lang: Lang): string {
 export function hasExactDate(t: TalkData): t is TalkData & { date: Date } {
   return Boolean(t.date) && t.datePrecision === 'day';
 }
+
+/** Título corto de la charla (hasta los dos puntos). */
+export const shortTitle = (t: TalkData) => t.title.split(':')[0];
+
+/**
+ * La próxima charla en frases para /estado y /ahora. `null` si no hay ninguna confirmada.
+ * La fecha, si no existe, se escribe como nota en minúscula ("fecha a confirmar").
+ */
+export async function getNextTalkPhrases(lang: Lang): Promise<{ status: string; now: string } | null> {
+  const next = (await getUpcomingTalks(lang))[0];
+  if (!next) return null;
+  const when = talkDateLabel(next, lang);
+  const whenText = next.date ? when : when.charAt(0).toLowerCase() + when.slice(1);
+  const name = shortTitle(next);
+  return lang === 'es'
+    ? { status: `Próxima charla: ${name} (${whenText})`, now: `La charla «${name}»${next.event ? ` para ${next.event}` : ''}` }
+    : { status: `Next talk: ${name} (${whenText})`, now: `The talk “${name}”${next.event ? ` for ${next.event}` : ''}` };
+}

@@ -110,11 +110,29 @@ export async function getNextArticle(entry: BlogEntry): Promise<BlogEntry | unde
   return articles[(i + 1) % articles.length];
 }
 
-// Reading time is estimated from the raw MDX source (entry.body): close
-// enough for a listing/header, doesn't need the fully rendered word count.
+// El tiempo de lectura se estima sobre la fuente MDX (entry.body): se sacan imports, etiquetas JSX/HTML,
+// URLs de los links y símbolos de markdown, y se redondea hacia arriba (nunca promete menos de lo que lleva).
 export function getReadingTime(body: string): number {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+  const text = body
+    .replace(/^(import|export) .*$/gm, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\(https?:\/\/[^)]+\)/g, ' ')
+    .replace(/[#>*`|_~-]+/g, ' ');
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+}
+
+export type SeriesInfo = { name: string; description: string; parts: BlogEntry[] };
+
+/** La serie de un artículo (colección series) y sus artículos publicados, del primero al último. */
+export async function getSeriesInfo(entry: BlogEntry): Promise<SeriesInfo | undefined> {
+  if (!entry.data.series) return undefined;
+  const series = (await getCollection('series')).find((s) => s.id === entry.data.series);
+  if (!series) return undefined;
+  const parts = (await getPublishedArticles(entry.data.lang))
+    .filter((a) => a.data.series === entry.data.series)
+    .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+  return { name: series.data.name, description: series.data.description, parts };
 }
 
 export function formatDate(date: Date, lang: 'es' | 'en'): string {

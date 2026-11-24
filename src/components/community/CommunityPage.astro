@@ -113,7 +113,7 @@ const csvName = csvFileName[lang];
 
     {
       areasPresent.length > 1 && (
-        <div class="areas" data-areas role="group" aria-label={t.areaFilter} hidden>
+        <div class="areas" data-areas role="group" aria-label={t.areaFilter}>
           <span class="hub__label">{t.areaFilter}</span>
           <button type="button" data-area="" aria-pressed="true">{t.allAreas}</button>
           {areasPresent.map((a) => <button type="button" data-area={a} aria-pressed="false" title={areaLabels[lang][a]}>{areaShort[lang][a]}</button>)}
@@ -298,7 +298,8 @@ const csvName = csvFileName[lang];
     gap: 8px;
     margin-top: 20px;
   }
-  .areas[hidden] {
+  /* Sin JS los botones no hacen nada: se ocultan. Con JS ya están en el HTML, así no hay salto de diseño al cargar. */
+  :global(html:not(.js)) .areas {
     display: none;
   }
   .areas button {
@@ -424,7 +425,6 @@ const csvName = csvFileName[lang];
   // Filtro por área sobre la lista actual. Sin JS la lista se ve completa y los botones no aparecen.
   const box = document.querySelector<HTMLElement>('[data-areas]');
   if (box) {
-    box.hidden = false;
     const buttons = Array.from(box.querySelectorAll<HTMLButtonElement>('button'));
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-area-item]'));
     const months = Array.from(document.querySelectorAll<HTMLElement>('[data-month]'));

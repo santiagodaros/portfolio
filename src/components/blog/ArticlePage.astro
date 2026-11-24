@@ -4,9 +4,12 @@ import References from './References.astro';
 import Callout from './Callout.astro';
 import PullQuote from './PullQuote.astro';
 import Takeaway from './Takeaway.astro';
-import { articleHref, formatDate, getNextArticle, getReadingTime } from '../../lib/blog';
+import { articleHref, formatDate, getNextArticle, getReadingTime, getSeriesInfo } from '../../lib/blog';
 import { blogText } from '../../i18n/blog';
-import { homePath, paths } from '../../i18n';
+import { newsletterText } from '../../i18n/newsletter';
+import { communityPaths } from '../../i18n/community';
+import { getTalk, talkHref } from '../../lib/talks';
+import { paths } from '../../i18n';
 
 interface Props {
   entry: CollectionEntry<'blog'>;
@@ -14,9 +17,15 @@ interface Props {
 const { entry } = Astro.props;
 const lang = entry.data.lang;
 const t = blogText[lang].article;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 const minutes = getReadingTime(entry.body);
 const next = await getNextArticle(entry);
+const series = await getSeriesInfo(entry);
+const talk = entry.data.talk ? await getTalk(entry.data.talk, lang) : undefined;
+const nl = newsletterText[lang];
+// Tabla de contenidos: los h2 del artículo (si hay al menos tres)
+const toc = headings.filter((h) => h.depth === 2);
+const editUrl = `https://github.com/santiagodaros/portfolio/edit/main/src/content/blog/${entry.id}`;
 ---
 
 <main id="main" tabindex="-1" class="reader">
@@ -47,6 +56,44 @@ const next = await getNextArticle(entry);
       )
     }
 
+    {
+      series && (
+        <aside class="series" aria-label={t.series}>
+          <b>{t.series}: {series.name}</b>
+          <ol>
+            {series.parts.map((a, i) => (
+              <li>
+                {a.slug === entry.slug ? (
+                  <span aria-current="page">{t.seriesPart(i + 1)} · {a.data.title}</span>
+                ) : (
+                  <a href={articleHref(a)}>{t.seriesPart(i + 1)} · {a.data.title}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </aside>
+      )
+    }
+    {
+      entry.data.tested && (
+        <aside class="tested">
+          <b>{t.tested}</b>
+          <span>{formatDate(entry.data.tested.date, lang)}</span>
+          <span>{t.testedServices}: {entry.data.tested.services.join(', ')}</span>
+        </aside>
+      )
+    }
+    {
+      toc.length >= 3 && (
+        <nav class="toc" aria-label={t.toc}>
+          <b>{t.toc}</b>
+          <ol>
+            {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )
+    }
+
     <div class="prose" data-copy={t.copy} data-copied={t.copied} data-copy-fail={t.copyFail}>
       <Content components={{ Callout, PullQuote, Takeaway }} />
     </div>
@@ -61,15 +108,31 @@ const next = await getNextArticle(entry);
           <span class="muted">{t.authorRole}</span>
         </div>
       </div>
+      <div class="cta">
+        <div class="cta__card">
+          <b>{nl.title}</b>
+          <p class="muted">{nl.text}</p>
+          <a class="btn btn--primary" href={communityPaths[lang].newsletter}>{t.subscribeBtn}</a>
+        </div>
+        {
+          talk && (
+            <div class="cta__card">
+              <b>{t.talkTitle}</b>
+              <p class="muted">{t.talkText}</p>
+              <a class="btn btn--secondary" href={talkHref(talk.id, lang)}>{t.talkBtn}</a>
+            </div>
+          )
+        }
+      </div>
       <div class="reader__actions">
         {
           entry.data.linkedin && (
-            <a class="btn btn--primary" href={entry.data.linkedin} target="_blank" rel="noopener">
+            <a class="link" href={entry.data.linkedin} target="_blank" rel="noopener">
               {t.comment}
             </a>
           )
         }
-        <a class="btn btn--secondary" href={`${homePath(lang)}#newsletter`}>{t.subscribe}</a>
+        <a class="link" href={editUrl} target="_blank" rel="noopener">{t.edit}</a>
       </div>
       {
         next && (
@@ -84,6 +147,65 @@ const next = await getNextArticle(entry);
 </main>
 
 <style>
+  .series,
+  .tested,
+  .toc {
+    display: grid;
+    gap: 8px;
+    margin: 28px 0 0;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+    font-size: 15px;
+  }
+  .series ol,
+  .toc ol {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding-left: 20px;
+  }
+  .series a,
+  .toc a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .series [aria-current] {
+    font-weight: 500;
+  }
+  .tested {
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+  }
+  .tested b {
+    grid-row: span 2;
+  }
+  .cta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .cta__card {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 8px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+  }
+  .cta__card b {
+    font: 500 19px/1.25 var(--display);
+    letter-spacing: -0.02em;
+  }
+  .cta__card p {
+    margin: 0;
+    font-size: 15px;
+  }
   .reader__progress {
     position: fixed;
     inset: 0 0 auto 0;

@@ -1,0 +1,74 @@
+---
+// /newsletter (EN /en/newsletter): la propuesta, la frecuencia (si está definida), el archivo de ediciones
+// públicas (oculto si no hay) y el formulario.
+import Newsletter from '../Newsletter.astro';
+import { communityText } from '../../i18n/community';
+import { newsletterConfig } from '../../data/newsletter';
+import { getContributions, monthKey } from '../../lib/contributions';
+import { formatPartialDate } from '../../lib/talks';
+import { homePath, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = communityText[lang].newsletterPage;
+const frequency = newsletterConfig.frequency[lang];
+const issues = (await getContributions(lang)).filter((c) => c.type === 'newsletter');
+---
+
+<main id="main" tabindex="-1" class="reader">
+  <header class="reader__top">
+    <div class="reader__wrap reader__topbar">
+      <a class="link" href={homePath(lang)}>{t.back}</a>
+      <span class="muted">{t.crumb}</span>
+    </div>
+  </header>
+  <div class="reader__wrap nlp">
+    <h1>{t.title}</h1>
+    <p class="reader__lead">{t.lead}</p>
+    <h2>{t.whatTitle}</h2>
+    <ul>{t.what.map((x) => <li>{x}</li>)}</ul>
+    {frequency && <p><b>{t.frequency}:</b> {frequency}</p>}
+    {
+      issues.length > 0 && (
+        <>
+          <h2>{t.archiveTitle}</h2>
+          <ul class="issues">
+            {issues.map((i) => (
+              <li>
+                <time datetime={i.date.toISOString().slice(0, 10)}>{formatPartialDate(i.date, i.datePrecision, lang)}</time>
+                {' · '}
+                <a href={i.href} target="_blank" rel="noopener">{i.title}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </div>
+  <Newsletter lang={lang} />
+</main>
+
+<style>
+  .nlp h1 {
+    margin-top: 56px;
+  }
+  .nlp h2 {
+    margin: 40px 0 12px;
+    font-size: var(--t3);
+  }
+  .nlp ul {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 20px;
+  }
+  .nlp a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .nlp {
+    padding-bottom: 72px;
+  }
+</style>

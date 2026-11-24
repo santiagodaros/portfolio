@@ -7,6 +7,7 @@ import sitemap from '@astrojs/sitemap';
 // Si se agrega una traducción de un artículo, sumar su par acá.
 const translated = [
   ['/', '/en/'],
+  ['/newsletter/', '/en/newsletter/'],
   ['/comunidad/', '/en/community/'],
   ['/charlas/dr-no-probado/', '/en/talks/dr-no-probado/'],
   ['/charlas/sre-microsoft-fabric/', '/en/talks/sre-microsoft-fabric/'],

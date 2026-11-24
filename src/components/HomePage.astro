@@ -9,7 +9,8 @@ import Skills from './Skills.astro';
 import Community from './Community.astro';
 import Newsletter from './Newsletter.astro';
 import About from './About.astro';
-import { contact, type Lang } from '../i18n';
+import type { Lang } from '../i18n';
+import { personId, personJsonLd } from '../lib/seo';
 
 interface Props {
   lang?: Lang;
@@ -20,21 +21,12 @@ const { lang = 'es' } = Astro.props;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Person',
-      name: 'Santiago Da Ros',
-      jobTitle: 'Cloud Engineer',
-      address: { '@type': 'PostalAddress', addressLocality: 'Buenos Aires', addressCountry: 'AR' },
-      url: new URL(lang === 'es' ? '/' : '/en/', Astro.site).toString(),
-      image: new URL('/og.png', Astro.site).toString(),
-      knowsAbout: ['Microsoft Azure', 'Entra ID', 'Terraform', 'Azure Policy', 'Azure Site Recovery', 'FinOps', 'PowerShell', 'TypeScript'],
-      sameAs: [contact.github, contact.linkedin],
-    },
+    personJsonLd(lang, Astro.site!),
     {
       '@type': 'Blog',
       name: lang === 'es' ? 'Blog de Santiago Da Ros' : "Santiago Da Ros's blog",
       inLanguage: lang,
-      author: { '@type': 'Person', name: 'Santiago Da Ros' },
+      author: { '@id': personId(Astro.site!) },
     },
   ],
 };

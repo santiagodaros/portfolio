@@ -9,8 +9,8 @@ export const profiles: Record<ProfileId, { label: string; url: string | null }> 
   github: { label: 'GitHub', url: contact.github },
   // TODO(perfil): URL del canal de YouTube de Santiago (los videos de las charlas ya están enlazados).
   youtube: { label: 'YouTube', url: null },
-  // TODO(perfil): URL del perfil de credenciales de Microsoft Learn.
-  learn: { label: 'Microsoft Learn', url: null },
+  // La ruta sale de los links de credenciales ya publicados (src/i18n/home.ts). Confirmar que sea el perfil público.
+  learn: { label: 'Microsoft Learn', url: 'https://learn.microsoft.com/es-es/users/santiagodaros-6508/' },
   // TODO(perfil): URL del perfil de Sessionize.
   sessionize: { label: 'Sessionize', url: null },
   // TODO(perfil): URL del perfil de Microsoft Q&A.

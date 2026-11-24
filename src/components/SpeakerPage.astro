@@ -2,6 +2,10 @@
 import ReaderPage from './ReaderPage.astro';
 import { pagesText } from '../i18n/pages';
 import { contact, homePath, type Lang } from '../i18n';
+import { getPastTalks, talkDateLabel, talkHref } from '../lib/talks';
+import { getProfiles } from '../data/profiles';
+import { certs } from '../i18n/home';
+import { numberWord } from '../lib/numbers';
 
 interface Props {
   lang?: Lang;
@@ -9,6 +13,9 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 const t = pagesText[lang];
 const s = t.speaker;
+const past = await getPastTalks(lang);
+const sessionize = getProfiles(['sessionize'])[0];
+const longBio = s.longBio.replace('{certs}', numberWord(certs.length, lang));
 ---
 
 <ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={s.crumb}>
@@ -18,6 +25,8 @@ const s = t.speaker;
   </div>
   <h1>{s.title}</h1>
   <p class="reader__lead">{s.lead}</p>
+  <p class="avail"><span class="status">{s.availability}</span></p>
+  {sessionize && <p><a class="link" href={sessionize.url} target="_blank" rel="noopener">{s.sessionize}</a></p>}
   <div class="prose">
     <h2>{s.shortBioTitle}</h2>
     <div class="bio">
@@ -28,7 +37,7 @@ const s = t.speaker;
     </div>
     <h2>{s.longBioTitle}</h2>
     <div class="bio">
-      <p>{s.longBio}</p>
+      <p>{longBio}</p>
       <button type="button" class="btn btn--secondary" data-copy-bio data-label={s.copyBio} data-copied={s.copied} data-fail={s.copyFail}>
         {s.copyBio}
       </button>
@@ -55,8 +64,47 @@ const s = t.speaker;
         ))
       }
     </div>
+    {
+      s.abstractsEn && (
+        <>
+          <h3 class="sub">{s.abstractsEn.title}</h3>
+          <p class="muted">{s.abstractsEn.intro}</p>
+          <div class="topics">
+            {s.abstractsEn.items.map((x) => (
+              <div class="topic replica" lang="en">
+                <b>{x.title}</b>
+                <p>{x.text}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )
+    }
     <h2>{s.formatsTitle}</h2>
     <ul>{s.formats.map((f) => <li>{f}</li>)}</ul>
+    <h2>{s.requirementsTitle}</h2>
+    <ul>{s.requirements.map((r) => <li>{r}</li>)}</ul>
+    {
+      past.length > 0 && (
+        <>
+          <h2>{s.pastTitle}</h2>
+          <ul class="past">
+            {past.map((p) => (
+              <li>
+                <a href={talkHref(p.id, lang)}>{p.title}</a>
+                <span class="muted"> · {talkDateLabel(p, lang)}{p.event ? ` · ${p.event}` : ''}</span>
+                {p.recording && (
+                  <>
+                    {' · '}
+                    <a href={p.recording} target="_blank" rel="noopener">{s.pastWatch}</a>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
     <h2>{s.contactTitle}</h2>
     <div class="reader__actions">
       <a class="btn btn--primary" data-link="email" href="#contacto">{s.email}</a>
@@ -66,6 +114,21 @@ const s = t.speaker;
 </ReaderPage>
 
 <style>
+  .avail {
+    margin: 18px 0 8px;
+  }
+  .sub {
+    margin: 28px 0 4px;
+    font-size: 20px;
+  }
+  .past {
+    display: grid;
+    gap: 10px;
+  }
+  .past a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
   .bio {
     display: grid;
     gap: 12px;
