@@ -1,15 +1,28 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { estaPublicado, esProximo } from './publicacion';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 
 const WORDS_PER_MINUTE = 200;
 
+/** Artículos publicados (los programados para más adelante todavía no existen). En desarrollo también se ven los borradores. */
 export async function getPublishedArticles(lang: 'es' | 'en'): Promise<BlogEntry[]> {
   const entries = await getCollection(
     'blog',
-    (entry) => entry.data.lang === lang && (!entry.data.draft || import.meta.env.DEV)
+    (entry) => entry.data.lang === lang && (estaPublicado(entry.data) || (import.meta.env.DEV && !entry.data.publishAt))
   );
   return entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+/** Artículos programados para más adelante, el más próximo primero. Solo en español: todavía no tienen versión en inglés. */
+export async function getUpcomingArticles(): Promise<BlogEntry[]> {
+  const entries = await getCollection('blog', (entry) => entry.data.lang === 'es' && esProximo(entry.data));
+  return entries.sort((a, b) => a.data.publishAt!.valueOf() - b.data.publishAt!.valueOf());
+}
+
+/** Posts de LinkedIn ya publicados y con link. */
+export async function getPublishedPosts() {
+  return getCollection('linkedin', (p) => estaPublicado(p.data) && !!p.data.url);
 }
 
 export async function getFeaturedArticle(lang: 'es' | 'en'): Promise<BlogEntry | undefined> {
@@ -55,7 +68,7 @@ export async function getBlogIndex(lang: 'es' | 'en'): Promise<IndexItem[]> {
   const [own, es, posts] = await Promise.all([
     getPublishedArticles(lang),
     getPublishedArticles('es'),
-    getCollection('linkedin'),
+    getPublishedPosts(),
   ]);
   const spanishOnly =
     lang === 'en'
@@ -90,7 +103,7 @@ export async function getBlogIndex(lang: 'es' | 'en'): Promise<IndexItem[]> {
         summary: p.data.summary,
         date: p.data.date,
         tag: p.data.tag,
-        href: p.data.url,
+        href: p.data.url!,
         external: true,
         inSpanish: lang === 'en',
         extended,

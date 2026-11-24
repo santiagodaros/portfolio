@@ -122,3 +122,18 @@ export const blogText = { es, en };
 export function tagLabel(tag: string, lang: Lang): string {
   return blogText[lang].tags[tag] ?? tag;
 }
+
+/** Tarjeta "Próximamente" de los artículos programados (solo en español: todavía no tienen versión en inglés). */
+export const upcomingArticleText = {
+  tag: 'Próximamente',
+  releases: (when: string) => `Sale el ${when}`,
+  timezone: '(hora de Argentina)',
+  at: 'a las',
+  remaining: 'Faltan',
+  publishing: 'Publicando…',
+  live: 'Ya está publicado',
+  new: 'Nuevo',
+  read: 'Leer el artículo →',
+  /** Para lectores de pantalla: la tarjeta no tiene link y la cuenta regresiva no se anuncia. */
+  sr: (title: string, when: string) => `Próximamente: ${title}. Se publica el ${when}.`,
+};

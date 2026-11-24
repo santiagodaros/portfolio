@@ -1,7 +1,9 @@
-# Reconstruye el sitio una vez por semana.
+# Reconstruye el sitio los lunes y, además, los miércoles a las 12:00 (Argentina).
 #
-# Por qué: los contadores de "últimos 12 meses" de /comunidad, /estado y Daruma se calculan al construir el
-# sitio. Si pasan semanas sin ningún deploy, los números y la ventana de 12 meses se desactualizan.
+# Por qué (lunes): los contadores de "últimos 12 meses" de /comunidad, /estado y Daruma se calculan al construir
+# el sitio. Si pasan semanas sin ningún deploy, los números y la ventana de 12 meses se desactualizan.
+# Por qué (miércoles): los artículos con `publishAt` salen a esa hora; hasta que el sitio se reconstruye son una
+# tarjeta "Próximamente". Sirve para cualquier artículo que se programe para un miércoles a las 12:00.
 #
 # Cómo: dispara un Deploy Hook de Vercel. Hay que configurarlo una vez (ver CLAUDE.md, "Despliegue"):
 #   1. Vercel > proyecto > Settings > Git > Deploy Hooks: crear uno para la rama `main`.
@@ -16,6 +18,10 @@ on:
   schedule:
     # Lunes 09:00 UTC (06:00 en Buenos Aires)
     - cron: '0 9 * * 1'
+    # Miércoles 15:00 UTC (12:00 en Buenos Aires) y un reintento a las 15:12: GitHub puede demorar los cron unos
+    # minutos y el deploy es idempotente.
+    - cron: '0 15 * * 3'
+    - cron: '12 15 * * 3'
   workflow_dispatch:
 
 permissions: {}

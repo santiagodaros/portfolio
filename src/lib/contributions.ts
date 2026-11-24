@@ -4,7 +4,8 @@
 //  - artículos (colección `blog`) y posts de LinkedIn (colección `linkedin`),
 //  - lo demás (repos, recursos, foros, newsletter, comunidad) de la colección `contributions`.
 import { getCollection } from 'astro:content';
-import { getPublishedArticles, articleHref, type BlogEntry } from './blog';
+import { getPublishedArticles, getPublishedPosts, articleHref, type BlogEntry } from './blog';
+import { ahora } from './publicacion';
 import { getPastTalks, getUpcomingTalks, talkHref, type DatePrecision } from './talks';
 import type { Area } from './areas';
 import type { Lang } from '../i18n';
@@ -59,7 +60,7 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
     getPastTalks('es'),
     getPublishedArticles(lang),
     getPublishedArticles('es'),
-    getCollection('linkedin'),
+    getPublishedPosts(),
     getCollection('contributions'),
   ]);
   const out: Contribution[] = [];
@@ -115,9 +116,9 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
       date: p.data.date,
       datePrecision: 'day',
       title: p.data.title,
-      href: p.data.url,
+      href: p.data.url!,
       external: true,
-      proof: p.data.url,
+      proof: p.data.url!,
       area: p.data.area,
       language: 'es',
       inSpanish: lang === 'en',
@@ -158,13 +159,13 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
 }
 
 /** Ventana de "los últimos 12 meses" contada desde el día del build. */
-export function windowStart(now = new Date()): Date {
+export function windowStart(now = ahora()): Date {
   const d = new Date(now);
   d.setUTCFullYear(d.getUTCFullYear() - 1);
   return d;
 }
 
-export function inLastYear(c: Contribution, now = new Date()): boolean {
+export function inLastYear(c: Contribution, now = ahora()): boolean {
   const start = windowStart(now);
   // Con solo el año, se cuenta si el año cae dentro de la ventana
   if (c.datePrecision === 'year') return c.date.getUTCFullYear() >= start.getUTCFullYear();
@@ -174,7 +175,7 @@ export function inLastYear(c: Contribution, now = new Date()): boolean {
 export type Counters = { talks: number; articles: number; posts: number; repos: number; forumAnswers: number; total: number };
 
 /** Contadores de los últimos 12 meses, calculados desde la colección. */
-export function countLastYear(items: Contribution[], now = new Date()): Counters {
+export function countLastYear(items: Contribution[], now = ahora()): Counters {
   const recent = items.filter((c) => inLastYear(c, now));
   const count = (t: ContributionType) => recent.filter((c) => c.type === t).length;
   return {

@@ -2,9 +2,8 @@
 // así que las respuestas nunca quedan desactualizadas respecto de lo publicado (no hay datos duplicados).
 // Lo sirven /daruma-index.es.json y /daruma-index.en.json.
 
-import { getCollection } from 'astro:content';
 import { getProjects, projectHash } from './projects';
-import { articleHref, getPublishedArticles, type BlogEntry } from './blog';
+import { articleHref, getPublishedArticles, getPublishedPosts, type BlogEntry } from './blog';
 import { kqlQueries } from '../data/kql';
 import { home as homeText } from '../i18n/home';
 import { homePath, paths, type Lang } from '../i18n';
@@ -18,6 +17,7 @@ import { getGoal } from './daruma-goal';
 const ARTICLE_IDS: Record<string, string> = {
   'backup-rpo-rto': 'art-rto',
   'almacenamiento-inteligente-archivar-datos-viejos': 'art-archivo',
+  'backups-por-nivel': 'art-backups',
 };
 
 const articleId = (a: BlogEntry) => {
@@ -55,7 +55,7 @@ export async function buildIndex(lang: Lang) {
     getProjects(lang),
     getPublishedArticles(lang),
     getPublishedArticles('es'),
-    getCollection('linkedin'),
+    getPublishedPosts(),
     getContributions(lang),
     getPastTalks(lang),
     getUpcomingTalks(lang),
@@ -110,7 +110,7 @@ export async function buildIndex(lang: Lang) {
       t: x.data.title,
       tag: x.data.tag,
       summary: x.data.summary,
-      href: x.data.url,
+      href: x.data.url!,
       date: isoDay(x.data.date),
     }));
 

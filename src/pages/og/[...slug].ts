@@ -1,7 +1,8 @@
 import { getCollection } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
+import { estaPublicado } from '../../lib/publicacion';
 
-const entries = await getCollection('blog', (e) => !e.data.draft);
+const entries = await getCollection('blog', (e) => estaPublicado(e.data));
 const pages = Object.fromEntries(entries.map((entry) => [entry.slug, entry.data]));
 
 // Mismo lenguaje visual que public/og.png: fondo claro, Geist, cobalto y el logo.

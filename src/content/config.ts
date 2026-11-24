@@ -19,6 +19,8 @@ const blog = defineCollection({
     // language, e.g. both posts of a pair set translationKey: "backup-rpo-rto".
     translationKey: z.string().optional(),
     draft: z.boolean().default(false),
+    /** Fecha y hora de salida (con zona horaria). Hasta entonces el artículo no existe y se muestra como "Próximamente". */
+    publishAt: z.coerce.date().optional(),
     featured: z.boolean().default(false),
     /** Portada de la tarjeta destacada y del artículo (ruta en /public). */
     cover: z.string().optional(),
@@ -67,7 +69,10 @@ const linkedin = defineCollection({
     date: z.coerce.date(),
     tag: z.string(),
     summary: z.string(),
-    url: z.string().url(),
+    /** Link al post. Sin URL (el post todavía no salió) no se lista en ningún lado. */
+    url: z.string().url().optional(),
+    /** Fecha y hora de salida; antes de ella el post no se lista. */
+    publishAt: z.coerce.date().optional(),
     articleSlug: z.string().optional(),
     area: z.enum(AREAS),
     /** Alcance, solo en rangos. */

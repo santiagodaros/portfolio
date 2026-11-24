@@ -2,7 +2,8 @@
 // Sección "Comunidad" de la home: artículo destacado, próxima charla, contadores de los últimos 12 meses
 // y el link al hub /comunidad. Debajo, la guía gratuita de KQL.
 import TalkCard from './community/TalkCard.astro';
-import { formatDate, getFeaturedArticle, articleHref, getReadingTime } from '../lib/blog';
+import ArticuloProximo from './ArticuloProximo.astro';
+import { formatDate, getFeaturedArticle, getUpcomingArticles, articleHref, getReadingTime } from '../lib/blog';
 import { blogText } from '../i18n/blog';
 import { communityText, hubHref } from '../i18n/community';
 import { countLastYear, getContributions } from '../lib/contributions';
@@ -20,6 +21,8 @@ const c = communityText[lang].home;
 const guide = home[lang].guide;
 const kqlFile = `/recursos/${kqlFileName[lang]}`;
 const featured = await getFeaturedArticle(lang);
+// Artículos programados: tarjeta "Próximamente" arriba de todo (solo en español)
+const soon = lang === 'es' ? await getUpcomingArticles() : [];
 // La próxima charla; si no hay ninguna confirmada, la última que di
 const [upcoming, past] = await Promise.all([getUpcomingTalks(lang), getPastTalks(lang)]);
 const talk = upcoming[0] ?? past[0];
@@ -44,6 +47,7 @@ const coverTitle = featured?.data.title.split(':')[0];
       </div>
       <p>{c.note}</p>
     </div>
+    {soon.length > 0 && <div class="soon-list" data-reveal>{soon.map((e) => <ArticuloProximo entry={e} />)}</div>}
     <div class="comm">
       {
         featured && (
@@ -100,6 +104,11 @@ const coverTitle = featured?.data.title.split(':')[0];
 </section>
 
 <style>
+  .soon-list {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
   .comm {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
