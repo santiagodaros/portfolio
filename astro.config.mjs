@@ -24,6 +24,7 @@ const translated = [
   ['/daruma/', '/en/daruma/'],
   ['/recursos/kql/', '/en/resources/kql/'],
   ['/articulos/backup-no-es-continuidad-rpo-rto/', '/en/articulos/backup-is-not-continuity-the-rpo-rto-gap/'],
+  ['/articulos/backups-por-nivel-de-criticidad/', '/en/articulos/backup-tiers-by-criticality/'],
 ];
 
 // Las casillas de las checklists (- [ ] item) salen sin etiqueta: se les pone el texto del ítem como aria-label.

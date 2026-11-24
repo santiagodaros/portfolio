@@ -1,0 +1,199 @@
+---
+title: "You're paying production backup prices for test servers"
+description: "How to sort your VMs into criticality tiers so each one gets the protection it needs: the two-audit method for Azure Backup, the design decisions, and four read-only queries to review your own environment."
+date: 2026-11-25
+tags: ["azure-backup", "finops", "resilience", "resource-graph"]
+category: "Resilience"
+area: "dr"
+series: "governance-in-the-trenches"
+lang: "en"
+draft: false
+publishAt: 2026-11-25T12:00:00-03:00   # goes out at this time; the Spanish version is the one shown as "Próximamente"
+featured: false
+cover: "/img/backups-por-nivel-de-criticidad.webp"
+coverAlt: "Illustration: a row of identical servers with the same backup policy being sorted into three criticality tiers, T1, T2 and T3."
+translationKey: "backups-por-nivel"
+references:
+  - title: "Get improved backup and restore performance with the Azure Backup Instant Restore capability"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-instant-restore-capability"
+  - title: "Back up an Azure VM by using the Enhanced policy"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-azure-vms-enhanced-policy"
+  - title: "Query your backups using Azure Resource Graph (ARG)"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/query-backups-using-azure-resource-graph"
+  - title: "Immutable vault for Azure Backup"
+    source: "Microsoft Learn"
+    url: "https://learn.microsoft.com/azure/backup/backup-azure-immutable-vault-concept"
+---
+
+This month I audited Azure Backup at two companies. One had about 70 protected VMs across 6 vaults; the other, several subscriptions. Both had the same problem, and it wasn't a technical one: every server was worth the same to the backup policy.
+
+A test server and the database that bills customers had the same days of snapshots, the same retention and the same window. The result is twofold. You overpay for what doesn't matter and, almost always, you under-protect what does.
+
+<figure>
+  <video src="/video/backups-por-nivel.mp4" poster="/video/backups-por-nivel.jpg" controls muted playsinline preload="metadata" width="1080" height="1350" class="article-video"></video>
+  <figcaption>The case in one minute, with Daruma (in Spanish).</figcaption>
+</figure>
+
+<PullQuote>
+  A backup policy that doesn't tell criticality apart isn't a policy: it's a default nobody reviewed.
+</PullQuote>
+
+## What I found
+
+At the first company, across about 70 VMs:
+
+- **Oversized snapshots.** Almost half of the VMs kept between 7 and 14 days of instant restore snapshots. One of those policies covered development, QA and production alike, including a QA environment of almost 10 TB.
+- **Orphaned backups.** 5 VMs that no longer existed were still protected. One hadn't had a new backup in over a year, yet it kept storing (and billing for) its points.
+- **Incomplete coverage.** The perimeter firewall and other powered-on servers had no backup. And SQL databases were backed up only as part of the VM: after a corruption, the restore went back to the last daily backup, with up to 24 hours of lost data.
+- **No long-term retention.** Almost every VM kept just 30 daily points. No weekly, monthly or yearly point.
+- **Governance.** 17 unused policies, default names, environment tags that contradicted actual use, and no vault with immutability.
+
+None of these findings is unusual. They are what happens when backup is configured once, at the start, and then VMs keep being added to the policy that already existed.
+
+## Why snapshots cost more than they look
+
+Instant restore keeps snapshots next to the disks so that restoring a recent mistake takes minutes, not hours. It's very useful, but those snapshots are billed separately from the vault. <sup><a href="#ref-1">[1]</a></sup>
+
+How much they cost depends on the policy type:
+
+- **Standard:** snapshots are incremental. You pay for each day's changes, for as many days as you keep them.
+- **Enhanced:** the first snapshot is a full copy of the disk and the next ones are incremental. That's why the same number of days costs more. <sup><a href="#ref-1">[1]</a></sup>
+
+In practice, the most common case is "someone deleted something yesterday". One or two days of snapshots are enough for that. Older points still exist in the vault: the restore takes longer, but it's there.
+
+## The design: three tiers, no migration
+
+The most important decision was **not moving any VM between vaults**. Reassigning a VM to another policy in the same vault keeps its recovery points. Moving it to another vault forces you to protect it again and pay twice while the old retention lasts.
+
+So each tier is a policy with the same name in every vault that needs it. Tiers are defined by crossing the environment tag, the priority tag, the VM's role and the naming convention:
+
+| Tier | What goes in | Snapshots | Daily | Weekly | Monthly |
+| --- | --- | --- | --- | --- | --- |
+| T1 · Data | Databases, production ERP, privileged access | 2 days | 30 days | 12 weeks | 12 months |
+| T1 · Identity | Domain controllers, Entra Connect, DNS | 2 days | 30 days | 8 weeks | — |
+| T1 · Network | Firewalls and network appliances | 2 days | 14 days | 4 weeks | 3 months |
+| T2 | Standard production | 2 days | 14 days | 4 weeks | 3 months |
+| T3 | Development, QA, sandbox and testing | 1 day | 7 days | 2 weeks | — |
+
+On top of that, T1 databases get a SQL policy with a weekly full, a daily differential and a log backup every 15 minutes. That is what brings the possible loss down from 24 hours to minutes.
+
+Backup windows are staggered by tier (T1 first, T3 last) so heavy backups don't compete with each other.
+
+## Two constraints that shape the design
+
+Before reassigning anything, watch out for these two:
+
+1. **Enhanced doesn't go back to Standard.** A VM protected with an Enhanced policy can't move to a Standard one. <sup><a href="#ref-2">[2]</a></sup> If some QA VMs are already on Enhanced (for example, Trusted Launch ones), their T3 has to be an Enhanced policy with 1 day of snapshots.
+2. **Domain controllers have an expiry date.** Restoring a DC from a backup older than the Active Directory tombstone lifetime is not supported. Keeping DC points for years gets you nothing; that's why T1 · Identity has no monthly retention.
+
+And one operating rule: **reducing a retention can't be undone.** The points that fall outside are deleted in the next cleanup. That's why changes are applied in waves, starting with non-production environments.
+
+## The twist: the savings pay for what was missing
+
+Adjusting snapshots and cleaning up orphans saves, in that case, about USD 400 a month. But the complete plan ends up costing more than before, because it adds what didn't exist:
+
+- long-term retention,
+- SQL backup with a log every 15 minutes,
+- and vault immutability, so nobody with compromised credentials can delete or shorten retentions. <sup><a href="#ref-4">[4]</a></sup>
+
+That's the conversation worth having with the business. A backup redesign doesn't always lower the bill. What it does is make every dollar protect something that matters: you stop paying for 14 days of snapshots on a test server, and that money covers the databases and the firewall.
+
+## How to review your own environment
+
+These four queries run in Azure Resource Graph Explorer, are read-only, and cover every subscription you have access to. <sup><a href="#ref-3">[3]</a></sup>
+
+**1. Which policy protects each VM and how many days of snapshots it keeps**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+| where properties.backupManagementType == "AzureIaasVM"
+| extend vmId = tolower(tostring(properties.sourceResourceId)),
+         policyId = tolower(tostring(properties.policyId)),
+         state = tostring(properties.protectionState)
+| join kind=leftouter (
+    recoveryservicesresources
+    | where type == "microsoft.recoveryservices/vaults/backuppolicies"
+    | extend policyId = tolower(id),
+             snapshotDays = toint(properties.instantRpRetentionRangeInDays),
+             policyType = iff(tostring(properties.policyType) == "V2", "Enhanced", "Standard")
+    | project policyId, policy = name, policyType, snapshotDays
+) on policyId
+| project vm = tostring(split(vmId, "/")[8]), vault = tostring(split(id, "/")[8]),
+          policy, policyType, snapshotDays, state
+| order by snapshotDays desc
+```
+
+If test servers with 7 days or more show up at the top, you've already found the first saving.
+
+**2. Unused policies and how many VMs each one has**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backuppolicies"
+| where properties.backupManagementType == "AzureIaasVM"
+| project vault = tostring(split(id, "/")[8]), policy = name,
+          vms = toint(properties.protectedItemsCount),
+          snapshotDays = toint(properties.instantRpRetentionRangeInDays)
+| order by vms asc
+```
+
+Policies with 0 VMs can be retired. Policies with many VMs from different environments are the candidates to split into tiers.
+
+**3. VMs without backup**
+
+```kusto
+resources
+| where type == "microsoft.compute/virtualmachines"
+| extend vmId = tolower(id),
+         powerState = tostring(properties.extended.instanceView.powerState.code),
+         environment = tostring(tags["Environment"])
+| join kind=leftouter (
+    recoveryservicesresources
+    | where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+    | where properties.backupManagementType == "AzureIaasVM"
+    | project vmId = tolower(tostring(properties.sourceResourceId)), protected = true
+) on vmId
+| where isnull(protected)
+| project vm = name, resourceGroup, location, powerState, environment
+| order by powerState asc
+```
+
+Replace `Environment` with the name of your tag. Look first at the ones that are powered on: that's where firewalls and appliances nobody thought of as "servers" tend to show up.
+
+**4. Orphaned backups: VMs that no longer exist but are still protected**
+
+```kusto
+recoveryservicesresources
+| where type == "microsoft.recoveryservices/vaults/backupfabrics/protectioncontainers/protecteditems"
+| where properties.backupManagementType == "AzureIaasVM"
+| extend vmId = tolower(tostring(properties.sourceResourceId))
+| join kind=leftouter (
+    resources
+    | where type == "microsoft.compute/virtualmachines"
+    | project vmId = tolower(id), exists = true
+) on vmId
+| where isnull(exists)
+| project vm = tostring(split(vmId, "/")[8]), vault = tostring(split(id, "/")[8]),
+          state = tostring(properties.protectionState),
+          lastBackup = todatetime(properties.lastBackupTime)
+```
+
+Careful: if the VM lives in a subscription you can't see, it shows up here too. Confirm before stopping protection and deleting the data, because that step can't be undone either.
+
+## Checklist for your team
+
+- [ ] Run the four queries and export the results to CSV.
+- [ ] Mark each VM's tier in the inventory: T1, T2 or T3.
+- [ ] Fix the environment tags that contradict actual use.
+- [ ] Define the policies by tier in each vault, without moving VMs between vaults.
+- [ ] Reassign in waves, starting with non-production environments.
+- [ ] Stop protection for the orphans, after confirming them.
+- [ ] Add what's missing: SQL backup with log, long retention and immutability.
+
+## The decision
+
+Don't start by asking "how much can I save on backup?". Start by asking "which servers can't I afford to lose?". The answer defines the tiers, and the tiers define the cost. Almost always the savings show up on their own, and they're enough to pay for the protection you were missing.
