@@ -3,6 +3,7 @@
 import { track } from '@vercel/analytics';
 import type { DarumaIndex } from '../../lib/daruma-index';
 import { esc, sanitize } from './text';
+import { withoutInterview } from './flags';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Json = any;
@@ -113,7 +114,7 @@ export const markSeen = () => ls.set('dmSeen', '1');
 export let UI: Json = null;
 export async function dataFor<T = Json>(name: string): Promise<T> {
   const m = await import(`../../data/daruma/${name}.${lang}.json`);
-  return m.default as T;
+  return withoutInterview(m.default) as T;
 }
 export async function loadUI() {
   UI = await dataFor('ui');

@@ -15,5 +15,9 @@
   "summary": "Próxima charla, en Microsoft Speakers Hub en Español.",
   "dateNote": "Fecha a confirmar",
   "meta": "Fecha a confirmar",
-  "todo": "Faltan la fecha y el abstract de la charla."
+  "todo": "Falta la fecha (charla aceptada, todavía sin fecha asignada).",
+  "abstract": "Los proyectos tecnológicos se planifican, se estiman y se celebran en función de un único momento: la implementación. Pero eso es solo la punta del iceberg. Debajo del agua está la vida real de cualquier plataforma: costos que crecen sin control, incidentes que nadie anticipó, permisos que se multiplican y servicios que se degradan en silencio. Las organizaciones que tratan su plataforma como un proyecto la entregan y la abandonan; las que la tratan como un producto la operan, la miden y la hacen evolucionar.\n\nEn esta sesión proponemos un marco para diseñar pensando en lo que viene después desde el primer día, basado en cuatro preguntas que aplican a cualquier tecnología Microsoft: ¿cuánto cuesta sostenerla?, ¿qué pasa cuando falla?, ¿quién puede cambiarla? y ¿cómo me entero cuando se degrada? Con ejemplos reales de Azure, Microsoft 365 y Fabric, vamos a ver cómo las mismas fallas se repiten en todas las plataformas, cómo anticiparlas y cómo convertir la operación en un roadmap en lugar de una lista de incendios.",
+  "level": "200",
+  "duration": "45 min (35 + 10 de preguntas)",
+  "approach": "Sesión conceptual con casos reales"
 }

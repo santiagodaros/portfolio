@@ -57,7 +57,7 @@
     "slideText": "El DR que no se prueba<br>no es un DR",
     "mail": ["Newsletter", "Firma cada edición."],
     "mailTitle": "Un caso real de Azure",
-    "mailText": "La consulta que encontró 40 discos huérfanos…"
+    "mailText": "La consulta que encuentra discos huérfanos…"
   },
   "oss": {
     "h": "Código abierto",

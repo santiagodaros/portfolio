@@ -20,5 +20,8 @@
   "lang": "es",
   "title": "SRE en Microsoft Fabric: confiabilidad y escala",
   "summary": "Charla en Fabric Day, con la comunidad Microsoft Speakers Hub en Español.",
-  "meta": "2026 · comunidad de habla hispana"
+  "meta": "2026 · comunidad de habla hispana",
+  "related": [
+    "backup-no-es-continuidad-rpo-rto"
+  ]
 }

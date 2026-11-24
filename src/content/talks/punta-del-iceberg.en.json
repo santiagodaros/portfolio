@@ -15,5 +15,9 @@
   "summary": "Next talk, at Microsoft Speakers Hub en Español.",
   "dateNote": "Date to be confirmed",
   "meta": "Date to be confirmed",
-  "todo": "Missing: the date and the abstract of the talk."
+  "todo": "Missing: the date (the talk was accepted, no date assigned yet).",
+  "abstract": "Technology projects are planned, estimated and celebrated around a single moment: the implementation. But that is only the tip of the iceberg. Below the waterline is the real life of any platform: costs that grow out of control, incidents nobody anticipated, permissions that multiply and services that quietly degrade. Organizations that treat their platform as a project deliver it and abandon it; those that treat it as a product operate it, measure it and let it evolve.\n\nIn this session we propose a framework for designing with what comes after in mind from day one, based on four questions that apply to any Microsoft technology: how much does it cost to sustain? What happens when it fails? Who can change it? And how do I find out when it degrades? With real examples from Azure, Microsoft 365 and Fabric, we will see how the same failures repeat across platforms, how to anticipate them and how to turn operations into a roadmap instead of a list of fires.",
+  "level": "200",
+  "duration": "45 min (35 + 10 for questions)",
+  "approach": "Conceptual session with real cases"
 }

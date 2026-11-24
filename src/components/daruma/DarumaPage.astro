@@ -5,14 +5,15 @@ import ReaderPage from '../ReaderPage.astro';
 import DarumaFigure from './DarumaFigure.astro';
 import { getGoal } from '../../lib/daruma-goal';
 import { homePath, type Lang } from '../../i18n';
-import es from '../../data/daruma/page.es.json';
-import en from '../../data/daruma/page.en.json';
+import esRaw from '../../data/daruma/page.es.json';
+import enRaw from '../../data/daruma/page.en.json';
+import { withoutInterview } from './flags';
 
 interface Props {
   lang?: Lang;
 }
 const { lang = 'es' } = Astro.props;
-const t = lang === 'en' ? en : es;
+const t = withoutInterview(lang === 'en' ? enRaw : esRaw);
 const g = await getGoal();
 const row = (label: string, d: { done: number; goal: number }) => ({ label, of: t.eyes.of.replace('{a}', String(d.done)).replace('{b}', String(d.goal)), w: (d.done / d.goal) * 100 });
 const rows = [row(t.eyes.talks, g.talks), row(t.eyes.articles, g.articles)];

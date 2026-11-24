@@ -19,6 +19,7 @@ let readyP: Promise<void> | null = null;
 
 const tools = () => import('./tools');
 const contact = () => import('./contact');
+import { INTERVIEW } from './flags';
 const interviewMod = () => import('./interview');
 const chaosMod = () => import('./chaos');
 
@@ -81,7 +82,7 @@ export const R = {
     const r = UI.r;
     msg(r.profile);
     chips([
-      { t: r.interviewMode, fn: () => void interviewMod().then((m) => m.interview()), go: 1 },
+      ...(INTERVIEW ? [{ t: r.interviewMode, fn: () => void interviewMod().then((m) => m.interview()), go: 1 }] : []),
       { t: r.cv, href: 'cv', dl: 1 },
       { t: r.projects, href: 'proyectos' },
       { t: r.mail, fn: () => void contact().then((m) => m.mailto('recruiter')) },
@@ -129,7 +130,7 @@ function fall() {
   body.scrollTop = body.scrollHeight;
   [0, 600, 1200, 1900].forEach((t, i) =>
     setTimeout(() => {
-      log.innerHTML += r.fallLog[i] + '<br>';
+      log.innerHTML += (i === 0 ? `<span class="dm__tag">${UI.chaos.tag}</span>` : '') + r.fallLog[i] + '<br>';
       body.scrollTop = body.scrollHeight;
     }, t)
   );
@@ -320,7 +321,7 @@ async function answer(q: string, raw: string) {
     if (is('cost')) return void (await tools()).calcCost();
     if (is('rpo')) return void (await tools()).calcRpo();
     if (is('chaos')) return void (await chaosMod()).chaos();
-    if (is('interview')) return void (await interviewMod()).interview();
+    if (INTERVIEW && is('interview')) return void (await interviewMod()).interview();
     if (is('tour')) {
       close();
       return void startTour();
@@ -330,7 +331,7 @@ async function answer(q: string, raw: string) {
   }
   // Intenciones en lenguaje natural
   const nat = async () => {
-    if (re('interview').test(q)) return (await interviewMod()).interview(), true;
+    if (INTERVIEW && re('interview').test(q)) return (await interviewMod()).interview(), true;
     if (re('kql').test(q) && !re('kqlNot').test(q)) {
       const t = q.replace(re('kqlStrip'), '').trim();
       if (t || !re('kqlNot').test(q)) return (await tools()).kql(t), true;

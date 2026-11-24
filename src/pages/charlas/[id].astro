@@ -38,7 +38,7 @@ const event = hasExactDate(talk)
 
 <Layout
   title={`${talk.title} — Santiago Da Ros`}
-  description={talk.abstract ?? talk.summary}
+  description={talk.summary}
   lang={lang}
   alternates={{ es: talkHref(talk.id, 'es') + '/', en: talkHref(talk.id, 'en') + '/' }}
 >
