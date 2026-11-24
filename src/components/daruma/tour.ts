@@ -164,7 +164,12 @@ export async function welcome() {
       `<div class="dm-tour__k">${k}</div><h4>${w.title}</h4><p>${w.text}</p><div style="height:14px"></div>` +
       `<div class="dm-tour__nav"><button class="lnk" type="button" data-w="no">${w.no}</button><button class="dm__chip" type="button" data-w="find">${w.find}</button><button class="dm__chip go" type="button" data-w="tour">${w.tour}</button></div>`;
     card.classList.add('on');
-    (card.querySelector('[data-w="tour"]') as HTMLElement).focus({ preventScroll: true });
+    // Si la persona ya está navegando con el teclado (p. ej. sobre "Saltar al contenido"), no le sacamos el foco:
+    // un Enter apretado justo ahora lanzaría el recorrido sin querer.
+    const active = document.activeElement;
+    if (!active || active === document.body || active === document.documentElement) {
+      (card.querySelector('[data-w="tour"]') as HTMLElement).focus({ preventScroll: true });
+    }
   }, 700);
 }
 export function hiKey() {
