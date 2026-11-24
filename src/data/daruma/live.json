@@ -1,11 +1,7 @@
 {
-  "goal": { "year": 2027, "talks": 12, "articles": 12 },
-  "nextTalk": {
-    "title": "La punta del iceberg",
-    "where": {
-      "es": "Microsoft Speakers Hub en Español",
-      "en": "Microsoft Speakers Hub en Español"
-    },
-    "date": null
+  "goal": {
+    "year": 2027,
+    "talks": 12,
+    "articles": 12
   }
 }

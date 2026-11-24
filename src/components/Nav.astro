@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { homePath, useUi, type Lang } from '../i18n';
+import { communityPaths } from '../i18n/community';
 
 interface Props {
   lang?: Lang;
@@ -14,20 +15,22 @@ const t = useUi(lang);
 
 // Los anchors llevan el prefijo de la home para que funcionen también desde /articulos, etc.
 const home = homePath(lang);
+// Comunidad lleva al hub (/comunidad); en la home, además, se marca como activo al pasar por su sección.
+const hub = communityPaths[lang].hub;
+const onHub = Astro.url.pathname.startsWith(hub);
 const links = [
-  { id: 'proyectos', label: t.nav.projects },
-  { id: 'blog', label: t.nav.blog },
-  { id: 'charlas', label: t.nav.talks },
-  { id: 'sobre-mi', label: t.nav.about },
+  { id: 'proyectos', label: t.nav.projects, href: `${home}#proyectos` },
+  { id: 'comunidad', label: t.nav.community, href: `${hub}/` },
+  { id: 'sobre-mi', label: t.nav.about, href: `${home}#sobre-mi` },
+  { id: 'contacto', label: t.nav.contact, href: '#contacto' },
 ];
 const mobileLinks = [
-  { id: 'proyectos', label: t.nav.projects },
-  { id: 'experiencias', label: t.nav.experience },
-  { id: 'stack', label: t.nav.stack },
-  { id: 'blog', label: t.nav.blog },
-  { id: 'charlas', label: t.nav.talks },
-  { id: 'newsletter', label: t.nav.newsletter },
-  { id: 'sobre-mi', label: t.nav.about },
+  { id: 'proyectos', label: t.nav.projects, href: `${home}#proyectos` },
+  { id: 'experiencias', label: t.nav.experience, href: `${home}#experiencias` },
+  { id: 'stack', label: t.nav.stack, href: `${home}#stack` },
+  { id: 'comunidad', label: t.nav.community, href: `${hub}/` },
+  { id: 'newsletter', label: t.nav.newsletter, href: `${home}#newsletter` },
+  { id: 'sobre-mi', label: t.nav.about, href: `${home}#sobre-mi` },
 ];
 ---
 
@@ -36,7 +39,7 @@ const mobileLinks = [
     <Logo href={home} label={t.homeAria} animated />
 
     <nav class="nav__links" aria-label={t.mainNavAria}>
-      {links.map((l) => <a href={`${home}#${l.id}`} data-section={l.id}>{l.label}</a>)}
+      {links.map((l) => <a href={l.href} data-section={l.id} aria-current={l.id === 'comunidad' && onHub ? 'page' : undefined}>{l.label}</a>)}
     </nav>
 
     <div class="nav__right">
@@ -87,7 +90,7 @@ const mobileLinks = [
 
   <nav class="mnav" id="mnav" aria-label={t.menuAria} hidden>
     <div class="wrap mnav__list">
-      {mobileLinks.map((l) => <a href={`${home}#${l.id}`}>{l.label}</a>)}
+      {mobileLinks.map((l) => <a href={l.href} aria-current={l.id === 'comunidad' && onHub ? 'page' : undefined}>{l.label}</a>)}
       <a class="btn btn--primary" data-link="email" href="#contacto">{t.cta}</a>
     </div>
   </nav>
@@ -127,10 +130,10 @@ const mobileLinks = [
     transition: color 0.15s;
   }
   .nav__links a:hover,
-  .nav__links a[aria-current='true'] {
+  .nav__links a[aria-current] {
     color: var(--ink);
   }
-  .nav__links a[aria-current='true']::after {
+  .nav__links a[aria-current]::after {
     content: '';
     position: absolute;
     left: 50%;

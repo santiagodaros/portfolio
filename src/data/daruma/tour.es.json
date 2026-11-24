@@ -54,12 +54,12 @@
       "text": "Seis certificaciones de Microsoft, cada una verificable en Learn. SC-100 está en curso."
     },
     {
-      "sel": "#blog",
+      "sel": "#comunidad .post--feat",
       "title": "Lo que escribe",
       "text": "Casos reales de Azure: primero una versión corta en LinkedIn y, cuando el tema lo pide, la extendida acá."
     },
     {
-      "sel": "#charlas",
+      "sel": "#comunidad .side",
       "title": "Charlas",
       "text": "Webinars y charlas con demo en vivo. Si organizás un evento, el speaker kit tiene bio, fotos y temas.",
       "act": { "t": "Abrir speaker kit", "h": "speaker" }
@@ -78,7 +78,7 @@
   "mobile": [0, 2, 3, 6, 7, 9],
   "evento": [
     {
-      "sel": "#charlas",
+      "sel": "#comunidad .side",
       "title": "Charlas y speaker kit",
       "text": "Da charlas sobre recuperación ante desastres, gobernanza y FinOps en Azure, casi siempre con demo en vivo. En el speaker kit tenés bio, fotos y temas listos para copiar.",
       "act": { "t": "Abrir speaker kit", "h": "speaker" }
@@ -93,20 +93,20 @@
       "act": { "t": "Ver el detalle", "h": "p-failover" }
     },
     {
-      "sel": "#blog",
+      "sel": "#comunidad .post--feat",
       "title": "DR · 2 de 3 · Por escrito",
       "text": "\"Backup no es continuidad\": la diferencia entre RPO y RTO, y por qué un plan sin probar es una hipótesis.",
       "act": { "t": "Leer el artículo", "h": "art-rto" }
     },
     {
-      "sel": "#charlas",
+      "sel": "#comunidad .side",
       "title": "DR · 3 de 3 · En vivo",
       "text": "El webinar \"El DR que no se prueba no es un DR\", con una prueba real de punta a punta."
     }
   ],
   "leer": [
     {
-      "sel": "#blog",
+      "sel": "#comunidad .post--feat",
       "title": "Lo que escribe",
       "text": "Casos reales de Azure. Primero sale una versión corta en LinkedIn y, cuando el tema lo pide, la extendida acá.",
       "act": { "t": "Leer el destacado", "h": "art-rto" }

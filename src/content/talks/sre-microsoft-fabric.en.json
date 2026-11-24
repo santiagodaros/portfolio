@@ -1,0 +1,24 @@
+{
+  "id": "sre-microsoft-fabric",
+  "status": "past",
+  "format": "talk",
+  "date": "2026-01-01",
+  "datePrecision": "year",
+  "talkLanguage": "es",
+  "area": "dr",
+  "image": "talk-fabric",
+  "event": "Fabric Day",
+  "community": {
+    "label": "Microsoft Speakers Hub en Español",
+    "url": "https://community.fabric.microsoft.com/t5/Microsoft-Speakers-Hub-en/gh-p/MicrosoftSpeakersHubenEspaol"
+  },
+  "recording": "https://www.youtube.com/watch?v=L-HVPeHXO9o",
+  "tags": [
+    "Microsoft Fabric"
+  ],
+  "todo": "Falta el mes de Fabric Day (lo pasa Santiago). Hoy solo se sabe el año: date es solo para ordenar, datePrecision=year.",
+  "lang": "en",
+  "title": "SRE in Microsoft Fabric: reliability and scale",
+  "summary": "Talk at Fabric Day, with the Microsoft Speakers Hub en Español community.",
+  "meta": "2026 · Spanish-speaking community"
+}

@@ -8,8 +8,10 @@ import { articleHref, getPublishedArticles, type BlogEntry } from './blog';
 import { kqlQueries } from '../data/kql';
 import { home as homeText } from '../i18n/home';
 import { homePath, paths, type Lang } from '../i18n';
+import { hubHref } from '../i18n/community';
+import { getContributions } from './contributions';
+import { getPastTalks, getUpcomingTalks, talkHref } from './talks';
 import { darumaPath } from '../components/daruma/paths';
-import live from '../data/daruma/live.json';
 import { getGoal } from './daruma-goal';
 
 /** Ids estables de los artículos (los usan el glosario y los recorridos). Clave: translationKey o slug. */
@@ -49,12 +51,14 @@ const isoDay = (d: Date) => d.toISOString().slice(0, 10);
 export async function buildIndex(lang: Lang) {
   const home = homePath(lang);
   const p = paths[lang];
-  const [projects, own, spanish, posts, contributions] = await Promise.all([
+  const [projects, own, spanish, posts, contributions, pastTalks, upcoming] = await Promise.all([
     getProjects(lang),
     getPublishedArticles(lang),
     getPublishedArticles('es'),
     getCollection('linkedin'),
-    getCollection('contributions'),
+    getContributions(lang),
+    getPastTalks(lang),
+    getUpcomingTalks(lang),
   ]);
 
   // En inglés también cuentan los artículos que solo existen en español (como en el índice del blog)
@@ -81,8 +85,10 @@ export async function buildIndex(lang: Lang) {
     proyectos: `${home}#proyectos`,
     experiencias: `${home}#experiencias`,
     stack: `${home}#stack`,
-    blog: `${home}#blog`,
-    charlas: `${home}#charlas`,
+    comunidad: hubHref(lang),
+    blog: hubHref(lang, 'articulos'),
+    charlas: hubHref(lang, 'charlas'),
+    posts: hubHref(lang, 'posts'),
     newsletter: `${home}#newsletter`,
     'sobre-mi': `${home}#sobre-mi`,
     contacto: '#contacto',
@@ -93,9 +99,10 @@ export async function buildIndex(lang: Lang) {
     blogAll: p.blog,
   };
   projects.forEach((x) => (links[projectHash(x.id)] = `${home}#${projectHash(x.id)}`));
+  [...pastTalks, ...upcoming].forEach((t) => (links[`talk-${t.id}`] = talkHref(t.id, lang)));
   articles.forEach((a) => (links[a.id] = a.href));
 
-  const talks = homeText[lang].talks.items.map((t) => ({ t: t.title, url: t.url, text: t.text, tags: t.tags }));
+  const talks = [...upcoming, ...pastTalks].map((t) => ({ t: t.title, url: talkHref(t.id, lang), text: t.summary, tags: t.tags }));
 
   const postItems = posts
     .filter((x) => !x.data.articleSlug)
@@ -107,14 +114,14 @@ export async function buildIndex(lang: Lang) {
       date: isoDay(x.data.date),
     }));
 
-  const talkContribs = contributions.filter((c) => c.data.kind === 'talk');
-  const content = [
-    ...articles.map((a) => ({ t: a.title, d: a.date, h: a.id, k: 'article' })),
-    ...postItems.map((x) => ({ t: x.t, d: x.date, h: 'blog', k: 'post' })),
-    ...talkContribs.filter((c) => c.data.date).map((c) => ({ t: c.data.title, d: c.data.date as string, h: 'charlas', k: 'talk' })),
-  ].sort((a, b) => (a.d < b.d ? 1 : -1));
+  // Novedades para quien vuelve: solo lo que tiene día exacto (sin día no se puede saber si es nuevo)
+  const content = contributions
+    .filter((c) => c.datePrecision === 'day' && (c.type === 'talk' || c.type === 'article' || c.type === 'post'))
+    .map((c) => ({ t: c.title, d: isoDay(c.date), h: c.type === 'post' ? 'posts' : c.href, k: c.type as string }))
+    .sort((a, b) => (a.d < b.d ? 1 : -1));
 
   const goal = await getGoal();
+  const next = upcoming[0];
 
   return {
     lang,
@@ -134,7 +141,7 @@ export async function buildIndex(lang: Lang) {
     guideTitle: homeText[lang].guide.title,
     content,
     goal,
-    nextTalk: { t: live.nextTalk.title, where: live.nextTalk.where[lang], date: live.nextTalk.date },
+    nextTalk: next ? { t: next.title, where: next.event ?? '', date: next.date && next.datePrecision === 'day' ? isoDay(next.date) : null, href: talkHref(next.id, lang) } : null,
   };
 }
 

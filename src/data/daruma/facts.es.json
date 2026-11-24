@@ -1,9 +1,21 @@
 {
   "sec": {
-    "proyectos": ["Pasá el mouse por un proyecto y te cuento qué resolvió."],
-    "blog": ["Cada caso nuevo llega primero por mail.", { "t": "Suscribirme", "h": "newsletter" }],
-    "charlas": ["¿Organizás eventos? El speaker kit tiene bio, fotos y temas.", { "t": "Abrir speaker kit", "h": "speaker" }],
-    "contacto": ["Llegaste al final sin caídas. Buen RTO."]
+    "proyectos": [
+      "Pasá el mouse por un proyecto y te cuento qué resolvió."
+    ],
+    "contacto": [
+      "Llegaste al final sin caídas. Buen RTO."
+    ],
+    "comunidad": [
+      "¿Organizás eventos? El speaker kit tiene bio, fotos y temas.",
+      {
+        "t": "Abrir speaker kit",
+        "h": "speaker"
+      }
+    ],
+    "newsletter": [
+      "Cada caso nuevo llega primero por mail."
+    ]
   },
   "hover": {
     "p-portal": "Este lo usa el equipo todos los días. 204 clientes adentro.",
@@ -41,24 +53,29 @@
       "Un modelo de lenguaje puede dar dos respuestas distintas a la misma instrucción. Por eso ai-env valida cada salida antes de ejecutar nada."
     ],
     "stack": [
-      "AZ-305 y AZ-400 son certificaciones de nivel Expert: para obtenerlas hace falta tener antes una de nivel Associate.",
-      "Las certificaciones Fundamentals no son requisito para las de nivel Associate: sirven para empezar, no para avanzar."
-    ],
-    "blog": [
-      "Un backup que nunca se restauró no tiene un RTO conocido, solo una estimación. El artículo destacado va sobre esa brecha."
+      "AZ-305 y AZ-400 son certificaciones de nivel Expert: para obtenerlas hace falta tener antes una de nivel Associate."
     ],
     "experiencias": [
       "En el buildathon, el motor de reglas mandaba cada gasto por uno de tres caminos: pasa, se frena o va a revisión de una persona."
     ],
-    "charlas": [
+    "comunidad": [
+      "Un backup que nunca se restauró no tiene un RTO conocido, solo una estimación. El artículo destacado va sobre esa brecha.",
       "El webinar mostró una prueba de recuperación real de punta a punta, con el costo de la caída corriendo en pantalla."
     ]
   },
   "act": {
-    "stack": { "t": "Ver certificaciones", "h": "stack" },
-    "blog": { "t": "Leer el artículo", "h": "art-rto" },
-    "experiencias": { "t": "Ver la experiencia", "h": "experiencias" },
-    "charlas": { "t": "Ver la charla", "h": "charlas" }
+    "stack": {
+      "t": "Ver certificaciones",
+      "h": "stack"
+    },
+    "experiencias": {
+      "t": "Ver la experiencia",
+      "h": "experiencias"
+    },
+    "comunidad": {
+      "t": "Ver la comunidad",
+      "h": "comunidad"
+    }
   },
   "projAct": "Ver el proyecto",
   "tag": "Dato"

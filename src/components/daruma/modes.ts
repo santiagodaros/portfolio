@@ -27,9 +27,8 @@ export function setMode(m: Mode | null) {
 const SECTION_MODE: Record<string, Mode | null> = {
   proyectos: 'builder',
   experiencias: 'builder',
-  blog: 'lectura',
+  comunidad: 'lectura',
   newsletter: 'lectura',
-  charlas: 'speaker',
   contacto: null,
   stack: null,
 };
@@ -39,8 +38,10 @@ const DR_PROJECTS = ['p-failover', 'p-drlive', 'p-backups'];
 /** Modo según la página (artículos y guía: lectura; speaker kit: speaker). */
 function pageMode(): Mode | null {
   const p = location.pathname.replace(/\/+$/, '');
-  if (/\/(articulos|resources\/kql|recursos\/kql)/.test(p)) return 'lectura';
-  if (/\/speaker$/.test(p)) return 'speaker';
+  // Charlas (pestaña del hub y página de cada charla) y speaker kit: micrófono
+  if (/\/(speaker|charlas(\/.*)?|talks(\/.*)?|comunidad\/charlas|community\/talks)$/.test(p)) return 'speaker';
+  // Lectura: artículos, posts, hub, newsletter y guía KQL
+  if (/\/(articulos|comunidad|community|newsletter|resources\/kql|recursos\/kql)(\/|$)/.test(p)) return 'lectura';
   return null;
 }
 

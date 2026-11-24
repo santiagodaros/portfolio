@@ -114,10 +114,11 @@ export function initAmbient(opts: { deep: boolean }) {
     loadIdx()
       .then((idx) => {
         const n = idx.nextTalk;
+        if (!n) return;
         const txt = n.date
           ? UI.live.days.replace('{n}', String(Math.ceil((new Date(n.date).getTime() - Date.now()) / 864e5))).replace('{t}', n.t)
           : UI.live.tbd.replace('{t}', n.t).replace('{where}', n.where);
-        once('live', txt, { t: UI.live.act, h: 'charlas' });
+        once('live', txt, { t: UI.live.act, h: n.href });
       })
       .catch(() => {});
   }, 60000);

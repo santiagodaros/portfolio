@@ -1,9 +1,21 @@
 {
   "sec": {
-    "proyectos": ["Hover over a project and I'll tell you what it solved."],
-    "blog": ["Every new case arrives first by email.", { "t": "Subscribe", "h": "newsletter" }],
-    "charlas": ["Organizing an event? The speaker kit has a bio, photos and topics.", { "t": "Open speaker kit", "h": "speaker" }],
-    "contacto": ["You made it to the end with no outages. Good RTO."]
+    "proyectos": [
+      "Hover over a project and I'll tell you what it solved."
+    ],
+    "contacto": [
+      "You made it to the end with no outages. Good RTO."
+    ],
+    "comunidad": [
+      "Organizing an event? The speaker kit has a bio, photos and topics.",
+      {
+        "t": "Open speaker kit",
+        "h": "speaker"
+      }
+    ],
+    "newsletter": [
+      "Every new case arrives first by email."
+    ]
   },
   "hover": {
     "p-portal": "The team uses this one every day. 204 clients inside.",
@@ -41,24 +53,29 @@
       "A language model can give two different answers to the same instruction. That's why ai-env validates every output before running anything."
     ],
     "stack": [
-      "AZ-305 and AZ-400 are Expert-level certifications: to earn them you first need an Associate-level one.",
-      "Fundamentals certifications are not a prerequisite for Associate-level ones: they're useful for getting started, not for moving forward."
-    ],
-    "blog": [
-      "A backup that was never restored has no known RTO, only an estimate. The featured article is about that gap."
+      "AZ-305 and AZ-400 are Expert-level certifications: to earn them you first need an Associate-level one."
     ],
     "experiencias": [
       "At the buildathon, the rules engine sent each expense down one of three paths: approved, blocked or sent for human review."
     ],
-    "charlas": [
+    "comunidad": [
+      "A backup that was never restored has no known RTO, only an estimate. The featured article is about that gap.",
       "The webinar showed a real recovery test from end to end, with the cost of the outage running on screen."
     ]
   },
   "act": {
-    "stack": { "t": "See certifications", "h": "stack" },
-    "blog": { "t": "Read the article", "h": "art-rto" },
-    "experiencias": { "t": "See the experience", "h": "experiencias" },
-    "charlas": { "t": "See the talk", "h": "charlas" }
+    "stack": {
+      "t": "See certifications",
+      "h": "stack"
+    },
+    "experiencias": {
+      "t": "See the experience",
+      "h": "experiencias"
+    },
+    "comunidad": {
+      "t": "See the community",
+      "h": "comunidad"
+    }
   },
   "projAct": "See the project",
   "tag": "Fact"

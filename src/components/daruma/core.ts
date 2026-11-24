@@ -141,7 +141,8 @@ export function loadIdx(): Promise<DarumaIndex> {
 /* ───────── enlaces ───────── */
 const strip = (p: string) => p.replace(/\/+$/, '') || '/';
 const onHome = () => strip(location.pathname) === strip(HOME);
-const FALLBACK: Record<string, string> = { proyectos: '#proyectos', experiencias: '#experiencias', stack: '#stack', blog: '#blog', charlas: '#charlas', newsletter: '#newsletter', 'sobre-mi': '#sobre-mi', contacto: '#contacto' };
+const HUB = lang === 'es' ? '/comunidad/' : '/en/community/';
+const FALLBACK: Record<string, string> = { proyectos: '#proyectos', experiencias: '#experiencias', stack: '#stack', comunidad: HUB, blog: HUB + (lang === 'es' ? 'articulos/' : 'articles/'), charlas: HUB + (lang === 'es' ? 'charlas/' : 'talks/'), posts: HUB + 'posts/', newsletter: '#newsletter', 'sobre-mi': '#sobre-mi', contacto: '#contacto' };
 /** Resuelve una clave de enlace (art-rto, p-portal, speaker, charlas…) a una URL real. */
 export function href(key: string): string {
   let u = (IDX && IDX.links[key]) || FALLBACK[key] || key;
@@ -356,7 +357,7 @@ export async function renderStatus() {
     const t = idx.nextTalk;
     const last = idx.content.find((c) => c.d.length === 10) || idx.content[0];
     el.innerHTML =
-      `<span>${esc(UI.status.next)} <b>${esc(t.t)}</b> · ${t.date ? fmtDate(t.date) : esc(UI.status.tbd)}</span>` +
+      (t ? `<span>${esc(UI.status.next)} <b>${esc(t.t)}</b> · ${t.date ? fmtDate(t.date) : esc(UI.status.tbd)}</span>` : '') +
       (last ? `<span>${esc(UI.status.last)} <b>${esc(last.t)}</b>${last.d.length === 10 ? ' · ' + fmtDate(last.d) : ''}</span>` : '');
   } catch {
     /* sin índice, sin barra */

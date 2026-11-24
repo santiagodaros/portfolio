@@ -7,7 +7,17 @@ import sitemap from '@astrojs/sitemap';
 // Si se agrega una traducción de un artículo, sumar su par acá.
 const translated = [
   ['/', '/en/'],
-  ['/articulos/', '/en/articulos/'],
+  ['/newsletter/', '/en/newsletter/'],
+  ['/comunidad/', '/en/community/'],
+  ['/charlas/dr-no-probado/', '/en/talks/dr-no-probado/'],
+  ['/charlas/sre-microsoft-fabric/', '/en/talks/sre-microsoft-fabric/'],
+  ['/charlas/punta-del-iceberg/', '/en/talks/punta-del-iceberg/'],
+  ['/comunidad/charlas/', '/en/community/talks/'],
+  ['/comunidad/articulos/', '/en/community/articles/'],
+  ['/comunidad/posts/', '/en/community/posts/'],
+  ['/comunidad/codigo/', '/en/community/code/'],
+  ['/comunidad/foros/', '/en/community/forums/'],
+  ['/comunidad/newsletter/', '/en/community/newsletter/'],
   ['/ahora/', '/en/now/'],
   ['/estado/', '/en/status/'],
   ['/speaker/', '/en/speaker/'],
@@ -18,6 +28,11 @@ const translated = [
 
 export default defineConfig({
   site: process.env.SITE_URL ?? 'https://portfolio-santiagodaros.vercel.app',
+  // El índice del blog ahora es la pestaña Artículos del hub de comunidad. En Vercel manda el 301 de vercel.json.
+  redirects: {
+    '/articulos': '/comunidad/articulos/',
+    '/en/articulos': '/en/community/articles/',
+  },
   integrations: [
     mdx(),
     sitemap({

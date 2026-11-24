@@ -396,7 +396,7 @@ function buildSearch() {
     a.sections.forEach((s) => add(s.h, 'section', a.href, '', false, a.title));
   });
   idx.posts.forEach((p) => add(p.t, 'post', p.href, p.tag + ' ' + p.summary, true));
-  idx.talks.forEach((t) => add(t.t, 'talk', href('charlas'), t.text + ' ' + t.tags.join(' ')));
+  idx.talks.forEach((t) => add(t.t, 'talk', t.url, t.text + ' ' + t.tags.join(' ')));
   idx.kql.forEach((q) => add(q.t, 'kql', href('guia-kql'), q.desc + ' ' + q.code));
   idx.projects.forEach((p) => add(p.title, 'project', href(p.id), p.lead + ' ' + p.stack.join(' ')));
 }

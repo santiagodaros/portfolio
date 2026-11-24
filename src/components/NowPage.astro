@@ -2,6 +2,7 @@
 import ReaderPage from './ReaderPage.astro';
 import { pagesText } from '../i18n/pages';
 import { homePath, type Lang } from '../i18n';
+import { getNextTalkPhrases } from '../lib/talks';
 
 interface Props {
   lang?: Lang;
@@ -9,6 +10,10 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 const t = pagesText[lang];
 const n = t.now;
+const nextTalk = await getNextTalkPhrases(lang);
+// "Preparando": la próxima charla sale de la colección; sin ninguna confirmada, queda el webinar
+const preparing = (text: string) =>
+  nextTalk ? text.replace('{talk}', nextTalk.now) : lang === 'es' ? 'El próximo webinar con demo en vivo.' : 'The next webinar with a live demo.';
 ---
 
 <ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={n.crumb}>
@@ -24,7 +29,7 @@ const n = t.now;
         <div class="now__item">
           <div>
             <b>{i.title}</b>
-            <p>{i.text}</p>
+            <p>{'key' in i && i.key === 'preparing' ? preparing(i.text) : i.text}</p>
           </div>
         </div>
       ))

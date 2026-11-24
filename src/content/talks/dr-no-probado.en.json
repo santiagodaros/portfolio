@@ -1,0 +1,21 @@
+{
+  "id": "dr-no-probado",
+  "status": "past",
+  "format": "webinar",
+  "date": "2026-11-12",
+  "datePrecision": "day",
+  "talkLanguage": "es",
+  "area": "dr",
+  "image": "talk-dr",
+  "recording": "https://www.youtube.com/watch?v=YytZS8YZHMY",
+  "project": "drlive",
+  "tags": [
+    "Site Recovery",
+    "DR Live"
+  ],
+  "lang": "en",
+  "title": "DR that isn't tested isn't DR",
+  "summary": "Webinar on disaster recovery on Azure, with an end-to-end real test.",
+  "abstract": "Webinar on disaster recovery on Azure, with an end-to-end real test. The live demo shows how the recovery moves forward group by group and what each minute of downtime costs (DR Live).",
+  "meta": "November 12, 2026 · webinar with a live demo"
+}

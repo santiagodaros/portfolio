@@ -16,7 +16,7 @@ export function homePath(lang: Lang): string {
 /** Rutas reales por idioma de las páginas del sitio. */
 export const paths = {
   es: {
-    blog: '/articulos',
+    blog: '/comunidad/articulos',
     kql: '/recursos/kql',
     now: '/ahora',
     status: '/estado',
@@ -24,7 +24,7 @@ export const paths = {
     cv: '/cv-es.pdf',
   },
   en: {
-    blog: '/en/articulos',
+    blog: '/en/community/articles',
     kql: '/en/resources/kql',
     now: '/en/now',
     status: '/en/status',
@@ -59,8 +59,10 @@ const ui = {
       stack: 'Stack',
       blog: 'Blog',
       talks: 'Charlas',
+      community: 'Comunidad',
       newsletter: 'Newsletter',
       about: 'Sobre mí',
+      contact: 'Contacto',
     },
     footer: {
       title: '¿Hablamos?',
@@ -102,8 +104,10 @@ const ui = {
       stack: 'Stack',
       blog: 'Blog',
       talks: 'Talks',
+      community: 'Community',
       newsletter: 'Newsletter',
       about: 'About',
+      contact: 'Contact',
     },
     footer: {
       title: "Let's talk?",

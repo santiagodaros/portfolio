@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { AREAS } from '../lib/areas';
 
 // lang is required on every entry (not just on routes) so the same
 // collection can hold ES and EN posts side by side once translations exist —
@@ -28,6 +29,14 @@ const blog = defineCollection({
     canonical: z.string().url().optional(),
     /** Post de LinkedIn donde se comenta el artículo. */
     linkedin: z.string().url().optional(),
+    /** Área técnica (filtro del hub /comunidad y CSV). */
+    area: z.enum(AREAS),
+    /** Alcance, solo en rangos (p. ej. "1.000–2.000 lecturas"). */
+    reach: z.string().optional(),
+    /** Caja "Probado en": cuándo y con qué servicios se verificó lo que cuenta el artículo. Sin dato, no se muestra. */
+    tested: z.object({ date: z.coerce.date(), services: z.array(z.string()).min(1) }).optional(),
+    /** id de la charla (colección talks) donde se contó el artículo; activa el CTA "lo conté en esta charla". */
+    talk: z.string().optional(),
     references: z
       .array(
         z.object({
@@ -60,6 +69,79 @@ const linkedin = defineCollection({
     summary: z.string(),
     url: z.string().url(),
     articleSlug: z.string().optional(),
+    area: z.enum(AREAS),
+    /** Alcance, solo en rangos. */
+    reach: z.string().optional(),
+  }),
+});
+
+const langEnum = z.enum(['es', 'en']);
+const link = z.object({ label: z.string(), url: z.string().url() });
+
+// Charlas y webinars (próximos y anteriores). Un archivo por charla e idioma: `<id>.es.json` y `<id>.en.json`.
+// Alimentan el hub /comunidad, /charlas/<id>, la home, el speaker kit y /ahora.
+const talks = defineCollection({
+  type: 'data',
+  schema: z.object({
+    id: z.string(),
+    lang: langEnum,
+    status: z.enum(['past', 'upcoming']),
+    format: z.enum(['talk', 'webinar']),
+    title: z.string(),
+    /** Una o dos líneas, para tarjetas y listas. */
+    summary: z.string(),
+    /** Abstract de la página de la charla. Sin dato, no se muestra. */
+    abstract: z.string().optional(),
+    /** Evento donde se dio. Un webinar propio no lo lleva. */
+    event: z.string().optional(),
+    eventUrl: z.string().url().optional(),
+    community: link.optional(),
+    /** Fecha; sin ella, la charla es "a confirmar". `datePrecision` dice qué parte de la fecha se conoce. */
+    date: z.coerce.date().optional(),
+    datePrecision: z.enum(['day', 'month', 'year']).default('day'),
+    /** Texto cuando la fecha no está definida (p. ej. "fecha a confirmar"). */
+    dateNote: z.string().optional(),
+    /** Línea de meta de la tarjeta (fecha · formato). */
+    meta: z.string().optional(),
+    /** Idioma en el que se da la charla. */
+    talkLanguage: langEnum.default('es'),
+    area: z.enum(AREAS).optional(),
+    /** Imagen de /public/img/<image>.webp (16:9). */
+    image: z.string().optional(),
+    recording: z.string().url().optional(),
+    /** PDF de las slides: ruta en /public o URL. */
+    slides: z.string().optional(),
+    demoRepo: z.string().url().optional(),
+    /** id del proyecto (colección projects) que se mostró en la charla. */
+    project: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    /** Slugs (en español) de los artículos relacionados. */
+    related: z.array(z.string()).default([]),
+    /** Dato pendiente: nota interna, no se muestra. Se avisa en el build. */
+    todo: z.string().optional(),
+  }),
+});
+
+// Contribuciones que no salen de otra colección: repos, recursos, foros, newsletter, comunidad.
+// Los artículos (blog), los posts (linkedin) y las charlas (talks) se suman solos en src/lib/contributions.ts.
+// Un archivo por contribución e idioma; las que existen en los dos comparten `group`.
+const contributions = defineCollection({
+  type: 'data',
+  schema: z.object({
+    date: z.coerce.date(),
+    datePrecision: z.enum(['day', 'month', 'year']).default('day'),
+    type: z.enum(['talk', 'article', 'post', 'repo', 'forum', 'newsletter', 'community']),
+    title: z.string(),
+    /** URL externa o ruta del sitio (empieza con /). */
+    url: z.string(),
+    area: z.enum(AREAS),
+    language: langEnum,
+    group: z.string().optional(),
+    /** Alcance, solo en rangos. */
+    reach: z.string().optional(),
+    event: z.string().optional(),
+    /** Foros: cantidad de respuestas del mes (una entrada agregada por mes). */
+    count: z.number().int().positive().optional(),
   }),
 });
 
@@ -136,21 +218,4 @@ const projects = defineCollection({
   }),
 });
 
-// Lo que Santiago comparte con la comunidad (charlas y artículos extendidos). Alimenta el segundo ojo de
-// Daruma ("Objetivo 2027") y la lista de novedades para quien vuelve. Un archivo por contribución.
-// `date`: AAAA, AAAA-MM o AAAA-MM-DD (alcanza con lo que se sabe). Sin día exacto no dispara "novedad".
-const contributions = defineCollection({
-  type: 'data',
-  schema: z.object({
-    kind: z.enum(['talk', 'article']),
-    title: z.string(),
-    date: z
-      .string()
-      .regex(/^\d{4}(-\d{2}(-\d{2})?)?$/)
-      .optional(),
-    /** Si suma al objetivo del año. */
-    goal: z.boolean().default(true),
-  }),
-});
-
-export const collections = { blog, series, linkedin, projects, contributions };
+export const collections = { blog, series, linkedin, projects, talks, contributions };
