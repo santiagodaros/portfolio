@@ -57,7 +57,7 @@
     "slideText": "A DR that isn't tested<br>isn't a DR",
     "mail": ["Newsletter", "Signs every edition."],
     "mailTitle": "A real Azure case",
-    "mailText": "The query that found 40 orphaned disks…"
+    "mailText": "The query that finds orphaned disks…"
   },
   "oss": {
     "h": "Open source",

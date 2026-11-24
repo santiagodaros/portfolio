@@ -10,7 +10,7 @@ Los textos de Daruma salen de acá, un archivo por tema e idioma (`<tema>.es.jso
 | `glossary` | glosario de DR y Azure | al abrir el chat |
 | `profile` | perfil, alias de proyectos, palabras de cada pregunta, intenciones | al abrir el chat |
 | `tools` | costo de una caída, RPO real, KQL | al usar `/costo`, `/rpo`, `/kql` |
-| `interview` | modo entrevista (borradores hasta que Santiago los reescriba) | al usar `/entrevista` |
+| `interview` | modo entrevista. **Apagado** (`interview: false` en `live.json`) hasta que Santiago reescriba las 5 respuestas; con `true` se enciende en el chat, la ayuda, las sugerencias y `/daruma` | al usar `/entrevista` |
 | `mails` | mails armados con campos para completar | al usarlos |
 | `page` | texto de `/daruma` y `/en/daruma` | en el build |
 | `live.json` | metas del año y próxima charla | en el build |

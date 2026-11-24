@@ -21,7 +21,7 @@ const { Content, headings } = await entry.render();
 const minutes = getReadingTime(entry.body);
 const next = await getNextArticle(entry);
 const series = await getSeriesInfo(entry);
-const talk = entry.data.talk ? await getTalk(entry.data.talk, lang) : undefined;
+const talks = (await Promise.all(entry.data.talks.map((id) => getTalk(id, lang)))).filter((x) => x !== undefined);
 const nl = newsletterText[lang];
 // Tabla de contenidos: los h2 del artículo (si hay al menos tres)
 const toc = headings.filter((h) => h.depth === 2);
@@ -119,11 +119,26 @@ const editUrl = `https://github.com/santiagodaros/portfolio/edit/main/src/conten
           <a class="btn btn--primary" href={communityPaths[lang].newsletter}>{t.subscribeBtn}</a>
         </div>
         {
-          talk && (
+          talks.length === 1 && (
             <div class="cta__card">
               <b>{t.talkTitle}</b>
               <p class="muted">{t.talkText}</p>
-              <a class="btn btn--secondary" href={talkHref(talk.id, lang)}>{t.talkBtn}</a>
+              <a class="btn btn--secondary" href={talkHref(talks[0].id, lang)}>{t.talkBtn}</a>
+            </div>
+          )
+        }
+        {
+          talks.length > 1 && (
+            <div class="cta__card">
+              <b>{t.talksTitle}</b>
+              <p class="muted">{t.talksText}</p>
+              <ul class="cta__list">
+                {talks.map((x) => (
+                  <li>
+                    <a href={talkHref(x.id, lang)}>{x.title}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
           )
         }
@@ -209,6 +224,18 @@ const editUrl = `https://github.com/santiagodaros/portfolio/edit/main/src/conten
   .cta__card p {
     margin: 0;
     font-size: 15px;
+  }
+  .cta__list {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 15px;
+  }
+  .cta__list a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .reader__progress {
     position: fixed;

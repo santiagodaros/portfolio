@@ -35,8 +35,8 @@ const blog = defineCollection({
     reach: z.string().optional(),
     /** Caja "Probado en": cuándo y con qué servicios se verificó lo que cuenta el artículo. Sin dato, no se muestra. */
     tested: z.object({ date: z.coerce.date(), services: z.array(z.string()).min(1) }).optional(),
-    /** id de la charla (colección talks) donde se contó el artículo; activa el CTA "lo conté en esta charla". */
-    talk: z.string().optional(),
+    /** ids de las charlas (colección talks) donde se contó el artículo; activan el cierre "lo conté en esta charla". */
+    talks: z.array(z.string()).default([]),
     references: z
       .array(
         z.object({
@@ -105,6 +105,12 @@ const talks = defineCollection({
     meta: z.string().optional(),
     /** Idioma en el que se da la charla. */
     talkLanguage: langEnum.default('es'),
+    /** Nivel de la sesión (p. ej. "200"). */
+    level: z.string().optional(),
+    /** Duración (p. ej. "45 min (35 + 10 de preguntas)"). */
+    duration: z.string().optional(),
+    /** Enfoque de la sesión (p. ej. "Sesión conceptual con casos reales"). */
+    approach: z.string().optional(),
     area: z.enum(AREAS).optional(),
     /** Imagen de /public/img/<image>.webp (16:9). */
     image: z.string().optional(),

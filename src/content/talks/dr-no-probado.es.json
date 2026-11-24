@@ -17,5 +17,8 @@
   "title": "El DR que no se prueba no es un DR",
   "summary": "Webinar sobre recuperación ante desastres en Azure, con una prueba real de punta a punta.",
   "abstract": "Webinar sobre recuperación ante desastres en Azure, con una prueba real de punta a punta. En la demo en vivo se ve cómo avanza la recuperación grupo por grupo y cuánto cuesta cada minuto de caída (DR Live).",
-  "meta": "12 de noviembre de 2026 · webinar con demo en vivo"
+  "meta": "12 de noviembre de 2026 · webinar con demo en vivo",
+  "related": [
+    "backup-no-es-continuidad-rpo-rto"
+  ]
 }

@@ -63,6 +63,30 @@ const slides = talk.slides;
       <dd>{t.languages[talk.talkLanguage]}</dd>
     </div>
     {
+      talk.level && (
+        <div>
+          <dt>{t.level}</dt>
+          <dd>{talk.level}</dd>
+        </div>
+      )
+    }
+    {
+      talk.duration && (
+        <div>
+          <dt>{t.duration}</dt>
+          <dd>{talk.duration}</dd>
+        </div>
+      )
+    }
+    {
+      talk.approach && (
+        <div>
+          <dt>{t.approach}</dt>
+          <dd>{talk.approach}</dd>
+        </div>
+      )
+    }
+    {
       talk.community && (
         <div>
           <dt>{t.community}</dt>
@@ -84,7 +108,7 @@ const slides = talk.slides;
     talk.abstract ? (
       <>
         <h2>{t.abstract}</h2>
-        <p>{talk.abstract}</p>
+        {talk.abstract.split(/\n\n+/).map((para) => <p class="abs">{para}</p>)}
       </>
     ) : (
       talk.status === 'upcoming' && <p class="muted pending">{t.pendingAbstract}</p>
@@ -157,6 +181,9 @@ const slides = talk.slides;
   }
   .pending {
     margin-top: 32px;
+  }
+  .abs {
+    margin: 0 0 14px;
   }
   .facts {
     display: grid;
