@@ -1,0 +1,156 @@
+{
+  "projAlias": {
+    "p-portal": ["portal", "csp", "partner center", "licencias", "account managers"],
+    "p-failover": ["failover", "prueba de recuperacion", "prueba automatizada", "test failover", "recuperacion automatizada"],
+    "p-auditoria": ["auditoria", "assessment", "relevamiento", "controles", "m365"],
+    "p-gobernanza": ["gobernanza", "policy as code", "como codigo", "epac", "multi-tenant", "multitenant"],
+    "p-drlive": ["dr live", "drlive", "tiempo real", "costo por minuto"],
+    "p-backups": ["backups por nivel", "niveles", "criticidad", "tiers", "backup por nivel"],
+    "p-aienv": ["ai-env", "aienv", "ai env", "arnes", "harness"]
+  },
+  "attr": {
+    "stack": ["tecnologia", "tecnologias", "stack", "herramientas", "lenguaje", "lenguajes", "framework", "con que", "usaste", "uso", "usa", "hecho en", "construido"],
+    "problema": ["problema", "por que", "para que", "dolor", "necesidad", "motivo"],
+    "idea": ["idea", "como funciona", "solucion", "enfoque", "funciona"],
+    "resultado": ["resultado", "cambio", "impacto", "metrica", "ahorro", "mejoro", "cuanto tiempo", "cuanto ahorro", "beneficio"],
+    "rol": ["rol", "hizo", "parte", "aporte", "participo", "responsable", "quien hizo"]
+  },
+  "intents": {
+    "hello": "^(hola|buenas|buen dia|hey|holis)\\b",
+    "thanks": "^(gracias|genial|perfecto|buenisimo|ok)\\b",
+    "conceptual": "\\b(que es|que son|que significa|significa|diferencia|explica|definicion|para que sirve)\\b",
+    "interview": "\\b(entrevista|interview|recruiter|reclutador)\\b",
+    "kql": "\\bkql\\b|consulta|query",
+    "kqlNot": "\\bque es\\b",
+    "kqlStrip": ".*\\b(kql|consulta|query)\\b( de| para| sobre)?",
+    "cost": "(cuanto (me )?cuesta|costo de (una )?caida|calcul)",
+    "rpo": "rpo real|mi rpo|calcular rpo",
+    "chaos": "\\b(caos|chaos)\\b",
+    "help": "\\b(comandos|ayuda|help|que podes hacer|que sabes)\\b",
+    "mail": "\\b(mail|correo|email)\\b",
+    "mailVerb": "\\b(armar|escrib|mandar|enviar)",
+    "mailEvent": "evento|charla",
+    "mailTech": "consulta|duda",
+    "subscribe": "\\b(suscrib\\w*|newsletter|recibir (los )?casos|avisame)\\b",
+    "search": "\\b(escribiste|escribio|hablaste|hablo|tenes algo|hay algo|publicaste|algo)\\b (sobre|de|acerca de) (.+)",
+    "stop": " de la el los las un una y o en que con para por sobre algo tenes tienes escribiste escribio hablaste hablo hay del al me mi lo le se es como cual cuales donde quiero saber ",
+    "cmd": {
+      "kql": "kql",
+      "cost": "costo caida",
+      "rpo": "rpo",
+      "chaos": "caos chaos",
+      "interview": "entrevista",
+      "tour": "tour recorrido"
+    }
+  },
+  "kqlSyn": {
+    "backup": "backup",
+    "backups": "backup",
+    "huerfanos": "huerfanos",
+    "huerfano": "huerfanos",
+    "discos": "huerfanos",
+    "nsg": "nsg",
+    "rdp": "rdp",
+    "ssh": "ssh",
+    "puertos": "internet",
+    "storage": "almacenamiento",
+    "sql": "sql",
+    "tags": "tag",
+    "tag": "tag",
+    "costo": "costo",
+    "costos": "costo",
+    "advisor": "advisor",
+    "secure": "secure",
+    "defender": "defender",
+    "region": "region",
+    "vms": "vms",
+    "encendido": "encendido"
+  },
+  "entries": [
+    {
+      "s": 1,
+      "k": ["certificacion", "certificaciones", "certificado", "az-", "sc-"],
+      "a": "Tiene seis certificaciones de Microsoft: AZ-305 (Solutions Architect Expert), AZ-400 (DevOps Engineer Expert), AZ-700, SC-300, AZ-104 y AZ-800/801. SC-100 está en curso. Cada una se verifica en Microsoft Learn.",
+      "c": [{ "t": "Ver certificaciones", "href": "stack", "go": 1 }]
+    },
+    {
+      "k": ["donde trabaja", "trabaja", "empresa", "readymind", "puesto", "cargo", "experiencia"],
+      "a": "Es Cloud Engineer en Readymind, partner de Microsoft, desde octubre de 2025; antes hizo el programa de formación Cloud de la misma empresa. Trabaja con cuentas corporativas de varios países, herramientas internas y preventa técnica.",
+      "c": [{ "t": "Ver trayectoria", "href": "sobre-mi", "go": 1 }, { "t": "Descargar CV", "href": "cv", "dl": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["estudia", "estudios", "universidad", "facultad", "carrera", "uade", "uba"],
+      "a": "En 2027 empieza la Licenciatura en Gestión de Tecnología de la Información en la UADE. Antes cursó Ciencias de la Computación en la UBA."
+    },
+    {
+      "k": ["donde vive", "ubicacion", "pais", "ciudad", "argentina", "remoto"],
+      "a": "Está en Buenos Aires, Argentina."
+    },
+    {
+      "s": 1,
+      "k": ["contacto", "contactar", "email", "mail", "correo", "escribir", "linkedin", "hablar con"],
+      "a": "La forma más directa es por email o LinkedIn.",
+      "c": [{ "t": "Escribirle", "href": "contacto", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["cv", "curriculum", "resume"],
+      "a": "Acá tenés el CV, en español y en inglés.",
+      "c": [{ "t": "Descargar CV", "href": "cv", "dl": 1, "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["charla", "charlas", "webinar", "speaker", "evento", "conferencia", "sesion"],
+      "a": "Dio el webinar <b>\"El DR que no se prueba no es un DR\"</b> y la charla <b>\"SRE en Microsoft Fabric\"</b> en Fabric Day, con Microsoft Speakers Hub en Español. Para eventos, el speaker kit tiene bio, fotos y temas.",
+      "c": [{ "t": "Speaker kit", "href": "speaker", "go": 1 }, { "t": "Ver charlas", "href": "charlas" }]
+    },
+    {
+      "s": 1,
+      "k": ["newsletter", "suscrib", "novedades"],
+      "a": "Un caso real de Azure por mail, con la consulta o el script que lo resolvió. Es gratis y te das de baja con un clic.",
+      "c": [{ "t": "Suscribirme", "href": "newsletter", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["ingles", "english", "idioma", "idiomas"],
+      "a": "Las charlas son en español; en inglés, a coordinar. El sitio y el CV están en los dos idiomas."
+    },
+    {
+      "s": 1,
+      "k": ["hackaton", "hackathon", "belo", "buildathon"],
+      "a": "En octubre de 2026 participó del Agentic Banking Buildathon de Belo con Belo Business. Su parte: la idea de mantener el gasto invertido en USDT hasta el vencimiento y el motor de reglas; además presentó la demo en vivo.",
+      "c": [{ "t": "Ver la experiencia", "href": "experiencias", "go": 1 }]
+    },
+    {
+      "k": ["blog", "articulos", "escribe", "publica", "posts"],
+      "a": "Publica cada semana en LinkedIn y, cuando el tema lo pide, una versión extendida en el blog. El destacado es \"Backup no es continuidad\".",
+      "c": [{ "t": "Ver el blog", "href": "blog", "go": 1 }]
+    },
+    {
+      "s": 1,
+      "k": ["cobra", "precio", "tarifa", "salario", "sueldo", "honorarios", "presupuesto"],
+      "a": "No publica tarifas en el sitio. Si tenés una propuesta, escribile con el contexto y te responde.",
+      "c": [{ "t": "Escribirle", "href": "contacto", "go": 1 }]
+    },
+    {
+      "k": ["busca trabajo", "disponible", "contratar", "oportunidad", "propuesta", "freelance", "consultoria"],
+      "a": "Para propuestas o consultas, lo mejor es escribirle directamente y contarle el contexto.",
+      "c": [{ "t": "Escribirle", "href": "contacto", "go": 1 }]
+    },
+    {
+      "k": ["quien sos", "que sos", "sos una ia", "sos ia", "chatgpt", "inteligencia artificial", "daruma"],
+      "a": "Soy Daruma, la guía del sitio. No uso IA: respondo con lo que está publicado acá. Si algo no lo sé, te lo digo."
+    },
+    {
+      "k": ["quien es santiago", "quien es", "sobre santiago", "sobre el"],
+      "a": "Santiago Da Ros es Cloud Engineer en Readymind, en Buenos Aires. Diseña, construye y opera herramientas sobre Azure, y se especializa en recuperación ante desastres, gobernanza e identidad.",
+      "c": [{ "t": "Mostrame el sitio", "act": "tour" }, { "t": "Descargar CV", "href": "cv", "dl": 1 }]
+    },
+    {
+      "k": ["proyectos", "que hizo", "que construyo", "portfolio"],
+      "a": "Siete proyectos: el portal de operaciones CSP, la prueba automatizada de recuperación, la auditoría de Azure y M365, gobernanza como código, DR Live, backups por nivel y ai-env, que es open source.",
+      "c": [{ "t": "Ver proyectos", "href": "proyectos", "go": 1 }]
+    }
+  ]
+}

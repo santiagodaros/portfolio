@@ -1,0 +1,14 @@
+{
+  "evento": {
+    "s": "Charla para [nombre del evento]",
+    "b": "Hola Santiago,\n\nOrganizo [evento] el [fecha], [online/presencial]. Nos interesa una charla sobre [tema].\n\nAudiencia: [perfil y cantidad]\nDuración: [minutos]\n\nGracias."
+  },
+  "recruiter": {
+    "s": "Oportunidad: [puesto] en [empresa]",
+    "b": "Hola Santiago,\n\nVi tu portfolio y me gustaría conversar sobre una posición de [puesto] en [empresa].\n\nModalidad: [remoto/híbrido]\n\n¿Tenés 20 minutos esta semana?"
+  },
+  "tecnica": {
+    "s": "Consulta sobre [tema]",
+    "b": "Hola Santiago,\n\nLeí [artículo o proyecto] y tengo una consulta sobre [tema]:\n\n"
+  }
+}

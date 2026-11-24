@@ -136,4 +136,21 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, series, linkedin, projects };
+// Lo que Santiago comparte con la comunidad (charlas y artículos extendidos). Alimenta el segundo ojo de
+// Daruma ("Objetivo 2027") y la lista de novedades para quien vuelve. Un archivo por contribución.
+// `date`: AAAA, AAAA-MM o AAAA-MM-DD (alcanza con lo que se sabe). Sin día exacto no dispara "novedad".
+const contributions = defineCollection({
+  type: 'data',
+  schema: z.object({
+    kind: z.enum(['talk', 'article']),
+    title: z.string(),
+    date: z
+      .string()
+      .regex(/^\d{4}(-\d{2}(-\d{2})?)?$/)
+      .optional(),
+    /** Si suma al objetivo del año. */
+    goal: z.boolean().default(true),
+  }),
+});
+
+export const collections = { blog, series, linkedin, projects, contributions };

@@ -1,0 +1,65 @@
+{
+  "sec": {
+    "proyectos": ["Pasá el mouse por un proyecto y te cuento qué resolvió."],
+    "blog": ["Cada caso nuevo llega primero por mail.", { "t": "Suscribirme", "h": "newsletter" }],
+    "charlas": ["¿Organizás eventos? El speaker kit tiene bio, fotos y temas.", { "t": "Abrir speaker kit", "h": "speaker" }],
+    "contacto": ["Llegaste al final sin caídas. Buen RTO."]
+  },
+  "hover": {
+    "p-portal": "Este lo usa el equipo todos los días. 204 clientes adentro.",
+    "p-failover": "Prueba que todo se puede volver a levantar. Es su especialidad.",
+    "p-auditoria": "209 controles, todos en solo lectura. No toca nada.",
+    "p-gobernanza": "Reglas de varios clientes desde un repo, sin secretos.",
+    "p-drlive": "Se usó en vivo durante un webinar.",
+    "p-backups": "No todos los servidores valen lo mismo. Este lo decide.",
+    "p-aienv": "Este es open source. Lo podés clonar hoy."
+  },
+  "facts": {
+    "p-portal": [
+      "En CSP se paga cada licencia comprada, esté asignada o no. Encontrar las que nadie usa es ahorro inmediato, y el portal las marca."
+    ],
+    "p-failover": [
+      "Un test failover de Site Recovery levanta las réplicas en una red aislada: probás el plan sin cortar la replicación ni tocar producción.",
+      "Un plan de recuperación de Site Recovery agrupa los servidores y define el orden en que se levantan: por ejemplo, la base de datos antes que la aplicación."
+    ],
+    "p-auditoria": [
+      "La autenticación heredada no admite MFA. Por eso bloquearla es uno de los primeros controles de cualquier auditoría de identidad.",
+      "El acceso condicional tiene un modo solo informe: permite medir el impacto de una política antes de activarla."
+    ],
+    "p-gobernanza": [
+      "Una Azure Policy con efecto Deny frena el recurso antes de que se cree; con Audit solo lo marca. Elegir entre las dos es una decisión de negocio.",
+      "Con el efecto DeployIfNotExists, una Azure Policy puede crear lo que falta (por ejemplo, la configuración de diagnóstico) en vez de solo avisar."
+    ],
+    "p-drlive": [
+      "Poner un costo por minuto a la caída convierte el RTO en un número que la dirección entiende sin explicar siglas."
+    ],
+    "p-backups": [
+      "Los snapshots de restauración instantánea de Azure Backup se cobran aparte del vault: retenerlos de más encarece sin acelerar mucho la recuperación.",
+      "La redundancia geográfica del vault cuesta más que la local, pero es la que permite restaurar en otra región."
+    ],
+    "p-aienv": [
+      "Un modelo de lenguaje puede dar dos respuestas distintas a la misma instrucción. Por eso ai-env valida cada salida antes de ejecutar nada."
+    ],
+    "stack": [
+      "AZ-305 y AZ-400 son certificaciones de nivel Expert: para obtenerlas hace falta tener antes una de nivel Associate.",
+      "Las certificaciones Fundamentals no son requisito para las de nivel Associate: sirven para empezar, no para avanzar."
+    ],
+    "blog": [
+      "Un backup que nunca se restauró no tiene un RTO conocido, solo una estimación. El artículo destacado va sobre esa brecha."
+    ],
+    "experiencias": [
+      "En el buildathon, el motor de reglas mandaba cada gasto por uno de tres caminos: pasa, se frena o va a revisión de una persona."
+    ],
+    "charlas": [
+      "El webinar mostró una prueba de recuperación real de punta a punta, con el costo de la caída corriendo en pantalla."
+    ]
+  },
+  "act": {
+    "stack": { "t": "Ver certificaciones", "h": "stack" },
+    "blog": { "t": "Leer el artículo", "h": "art-rto" },
+    "experiencias": { "t": "Ver la experiencia", "h": "experiencias" },
+    "charlas": { "t": "Ver la charla", "h": "charlas" }
+  },
+  "projAct": "Ver el proyecto",
+  "tag": "Dato"
+}

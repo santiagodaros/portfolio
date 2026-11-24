@@ -1,0 +1,57 @@
+---
+// La figura de Daruma (sin <defs>: los degradados viven una sola vez en Daruma.astro, con ids únicos).
+// El accesorio depende de `data-mode` en la propia figura o en cualquier ancestro:
+// builder (laptop), guardia (auriculares), speaker (micrófono), lectura (anteojos) o none.
+// Las coordenadas, colores y accesorios son los del prototipo.
+import { getGoal } from '../../lib/daruma-goal';
+
+interface Props {
+  mode?: 'builder' | 'guardia' | 'speaker' | 'lectura' | 'none';
+  class?: string;
+}
+const { mode, class: className } = Astro.props;
+// El círculo (ojo izquierdo) se llena con el progreso del objetivo 2027
+const { pct } = await getGoal();
+---
+
+<svg
+  class={className}
+  viewBox="0 0 100 112"
+  width="100%"
+  height="100%"
+  aria-hidden="true"
+  focusable="false"
+  data-mode={mode}
+>
+  <path d="M50 3C23 3 7 26 7 57c0 31 19 52 43 52s43-21 43-52C93 26 77 3 50 3z" fill="url(#dmGrad)"></path>
+  <path d="M50 3C23 3 7 26 7 57c0 31 19 52 43 52s43-21 43-52C93 26 77 3 50 3z" fill="url(#dmShine)"></path>
+  <path d="M24 47c0-15 11-26 26-26s26 11 26 26c0 13-11 22-26 22S24 60 24 47z" fill="#f5f6f8"></path>
+  <g class="dm-brows"><path d="M30 30.6l13 1.9M57 32.5l13-1.9" stroke="#121420" stroke-width="4.6" stroke-linecap="round"></path></g>
+  <g class="dm-eyes">
+    <circle cx="38" cy="45" r="7.4" fill="#fff" stroke="#121420" stroke-width="3"></circle>
+    <circle class="dm-pupil" cx="38" cy="45" r="2.7" fill="#121420"></circle>
+    <rect x="54.5" y="37.6" width="14.8" height="14.8" rx="3.6" fill="#1f2de6"></rect>
+    <circle class="dm-glint" cx="64.6" cy="42" r="2.1" fill="#fff"></circle>
+  </g>
+  <g class="dm-closed" stroke="#121420" stroke-width="3" stroke-linecap="round" fill="none"><path d="M31 46q7 4 14 0M55 46q7 4 14 0"></path></g>
+  <path class="dm-mouth" d="M44 58q6 4 12 0" stroke="#121420" stroke-width="2.6" fill="none" stroke-linecap="round"></path>
+  <path d="M27 88h12l4-7 5 13 5-10 3 4h17" stroke="#ffffff" stroke-opacity=".28" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path class="dm-beat" d="M27 88h12l4-7 5 13 5-10 3 4h17" stroke="#ffffff" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  <circle class="dm-prog" cx="38" cy="45" r="7.4" fill="none" stroke="#1f2de6" stroke-width="3" pathLength="100" stroke-dasharray={`${pct} 100`} transform="rotate(-90 38 45)" stroke-linecap="round"></circle>
+  <g class="acc acc-headset"><path d="M15 44C15 18 31 8 50 8s35 10 35 36" stroke="#121420" stroke-width="4" fill="none" stroke-linecap="round"></path><rect x="9" y="38" width="10" height="18" rx="4" fill="#121420"></rect><rect x="81" y="38" width="10" height="18" rx="4" fill="#121420"></rect><path d="M86 55c0 9-6 13-16 13" stroke="#121420" stroke-width="2.6" fill="none" stroke-linecap="round"></path><circle cx="68" cy="68" r="3" fill="#121420"></circle></g>
+  <g class="acc acc-mic"><g transform="rotate(-24 16 86)"><rect x="12.5" y="80" width="7" height="22" rx="3" fill="#121420"></rect><circle cx="16" cy="77" r="7" fill="#3a3e4a"></circle><path d="M11 75h10M10.5 78.5h11" stroke="#6b7080" stroke-width="1"></path></g></g>
+  <g class="acc acc-laptop"><rect x="29" y="64" width="42" height="24" rx="3.5" fill="#e8eaee" stroke="#121420" stroke-width="2"></rect><circle cx="45.5" cy="76" r="3.4" fill="none" stroke="#1f2de6" stroke-width="1.8"></circle><rect x="51.5" y="72.6" width="6.8" height="6.8" rx="1.5" fill="#1f2de6"></rect><rect x="25" y="87" width="50" height="4.5" rx="2.2" fill="#121420"></rect></g>
+  <g class="acc acc-glasses" fill="none" stroke="#121420" stroke-width="2.2"><circle cx="38" cy="45" r="11"></circle><rect x="50.5" y="34" width="22.8" height="22.8" rx="6"></rect><path d="M49 44h1.5M27 43l-6-2M73.3 43l6-2"></path></g>
+</svg>
+
+<style is:global>
+  .acc {
+    display: none;
+  }
+  [data-mode='guardia'] .acc-headset,
+  [data-mode='speaker'] .acc-mic,
+  [data-mode='builder'] .acc-laptop,
+  [data-mode='lectura'] .acc-glasses {
+    display: inline;
+  }
+</style>

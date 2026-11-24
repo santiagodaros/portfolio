@@ -11,6 +11,7 @@ const translated = [
   ['/ahora/', '/en/now/'],
   ['/estado/', '/en/status/'],
   ['/speaker/', '/en/speaker/'],
+  ['/daruma/', '/en/daruma/'],
   ['/recursos/kql/', '/en/resources/kql/'],
   ['/articulos/backup-no-es-continuidad-rpo-rto/', '/en/articulos/backup-is-not-continuity-the-rpo-rto-gap/'],
 ];

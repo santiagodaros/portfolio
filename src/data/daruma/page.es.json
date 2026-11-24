@@ -1,0 +1,67 @@
+{
+  "title": "Daruma, la guía del sitio · Santiago Da Ros",
+  "description": "Daruma es la guía de este sitio: te muestra lo que hizo Santiago, responde dudas sobre proyectos y artículos, y tira datos técnicos. Sin inteligencia artificial.",
+  "back": "← Volver al inicio",
+  "crumb": "/daruma",
+  "tag": "Daruma",
+  "meta": "La guía del sitio",
+  "h1": "Se cae siete veces, se levanta ocho.",
+  "lead": "Daruma es la guía de este sitio. Te muestra lo que hice, responde dudas sobre los proyectos y los artículos, y tira datos técnicos cuando frenás a leer. Sin inteligencia artificial.",
+  "why": {
+    "h": "Por qué un Daruma",
+    "p": "El Daruma es un muñeco tradicional japonés con la base pesada: lo empujás y vuelve a ponerse de pie. Es la idea detrás de todo lo que hago en recuperación ante desastres: no se trata de no caerse, sino de cuánto tardás en levantarte. Y sus ojos son mi logo: el círculo es la nube y el cuadrado, el producto."
+  },
+  "eyes": {
+    "h": "Los dos ojos",
+    "p": "Un Daruma se compra con los ojos en blanco. Pintás uno cuando te ponés un objetivo y el otro cuando lo cumplís. El cuadrado ya está pintado. El círculo se va llenando con lo que comparto con la comunidad en 2027.",
+    "goal": "Objetivo {year} · {pct}% del círculo pintado",
+    "talks": "Charlas",
+    "articles": "Artículos extendidos",
+    "of": "{a} de {b}"
+  },
+  "how": {
+    "h": "Cómo funciona sin IA",
+    "items": [
+      ["Lee el sitio.", "Las respuestas sobre proyectos salen de las mismas tarjetas y fichas que ves en la página. Si cambia un proyecto, cambia la respuesta."],
+      ["Detecta tema y pregunta.", "Reconoce de qué hablás (un proyecto, un concepto, mi perfil) y qué querés saber (tecnología, problema, resultado, rol), aunque escribas con errores."],
+      ["Tiene un glosario propio", "de recuperación ante desastres y Azure, con la sección del artículo donde lo desarrollo."],
+      ["Cuando no sabe, lo dice.", "No inventa. Las preguntas que no puede responder me dicen qué escribir después."]
+    ]
+  },
+  "modes": {
+    "h": "Sus modos",
+    "p": "Cambia según dónde estés, porque mi trabajo también cambia.",
+    "items": [
+      ["builder", "Builder", "En proyectos"],
+      ["guardia", "Guardia", "De noche y en DR"],
+      ["speaker", "Speaker", "En charlas"],
+      ["lectura", "Lectura", "En el blog"]
+    ]
+  },
+  "cmds": {
+    "h": "Qué le podés pedir",
+    "items": [
+      ["Preguntas libres", "\"¿Qué tecnología usó el portal?\", \"¿qué es el RTO?\", \"¿y su rol?\""],
+      ["/entrevista", "Las preguntas típicas de una entrevista, respondidas por mí."],
+      ["/costo", "Calcula cuánto te cuesta una caída según tu ingreso por hora y tu RTO."],
+      ["/rpo", "Tres preguntas para estimar tu RPO real."],
+      ["/kql backups", "Te da la consulta de la guía, lista para copiar."],
+      ["/caos", "Tira la página abajo y la levanta. Chaos engineering, versión portfolio."],
+      ["?", "Desde cualquier parte del sitio, arranca el recorrido guiado."]
+    ]
+  },
+  "brand": {
+    "h": "Dónde más aparece",
+    "sticker": ["Stickers", "Para repartir en las charlas."],
+    "slide": ["Slides", "En la plantilla de cada charla."],
+    "slideText": "El DR que no se prueba<br>no es un DR",
+    "mail": ["Newsletter", "Firma cada edición."],
+    "mailTitle": "Un caso real de Azure",
+    "mailText": "La consulta que encontró 40 discos huérfanos…"
+  },
+  "oss": {
+    "h": "Código abierto",
+    "p": "El motor de Daruma (guía, recorrido, preguntas sin IA) va a estar publicado como proyecto open source para que cualquier sitio estático pueda tener su propia guía.",
+    "soon": "Próximamente en GitHub."
+  }
+}

@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { contact, homePath, paths, useUi, type Lang } from '../i18n';
+import { darumaPath } from './daruma/paths';
 
 interface Props {
   lang?: Lang;
@@ -56,6 +57,7 @@ const year = new Date().getFullYear();
           <li><a href={p.now}>{f.now}</a></li>
           <li><a href={p.status}>{f.status}</a></li>
           <li><a href={p.speaker}>{f.speaker}</a></li>
+          <li><a href={darumaPath(lang)}>Daruma</a></li>
         </ul>
       </div>
       <div>

@@ -6,6 +6,7 @@ import { articleHref, getPublishedArticles } from '../lib/blog';
 import { kqlFileName } from '../data/kql';
 import { paletteText } from '../i18n/palette';
 import { homePath, otherLang, paths, type Lang } from '../i18n';
+import { darumaPath } from './daruma/paths';
 
 interface Props {
   lang?: Lang;
@@ -17,7 +18,7 @@ const t = paletteText[lang];
 const home = homePath(lang);
 const p = paths[lang];
 
-type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' };
+type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' | 'tour' };
 
 const [projects, own] = await Promise.all([getProjects(lang), getPublishedArticles(lang)]);
 // En inglés también se listan los artículos que solo existen en español (como en el índice del blog)
@@ -48,7 +49,9 @@ const items: Item[] = [
   { g: g.pages, i: '/n', t: t.now, h: p.now },
   { g: g.pages, i: '●', t: t.status, h: p.status },
   { g: g.pages, i: 'Mic', t: t.speaker, h: p.speaker },
+  { g: g.pages, i: 'Dm', t: t.daruma, h: darumaPath(lang) },
   { g: g.actions, i: '⚡', t: t.outage, a: 'outage' },
+  { g: g.actions, i: '?', t: t.tour, a: 'tour' },
   { g: g.actions, i: '◐', t: t.theme, a: 'theme' },
   { g: g.actions, i: 'Aa', t: t.lang, h: alternateHref ?? homePath(otherLang(lang)) },
   { g: g.actions, i: '↓', t: t.kql, a: 'kql' },
@@ -200,7 +203,7 @@ const items: Item[] = [
 </style>
 
 <script>
-  type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' };
+  type Item = { g: string; i: string; t: string; h?: string; a?: 'outage' | 'theme' | 'kql' | 'tour' };
 
   const dlg = document.querySelector<HTMLDialogElement>('dialog.palette');
   if (dlg) {
@@ -281,6 +284,7 @@ const items: Item[] = [
     function run(c: Item) {
       dlg!.close();
       if (c.h) return go(c.h);
+      if (c.a === 'tour') (window as unknown as { darumaTour?: () => void }).darumaTour?.();
       if (c.a === 'theme') document.querySelector<HTMLButtonElement>('[data-theme-toggle]')?.click();
       if (c.a === 'kql') {
         const a = document.createElement('a');

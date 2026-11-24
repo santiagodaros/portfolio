@@ -1,0 +1,270 @@
+---
+// /daruma (y /en/daruma): qué es Daruma, cómo funciona sin IA y dónde más aparece. No va en el menú:
+// se abre desde el pie del panel ("¿Cómo funciono?"), el buscador ⌘K y el footer.
+import ReaderPage from '../ReaderPage.astro';
+import DarumaFigure from './DarumaFigure.astro';
+import { getGoal } from '../../lib/daruma-goal';
+import { homePath, type Lang } from '../../i18n';
+import es from '../../data/daruma/page.es.json';
+import en from '../../data/daruma/page.en.json';
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = 'es' } = Astro.props;
+const t = lang === 'en' ? en : es;
+const g = await getGoal();
+const row = (label: string, d: { done: number; goal: number }) => ({ label, of: t.eyes.of.replace('{a}', String(d.done)).replace('{b}', String(d.goal)), w: (d.done / d.goal) * 100 });
+const rows = [row(t.eyes.talks, g.talks), row(t.eyes.articles, g.articles)];
+---
+
+<ReaderPage backHref={homePath(lang)} backLabel={t.back} crumb={t.crumb}>
+  <div class="reader__meta"><span class="tag">{t.tag}</span><span>{t.meta}</span></div>
+  <div class="dmp-hero">
+    <div class="art"><DarumaFigure mode="none" /></div>
+    <div>
+      <h1>{t.h1}</h1>
+      <p class="reader__lead">{t.lead}</p>
+    </div>
+  </div>
+
+  <div class="prose">
+  <h2>{t.why.h}</h2>
+  <p>{t.why.p}</p>
+
+  <h2>{t.eyes.h}</h2>
+  <p>{t.eyes.p}</p>
+  <div class="dmp-goal">
+    <b>{t.eyes.goal.replace('{year}', String(g.year)).replace('{pct}', String(g.pct))}</b>
+    {
+      rows.map((r) => (
+        <>
+          <div class="dmp-goal__row"><span>{r.label}</span><b>{r.of}</b></div>
+          <div class="dmp-bar"><i style={`width:${r.w}%`}></i></div>
+        </>
+      ))
+    }
+  </div>
+
+  <h2>{t.how.h}</h2>
+  <ul>
+    {t.how.items.map(([b, x]) => <li><b>{b}</b> {x}</li>)}
+  </ul>
+
+  <h2>{t.modes.h}</h2>
+  <p>{t.modes.p}</p>
+  <div class="dmp-grid">
+    {
+      t.modes.items.map(([mode, name, where]) => (
+        <div class="dmp-mode">
+          <div class="art"><DarumaFigure mode={mode as 'builder'} /></div>
+          <b>{name}</b>
+          <span>{where}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>{t.cmds.h}</h2>
+  <div class="dmp-cmd">
+    {t.cmds.items.map(([c, x]) => <><code>{c}</code><span>{x}</span></>)}
+  </div>
+
+  <h2>{t.brand.h}</h2>
+  <div class="dmp-brand">
+    <div>
+      <div class="sticker"><div class="art"><DarumaFigure mode="none" /></div></div>
+      <b>{t.brand.sticker[0]}</b>{t.brand.sticker[1]}
+    </div>
+    <div>
+      <div class="slide"><span set:html={t.brand.slideText} /><div class="art"><DarumaFigure mode="speaker" /></div></div>
+      <b>{t.brand.slide[0]}</b>{t.brand.slide[1]}
+    </div>
+    <div>
+      <div class="mail"><b class="mail__t">{t.brand.mailTitle}</b>{t.brand.mailText}<div class="art"><DarumaFigure mode="lectura" /></div></div>
+      <b>{t.brand.mail[0]}</b>{t.brand.mail[1]}
+    </div>
+  </div>
+
+  <h2>{t.oss.h}</h2>
+  <p>{t.oss.p} <span class="muted">{t.oss.soon}</span></p>
+  </div>
+</ReaderPage>
+
+<style is:global>
+  .dmp-hero {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 28px;
+    align-items: center;
+    margin: 8px 0 28px;
+  }
+  .dmp-hero h1 {
+    margin: 0 0 10px;
+  }
+  .dmp-hero .art {
+    width: 150px;
+    height: 170px;
+  }
+  .dmp-hero .reader__lead {
+    margin: 0;
+  }
+  .dmp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 14px 0 8px;
+  }
+  .dmp-mode {
+    padding: 14px 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+    text-align: center;
+  }
+  .dmp-mode .art {
+    width: 74px;
+    height: 84px;
+    margin: 0 auto 8px;
+  }
+  .dmp-mode b {
+    display: block;
+    font-size: 14px;
+  }
+  .dmp-mode span {
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .dmp-goal {
+    margin: 12px 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+  }
+  .dmp-goal__row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .dmp-bar {
+    height: 6px;
+    margin: 6px 0 2px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--line);
+  }
+  .dmp-bar i {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+  }
+  .dmp-cmd {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 6px 16px;
+    margin: 10px 0;
+    font-size: 14.5px;
+  }
+  .prose .dmp-cmd code,
+  .dmp-cmd code {
+    padding: 0;
+    background: none;
+    font: 13px var(--mono);
+    color: var(--accent);
+  }
+  .prose .dmp-cmd,
+  .prose .dmp-grid,
+  .prose .dmp-brand {
+    line-height: 1.45;
+  }
+  .prose .dmp-mode b,
+  .prose .dmp-brand b {
+    font-weight: 600;
+  }
+  .dmp-brand {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .dmp-brand > div {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .dmp-brand > div > b {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .sticker {
+    display: grid;
+    place-items: center;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #1f2de6;
+    box-shadow:
+      0 0 0 5px #fff,
+      0 0 0 6px var(--line);
+  }
+  .sticker .art {
+    width: 62px;
+    height: 70px;
+  }
+  .slide {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    padding: 12px;
+    border-radius: 10px;
+    background: #0b0c0e;
+    color: #fff;
+    font: 600 13px/1.2 var(--display);
+  }
+  .slide .art {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    width: 34px;
+    height: 38px;
+  }
+  .mail {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: #14161a;
+    font-size: 11px;
+  }
+  .mail .mail__t {
+    display: block;
+    margin: 0;
+    font-size: 11px;
+  }
+  .mail .art {
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    width: 26px;
+    height: 30px;
+  }
+  @media (max-width: 720px) {
+    .dmp-grid,
+    .dmp-brand {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .dmp-hero,
+    .dmp-cmd {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
