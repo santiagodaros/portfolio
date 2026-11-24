@@ -62,6 +62,8 @@ Cuánto cuestan depende del tipo de política:
 - **Standard:** los snapshots son incrementales. Se pagan los cambios de cada día por la cantidad de días que los guardás.
 - **Enhanced:** el primer snapshot es una copia completa del disco y los siguientes son incrementales. Por eso el mismo número de días cuesta más. <sup><a href="#ref-1">[1]</a></sup>
 
+Los días también tienen tope: Standard permite de 1 a 5 y Enhanced, de 1 a 30. Una política con 7 a 14 días de snapshots solo puede ser Enhanced. <sup><a href="#ref-1">[1]</a></sup>
+
 En la práctica, el caso más común es "alguien borró algo ayer". Para eso alcanzan uno o dos días de snapshots. Los puntos más viejos siguen existiendo en el vault: la restauración tarda más, pero está.
 
 ## El diseño: tres niveles, sin migrar nada

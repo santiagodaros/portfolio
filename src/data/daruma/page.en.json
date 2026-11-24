@@ -46,7 +46,7 @@
       ["/cost", "Calculates what an outage costs you from your revenue per hour and your RTO."],
       ["/rpo", "Three questions to estimate your real RPO."],
       ["/kql backups", "Gives you the query from the guide, ready to copy."],
-      ["/chaos", "Knocks the page down and brings it back up. Chaos engineering, portfolio edition."],
+      ["/chaos", "Knocks the page down, tells you what is happening and brings it back up. Chaos engineering, portfolio edition."],
       ["?", "From anywhere on the site, starts the guided tour."]
     ]
   },

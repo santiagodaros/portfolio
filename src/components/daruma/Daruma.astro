@@ -262,6 +262,31 @@ const endpoint = formId ? `https://app.kit.com/forms/${formId}/subscriptions` : 
     pointer-events: auto;
     transition-delay: 0s;
   }
+  /* Narración del incidente simulado (/caos) */
+  .dm__bubble .dm__line {
+    display: block;
+    font: 12px/1.5 var(--mono);
+    color: var(--muted);
+  }
+  .dm__bubble .dm__line .ok {
+    color: var(--ok);
+  }
+  .dm__bubble .dm__line .bad {
+    color: #b42323;
+  }
+  :root[data-theme='dark'] .dm__bubble .dm__line .bad {
+    color: #ff8a8a;
+  }
+  .dm__bubble .dm__say {
+    display: block;
+    margin-top: 4px;
+  }
+  .dm__bubble .dm__skip {
+    display: block;
+    margin-top: 6px;
+    font: 11px/1 var(--mono);
+    color: var(--muted);
+  }
   .dm__bubble .act {
     display: inline-block;
     margin-top: 7px;

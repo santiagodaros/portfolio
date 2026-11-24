@@ -46,7 +46,7 @@
       ["/costo", "Calcula cuánto te cuesta una caída según tu ingreso por hora y tu RTO."],
       ["/rpo", "Tres preguntas para estimar tu RPO real."],
       ["/kql backups", "Te da la consulta de la guía, lista para copiar."],
-      ["/caos", "Tira la página abajo y la levanta. Chaos engineering, versión portfolio."],
+      ["/caos", "Tira la página abajo, te cuenta qué pasa y la levanta. Chaos engineering, versión portfolio."],
       ["?", "Desde cualquier parte del sitio, arranca el recorrido guiado."]
     ]
   },

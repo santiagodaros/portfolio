@@ -169,7 +169,6 @@ const projects = defineCollection({
     /** Orden visual: el destacado primero, después el mosaico. */
     order: z.number(),
     /** lg: tarjeta alta (7/12 y 5/12 de ancho), md: 4/12, wide: fila completa. */
-    size: z.enum(['lg', 'md', 'wide']),
     featured: z.boolean().default(false),
     kind: z.string(),
     status: z.string(),

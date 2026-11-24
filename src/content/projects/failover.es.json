@@ -2,7 +2,6 @@
   "id": "failover",
   "lang": "es",
   "order": 1,
-  "size": "lg",
   "featured": false,
   "kind": "Recuperación ante desastres · Readymind",
   "status": "En uso",

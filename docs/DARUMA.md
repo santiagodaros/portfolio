@@ -150,10 +150,12 @@ También entiende lenguaje natural: "¿cuánto cuesta una caída?", "consulta kq
 
 ## 10. Chaos engineering
 
-- Disparadores: `/caos`, escribir "caos" fuera de un input, o el panel de prueba.
-- Las tarjetas visibles se caen. Daruma registra el incidente ("00:00 caída general detectada") y las levanta en 3 grupos ("✓ 00:01 grupo 1 en línea"…).
-- Cierra con "De pie en 4 s." y un link a la prueba real.
-- Con `prefers-reduced-motion`, solo el registro, sin animación.
+- Disparadores: `/caos`, escribir "caos" (o "chaos") fuera de un input, o el panel de prueba.
+- Las tarjetas visibles se caen y Daruma narra el incidente en la burbuja, una línea cada ~3 s, con la página caída: caída detectada, incidente declarado (un solo canal, una persona coordinando) y failover a la región secundaria.
+- Después levanta las tarjetas en 3 grupos con el orden de un plan real: identidad, bases de datos, aplicaciones (el mismo del proyecto de la prueba automatizada). Todo el texto sale de `chaos` en `ui.<lang>.json`.
+- Cierra con "De pie en N s." (el tiempo real que tardó) y un link a la prueba real. **Esc** la saltea y deja todo en pie al instante.
+- Mientras dura, Daruma no dice nada más (ni saludos ni avisos).
+- Con `prefers-reduced-motion`, solo la narración, sin animación.
 
 ## 11. Página `/daruma`
 
