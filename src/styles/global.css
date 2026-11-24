@@ -434,8 +434,9 @@ p {
   transform: translateX(2px);
 }
 
-/* En pantallas muy angostas (≤359 px) la nav solo muestra la marca: el nombre sigue en el aria-label */
-@media (max-width: 359px) {
+/* En pantallas angostas (≤374 px) la nav solo muestra la marca: el nombre sigue en el aria-label.
+   Con el nombre, logo + 4 botones necesitan 375 px: a 360 sobresalían 15 px. */
+@media (max-width: 374px) {
   .logo--nav .logo__text {
     display: none;
   }
