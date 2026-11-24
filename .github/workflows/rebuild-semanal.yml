@@ -1,0 +1,37 @@
+# Reconstruye el sitio una vez por semana.
+#
+# Por qué: los contadores de "últimos 12 meses" de /comunidad, /estado y Daruma se calculan al construir el
+# sitio. Si pasan semanas sin ningún deploy, los números y la ventana de 12 meses se desactualizan.
+#
+# Cómo: dispara un Deploy Hook de Vercel. Hay que configurarlo una vez (ver CLAUDE.md, "Despliegue"):
+#   1. Vercel > proyecto > Settings > Git > Deploy Hooks: crear uno para la rama `main`.
+#   2. GitHub > Settings > Secrets and variables > Actions: guardar su URL como `VERCEL_DEPLOY_HOOK_URL`.
+# Mientras el secreto no exista, el job avisa y termina sin error (no hay nada que reconstruir por afuera).
+#
+# También se puede correr a mano: Actions > "Reconstruir el sitio" > Run workflow.
+
+name: Reconstruir el sitio
+
+on:
+  schedule:
+    # Lunes 09:00 UTC (06:00 en Buenos Aires)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Disparar el deploy en Vercel
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::Falta el secreto VERCEL_DEPLOY_HOOK_URL: no se reconstruyó el sitio. Ver CLAUDE.md, sección Despliegue."
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 30 -X POST "$HOOK" > /dev/null
+          echo "Deploy disparado en Vercel."
