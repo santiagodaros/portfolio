@@ -19,9 +19,9 @@ const es = {
   },
   kinds: {
     article: 'Artículo',
-    extended: 'Versión extendida',
     post: 'Post en LinkedIn ↗',
   },
+  extendedLink: 'Versión extendida →',
   featuredMeta: (min: number) => `Versión extendida · ${min} min`,
   article: {
     back: '← Volver al blog',
@@ -59,10 +59,11 @@ const en: typeof es = {
   },
   kinds: {
     article: 'Article',
-    extended: 'Extended version',
     // mío
     post: 'LinkedIn post ↗',
   },
+  // mío
+  extendedLink: 'Extended version →',
   featuredMeta: (min: number) => `Extended version · ${min} min`,
   article: {
     back: '← Back to the blog',

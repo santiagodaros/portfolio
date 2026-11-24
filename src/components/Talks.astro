@@ -31,7 +31,17 @@ const t = home[lang].talks;
             <div class="talk__body">
               <h3>{x.title}</h3>
               <p>{x.text}</p>
-              <p class="talk__meta">{x.meta}</p>
+              <p class="talk__meta">
+                {x.meta}
+                {x.community && (
+                  <>
+                    {' · '}
+                    <a href={x.community.url} target="_blank" rel="noopener">
+                      {x.community.label}
+                    </a>
+                  </>
+                )}
+              </p>
               <div class="tags">{x.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
               <a class="talk__link" href={x.url} target="_blank" rel="noopener">{x.link}</a>
             </div>
@@ -112,6 +122,11 @@ const t = home[lang].talks;
   }
   .talk__body .talk__meta {
     font-size: 14px;
+  }
+  .talk__meta a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .talk__link {
     margin-top: auto;

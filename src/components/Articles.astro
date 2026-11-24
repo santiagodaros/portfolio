@@ -15,8 +15,12 @@ const guide = home[lang].guide;
 const kqlFile = `/recursos/${kqlFileName[lang]}`;
 const featured = await getFeaturedArticle(lang);
 const items = await getBlogIndex(lang);
-// En la home: los artículos propios y los 3 posts más recientes (la versión extendida va en el destacado)
-const list = [...items.filter((i) => i.kind === 'article'), ...items.filter((i) => i.kind === 'post').slice(0, 3)];
+// En la home: los demás artículos propios (el destacado ya tiene su tarjeta) y los 3 posts más recientes
+const featuredHref = featured ? articleHref(featured) : '';
+const list = [
+  ...items.filter((i) => i.kind === 'article' && i.href !== featuredHref),
+  ...items.filter((i) => i.kind === 'post').slice(0, 3),
+];
 // Texto grande de la portada: el título hasta los dos puntos
 const coverTitle = featured?.data.title.split(':')[0];
 ---
@@ -44,6 +48,7 @@ const coverTitle = featured?.data.title.split(':')[0];
             <div class="post__body">
               <div class="post__meta">
                 <span class="tag">{featured.data.category}</span>
+                <span>{formatDate(featured.data.date, lang)}</span>
                 <span>{t.featuredMeta(getReadingTime(featured.body))}</span>
               </div>
               <h3>{featured.data.title}</h3>

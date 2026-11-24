@@ -27,18 +27,13 @@ const es = {
     rows: [
       { name: 'Azure e identidad', state: 'Operativo', tone: 'ok', note: '6 certificaciones activas' },
       { name: 'Producto', state: 'Operativo', tone: 'ok', note: '5 herramientas en uso' },
-      { name: 'Blog', state: 'Operativo', tone: 'ok', note: 'Un artículo por semana' },
+      { name: 'Blog', state: 'Operativo', tone: 'ok', note: 'Un post por semana en LinkedIn' },
       { name: 'Charlas', state: 'Operativo', tone: 'ok', note: 'Próxima sesión en 2027' },
       { name: 'SC-100', state: 'Mantenimiento programado', tone: 'maint', note: 'Examen antes de fin de año' },
     ],
     resolved: {
       title: 'Incidentes resueltos',
       items: [
-        {
-          time: 'Octubre 2026',
-          title: 'Primer hackatón, con un día de plazo',
-          text: 'Causa: no había producto. Solución: Belo Business, construida en equipo sobre la API de Belo y presentada en vivo. Yo propuse el rendimiento en USDT hasta el vencimiento y armé el motor de reglas.',
-        },
         {
           time: '2026',
           title: 'Licencias pagas sin asignar en toda la cartera',
@@ -70,10 +65,10 @@ const es = {
     lead: 'Todo lo que necesitás para presentarme en tu evento: bio, fotos, temas y formatos. Charlas en español; en inglés, a coordinar.',
     shortBioTitle: 'Bio corta',
     shortBio:
-      'Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región.',
+      'Santiago Da Ros es Cloud Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región.',
     longBioTitle: 'Bio larga',
     longBio:
-      'Santiago Da Ros es Cloud & Product Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región. Trabaja en identidad, gobernanza, FinOps y recuperación ante desastres, y diseñó una prueba automatizada de recuperación ante desastres que hoy usa su equipo. Tiene seis certificaciones de Microsoft, entre ellas AZ-305 y AZ-400, y habló en Fabric Day con la comunidad Microsoft Speakers Hub en Español. Sus charlas muestran el trabajo funcionando, con demos en vivo.',
+      'Santiago Da Ros es Cloud Engineer en una consultora partner de Microsoft en Buenos Aires. Construye productos internos y automatizaciones sobre Azure para clientes corporativos de Latinoamérica, y escribe cada semana para líderes de IT de la región. Trabaja en identidad, gobernanza, FinOps y recuperación ante desastres, y diseñó una prueba automatizada de recuperación ante desastres que hoy usa su equipo. Tiene seis certificaciones de Microsoft, entre ellas AZ-305 y AZ-400, y habló en Fabric Day con la comunidad Microsoft Speakers Hub en Español. Sus charlas muestran el trabajo funcionando, con demos en vivo.',
     copyBio: 'Copiar bio',
     copied: 'Copiado',
     copyFail: 'Seleccioná y copiá',
@@ -139,18 +134,13 @@ const en: typeof es = {
     rows: [
       { name: 'Azure and identity', state: 'Operational', tone: 'ok', note: '6 active certifications' },
       { name: 'Product', state: 'Operational', tone: 'ok', note: '5 tools in use' },
-      { name: 'Blog', state: 'Operational', tone: 'ok', note: 'One article a week' },
+      { name: 'Blog', state: 'Operational', tone: 'ok', note: 'A LinkedIn post every week' },
       { name: 'Talks', state: 'Operational', tone: 'ok', note: 'Next session in 2027' },
       { name: 'SC-100', state: 'Scheduled maintenance', tone: 'maint', note: 'Exam before the end of the year' },
     ],
     resolved: {
       title: 'Resolved incidents',
       items: [
-        {
-          time: 'October 2026',
-          title: 'First hackathon, with one day to deliver',
-          text: "Cause: there was no product. Fix: Belo Business, built as a team on Belo's API and presented live. I proposed the USDT yield until the due date and built the rules engine.",
-        },
         {
           time: '2026',
           title: 'Paid licenses left unassigned across the whole portfolio',
@@ -182,10 +172,10 @@ const en: typeof es = {
     lead: 'Everything you need to introduce me at your event: bio, photos, topics and formats. Talks in Spanish; in English, to be arranged.',
     shortBioTitle: 'Short bio',
     shortBio:
-      'Santiago Da Ros is a Cloud & Product Engineer at a Microsoft partner consultancy in Buenos Aires. They build internal products and automations on Azure for enterprise clients across Latin America, and write every week for IT leaders in the region.',
+      'Santiago Da Ros is a Cloud Engineer at a Microsoft partner consultancy in Buenos Aires. He builds internal products and automations on Azure for enterprise clients across Latin America, and writes every week for IT leaders in the region.',
     longBioTitle: 'Long bio',
     longBio:
-      'Santiago Da Ros is a Cloud & Product Engineer at a Microsoft partner consultancy in Buenos Aires. They build internal products and automations on Azure for enterprise clients across Latin America, and write every week for IT leaders in the region. They work on identity, governance, FinOps and disaster recovery, and designed an automated disaster recovery test that their team uses today. They hold six Microsoft certifications, including AZ-305 and AZ-400, and spoke at Fabric Day with the Microsoft Speakers Hub en Español community. Their talks show the work running, with live demos.',
+      'Santiago Da Ros is a Cloud Engineer at a Microsoft partner consultancy in Buenos Aires. He builds internal products and automations on Azure for enterprise clients across Latin America, and writes every week for IT leaders in the region. He works on identity, governance, FinOps and disaster recovery, and designed an automated disaster recovery test that his team uses today. He holds six Microsoft certifications, including AZ-305 and AZ-400, and spoke at Fabric Day with the Microsoft Speakers Hub en Español community. His talks show the work running, with live demos.',
     copyBio: 'Copy bio',
     copied: 'Copied',
     copyFail: 'Select and copy',

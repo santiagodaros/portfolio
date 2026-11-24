@@ -27,20 +27,29 @@ const items = await getBlogIndex(lang);
     <div class="index">
       {
         items.map((i) => (
-          <a
-            class="index__item"
-            href={i.href}
-            {...(i.external ? { target: '_blank', rel: 'noopener' } : {})}
-            {...(i.inSpanish ? { hreflang: 'es' } : {})}
-          >
+          <article class="index__item">
             <div class="meta">
               <span class="tag">{tagLabel(i.tag, lang)}</span>
               <span>{formatDate(i.date, lang)}</span>
               <span>{t.kinds[i.kind]}</span>
             </div>
-            <h2>{i.title}</h2>
+            <h2>
+              <a
+                class="index__link"
+                href={i.href}
+                {...(i.external ? { target: '_blank', rel: 'noopener' } : {})}
+                {...(i.inSpanish ? { hreflang: 'es' } : {})}
+              >
+                {i.title}
+              </a>
+            </h2>
             <p class="muted">{i.summary}</p>
-          </a>
+            {i.extended && (
+              <a class="link index__ext" href={i.extended.href} {...(i.inSpanish ? { hreflang: 'es' } : {})}>
+                {t.extendedLink}
+              </a>
+            )}
+          </article>
         ))
       }
     </div>
@@ -59,12 +68,27 @@ const items = await getBlogIndex(lang);
     margin: 40px 0 96px;
   }
   .index__item {
+    position: relative;
     display: grid;
     gap: 8px;
     padding: 28px 0;
     border-bottom: 1px solid var(--line);
     color: var(--ink);
+  }
+  /* Toda la fila es clickeable (enlace estirado), con un link secundario aparte */
+  .index__link {
+    color: inherit;
     text-decoration: none;
+  }
+  .index__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .index__ext {
+    position: relative;
+    z-index: 1;
+    justify-self: start;
   }
   .meta {
     display: flex;
@@ -82,7 +106,8 @@ const items = await getBlogIndex(lang);
     line-height: 1.2;
     transition: color 0.15s;
   }
-  .index__item:hover h2 {
+  .index__item:hover h2,
+  .index__link:focus-visible {
     color: var(--accent);
   }
 </style>
