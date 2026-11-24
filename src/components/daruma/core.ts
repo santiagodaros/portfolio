@@ -282,7 +282,7 @@ export function bubble(text: string, act?: Act) {
 }
 /** Habla solo si no molesta: máx. 7 por visita, separados 16 s, y nunca con el panel, el recorrido o un modal abiertos. */
 export function say(text: string, act?: Act | null, o: { force?: boolean; user?: boolean } = {}) {
-  if (panel.classList.contains('on') || S.tour || quiet()) return false;
+  if (panel.classList.contains('on') || S.tour || S.chaos || quiet()) return false;
   if (muted && !o.user) return false;
   if (!o.force) {
     if (V.said >= 7 || Date.now() - V.last < 16000) return false;

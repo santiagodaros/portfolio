@@ -277,6 +277,18 @@ const csvName = csvFileName[lang];
       });
     }
 
+    // Pedido de afuera (el recorrido de Daruma): que una tarjeta escondida por el límite, la pestaña o el filtro se vea.
+    feed.addEventListener('feed:reveal', (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-feed-item]');
+      if (!el || !el.hidden) return;
+      tab = 'all';
+      area = '';
+      expanded = true;
+      tabLinks.forEach((x) => (x.dataset.tabLink === 'all' ? x.setAttribute('aria-current', 'page') : x.removeAttribute('aria-current')));
+      areaBtns.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.area === '')));
+      render();
+    });
+
     areaBtns.forEach((b) =>
       b.addEventListener('click', () => {
         area = b.dataset.area ?? '';

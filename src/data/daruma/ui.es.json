@@ -198,9 +198,18 @@
   },
   "chaos": {
     "tag": "Incidente simulado",
-    "start": "● 00:00 caída general detectada",
-    "up": "✓ 00:0{k} grupo {k} en línea",
-    "done": "<b>De pie en 4 s.</b> Así se ve una recuperación ensayada.",
+    "skip": "Esc para saltear",
+    "steps": [
+      { "log": "<span class=\"bad\">●</span> 00:00 caída general detectada", "say": "Se cayó todo. Primero confirmo qué está caído, sin tocar nada a ciegas." },
+      { "log": "00:01 incidente declarado", "say": "Declaro el incidente: un solo canal y una persona coordinando, para no pisarnos." },
+      { "log": "00:02 failover a la región secundaria", "say": "Paso a la región secundaria, con copias al día según el RPO acordado." }
+    ],
+    "up": [
+      { "log": "<span class=\"ok\">✓</span> 00:03 grupo 1 en línea · identidad", "say": "Primero la identidad: sin ella nadie inicia sesión." },
+      { "log": "<span class=\"ok\">✓</span> 00:04 grupo 2 en línea · bases de datos", "say": "Después las bases de datos, antes que las apps que las usan." },
+      { "log": "<span class=\"ok\">✓</span> 00:05 grupo 3 en línea · aplicaciones", "say": "Al final las aplicaciones, con identidad y datos ya esperándolas." }
+    ],
+    "done": "<b>De pie en {s} s.</b> Así se ve una recuperación ensayada: cada grupo en su orden, sin improvisar. Las sorpresas aparecen en la prueba, no en la caída real.",
     "act": "Ver la prueba real"
   },
   "fact": { "tag": "Dato" },

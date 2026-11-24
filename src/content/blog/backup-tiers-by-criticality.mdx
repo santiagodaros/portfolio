@@ -62,6 +62,8 @@ How much they cost depends on the policy type:
 - **Standard:** snapshots are incremental. You pay for each day's changes, for as many days as you keep them.
 - **Enhanced:** the first snapshot is a full copy of the disk and the next ones are incremental. That's why the same number of days costs more. <sup><a href="#ref-1">[1]</a></sup>
 
+The number of days is capped too: Standard allows 1 to 5 and Enhanced, 1 to 30. A policy with 7 to 14 days of snapshots can only be Enhanced. <sup><a href="#ref-1">[1]</a></sup>
+
 In practice, the most common case is "someone deleted something yesterday". One or two days of snapshots are enough for that. Older points still exist in the vault: the restore takes longer, but it's there.
 
 ## The design: three tiers, no migration

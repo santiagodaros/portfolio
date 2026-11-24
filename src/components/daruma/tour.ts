@@ -54,7 +54,9 @@ function show() {
   const st = T.steps[T.i];
   let el = document.querySelector(st.sel);
   if (el && st.up) el = el.closest(st.up) || el;
-  if (!el) return next();
+  // Una tarjeta del feed puede estar escondida (límite de la home, otra pestaña, filtro): se pide que se muestre.
+  if (el && !el.getClientRects().length) el.dispatchEvent(new CustomEvent('feed:reveal', { bubbles: true }));
+  if (!el || !el.getClientRects().length) return next();
   T.el = el;
   T.shown++;
   const r = el.getBoundingClientRect();

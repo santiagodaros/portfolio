@@ -69,8 +69,8 @@ async function boot() {
   let seq = '';
   addEventListener('keydown', (e) => {
     if (/input|textarea|select/i.test((e.target as HTMLElement).tagName || '') || e.key.length !== 1) return;
-    seq = (seq + e.key.toLowerCase()).slice(-4);
-    if (seq === 'caos') void import('./chaos').then((m) => m.chaos());
+    seq = (seq + e.key.toLowerCase()).slice(-5);
+    if (seq.endsWith('caos') || seq === 'chaos') void import('./chaos').then((m) => m.chaos());
   });
 
   /* primera visita: bienvenida (si llegó por un link directo, espera a que vuelva a la home) */

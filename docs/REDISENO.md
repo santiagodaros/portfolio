@@ -57,7 +57,7 @@ El repo usa Tailwind. Para no perder fidelidad:
 
 ### Datos de proyectos
 
-Creá una collection `projects` (`src/content/projects/*.json`) con: `id`, `order`, `size` (`lg` | `md` | `wide`), `kind`, `status`, `title`, `summary`, `metric`, `tags`, `lead`, `kpis[]`, `problem`, `idea`, `change`, `role`, `links[]`, `lang`. El contenido en español está en las tarjetas y en los `<section class="drawer">` del prototipo; el inglés, en el objeto `EN`.
+Creá una collection `projects` (`src/content/projects/*.json`) con: `id`, `order`, `kind`, `status`, `title`, `summary`, `metric`, `tags`, `lead`, `kpis[]`, `problem`, `idea`, `change`, `role`, `links[]`, `lang`. El contenido en español está en las tarjetas y en los `<section class="drawer">` del prototipo; el inglés, en el objeto `EN`.
 
 Proyectos: Portal CSP (destacado), Prueba automatizada de recuperación, Auditoría de Azure y M365, DR Live, Gobernanza como código, Backups por nivel y **ai-env** (propio, open source: https://github.com/santiagodaros/ai-env). **Llavi no se muestra.**
 

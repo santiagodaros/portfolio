@@ -198,9 +198,18 @@
   },
   "chaos": {
     "tag": "Simulated incident",
-    "start": "● 00:00 general outage detected",
-    "up": "✓ 00:0{k} group {k} online",
-    "done": "<b>Back up in 4 s.</b> This is what a rehearsed recovery looks like.",
+    "skip": "Esc to skip",
+    "steps": [
+      { "log": "<span class=\"bad\">●</span> 00:00 general outage detected", "say": "Everything is down. First I confirm what is down, without touching anything blindly." },
+      { "log": "00:01 incident declared", "say": "I declare the incident: one channel and one person coordinating, so we do not step on each other." },
+      { "log": "00:02 failover to the secondary region", "say": "I switch to the secondary region, with copies as fresh as the agreed RPO." }
+    ],
+    "up": [
+      { "log": "<span class=\"ok\">✓</span> 00:03 group 1 online · identity", "say": "Identity first: without it nobody can sign in." },
+      { "log": "<span class=\"ok\">✓</span> 00:04 group 2 online · databases", "say": "Then the databases, before the apps that use them." },
+      { "log": "<span class=\"ok\">✓</span> 00:05 group 3 online · applications", "say": "Applications last, with identity and data already waiting for them." }
+    ],
+    "done": "<b>Back up in {s} s.</b> This is what a rehearsed recovery looks like: each group in its order, no improvising. Surprises show up in the test, not in the real outage.",
     "act": "See the real test"
   },
   "fact": { "tag": "Fact" },
