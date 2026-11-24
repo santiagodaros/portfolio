@@ -1,9 +1,7 @@
 /* Tokens, base y primitivas del rediseño. Fuente de verdad: design/prototype/index.html.
    Las fuentes (Geist y Geist Mono) se importan en Layout.astro desde @fontsource-variable. */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './reset.css';
 
 /* ── Tokens: claro (por defecto) ── */
 :root {
@@ -84,42 +82,41 @@
   }
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-    /* Altura de la nav (64px) más aire, para que los anchors no queden tapados */
-    scroll-padding-top: 88px;
-  }
+/* Base. Sin `@layer`: una capa nativa perdería contra el reset, que no está en ninguna capa. */
+html {
+  scroll-behavior: smooth;
+  /* Altura de la nav (64px) más aire, para que los anchors no queden tapados */
+  scroll-padding-top: 88px;
+}
 
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 400 16px/1.6 var(--text);
-    -webkit-font-smoothing: antialiased;
-    transition:
-      background 0.2s,
-      color 0.2s;
-  }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.6 var(--text);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--display);
-    font-weight: var(--display-weight);
-    margin: 0;
-    letter-spacing: var(--track);
-  }
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: var(--display-weight);
+  margin: 0;
+  letter-spacing: var(--track);
+}
 
-  p {
-    margin: 0;
-  }
+p {
+  margin: 0;
+}
 
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 6px;
-  }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* ── Primitivas compartidas ── */
