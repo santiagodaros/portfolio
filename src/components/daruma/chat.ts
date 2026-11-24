@@ -142,7 +142,7 @@ function fall() {
       body.scrollTop = body.scrollHeight;
     }, t)
   );
-  (document.querySelector('.pulse__btn') as HTMLButtonElement | null)?.click();
+  document.querySelector('.pulse')?.dispatchEvent(new CustomEvent('pulse:quick')); // la versión corta: acá el que narra es el panel
   setTimeout(() => {
     release(-4);
     root.classList.remove('surprised');

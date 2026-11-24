@@ -154,6 +154,7 @@ También entiende lenguaje natural: "¿cuánto cuesta una caída?", "consulta kq
 - Las tarjetas visibles se caen y Daruma narra el incidente en la burbuja, una línea cada ~3 s, con la página caída: caída detectada, incidente declarado (un solo canal, una persona coordinando) y failover a la región secundaria.
 - Después levanta las tarjetas en 3 grupos con el orden de un plan real: identidad, bases de datos, aplicaciones (el mismo del proyecto de la prueba automatizada). Todo el texto sale de `chaos` en `ui.<lang>.json`.
 - Cierra con "De pie en N s." (el tiempo real que tardó) y un link a la prueba real. **Esc** la saltea y deja todo en pie al instante.
+- El botón "Simular una caída" de la home corre este mismo incidente: la barra de incidente sigue a Daruma (detección, failover y recuperación) y muestra el tiempo real. Sin Daruma cargado, o cuando lo dispara el panel ("Tirame abajo"), usa la versión corta de 1,8 s. El gancho es `window.darumaChaos`; `Pulse.astro` no importa nada de Daruma.
 - Mientras dura, Daruma no dice nada más (ni saludos ni avisos).
 - Con `prefers-reduced-motion`, solo la narración, sin animación.
 
