@@ -1,0 +1,9 @@
+{
+  "title": "Estás pagando backups de producción para servidores de prueba",
+  "date": "2026-11-25",
+  "publishAt": "2026-11-25T12:00:00-03:00",
+  "tag": "FinOps",
+  "summary": "Dos auditorías de Azure Backup con el mismo problema: todos los servidores valían lo mismo para la política. Tres niveles de criticidad, sin migrar vaults, y el ahorro que paga lo que faltaba. Con video de Daruma.",
+  "area": "finops",
+  "articleSlug": "backups-por-nivel-de-criticidad"
+}

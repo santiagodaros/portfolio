@@ -77,6 +77,12 @@
       "proj": "p-auditoria"
     },
     {
+      "k": ["snapshot", "snapshots", "instant restore"],
+      "a": "Azure Backup <b>instant restore</b> snapshots are kept next to the disks so a recent mistake can be restored in minutes. They are billed separately from the vault: with a Standard policy they are incremental; with Enhanced, the first one is a full copy. For the most common case, an error from yesterday, 1 or 2 days are enough.",
+      "art": "art-backups",
+      "proj": "p-backups"
+    },
+    {
       "k": ["finops", "cloud financial management"],
       "a": "<b>FinOps</b> is the practice of managing cloud cost as a shared responsibility among engineering, finance and the business.",
       "proj": "p-backups"
@@ -105,6 +111,10 @@
     "art-archivo": {
       "t": "Smart storage: cutting costs by archiving old data",
       "k": ["smart storage", "storage article", "article about storage", "article on storage", "archive article", "article about archive", "article on archive"]
+    },
+    "art-backups": {
+      "t": "You are paying production backup prices for test servers",
+      "k": ["backups article", "backup article", "article about backups", "article on backups", "article about snapshots", "article on snapshots", "article about backup tiers", "article about criticality", "paying for production backups"]
     }
   }
 }

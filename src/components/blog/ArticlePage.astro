@@ -249,6 +249,24 @@ const editUrl = `https://github.com/santiagodaros/portfolio/edit/main/src/conten
     height: 100%;
     background: var(--accent);
   }
+  /* Video del artículo (formato vertical): angosto y centrado */
+  .prose :global(figure) {
+    margin: 32px 0;
+  }
+  .prose :global(.article-video) {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin-inline: auto;
+    border-radius: 12px;
+  }
+  .prose :global(figcaption) {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
   .reader__img {
     display: block;
     width: 100%;

@@ -47,7 +47,8 @@
     ],
     "p-backups": [
       "Azure Backup instant restore snapshots are billed separately from the vault: retaining them for too long raises the cost without speeding up recovery much.",
-      "Geo-redundant vault storage costs more than local redundancy, but it's the one that lets you restore in another region."
+      "Geo-redundant vault storage costs more than local redundancy, but it's the one that lets you restore in another region.",
+      "Reassigning a VM to another policy in the same vault keeps its recovery points. Moving it to another vault means protecting it again and paying twice while the old retention lasts."
     ],
     "p-aienv": [
       "A language model can give two different answers to the same instruction. That's why ai-env validates every output before running anything."

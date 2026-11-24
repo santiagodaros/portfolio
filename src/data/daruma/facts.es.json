@@ -47,7 +47,8 @@
     ],
     "p-backups": [
       "Los snapshots de restauración instantánea de Azure Backup se cobran aparte del vault: retenerlos de más encarece sin acelerar mucho la recuperación.",
-      "La redundancia geográfica del vault cuesta más que la local, pero es la que permite restaurar en otra región."
+      "La redundancia geográfica del vault cuesta más que la local, pero es la que permite restaurar en otra región.",
+      "Reasignar una VM a otra política del mismo vault conserva sus puntos de recuperación. Moverla de vault obliga a protegerla de nuevo y a pagar doble mientras dura la retención vieja."
     ],
     "p-aienv": [
       "Un modelo de lenguaje puede dar dos respuestas distintas a la misma instrucción. Por eso ai-env valida cada salida antes de ejecutar nada."

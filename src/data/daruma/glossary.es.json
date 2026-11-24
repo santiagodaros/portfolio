@@ -77,6 +77,12 @@
       "proj": "p-auditoria"
     },
     {
+      "k": ["snapshot", "snapshots", "instant restore", "restauracion instantanea"],
+      "a": "Los snapshots de <b>restauración instantánea</b> de Azure Backup se guardan junto a los discos para restaurar en minutos un error reciente. Se cobran aparte del vault: con política Standard son incrementales; con Enhanced, el primero es una copia completa. Para el caso más común, un error de ayer, alcanzan 1 o 2 días.",
+      "art": "art-backups",
+      "proj": "p-backups"
+    },
+    {
       "k": ["finops"],
       "a": "<b>FinOps</b> es la práctica de gestionar el costo de la nube como una responsabilidad compartida entre ingeniería, finanzas y negocio.",
       "proj": "p-backups"
@@ -105,6 +111,10 @@
     "art-archivo": {
       "t": "Almacenamiento inteligente",
       "k": ["almacenamiento inteligente", "articulo de almacenamiento", "articulo de archive"]
+    },
+    "art-backups": {
+      "t": "Estás pagando backups de producción para servidores de prueba",
+      "k": ["articulo de backups", "articulo de backup", "articulo de snapshots", "articulo de niveles", "articulo de criticidad", "pagando backups de produccion"]
     }
   }
 }
