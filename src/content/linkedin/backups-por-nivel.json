@@ -4,6 +4,7 @@
   "publishAt": "2026-11-25T12:00:00-03:00",
   "tag": "FinOps",
   "summary": "Dos auditorías de Azure Backup con el mismo problema: todos los servidores valían lo mismo para la política. Tres niveles de criticidad, sin migrar vaults, y el ahorro que paga lo que faltaba. Con video de Daruma.",
+  "url": "https://www.linkedin.com/posts/santiagodaros_azure-azurebackup-finops-ugcPost-7531019769442111488-zW-W/",
   "area": "finops",
   "articleSlug": "backups-por-nivel-de-criticidad"
 }
