@@ -155,6 +155,11 @@ const es = {
     photoAlt: 'Retrato de Santiago Da Ros en la oficina de Readymind',
     timeline: [
       {
+        time: '2027',
+        title: 'Lic. en Gestión de Tecnología de la Información · UADE',
+        text: 'Antes, Ciencias de la Computación en la UBA.',
+      },
+      {
         time: 'Octubre 2026',
         title: 'Agentic Banking Buildathon · Belo',
         text: 'Primer hackatón: Belo Business, la idea de rendimiento en USDT, el motor de reglas y la demo en vivo.',
@@ -168,11 +173,6 @@ const es = {
         time: 'Mayo – octubre 2025',
         title: 'Programa de formación Cloud · Readymind',
         text: 'Infraestructura en Azure, automatización y datos.',
-      },
-      {
-        time: '2027',
-        title: 'Lic. en Gestión de Tecnología de la Información · UADE',
-        text: 'Antes, Ciencias de la Computación en la UBA.',
       },
     ],
   },
@@ -328,6 +328,11 @@ const en: typeof es = {
     photoAlt: 'Portrait of Santiago Da Ros at the Readymind office',
     timeline: [
       {
+        time: '2027',
+        title: 'B.Sc. in IT Management · UADE',
+        text: 'Previously, Computer Science at UBA.',
+      },
+      {
         time: 'October 2026',
         title: 'Agentic Banking Buildathon · Belo',
         text: 'First hackathon: Belo Business, the USDT yield idea, the rules engine and the live demo.',
@@ -341,11 +346,6 @@ const en: typeof es = {
         time: 'May – October 2025',
         title: 'Cloud training program · Readymind',
         text: 'Azure infrastructure, automation and data.',
-      },
-      {
-        time: '2027',
-        title: 'B.Sc. in IT Management · UADE',
-        text: 'Previously, Computer Science at UBA.',
       },
     ],
   },
