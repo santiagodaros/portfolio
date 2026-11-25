@@ -16,6 +16,11 @@ export function estaPublicado(data: Programable): boolean {
   return !data.draft && (!data.publishAt || data.publishAt <= ahora());
 }
 
+/** Cuándo salió: la hora programada si la tiene (`date` es solo el día, y como medianoche UTC caería un día antes en Argentina). */
+export function fechaDeSalida(data: { date: Date; publishAt?: Date }): Date {
+  return data.publishAt ?? data.date;
+}
+
 /** Está programado para más adelante: se muestra como "Próximamente". */
 export function esProximo(data: Programable): boolean {
   return !data.draft && !!data.publishAt && data.publishAt > ahora();
