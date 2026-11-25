@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Portadas de la sección Comunidad</title>
+<!-- Fuente de las portadas de public/img/feed/*.webp. Se abre con ?s=<escena>; build.mjs las exporta una por una. -->
+<style>
+@font-face { font-family: Geist; font-weight: 100 900; src: url('../../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2'); }
+@font-face { font-family: 'Geist Mono'; font-weight: 100 900; src: url('../../node_modules/@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2'); }
+:root { --bg:#0b0c0e; --panel:#15171b; --line:#2b2e35; --ink:#eceef2; --muted:#8b93a0; --blue:#7480ff; --blue2:#4f5bf0; --red:#ef4444; --green:#1ec28b; --amber:#f2b04a; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); }
+body { font-family: Geist, system-ui, sans-serif; color: var(--ink); }
+.scene { display: none; position: relative; width: 1600px; height: 560px; overflow: hidden; background: var(--bg); }
+.scene.talk { width: 1280px; height: 720px; }
+.scene.on { display: block; }
+.mono { font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+.abs { position: absolute; }
+svg { position: absolute; inset: 0; }
+.tile { position: absolute; background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+.tile .k { font: 500 15px 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tile .v { font-size: 30px; font-weight: 600; margin-top: 4px; letter-spacing: -.01em; }
+.tile.c { display: flex; flex-direction: column; justify-content: center; }
+.cap { position: absolute; font: 500 21px 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+.big { position: absolute; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+.glow-l { background: radial-gradient(900px 500px at 8% 50%, rgba(79,91,240,.28), transparent 70%); }
+.glow-r { background: radial-gradient(900px 500px at 92% 50%, rgba(239,68,68,.20), transparent 70%); }
+</style>
+</head>
+<body>
+
+<!-- 1 · La punta del iceberg (charla, 16:9) -->
+<div class="scene talk" id="iceberg" style="background: linear-gradient(#0d1226 0, #0d1226 300px, #0a1a3a 300px, #07101f 100%)">
+  <svg viewBox="0 0 1280 720">
+    <defs>
+      <linearGradient id="ib-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfd6ff"/></linearGradient>
+      <linearGradient id="ib-sub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f5bf0" stop-opacity=".85"/><stop offset="1" stop-color="#1f2de6" stop-opacity=".35"/></linearGradient>
+    </defs>
+    <polygon points="546,300 600,196 640,226 690,128 742,300" fill="url(#ib-top)"/>
+    <polygon points="546,300 742,300 900,360 1010,470 990,590 860,672 640,696 430,672 290,590 262,470 380,364" fill="url(#ib-sub)" stroke="#7480ff" stroke-opacity=".55" stroke-width="2"/>
+    <line x1="0" y1="300" x2="1280" y2="300" stroke="#7480ff" stroke-width="3" stroke-dasharray="14 12"/>
+    <path d="M0 322h250l14-18 18 36 14-24h1000" fill="none" stroke="#7480ff" stroke-opacity=".0"/>
+  </svg>
+  <div class="cap" style="left:340px;top:40px;width:600px;text-align:center;color:#cfd6ff;font-size:24px">Implementar</div>
+  <div class="cap" style="left:340px;top:76px;width:600px;text-align:center;font-size:16px;color:#8b93a0">lo que se celebra</div>
+  <div class="cap" style="left:340px;top:362px;width:600px;text-align:center;color:#dfe3ff;font-size:24px">Sostener</div>
+  <div class="cap" style="left:340px;top:396px;width:600px;text-align:center;font-size:16px;color:#aab2e8">lo que cuesta</div>
+  <div class="abs" style="left:372px;top:452px;width:536px;display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;font-size:25px;line-height:1.2;font-weight:600">
+    <div>¿Cuánto cuesta sostenerla?</div><div>¿Qué pasa cuando falla?</div>
+    <div>¿Quién puede cambiarla?</div><div>¿Cómo me entero cuando se degrada?</div>
+  </div>
+</div>
+
+<!-- 2 · El mito del 99,99% -->
+<div class="scene" id="mito-del-99-99">
+  <svg viewBox="0 0 1600 560">
+    <rect x="220" y="270" width="230" height="160" rx="14" fill="#4f5bf0"/>
+    <rect x="1130" y="150" width="230" height="280" rx="14" fill="#ef4444" opacity=".88"/>
+    <line x1="150" y1="430" x2="1450" y2="430" stroke="#2b2e35" stroke-width="3"/>
+    <path d="M520 250h130l16-30 22 62 22-44h110" fill="none" stroke="#7480ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M870 258h190" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 16"/>
+    <path d="M1070 258l-20-16m20 16l-20 16" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/>
+  </svg>
+  <div class="big" style="left:150px;top:150px;font-size:84px;color:#b9c0ff;width:370px;text-align:center">99,9%</div>
+  <div class="cap" style="left:150px;top:456px;color:#7480ff;width:370px;text-align:center">tres nueves</div>
+  <div class="cap" style="left:158px;top:52px;font-size:16px;color:#8b93a0">costo ↑</div>
+  <div class="cap" style="left:1060px;top:456px;color:#ef4444;width:370px;text-align:center">cuatro nueves</div>
+  <div class="big" style="left:1060px;top:40px;font-size:84px;color:#fff;width:370px;text-align:center">99,99%</div>
+  <div class="cap" style="left:545px;top:330px;font-size:18px;color:#8b93a0;width:520px;text-align:center">la brecha financiera</div>
+</div>
+
+<!-- 3 · Cuando el DR funciona, pero el RTO no alcanza -->
+<div class="scene" id="dr-rto-no-alcanza">
+  <svg viewBox="0 0 1600 560">
+    <line x1="120" y1="440" x2="1500" y2="440" stroke="#2b2e35" stroke-width="3"/>
+    <line x1="840" y1="60" x2="840" y2="470" stroke="#f2b04a" stroke-width="3" stroke-dasharray="10 9"/>
+    <rect x="120" y="120" width="360" height="62" rx="12" fill="#1ec28b" opacity=".9"/>
+    <rect x="120" y="268" width="720" height="62" rx="12" fill="#4f5bf0"/>
+    <rect x="840" y="268" width="460" height="62" rx="12" fill="#ef4444" opacity=".9"/>
+    <path d="M840 360v26h460v-26" fill="none" stroke="#ef4444" stroke-width="3"/>
+    <circle cx="520" cy="151" r="22" fill="#1ec28b"/><path d="M509 151l8 9 14-17" fill="none" stroke="#06140f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="cap" style="left:120px;top:76px;color:#1ec28b">Site Recovery · failover</div>
+  <div class="cap" style="left:552px;top:132px;font-size:18px;color:#8b93a0">funciona</div>
+  <div class="cap" style="left:120px;top:224px;color:#b9c0ff">Restore desde Veeam</div>
+  <div class="cap" style="left:852px;top:30px;color:#f2b04a;font-size:18px">RTO objetivo</div>
+  <div class="cap" style="left:840px;top:398px;width:460px;text-align:center;color:#ef4444;font-size:20px">la brecha</div>
+  <div class="cap" style="left:120px;top:482px;color:#8b93a0;font-size:17px">Servidores Linux fuera de la matriz de soporte</div>
+</div>
+
+<!-- 4 · Un LLM es un motor probabilístico -->
+<div class="scene" id="harness-engineering">
+  <svg viewBox="0 0 1600 560">
+    <circle cx="190" cy="280" r="96" fill="#4f5bf0" opacity=".25"/>
+    <circle cx="190" cy="280" r="66" fill="#4f5bf0" opacity=".5"/>
+    <circle cx="190" cy="280" r="36" fill="#7480ff"/>
+    <circle cx="190" cy="280" r="128" fill="none" stroke="#7480ff" stroke-width="3" stroke-dasharray="3 14" stroke-linecap="round"/>
+    <g stroke="#7480ff" stroke-width="5" stroke-linecap="round"><path d="M330 280h110"/><path d="M700 280h90"/><path d="M1050 280h90"/><path d="M1330 280h60"/></g>
+    <g fill="none" stroke="#1ec28b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M1440 280l24 26 44-52"/></g>
+  </svg>
+  <div class="cap" style="left:108px;top:430px;color:#b9c0ff;font-size:19px">LLM · probabilístico</div>
+  <div class="tile" style="left:440px;top:196px;width:260px;height:168px"><div class="k">1</div><div class="v">Control separado de la ejecución</div></div>
+  <div class="tile" style="left:790px;top:196px;width:260px;height:168px"><div class="k">2</div><div class="v">Validación formal</div></div>
+  <div class="tile" style="left:1140px;top:196px;width:190px;height:168px;padding-right:12px"><div class="k">3</div><div class="v" style="font-size:25px">Verificación externa</div></div>
+  <div class="cap" style="left:1390px;top:340px;font-size:17px;color:#1ec28b;width:190px">determinismo</div>
+</div>
+
+<!-- 5 · Lo que aprendés al presentar un relevamiento -->
+<div class="scene" id="presentar-un-relevamiento">
+  <svg viewBox="0 0 1600 560">
+    <rect x="120" y="190" width="256" height="120" rx="14" fill="#4f5bf0"/>
+    <rect x="388" y="190" width="1092" height="120" rx="14" fill="#1b1e29" stroke="#7480ff" stroke-width="2"/>
+    <g fill="#2b2e35"><rect x="420" y="222" width="300" height="12" rx="6"/><rect x="420" y="250" width="440" height="12" rx="6"/><rect x="420" y="278" width="360" height="12" rx="6"/>
+      <rect x="930" y="222" width="260" height="12" rx="6"/><rect x="930" y="250" width="400" height="12" rx="6"/><rect x="930" y="278" width="320" height="12" rx="6"/></g>
+  </svg>
+  <div class="big" style="left:120px;top:80px;font-size:84px;color:#fff">20%</div>
+  <div class="cap" style="left:388px;top:332px;color:#7480ff;font-size:20px">la historia detrás de cada hallazgo</div>
+  <div class="cap" style="left:120px;top:332px;color:#b9c0ff;font-size:20px">lo técnico</div>
+  <div class="big" style="left:120px;top:410px;font-size:44px;font-weight:600;letter-spacing:-.02em;color:#eceef2">Entender el porqué, no solo el qué.</div>
+</div>
+
+<!-- 6 · Backup y recovery nativo de identidades en Microsoft Entra -->
+<div class="scene" id="recovery-nativo-entra">
+  <svg viewBox="0 0 1600 560">
+    <g stroke="#7480ff" stroke-width="5" stroke-linecap="round" fill="none"><path d="M520 280h120"/><path d="M960 280h120"/></g>
+    <path d="M800 160l108 38v82c0 70-52 108-108 130-56-22-108-60-108-130v-82z" fill="#4f5bf0" stroke="#7480ff" stroke-width="3"/>
+    <path d="M758 280l30 32 56-66" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="tile" style="left:120px;top:96px;width:400px;height:112px"><div class="k">Entra ID</div><div class="v">Identidades</div></div>
+  <div class="tile" style="left:120px;top:224px;width:400px;height:112px"><div class="k">Entra ID</div><div class="v">Roles</div></div>
+  <div class="tile" style="left:120px;top:352px;width:400px;height:112px"><div class="k">Entra ID</div><div class="v">Políticas</div></div>
+  <div class="cap" style="left:660px;top:462px;width:280px;text-align:center;color:#b9c0ff">backup nativo</div>
+  <div class="tile" style="left:1080px;top:96px;width:400px;height:112px;border-color:#1ec28b"><div class="k" style="color:#1ec28b">recuperado</div><div class="v">Identidades</div></div>
+  <div class="tile" style="left:1080px;top:224px;width:400px;height:112px;border-color:#1ec28b"><div class="k" style="color:#1ec28b">recuperado</div><div class="v">Roles</div></div>
+  <div class="tile" style="left:1080px;top:352px;width:400px;height:112px;border-color:#1ec28b"><div class="k" style="color:#1ec28b">recuperado</div><div class="v">Políticas</div></div>
+</div>
+
+<!-- 7 · El cuello de botella en IT es traducir el riesgo al negocio -->
+<div class="scene" id="riesgo-tecnico-al-negocio">
+  <svg viewBox="0 0 1600 560">
+    <path d="M610 280h150" stroke="#7480ff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="800" cy="280" r="56" fill="#4f5bf0"/>
+    <path d="M776 268h48m-14-16l16 16-16 16M824 292h-48m14-16l-16 16 16 16" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M840 280h150" stroke="#7480ff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="1424" cy="418" r="22" fill="#1ec28b"/><path d="M1413 418l8 9 14-17" fill="none" stroke="#06140f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="cap" style="left:120px;top:70px;color:#8b93a0;font-size:19px">Especificaciones</div>
+  <div class="tile c" style="left:120px;top:114px;width:490px;height:88px"><div class="v mono" style="font-size:24px;text-transform:none;letter-spacing:0;margin:0;font-family:'Geist Mono',monospace;font-weight:500">RPO · RTO · SLA</div></div>
+  <div class="tile c" style="left:120px;top:226px;width:490px;height:88px"><div class="v" style="font-size:24px;margin:0;font-family:'Geist Mono',monospace;font-weight:500">replicación · zonas</div></div>
+  <div class="tile c" style="left:120px;top:338px;width:490px;height:88px"><div class="v" style="font-size:24px;margin:0;font-family:'Geist Mono',monospace;font-weight:500">retención · cifrado</div></div>
+  <div class="cap" style="left:990px;top:70px;color:#7480ff;font-size:19px">Continuidad operativa</div>
+  <div class="tile c" style="left:990px;top:114px;width:490px;height:88px"><div class="v" style="font-size:27px;margin:0">Qué se frena si cae</div></div>
+  <div class="tile c" style="left:990px;top:226px;width:490px;height:88px"><div class="v" style="font-size:27px;margin:0">Cuánto cuesta cubrirlo</div></div>
+  <div class="tile c" style="left:990px;top:338px;width:490px;height:112px;border-color:#1ec28b;background:#10231d"><div class="v" style="font-size:27px;margin:0;color:#1ec28b">Riesgo aprobado</div><div class="k" style="margin-top:8px">el negocio decide con datos</div></div>
+</div>
+
+<!-- 8 · 3 entornos, 3 tecnologías -->
+<div class="scene" id="tres-entornos">
+  <svg viewBox="0 0 1600 560">
+    <g stroke="#7480ff" stroke-width="4" stroke-linecap="round" fill="none"><path d="M560 140h200c60 0 60 140 120 140"/><path d="M560 280h320"/><path d="M560 420h200c60 0 60-140 120-140"/></g>
+    <rect x="900" y="110" width="580" height="340" rx="22" fill="#10131b" stroke="#7480ff" stroke-width="3"/>
+    <rect x="936" y="146" width="168" height="268" rx="12" fill="#4f5bf0"/>
+    <rect x="1118" y="146" width="168" height="268" rx="12" fill="#2f9bd8"/>
+    <rect x="1300" y="146" width="144" height="268" rx="12" fill="#1ec28b" opacity=".85"/>
+  </svg>
+  <div class="tile" style="left:120px;top:84px;width:440px;height:112px"><div class="k">Entorno 1</div><div class="v">Microsoft 365</div></div>
+  <div class="tile" style="left:120px;top:224px;width:440px;height:112px"><div class="k">Entorno 2</div><div class="v">Azure</div></div>
+  <div class="tile" style="left:120px;top:364px;width:440px;height:112px"><div class="k">Entorno 3</div><div class="v">Active Directory</div></div>
+  <div class="cap" style="left:900px;top:476px;width:580px;text-align:center;color:#b9c0ff">la foto completa</div>
+</div>
+
+<!-- 9 · Las 10 consultas de KQL (recurso) -->
+<div class="scene" id="kql-guia">
+  <div class="abs" style="left:120px;top:122px;width:960px;height:316px;background:#12141a;border:2px solid #2b2e35;border-radius:16px;padding:26px 32px;font:500 29px/1.55 'Geist Mono',monospace;color:#c9cdd4">
+    <div style="color:#7480ff">resources</div>
+    <div><span style="color:#8b93a0">|</span> <span style="color:#f2b04a">where</span> type == <span style="color:#1ec28b">"microsoft.compute/virtualmachines"</span></div>
+    <div><span style="color:#8b93a0">|</span> <span style="color:#f2b04a">extend</span> estado = tostring(…powerState.code)</div>
+    <div><span style="color:#8b93a0">|</span> <span style="color:#f2b04a">summarize</span> vms = count() <span style="color:#f2b04a">by</span> estado</div>
+  </div>
+  <div class="big" style="left:1180px;top:100px;font-size:230px;color:#fff">10</div>
+  <div class="cap" style="left:1190px;top:336px;color:#b9c0ff;line-height:1.5">consultas<br>de KQL</div>
+  <div class="cap" style="left:1190px;top:430px;color:#8b93a0;font-size:16px">Azure Resource Graph</div>
+</div>
+
+<!-- 10 · ai-env (repositorio) -->
+<div class="scene" id="ai-env">
+  <div class="abs" style="left:120px;top:106px;width:1360px;height:348px;background:#0f1115;border:2px solid #2b2e35;border-radius:16px;overflow:hidden">
+    <div style="height:48px;background:#171a20;border-bottom:2px solid #2b2e35;display:flex;align-items:center;gap:10px;padding:0 20px">
+      <i style="width:14px;height:14px;border-radius:50%;background:#ef4444;display:block"></i><i style="width:14px;height:14px;border-radius:50%;background:#f2b04a;display:block"></i><i style="width:14px;height:14px;border-radius:50%;background:#1ec28b;display:block"></i>
+      <span style="margin-left:14px;font:500 16px 'Geist Mono',monospace;color:#8b93a0">ai-env</span>
+    </div>
+    <div style="padding:26px 36px;font:500 31px/1.7 'Geist Mono',monospace;color:#c9cdd4">
+      <div><span style="color:#8b93a0">$</span> git clone <span style="color:#7480ff">ai-env</span></div>
+      <div style="margin-top:10px"><span style="color:#1ec28b">✓</span> control separado de la ejecución</div>
+      <div><span style="color:#1ec28b">✓</span> validación formal</div>
+      <div><span style="color:#1ec28b">✓</span> verificación externa<span style="display:inline-block;width:16px;height:30px;background:#7480ff;vertical-align:-4px;margin-left:10px"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 11 · Almacenamiento inteligente (artículo) -->
+<div class="scene" id="almacenamiento-inteligente">
+  <svg viewBox="0 0 1600 560">
+    <path d="M900 280h130" stroke="#7480ff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1030 280l-18-14m18 14l-18 14" stroke="#7480ff" stroke-width="5" stroke-linecap="round"/>
+    <rect x="1070" y="170" width="410" height="220" rx="16" fill="#10131b" stroke="#7480ff" stroke-width="3"/>
+    <g fill="#4f5bf0"><rect x="1104" y="206" width="342" height="30" rx="8" opacity=".35"/><rect x="1104" y="250" width="342" height="30" rx="8" opacity=".6"/><rect x="1104" y="294" width="342" height="30" rx="8"/></g>
+  </svg>
+  <div class="abs" style="left:120px;top:140px;width:760px;height:280px;background:#12141a;border:2px solid #2b2e35;border-radius:16px;padding:26px 32px;font:500 25px/1.55 'Geist Mono',monospace;color:#c9cdd4">
+    <div><span style="color:#7480ff">"prefixMatch"</span>: [<span style="color:#1ec28b">"backups/"</span>]</div>
+    <div><span style="color:#7480ff">"tierToArchive"</span>: {</div>
+    <div>&nbsp;&nbsp;<span style="color:#7480ff">"daysAfterModificationGreaterThan"</span>: <span style="color:#f2b04a">90</span></div>
+    <div>}</div>
+  </div>
+  <div class="cap" style="left:120px;top:96px;color:#8b93a0;font-size:18px">política de ciclo de vida</div>
+  <div class="cap" style="left:1070px;top:112px;color:#8b93a0;font-size:18px;width:410px;text-align:center">datos fríos</div>
+  <div class="cap" style="left:1070px;top:332px;font-size:0"></div>
+  <div class="big" style="left:1070px;top:414px;width:410px;text-align:center;font-size:44px;color:#fff;letter-spacing:-.02em">Archive</div>
+</div>
+
+<script>
+  const s = new URLSearchParams(location.search).get('s') || 'iceberg';
+  document.getElementById(s)?.classList.add('on');
+</script>
+</body>
+</html>
