@@ -80,7 +80,7 @@
     {
       "s": 1,
       "k": ["certification", "certifications", "certified", "certificate", "certs", "az-", "sc-"],
-      "a": "Santiago holds six Microsoft certifications: AZ-305 (Solutions Architect Expert), AZ-400 (DevOps Engineer Expert), AZ-700, SC-300, AZ-104 and AZ-800/801. SC-100 is in progress. Each one can be verified on Microsoft Learn.",
+      "a": "Santiago holds six Microsoft certifications: AZ-700, SC-300, AZ-400 (DevOps Engineer Expert), AZ-305 (Solutions Architect Expert), AZ-800/801 and AZ-104 (newest first). SC-100 is in progress. Each one can be verified on Microsoft Learn.",
       "c": [{ "t": "See certifications", "href": "stack", "go": 1 }]
     },
     {
