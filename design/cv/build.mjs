@@ -35,11 +35,11 @@ const ES = {
   lang: 'es',
   title: 'Santiago Lucas Da Ros · CV',
   name: 'Santiago Lucas Da Ros',
-  role: 'Cloud Engineer | Azure (AZ-305, AZ-104, AZ-700, SC-300, AZ-400, AZ-800/801) | Infraestructura, Networking e Identidad',
+  role: 'Cloud Engineer | Azure (AZ-700, SC-300, AZ-400, AZ-305, AZ-800/801, AZ-104) | Infraestructura, Networking e Identidad',
   contact: 'GBA, Argentina | santiagolucasdaros@gmail.com | linkedin.com/in/santiagodaros',
   aboutH: 'Sobre mí',
   about:
-    'Cloud Engineer especializado en Microsoft Azure, con experiencia en consultoría para clientes corporativos de distintas industrias en entornos híbridos y nativos de nube. Trabajo sobre infraestructura, networking, identidad y seguridad, disaster recovery con Azure Site Recovery y gobernanza bajo Cloud Adoption Framework, desde el relevamiento inicial hasta la implementación y la operación. Además de operar cuentas, diseño y construyo herramientas internas (portales sobre Azure, automatizaciones en PowerShell y Azure Automation, dashboards en tiempo real) que hacen el trabajo del equipo más rápido, repetible y medible. Me interesa bajar la complejidad técnica a decisiones concretas: convierto assessments en planes de trabajo priorizados, documento con precisión y detecto oportunidades de mejora que se traducen en nuevos proyectos. Cuento con seis certificaciones de Microsoft de nivel Associate y Expert, entre ellas AZ-305, AZ-700 y SC-300, y curso la Licenciatura en Ciencias de la Computación en la UBA.',
+    'Cloud Engineer especializado en Microsoft Azure, con experiencia en consultoría para clientes corporativos de distintas industrias en entornos híbridos y nativos de nube. Trabajo sobre infraestructura, networking, identidad y seguridad, disaster recovery con Azure Site Recovery y gobernanza bajo Cloud Adoption Framework, desde el relevamiento inicial hasta la implementación y la operación. Además de operar cuentas, diseño y construyo herramientas internas (portales sobre Azure, automatizaciones en PowerShell y Azure Automation, dashboards en tiempo real) que hacen el trabajo del equipo más rápido, repetible y medible. Me interesa bajar la complejidad técnica a decisiones concretas: convierto assessments en planes de trabajo priorizados, documento con precisión y detecto oportunidades de mejora que se traducen en nuevos proyectos. Cuento con seis certificaciones de Microsoft de nivel Associate y Expert, entre ellas AZ-700, SC-300 y AZ-305, y curso la Licenciatura en Ciencias de la Computación en la UBA.',
   expH: 'Experiencia',
   jobs: [
     {
@@ -86,11 +86,11 @@ const EN = {
   lang: 'en',
   title: 'Santiago Lucas Da Ros · Resume',
   name: 'Santiago Lucas Da Ros',
-  role: 'Cloud Engineer | Azure (AZ-305, AZ-104, AZ-700, SC-300, AZ-400, AZ-800/801) | Infrastructure, Networking & Identity',
+  role: 'Cloud Engineer | Azure (AZ-700, SC-300, AZ-400, AZ-305, AZ-800/801, AZ-104) | Infrastructure, Networking & Identity',
   contact: 'GBA, Argentina | santiagolucasdaros@gmail.com | linkedin.com/in/santiagodaros',
   aboutH: 'About me',
   about:
-    "Cloud Engineer specialized in Microsoft Azure, with consulting experience for corporate clients across industries in hybrid and cloud-native environments. I work across infrastructure, networking, identity and security, disaster recovery with Azure Site Recovery, and governance under the Cloud Adoption Framework, from the initial assessment through implementation and operations. Beyond running client accounts, I design and build internal tools (portals on Azure, PowerShell and Azure Automation workflows, real-time dashboards) that make the team's work faster, repeatable and measurable. I focus on turning technical complexity into concrete decisions: I convert assessments into prioritized work plans, document with precision and spot improvement opportunities that become new projects. I hold six Microsoft Associate and Expert certifications, including AZ-305, AZ-700 and SC-300, and I am pursuing a degree in Computer Science at the University of Buenos Aires.",
+    "Cloud Engineer specialized in Microsoft Azure, with consulting experience for corporate clients across industries in hybrid and cloud-native environments. I work across infrastructure, networking, identity and security, disaster recovery with Azure Site Recovery, and governance under the Cloud Adoption Framework, from the initial assessment through implementation and operations. Beyond running client accounts, I design and build internal tools (portals on Azure, PowerShell and Azure Automation workflows, real-time dashboards) that make the team's work faster, repeatable and measurable. I focus on turning technical complexity into concrete decisions: I convert assessments into prioritized work plans, document with precision and spot improvement opportunities that become new projects. I hold six Microsoft Associate and Expert certifications, including AZ-700, SC-300 and AZ-305, and I am pursuing a degree in Computer Science at the University of Buenos Aires.",
   expH: 'Experience',
   jobs: [
     {
