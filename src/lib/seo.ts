@@ -2,6 +2,7 @@
 import { getProfiles } from '../data/profiles';
 import type { BlogEntry, SeriesInfo } from './blog';
 import { getReadingTime } from './blog';
+import { fechaDeSalida } from './publicacion';
 import type { Lang } from '../i18n';
 
 export const knowsAbout = [
@@ -45,8 +46,8 @@ export function articleJsonLd(entry: BlogEntry, pageUrl: string, site: URL | str
     '@type': 'BlogPosting',
     headline: entry.data.title,
     description: entry.data.description,
-    datePublished: entry.data.date.toISOString(),
-    dateModified: (entry.data.updated ?? entry.data.date).toISOString(),
+    datePublished: fechaDeSalida(entry.data).toISOString(),
+    dateModified: (entry.data.updated ?? fechaDeSalida(entry.data)).toISOString(),
     inLanguage: entry.data.lang,
     mainEntityOfPage: entry.data.canonical ?? pageUrl,
     url: pageUrl,

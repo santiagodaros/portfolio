@@ -18,7 +18,7 @@
     ]
   },
   "hover": {
-    "p-portal": "The team uses this one every day. 204 clients inside.",
+    "p-portal": "The team uses this one every day. More than 200 clients inside.",
     "p-failover": "Proves that everything can be brought back up. It's its specialty.",
     "p-auditoria": "209 controls, all read-only. It touches nothing.",
     "p-gobernanza": "Rules for several clients from one repo, with no secrets.",

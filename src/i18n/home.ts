@@ -13,7 +13,7 @@ const es = {
     emailBtn: 'Escribirme por email',
     cvBtn: 'Descargar CV',
     facts: [
-      { id: 'clients', value: '204', label: 'clientes en un portal en producción' },
+      { id: 'clients', value: '+200', label: 'clientes en un portal en producción' },
       { id: 'tools', value: '5', label: 'herramientas internas en un año' },
       { id: 'certs', value: '6', label: 'certificaciones de Microsoft' },
     ],
@@ -187,7 +187,7 @@ const en: typeof es = {
     emailBtn: 'Email me',
     cvBtn: 'Download CV',
     facts: [
-      { id: 'clients', value: '204', label: 'clients in a production portal' },
+      { id: 'clients', value: '+200', label: 'clients in a production portal' },
       { id: 'tools', value: '5', label: 'internal tools in one year' },
       { id: 'certs', value: '6', label: 'Microsoft certifications' },
     ],

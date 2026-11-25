@@ -114,7 +114,7 @@ Proyectos: Portal CSP (destacado), Prueba automatizada de recuperación, Auditor
 
 ## 11. Pendientes antes de publicar
 
-- OK de la empresa para mostrar "204 clientes en 6 países" y la foto con el cartel de Readymind.
+- OK de la empresa para mostrar "más de 200 clientes en más de 5 países" y la foto con el cartel de Readymind.
 - Santiago revisa los textos de "Mi rol", `/ahora`, `/estado` y el speaker kit.
 - Santiago revisa y prueba las 10 consultas de la guía de KQL en un entorno propio antes de publicarla.
 - Logos de tecnologías: solo si Santiago provee los SVG.

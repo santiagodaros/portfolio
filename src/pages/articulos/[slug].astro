@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import ArticlePage from '@/components/blog/ArticlePage.astro';
+import { fechaDeSalida } from '@/lib/publicacion';
 import { getPublishedArticles, getSeriesInfo, getTranslation } from '@/lib/blog';
 import { articleJsonLd, personJsonLd } from '@/lib/seo';
 
@@ -31,7 +32,7 @@ const person = { '@context': 'https://schema.org', ...personJsonLd(entry.data.la
   lang="es"
   type="article"
   ogImagePath={`/og/${entry.slug}.png`}
-  publishedTime={entry.data.date}
+  publishedTime={fechaDeSalida(entry.data)}
   modifiedTime={entry.data.updated}
   canonical={entry.data.canonical}
   alternates={alternates}

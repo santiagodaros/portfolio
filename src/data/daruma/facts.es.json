@@ -18,7 +18,7 @@
     ]
   },
   "hover": {
-    "p-portal": "Este lo usa el equipo todos los días. 204 clientes adentro.",
+    "p-portal": "Este lo usa el equipo todos los días. Más de 200 clientes adentro.",
     "p-failover": "Prueba que todo se puede volver a levantar. Es su especialidad.",
     "p-auditoria": "209 controles, todos en solo lectura. No toca nada.",
     "p-gobernanza": "Reglas de varios clientes desde un repo, sin secretos.",
