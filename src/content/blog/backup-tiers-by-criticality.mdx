@@ -28,7 +28,7 @@ references:
     url: "https://learn.microsoft.com/azure/backup/backup-azure-immutable-vault-concept"
 ---
 
-This month I audited Azure Backup at two companies. One had about 70 protected VMs across 6 vaults; the other, several subscriptions. Both had the same problem, and it wasn't a technical one: every server was worth the same to the backup policy.
+This month I audited Azure Backup at two companies. One had dozens of protected VMs across several vaults; the other, several subscriptions. Both had the same problem, and it wasn't a technical one: every server was worth the same to the backup policy.
 
 A test server and the database that bills customers had the same days of snapshots, the same retention and the same window. The result is twofold. You overpay for what doesn't matter and, almost always, you under-protect what does.
 
@@ -43,13 +43,13 @@ A test server and the database that bills customers had the same days of snapsho
 
 ## What I found
 
-At the first company, across about 70 VMs:
+At the first company, across dozens of VMs:
 
-- **Oversized snapshots.** Almost half of the VMs kept between 7 and 14 days of instant restore snapshots. One of those policies covered development, QA and production alike, including a QA environment of almost 10 TB.
-- **Orphaned backups.** 5 VMs that no longer existed were still protected. One hadn't had a new backup in over a year, yet it kept storing (and billing for) its points.
+- **Oversized snapshots.** Almost half of the VMs kept between 7 and 14 days of instant restore snapshots. One of those policies covered development, QA and production alike, including a QA environment of several TB.
+- **Orphaned backups.** Some VMs that no longer existed were still protected. One hadn't had a new backup in over a year, yet it kept storing (and billing for) its points.
 - **Incomplete coverage.** The perimeter firewall and other powered-on servers had no backup. And SQL databases were backed up only as part of the VM: after a corruption, the restore went back to the last daily backup, with up to 24 hours of lost data.
 - **No long-term retention.** Almost every VM kept just 30 daily points. No weekly, monthly or yearly point.
-- **Governance.** 17 unused policies, default names, environment tags that contradicted actual use, and no vault with immutability.
+- **Governance.** More than a dozen unused policies, default names, environment tags that contradicted actual use, and no vault with immutability.
 
 None of these findings is unusual. They are what happens when backup is configured once, at the start, and then VMs keep being added to the policy that already existed.
 

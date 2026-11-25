@@ -29,7 +29,7 @@ references:
     url: "https://learn.microsoft.com/azure/backup/backup-azure-immutable-vault-concept"
 ---
 
-Este mes audité Azure Backup en dos empresas. Una tenía unas 70 VMs protegidas en 6 vaults; la otra, varias suscripciones. Las dos tenían el mismo problema, y no era técnico: todos los servidores valían lo mismo para la política de backup.
+Este mes audité Azure Backup en dos empresas. Una tenía decenas de VMs protegidas en varios vaults; la otra, varias suscripciones. Las dos tenían el mismo problema, y no era técnico: todos los servidores valían lo mismo para la política de backup.
 
 Un servidor de pruebas y la base de datos que factura tenían los mismos días de snapshots, la misma retención y la misma ventana. El resultado es doble. Pagás de más por lo que no importa y, casi siempre, protegés de menos lo que sí.
 
@@ -44,13 +44,13 @@ Un servidor de pruebas y la base de datos que factura tenían los mismos días d
 
 ## Qué encontré
 
-En la primera empresa, sobre unas 70 VMs:
+En la primera empresa, sobre decenas de VMs:
 
-- **Snapshots sobredimensionados.** Casi la mitad de las VMs guardaba entre 7 y 14 días de snapshots de restauración instantánea. Una de esas políticas cubría por igual desarrollo, QA y producción, incluido un entorno de QA de casi 10 TB.
-- **Respaldos huérfanos.** 5 VMs que ya no existían seguían protegidas. Una no tenía un backup nuevo desde hacía más de un año, pero seguía guardando (y cobrando) sus puntos.
+- **Snapshots sobredimensionados.** Casi la mitad de las VMs guardaba entre 7 y 14 días de snapshots de restauración instantánea. Una de esas políticas cubría por igual desarrollo, QA y producción, incluido un entorno de QA de varios TB.
+- **Respaldos huérfanos.** Algunas VMs que ya no existían seguían protegidas. Una no tenía un backup nuevo desde hacía más de un año, pero seguía guardando (y cobrando) sus puntos.
 - **Cobertura incompleta.** El firewall perimetral y otros servidores encendidos no tenían backup. Y las bases SQL se respaldaban solo como VM: ante una corrupción, la restauración volvía al último backup diario, con hasta 24 horas de datos perdidos.
 - **Sin retención de largo plazo.** Casi todas las VMs guardaban solo 30 puntos diarios. Ningún punto semanal, mensual ni anual.
-- **Gobernanza.** 17 políticas sin uso, nombres por defecto, etiquetas de ambiente que contradecían el uso real y ningún vault con inmutabilidad.
+- **Gobernanza.** Más de una decena de políticas sin uso, nombres por defecto, etiquetas de ambiente que contradecían el uso real y ningún vault con inmutabilidad.
 
 Ninguno de estos hallazgos es raro. Son lo que pasa cuando el backup se configura una vez, al principio, y después se le van sumando VMs a la política que ya existía.
 
