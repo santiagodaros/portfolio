@@ -39,7 +39,7 @@ export type Contribution = {
   extendedHref?: string;
   /** Una o dos líneas para la tarjeta (descripción del artículo, resumen del post). */
   summary?: string;
-  /** Portada de la tarjeta (artículos con imagen). */
+  /** Portada de la tarjeta (artículos, posts y recursos con imagen). */
   image?: { src: string; width: number; height: number };
 };
 
@@ -131,6 +131,12 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
       reach: p.data.reach,
       extendedHref: spanish ? articleHref(articleFor(spanish)) : undefined,
       summary: p.data.summary,
+      // Portada propia del post; si no, la del artículo extendido
+      image: p.data.cover
+        ? { src: `/img/feed/${p.data.cover}.webp`, width: 1600, height: 560 }
+        : spanish?.data.cover
+          ? { src: spanish.data.cover, width: 1600, height: 560 }
+          : undefined,
     });
   }
 
@@ -159,6 +165,7 @@ export async function getContributions(lang: Lang): Promise<Contribution[]> {
       reach: d.reach,
       event: d.event,
       count: d.count,
+      image: d.cover ? { src: `/img/feed/${d.cover}.webp`, width: 1600, height: 560 } : undefined,
     });
   }
 

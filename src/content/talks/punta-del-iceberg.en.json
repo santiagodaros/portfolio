@@ -2,6 +2,7 @@
   "id": "punta-del-iceberg",
   "status": "upcoming",
   "format": "talk",
+  "image": "feed/iceberg",
   "datePrecision": "day",
   "talkLanguage": "es",
   "event": "Microsoft Speakers Hub en Español",

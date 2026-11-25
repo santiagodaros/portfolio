@@ -77,6 +77,8 @@ const linkedin = defineCollection({
     area: z.enum(AREAS),
     /** Alcance, solo en rangos. */
     reach: z.string().optional(),
+    /** Portada: nombre del archivo en /public/img/feed/ (sin extensión), 1600×560. Sin ella, la del artículo vinculado. */
+    cover: z.string().optional(),
   }),
 });
 
@@ -153,6 +155,8 @@ const contributions = defineCollection({
     event: z.string().optional(),
     /** Foros: cantidad de respuestas del mes (una entrada agregada por mes). */
     count: z.number().int().positive().optional(),
+    /** Portada: nombre del archivo en /public/img/feed/ (sin extensión), 1600×560. */
+    cover: z.string().optional(),
   }),
 });
 
