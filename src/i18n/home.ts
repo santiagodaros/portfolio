@@ -353,24 +353,12 @@ const en: typeof es = {
 
 export const home = { es, en } satisfies Record<Lang, typeof es>;
 
-/** Certificaciones de Microsoft del rol (6) + SC-100 en curso. Los links son de verificación en Learn. */
+/** Certificaciones de Microsoft del rol (6) + SC-100 en curso, de la más nueva a la más vieja por fecha de obtención (la de Learn).
+ * Los links son de verificación en Learn. Una nueva va arriba, con su `date`. */
 export const certs = [
   {
-    code: 'AZ-305',
-    level: 'Expert',
-    name: 'Azure Solutions Architect',
-    badge: 'az305',
-    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/52B2C739515C753F?sharingId=51E475397D223B51',
-  },
-  {
-    code: 'AZ-400',
-    level: 'Expert',
-    name: 'DevOps Engineer',
-    badge: 'az400',
-    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/B197406E6B136315?sharingId=51E475397D223B51',
-  },
-  {
     code: 'AZ-700',
+    date: '2026-11-13',
     level: 'Associate',
     name: 'Network Engineer',
     badge: 'az700',
@@ -378,24 +366,43 @@ export const certs = [
   },
   {
     code: 'SC-300',
+    date: '2026-09-18',
     level: 'Associate',
     name: 'Identity and Access Administrator',
     badge: 'sc300',
     url: 'https://learn.microsoft.com/es-es/users/santiagodaros-6508/credentials/fbbbbe9c2857a9c9',
   },
   {
-    code: 'AZ-104',
-    level: 'Associate',
-    name: 'Azure Administrator',
-    badge: 'az104',
-    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51',
+    code: 'AZ-400',
+    date: '2026-06-30',
+    level: 'Expert',
+    name: 'DevOps Engineer',
+    badge: 'az400',
+    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/B197406E6B136315?sharingId=51E475397D223B51',
+  },
+  {
+    code: 'AZ-305',
+    date: '2026-06-15',
+    level: 'Expert',
+    name: 'Azure Solutions Architect',
+    badge: 'az305',
+    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/52B2C739515C753F?sharingId=51E475397D223B51',
   },
   {
     code: 'AZ-800/801',
+    date: '2026-03-31',
     level: 'Associate',
     name: 'Windows Server Hybrid Administrator',
     badge: 'az800',
     url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/809D828790013ACB?sharingId=51E475397D223B51',
+  },
+  {
+    code: 'AZ-104',
+    date: '2025-12-13',
+    level: 'Associate',
+    name: 'Azure Administrator',
+    badge: 'az104',
+    url: 'https://learn.microsoft.com/api/credentials/share/es-es/SantiagoDaRos-6508/19D30964F4E0E0D5?sharingId=51E475397D223B51',
   },
 ] as const;
 

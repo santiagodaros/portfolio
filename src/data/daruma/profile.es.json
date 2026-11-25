@@ -70,7 +70,7 @@
     {
       "s": 1,
       "k": ["certificacion", "certificaciones", "certificado", "az-", "sc-"],
-      "a": "Tiene seis certificaciones de Microsoft: AZ-305 (Solutions Architect Expert), AZ-400 (DevOps Engineer Expert), AZ-700, SC-300, AZ-104 y AZ-800/801. SC-100 está en curso. Cada una se verifica en Microsoft Learn.",
+      "a": "Tiene seis certificaciones de Microsoft: AZ-700, SC-300, AZ-400 (DevOps Engineer Expert), AZ-305 (Solutions Architect Expert), AZ-800/801 y AZ-104 (de la más nueva a la más vieja). SC-100 está en curso. Cada una se verifica en Microsoft Learn.",
       "c": [{ "t": "Ver certificaciones", "href": "stack", "go": 1 }]
     },
     {
