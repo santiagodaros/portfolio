@@ -7,7 +7,7 @@
   "status": "En uso",
   "statusTone": "live",
   "title": "Prueba automatizada de recuperación",
-  "summary": "Prueba 20 servidores en paralelo con controles de seguridad y evidencia para auditoría.",
+  "summary": "Prueba decenas de servidores en paralelo con controles de seguridad y evidencia para auditoría.",
   "tags": [
     "PowerShell",
     "Site Recovery",
@@ -24,7 +24,7 @@
       "label": "por prueba"
     },
     {
-      "value": "20",
+      "value": "Decenas",
       "label": "servidores en paralelo"
     }
   ],

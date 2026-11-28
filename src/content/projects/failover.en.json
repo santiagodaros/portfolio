@@ -7,7 +7,7 @@
   "status": "In use",
   "statusTone": "live",
   "title": "Automated recovery test",
-  "summary": "Tests 20 servers in parallel with safety checks and audit evidence.",
+  "summary": "Tests dozens of servers in parallel with safety checks and audit evidence.",
   "tags": [
     "PowerShell",
     "Site Recovery",
@@ -24,7 +24,7 @@
       "label": "per test"
     },
     {
-      "value": "20",
+      "value": "Dozens",
       "label": "servers in parallel"
     }
   ],
